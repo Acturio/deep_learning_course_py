@@ -1,0 +1,14 @@
+introducción-a-deep-learning
+introducción-a-álgebra-lineal
+numpy
+preliminares
+redes-neuronales-lineales-para-regresión
+redes-neuronales-lineales-para-clasificación
+perceptrón-multicapa
+guía-del-constructor
+redes-neuronales-convolucionales
+redes-neuronales-convolucionales-modernas
+redes-neuronales-recurrentes
+redes-neuronales-recurrentes-modernas
+mecanismos-de-atención-y-transformers
+algoritmos-de-optimización
