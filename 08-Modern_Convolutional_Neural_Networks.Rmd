@@ -1,0 +1,7 @@
+<!-- ::: watermark -->
+<!-- <img src="img/aif-logo.png" width="400"/> -->
+<!-- ::: -->
+
+# Redes Neuronales Convolucionales Modernas
+
+

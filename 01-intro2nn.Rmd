@@ -1,0 +1,9 @@
+<!-- ::: watermark -->
+<!-- <img src="img/aif-logo.png" width="400"/> -->
+<!-- ::: -->
+
+# (PART\*) Parte 1: Bases y Preeliminares {-} 
+
+# Introducción a Deep Learning
+
+

@@ -1,0 +1,144 @@
+---
+title: Deep Learning
+institute: "BBVA AIFactory"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "Deep Learning"
+always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+ echo = TRUE,
+ warning = FALSE, 
+ message = FALSE
+ )
+
+xaringanExtra::use_panelset()
+xaringanExtra::style_panelset_tabs()
+
+```
+
+# BIENVENIDA {-}
+
+## Objetivo {-}
+
+Brindar al participante los elementos teóricos y prácticos básicos alrededor de la programación de _**REDES NEURONALES ARTIFICIALES**_. Aprenderá las definiciones y aprenderá a distinguir estrategias y diferentes soluciones a problemas que pueden resolverse con algoritmos de deep learning y aprenderá a usar el conjunto de librerías en **Python** más novedoso, estructuradas y ampliamente usadas para la creación de estructuras neuronales aplicadas a problemas predictivos, clasificación y segmentación de imagenes, series de tiempo, procesamiento de lenguaje natural (NLP), etc. 
+
+```{r echo=FALSE, fig.align='center', out.height='350pt', out.width='600pt'}
+knitr::include_graphics("img/00-presentacion/MIT-Python-TF.png")
+```
+
+## Alcances del Programa {-}
+
+Al finalizar este curso, el participante será capaz de consumir, manipular y visualizar información para resolver problemas de propósito general asociados a los datos. Apenderá a implementar diferentes algoritmos de machine learning y mejorar su desempeño predictivo en problemas de clasificación, regresión y segmentación.
+
+Requisitos: 
+
+- Computadora con al menos 8Gb Ram 
+- Instalar Python con versión 3.11 o superior
+- Instalar un IDE preferido. Jupyter, RStudio, Spyder, VSCode, Colab
+
+### Temario: {-}
+
+**00.	Instalación**
+
+**01.	Introducción a Deep Learning**
+
+**02.  Preliminares**
+
+**03. Redes Neuronales Lineales para Regresión**
+
+**04. Redes neuronales Lineales para Clasificación**
+
+**05. Perceptrón Multicapa**
+
+**06. Guía del Constructor**
+
+**07. Redes Neuronales Convolucionales**
+
+**08. Redes Neuronales Convolucionales Modernas**
+
+**09. Redes Neuronales Recurrentes**
+
+**10. Redes Neuronales Recurrentes Modernas**
+
+**11. Mecanismos de Atención y Transformers**
+
+**12. Algoritmos de Optimización**
+
+**13. Desempeño Computacional**
+
+**14. Visión por Computadora**
+
+**15. Procesamiento de Lenguaje Natural: Pre-entrenamiento**
+
+**16. Procesamiento de Lenguaje Natural: Aplicaciones**
+
+**17. Aprendizaje por Refuerzo**
+
+**18. Procesos Gausianos**
+
+**19. Optimización paramétrica**
+
+**20. Redes Generativas Adversarias**
+
+```{r echo=FALSE,fig.align='center',  out.width='500pt'}
+knitr::include_graphics("img/00-presentacion/estructura.png")
+```
+
+
+## Código {-}
+
+La mayoría de las secciones de este material presentan código ejecutable. En definitiva algunas intuiciones se desarrollan mejor mediante ensayo y error, modificando el código poco a poco y observando los resultados. 
+
+El código será presentado en chunks visibles y detacados respecto del resto del texto. Este puede ser copiador mediante el botón superior del lado derecho para su revisión y replicación en algún otro ambiente de prueba.
+
+```{python, eval=F}
+import collections
+import hashlib
+import inspect
+import math
+import os
+import random
+import re
+import shutil
+import sys
+import tarfile
+import time
+import zipfile
+from collections import defaultdict
+import pandas as pd
+import requests
+from IPython import display
+from matplotlib import pyplot as plt
+from matplotlib_inline import backend_inline
+```
+
+
+## Duración y evaluación del programa {-}
+
+* El programa tiene una duración de XXX hrs.
+
+* Las sesiones serán atendidas los días XxXx, de 4:30 pm a 5:45 pm 
+
+* Serán asignados ejercicios que el participante deberá resolver entre una semana y otra.
+
+* Durante todo el programa se realizarán prácticas para reforzar el aprendizaje.
+
+
+## Recursos y dinámica {-}
+
+En esta clase estaremos usando: 
+
+* Python [da click aquí si aún no lo descargas](https://www.python.org/downloads/)
+* RStudio [da click aquí también](https://www.rstudio.com/products/rstudio/download/)
+* VSCode [da click aquí si quieres descargar](https://code.visualstudio.com/download)
+* Anaconda [da click aquí si quieres descargar](https://www.anaconda.com/download)
+* Notas de clase [Revisame si quieres aprender]() 
+
+<div class="watermark"><img src="img/header.png" width="400"></div>
+

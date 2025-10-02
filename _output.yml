@@ -1,0 +1,20 @@
+bookdown::gitbook:
+  css: style.css
+  includes:
+      after_body: codehoverJavascript.txt
+  config:
+    toc:
+      before: |
+        <li><a href="./"><img src="img/aif-logo.png" width="280"></a></li|
+        |:-:|  
+        <center>Curso de Redes Neuronales Artificiales</center>
+      after: |
+        <li><a href="./"><img src="img/aif-logo.png" width="280"></a></li>
+    download: ["pdf"]
+bookdown::pdf_book:
+  output_dir: 'docs'
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes

@@ -1,0 +1,74 @@
+
+<script>
+window.openCity = function(evt, tabId, inner) {
+  var container = evt.currentTarget.closest(inner ? (".i_tab") : (".tab")).parentNode;
+
+  // Hide content only within this container
+  var tabcontent = container.querySelectorAll(inner ? (".i_tabcontent") : (".tabcontent"));
+  for (var i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";    
+  }
+
+  // Reset buttons only within this container
+  var tablinks = container.querySelectorAll(inner ? (".i_tablinks") : (".tablinks"));
+  for (var i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove("active");
+  }
+
+  // Show the selected tab and set the corresponding button as active
+  var el = document.getElementById(tabId);
+  if (el) el.style.display = "block";
+  if (evt && evt.currentTarget) evt.currentTarget.classList.add("active");
+};
+
+// Open the default tab on page load
+document.addEventListener("DOMContentLoaded", function() {
+  var defaultTabBtn = document.getElementById("defaultOpen");
+  if (defaultTabBtn) {
+    window.openCity({ currentTarget: defaultTabBtn }, defaultTabBtn.getAttribute("data-target"));
+  }
+  var defaultInnerBtn = document.getElementById("defaultOpenInner");
+  if (defaultInnerBtn) {
+     window.openCity({ currentTarget: defaultInnerBtn }, defaultInnerBtn.getAttribute("data-target"), true);
+  }
+});
+</script>
+<style>
+/* Shared tab container styles */
+.tab, .i_tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Shared button styles for both outer and inner tabs */
+.tab button, .i_tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Hover effect for all tab buttons */
+.tab button:hover, .i_tab button:hover {
+  background-color: #ddd;
+}
+
+/* Active state for all tab buttons */
+.tab button.active, .i_tab button.active {
+  background-color: #ccc;
+}
+
+/* Shared content styles for both outer and inner tabs */
+.tabcontent, .i_tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
+

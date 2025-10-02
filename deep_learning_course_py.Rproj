@@ -1,0 +1,19 @@
+Version: 1.0
+
+RestoreWorkspace: Default
+SaveWorkspace: Default
+AlwaysSaveHistory: Default
+
+EnableCodeIndexing: Yes
+UseSpacesForTab: Yes
+NumSpacesForTab: 1
+Encoding: UTF-8
+
+RnwWeave: Sweave
+LaTeX: pdfLaTeX
+
+BuildType: Website
+
+PythonType: virtualenv
+PythonVersion: 3.10.10
+PythonPath: ~/.virtualenvs/venv_dsml_py3_10/bin/python
