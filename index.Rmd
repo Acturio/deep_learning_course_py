@@ -17,9 +17,6 @@ knitr::opts_chunk$set(
  message = FALSE
  )
 
-xaringanExtra::use_panelset()
-xaringanExtra::style_panelset_tabs()
-
 ```
 
 # BIENVENIDA {-}
