@@ -19,33 +19,33 @@ knitr::opts_chunk$set(
 
 ```
 
-# BIENVENIDA {-}
+# BIENVENIDA {.unnumbered}
 
-## Objetivo {-}
+## Objetivo {.unnumbered}
 
-Brindar al participante los elementos teóricos y prácticos básicos alrededor de la programación de _**REDES NEURONALES ARTIFICIALES**_. Aprenderá las definiciones y aprenderá a distinguir estrategias y diferentes soluciones a problemas que pueden resolverse con algoritmos de deep learning y aprenderá a usar el conjunto de librerías en **Python** más novedoso, estructuradas y ampliamente usadas para la creación de estructuras neuronales aplicadas a problemas predictivos, clasificación y segmentación de imagenes, series de tiempo, procesamiento de lenguaje natural (NLP), etc. 
+Brindar al participante los elementos teóricos y prácticos básicos alrededor de la programación de ***REDES NEURONALES ARTIFICIALES***. Aprenderá las definiciones y aprenderá a distinguir estrategias y diferentes soluciones a problemas que pueden resolverse con algoritmos de deep learning y aprenderá a usar el conjunto de librerías en **Python** más novedoso, estructuradas y ampliamente usadas para la creación de estructuras neuronales aplicadas a problemas predictivos, clasificación y segmentación de imagenes, series de tiempo, procesamiento de lenguaje natural (NLP), etc.
 
 ```{r echo=FALSE, fig.align='center', out.height='350pt', out.width='600pt'}
 knitr::include_graphics("img/00-presentacion/MIT-Python-TF.png")
 ```
 
-## Alcances del Programa {-}
+## Alcances del Programa {.unnumbered}
 
 Al finalizar este curso, el participante será capaz de consumir, manipular y visualizar información para resolver problemas de propósito general asociados a los datos. Apenderá a implementar diferentes algoritmos de machine learning y mejorar su desempeño predictivo en problemas de clasificación, regresión y segmentación.
 
-Requisitos: 
+Requisitos:
 
-- Computadora con al menos 8Gb Ram 
-- Instalar Python con versión 3.11 o superior
-- Instalar un IDE preferido. Jupyter, RStudio, Spyder, VSCode, Colab
+-   Computadora con al menos 8Gb Ram
+-   Instalar Python con versión 3.11 o superior
+-   Instalar un IDE preferido. Jupyter, RStudio, Spyder, VSCode, Colab
 
-### Temario: {-}
+### Temario: {.unnumbered}
 
-**00.	Instalación**
+**00. Instalación**
 
-**01.	Introducción a Deep Learning**
+**01. Introducción a Deep Learning**
 
-**02.  Preliminares**
+**02. Preliminares**
 
 **03. Redes Neuronales Lineales para Regresión**
 
@@ -87,10 +87,9 @@ Requisitos:
 knitr::include_graphics("img/00-presentacion/estructura.png")
 ```
 
+## Código {.unnumbered}
 
-## Código {-}
-
-La mayoría de las secciones de este material presentan código ejecutable. En definitiva algunas intuiciones se desarrollan mejor mediante ensayo y error, modificando el código poco a poco y observando los resultados. 
+La mayoría de las secciones de este material presentan código ejecutable. En definitiva algunas intuiciones se desarrollan mejor mediante ensayo y error, modificando el código poco a poco y observando los resultados.
 
 El código será presentado en chunks visibles y detacados respecto del resto del texto. Este puede ser copiador mediante el botón superior del lado derecho para su revisión y replicación en algún otro ambiente de prueba.
 
@@ -115,27 +114,107 @@ from matplotlib import pyplot as plt
 from matplotlib_inline import backend_inline
 ```
 
+## Duración y evaluación del programa {.unnumbered}
 
-## Duración y evaluación del programa {-}
+-   El programa tiene una duración de XXX hrs.
 
-* El programa tiene una duración de XXX hrs.
+-   Las sesiones serán atendidas los días XxXx, de 4:30 pm a 5:45 pm
 
-* Las sesiones serán atendidas los días XxXx, de 4:30 pm a 5:45 pm 
+-   Serán asignados ejercicios que el participante deberá resolver entre una semana y otra.
 
-* Serán asignados ejercicios que el participante deberá resolver entre una semana y otra.
+-   Durante todo el programa se realizarán prácticas para reforzar el aprendizaje.
 
-* Durante todo el programa se realizarán prácticas para reforzar el aprendizaje.
+## Recursos y dinámica {.unnumbered}
 
+### Agenda {-}
 
-## Recursos y dinámica {-}
+Todos los participantes del Hub podrán participar aprendiendo y compartiendo el conocimiento.
 
-En esta clase estaremos usando: 
+Este es nuestro [documento](https://docs.google.com/spreadsheets/d/1ZbMttnLjYRvaW6ppJBMQ9YZmoBHiVUZjC9y96IOr03E/edit?gid=1890664429#gid=1890664429) para organizarnos internamente en cuanto a los temas a impartir, fechas y orden en que se irá compartiendo cada tema.
 
-* Python [da click aquí si aún no lo descargas](https://www.python.org/downloads/)
-* RStudio [da click aquí también](https://www.rstudio.com/products/rstudio/download/)
-* VSCode [da click aquí si quieres descargar](https://code.visualstudio.com/download)
-* Anaconda [da click aquí si quieres descargar](https://www.anaconda.com/download)
-* Notas de clase [Revisame si quieres aprender]() 
+### Software {-}
 
-<div class="watermark"><img src="img/header.png" width="400"></div>
+En esta clase estaremos usando:
 
+-   Python [da click aquí si aún no lo descargas](https://www.python.org/downloads/)
+-   R & RStudio [da click aquí también](https://posit.co/downloads/)
+-   Reticulate [da click para aprender](https://anderfernandez.com/blog/reticulate-usar-python-en-r/)
+-   Bookdown [da click aquí también](https://bookdown.org/yihui/bookdown/)
+
+### Bibliografía {-}
+
+<table>
+  <tr>
+    <td style="width:150px; vertical-align:top;">
+      <a href="https://D2L.ai" target="_blank">
+        <img src="https://d2l.ai/_images/front-cup.jpg" width="120"/>
+      </a>
+    </td>
+    <td style="vertical-align:top; padding-left:15px;">
+      **Dive into Deep Learning**  
+      Autor: Zhang, Aston and Lipton, Zachary C. and Li, Mu and Smola, Alexander J. 
+      Editorial: Cambridge University Press  
+      Año: 2023  
+   </td>
+  </tr>  
+  
+  <tr>
+    <td style="width:150px; vertical-align:top;">
+      <a href="https://personalpages.manchester.ac.uk/staff/mingfei.sun/books/deep-learning.pdf" target="_blank">
+        <img src="https://m.media-amazon.com/images/I/61ex1w3dnCL._UF894,1000_QL80_.jpg" width="120"/>
+      </a>
+    </td>
+    <td style="vertical-align:top; padding-left:15px;">
+      **Deep Learning Foundations and Concepts**  
+      Autor: Christopher M. Bishop with Hugh Bishop  
+      Editorial: Springer  
+      Año: 2023  
+      ISBN: 978-3-031-45467-7
+   </td>
+  </tr>  
+  
+  <tr>
+    <td style="width:150px; vertical-align:top;">
+      <a href="http://14.139.161.31/OddSem-0822-1122/Hands-On_Machine_Learning_with_Scikit-Learn-Keras-and-TensorFlow-2nd-Edition-Aurelien-Geron.pdf" target="_blank">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPovM-lxZnunzU7uUslndFIQpQmt0EIFSFeg&s" width="120"/>
+      </a>
+    </td>
+    <td style="vertical-align:top; padding-left:15px;">
+      **Hands On Machine Learning with Scikit-Learn, Keras and TensorFlow**  
+      Autor: Aurélien Géron  
+      Editorial: O´REILLY  
+      Año: 2019  
+      ISBN: 978-1-492-03264-9
+    </td>
+  </tr>
+  
+  <tr>
+    <td style="width:150px; vertical-align:top;">
+      <a href="https://www.andrew.cmu.edu/course/10-703/textbook/BartoSutton.pdf" target="_blank">
+        <img src="https://m.media-amazon.com/images/I/71nk3rOK3jL._UF1000,1000_QL80_.jpg" width="120"/>
+      </a>
+    </td>
+    <td style="vertical-align:top; padding-left:15px;">
+      **Reinforcement Learning**  
+      Autor: Richard S. Sutton, Andrew G. Barto  
+      Editorial: The MIT Press  
+      Año: 2018  
+      ISBN: 978-0-262-19398-6
+   </td>
+  </tr>  
+
+  <tr>
+    <td style="width:150px; vertical-align:top;">
+      <a href="https://bookdown.org/yihui/bookdown/" target="_blank">
+        <img src="https://bookdown.org/yihui/bookdown/images/cover.jpg" width="120"/>
+      </a>
+    </td>
+    <td style="vertical-align:top; padding-left:15px;">
+      **Bookdown**  
+      Autor: Yihui Xie  
+      Editorial: The R Series  
+      Año: 2025  
+   </td>
+  </tr>  
+
+</table>
