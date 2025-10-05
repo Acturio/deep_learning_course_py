@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
 
 # Setup R packages
 RUN R -e "install.packages(c('bookdown', 'knitr', 'rmarkdown'), lib='/usr/local/lib/R/site-library')"
+RUN R -e "install.packages(c('magrittr','stringl','stringr'), lib='/usr/local/lib/R/site-library')"
 RUN R -e "install.packages('reticulate', lib='/usr/local/lib/R/site-library')"
 
 # Setup Python3 with reticulate library
