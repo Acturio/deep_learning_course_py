@@ -18,6 +18,8 @@ Con el archivo Makefile, podemos hacer las siguientes acciones:
 #### 🔨 1. Construir la imagen
 Crea la imagen Docker llamada **dlhub-rstudio** a partir del `Dockerfile` (puede tardar un poco la primera vez o si especificas ciertos paquetes en el `requirements.txt`).
 
+Un vide tutorial de como usarlo se puede consultar [aquí](https://drive.google.com/file/d/1KFbvFchnqvybFSRn0hoeNwkGu_Lr1zzq/view?usp=share_link).
+
 ```bash
 make build
 ```
