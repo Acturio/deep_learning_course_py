@@ -20,11 +20,13 @@ Crea la imagen Docker llamada **dlhub-rstudio** a partir del `Dockerfile` (puede
 
 Un vide tutorial de como usarlo se puede consultar [aquí](https://drive.google.com/file/d/1KFbvFchnqvybFSRn0hoeNwkGu_Lr1zzq/view?usp=share_link).
 
-```bash
+
+
+```{bash, eval = F}
 make build
 ```
 #### ▶️ 2. Iniciar el contenedor
-```bash
+```{bash, eval = F}
 make start
 ```
 Este comando levanta un contenedor con:
@@ -37,7 +39,7 @@ Este comando levanta un contenedor con:
 ---
 
 ### 💻 3. Entrar al contenedor (modo bash)
-```bash
+```{bash, eval = F}
 make bash
 ```
 Abre una sesión interactiva dentro del contenedor (útil para instalar paquetes o probar comandos).
@@ -45,7 +47,7 @@ Abre una sesión interactiva dentro del contenedor (útil para instalar paquetes
 ---
 
 ### 📚 4. Compilar el libro Bookdown
-```bash
+```{bash, eval = F}
 make book
 ```
 Ejecuta `bookdown::render_book()` dentro del contenedor y genera la versión HTML del libro (formato **gitbook**) sin necesidad de entrar manualmente a RStudio.
@@ -53,7 +55,7 @@ Ejecuta `bookdown::render_book()` dentro del contenedor y genera la versión HTM
 ---
 
 ### ⏹️ 5. Detener el contenedor
-```bash
+```{bash, eval = F}
 make stop
 ```
 Detiene el contenedor en ejecución, pero no lo elimina.
@@ -61,7 +63,7 @@ Detiene el contenedor en ejecución, pero no lo elimina.
 ---
 
 ### 🧹 6. Eliminar el contenedor
-```bash
+```{bash, eval = F}
 make clean
 ```
 Elimina completamente el contenedor (por si necesitas reconstruirlo desde cero).

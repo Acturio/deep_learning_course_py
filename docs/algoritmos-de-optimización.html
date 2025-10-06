@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 12 Algoritmos de Optimización | Deep Learning</title>
   <meta name="description" content="Capítulo 12 Algoritmos de Optimización | Deep Learning" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 12 Algoritmos de Optimización | Deep Learning" />
   <meta property="og:type" content="book" />
@@ -53,6 +53,7 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -90,7 +91,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -103,7 +104,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -117,6 +118,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -143,19 +148,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#temario"><i class="fa fa-check"></i>Temario:</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#código"><i class="fa fa-check"></i>Código</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#duración-y-evaluación-del-programa"><i class="fa fa-check"></i>Duración y evaluación del programa</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-y-dinámica"><i class="fa fa-check"></i>Recursos y dinámica</a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#c%C3%B3digo"><i class="fa fa-check"></i>Código</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#duraci%C3%B3n-y-evaluaci%C3%B3n-del-programa"><i class="fa fa-check"></i>Duración y evaluación del programa</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-y-din%C3%A1mica"><i class="fa fa-check"></i>Recursos y dinámica</a>
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#agenda"><i class="fa fa-check"></i>Agenda</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#software"><i class="fa fa-check"></i>Software</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#bibliografía"><i class="fa fa-check"></i>Bibliografía</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#bibliograf%C3%ADa"><i class="fa fa-check"></i>Bibliografía</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>Parte 1: Bases y Preeliminares</b></span></li>
 <li class="chapter" data-level="1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html"><i class="fa fa-check"></i><b>1</b> Introducción a Deep Learning</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#introducción-a-álgebra-lineal"><i class="fa fa-check"></i><b>1.1</b> Introducción a Álgebra Lineal</a>
+<li class="chapter" data-level="1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#introducci%C3%B3n-a-%C3%A1lgebra-lineal"><i class="fa fa-check"></i><b>1.1</b> Introducción a Álgebra Lineal</a>
 <ul>
 <li class="chapter" data-level="1.1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#numpy"><i class="fa fa-check"></i><b>1.1.1</b> Numpy</a></li>
 </ul></li>
@@ -194,7 +199,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="algoritmos-de-optimización" class="section level1 hasAnchor" number="12">
-<h1><span class="header-section-number">Capítulo 12</span> Algoritmos de Optimización<a href="algoritmos-de-optimización.html#algoritmos-de-optimización" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Capítulo 12</span> Algoritmos de Optimización<a href="algoritmos-de-optimización.html#algoritmos-de-optimizaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -239,42 +244,42 @@ $('.pipehover_select_one_row tr').hover(function() {
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["deep_learning_course_python.pdf"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["deep_learning_course_python.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

@@ -33,15 +33,15 @@ build:
 start:
 	docker run -d --name $(CONTAINER_NAME) -p 8787:8787 \
 		-e PASSWORD=dlhub \
-		-v $(PWD):/home/rstudio/project \
+		-v $$(pwd):/home/rstudio/project \
 		$(IMAGE_NAME)
-
+	
 ## Enter to the container (bash)
 bash:
 	docker exec -it $(CONTAINER_NAME) bash
 
 ## Compile the whole book (without entering to the container)
-book: start
+book:
 	docker exec -it $(CONTAINER_NAME) Rscript -e "bookdown::render_book('index.Rmd','bookdown::gitbook')"
 
 ## Stoping the container
