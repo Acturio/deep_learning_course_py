@@ -9,7 +9,7 @@
 
 ## Introducción a Álgebra Lineal
 
-jhbknvkebkvekjnv kjenvken
+Ejemplo de texto
 
 ### Numpy
 
