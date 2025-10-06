@@ -42,7 +42,7 @@ bash:
 
 ## Compile the whole book (without entering to the container)
 book:
-	docker exec -it $(CONTAINER_NAME) Rscript -e "bookdown::render_book('index.Rmd','bookdown::gitbook')"
+	docker exec -it $(CONTAINER_NAME) cd /home/rstudio/project Rscript -e "bookdown::render_book('index.Rmd','bookdown::gitbook')"
 
 ## Stoping the container
 stop:
