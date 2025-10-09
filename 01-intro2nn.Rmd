@@ -57,7 +57,7 @@ En el aprendizaje supervisado participan los siguientes componentes.
 2.  Muestras de entrenamiento (data): Es el conjunto de pares observados $(x_n,y_n)$
 3.  Conjunto de hipótesis: Denotado como $H$ es el conjunto de funciones candidatas que el algoritmo puede elegir para aproximar f.
 4.  Algoritmo de aprendizaje: Denotado como $A$ Toma como entrada los ejemplos de entrenamiento y el conjunto de hipotesis para seleccionar una $g \in H$ que mejor se ajuste a los datos.
-5.  Hipotesis final: Denotada como $g \approx h$ que es la función aprendida por el algoritmo
+5.  Hipotesis final: Denotada como $g \approx f$ que es la función aprendida por el algoritmo
 
 ```{r echo=FALSE, fig.align='center'}
 knitr::include_graphics("img/01-intro/1-03.png")
@@ -101,13 +101,13 @@ Diversos objetos que solemos representar en este mundo como imagenes, videos o a
 
 #### Los problemas de machine learning
 
-Tres desafíos fundamentales definen la naturaleza de los problemas en *machine learning*:
+Los dos desafíos fundamentales que definen la naturaleza de los problemas en *machine learning*:
 
 ##### El problema inverso
 
 A diferencia de la física, donde las leyes predicen observaciones, en *machine learning* partimos de observaciones para inferir las reglas subyacentes. Esto es inherentemente ambiguo y puede derivar en un gran número de problemas. Por listar algunos tenemos.
 
-**Falta de información:** Se intentan identificar patrones para intentar inferior un error basado en alguna regla, pero no hay garantia de que la regla que se este intentando cumplir sea la correcta.
+**Falta de información:** Se intentan identificar patrones para intentar disminuir el error basado en alguna regla, pero no hay garantia de que la regla que se este intentando cumplir sea la correcta para representar al sistema.
 
 ```{r echo=FALSE, fig.align='center'}
 knitr::include_graphics("img/01-intro/1-08.png")
@@ -206,7 +206,7 @@ knitr::include_graphics("img/01-intro/2-07.png")
 ```
 
 | Tipo de capa | Rol / función típica | Qué tipo de representaciones aprende | Apoyo en la literatura / ejemplos |
-|--------------|--------------|--------------|-------------------------------|
+|---------------|---------------|---------------|---------------------------|
 | **Primeras capas**<br>(cercanas a la entrada) | Capturan patrones de bajo nivel y locales del dato bruto | Bordes, texturas, frecuencias básicas, características locales | Se habla de “aprendizaje jerárquico de características”, donde los niveles inferiores capturan elementos simples primero. ([OpenStax](https://openstax.org/books/principles-data-science/pages/7-3-introduction-to-deep-learning?utm_source=chatgpt.com)) |
 | **Capas intermedias**<br>(ocultas medias) | Combinan características simples en representaciones más abstractas | Motivos, formas, combinaciones de las características de los niveles más bajos | El trabajo “Understanding Deep Representation Learning via Layerwise Feature Compression and Discrimination” estudia cómo las capas progresivas comprimen características dentro de clase y discriminan entre clases a medida que avanza la profundidad. ([arXiv](https://arxiv.org/abs/2311.02960?utm_source=chatgpt.com)) |
 | **Últimas capas**<br>(cercanas a la salida) | Transforman las representaciones abstractas hacia la decisión o la salida específica de la tarea | Conceptos de alto nivel, clases, predicciones finales | En redes de reconocimiento de imágenes, las capas finales "interpretan" las características abstractas en etiquetas o decisiones. Por ejemplo, arquitecturas como AlexNet usan capas finales totalmente conectadas para clasificar objetos. ([Wikipedia](https://en.wikipedia.org/wiki/AlexNet?utm_source=chatgpt.com)) |
@@ -214,6 +214,7 @@ knitr::include_graphics("img/01-intro/2-07.png")
 ["How transferable are features in deep neural networks?"](https://arxiv.org/pdf/1411.1792)
 
 #### Escalabilidad con datos y cómputo
+
 Mientras que muchos algoritmos clásicos saturan su rendimiento con más datos, el *deep learning* **mejora continuamente** al aumentar el tamaño del conjunto de entrenamiento y la capacidad computacional.
 
 ```{r echo=FALSE, fig.align='center'}

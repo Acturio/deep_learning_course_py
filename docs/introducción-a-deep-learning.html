@@ -176,7 +176,7 @@
 <li>Muestras de entrenamiento (data): Es el conjunto de pares observados <span class="math inline">\((x_n,y_n)\)</span></li>
 <li>Conjunto de hipótesis: Denotado como <span class="math inline">\(H\)</span> es el conjunto de funciones candidatas que el algoritmo puede elegir para aproximar f.</li>
 <li>Algoritmo de aprendizaje: Denotado como <span class="math inline">\(A\)</span> Toma como entrada los ejemplos de entrenamiento y el conjunto de hipotesis para seleccionar una <span class="math inline">\(g \in H\)</span> que mejor se ajuste a los datos.</li>
-<li>Hipotesis final: Denotada como <span class="math inline">\(g \approx h\)</span> que es la función aprendida por el algoritmo</li>
+<li>Hipotesis final: Denotada como <span class="math inline">\(g \approx f\)</span> que es la función aprendida por el algoritmo</li>
 </ol>
 <p><img src="img/01-intro/1-03.png" width="390" style="display: block; margin: auto;" /></p>
 </div>
@@ -204,11 +204,11 @@
 </div>
 <div id="los-problemas-de-machine-learning" class="section level4 hasAnchor" number="1.1.2.4">
 <h4><span class="header-section-number">1.1.2.4</span> Los problemas de machine learning<a href="introducción-a-deep-learning.html#los-problemas-de-machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Tres desafíos fundamentales definen la naturaleza de los problemas en <em>machine learning</em>:</p>
+<p>Los dos desafíos fundamentales que definen la naturaleza de los problemas en <em>machine learning</em>:</p>
 <div id="el-problema-inverso" class="section level5 hasAnchor" number="1.1.2.4.1">
 <h5><span class="header-section-number">1.1.2.4.1</span> El problema inverso<a href="introducción-a-deep-learning.html#el-problema-inverso" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>A diferencia de la física, donde las leyes predicen observaciones, en <em>machine learning</em> partimos de observaciones para inferir las reglas subyacentes. Esto es inherentemente ambiguo y puede derivar en un gran número de problemas. Por listar algunos tenemos.</p>
-<p><strong>Falta de información:</strong> Se intentan identificar patrones para intentar inferior un error basado en alguna regla, pero no hay garantia de que la regla que se este intentando cumplir sea la correcta.</p>
+<p><strong>Falta de información:</strong> Se intentan identificar patrones para intentar disminuir el error basado en alguna regla, pero no hay garantia de que la regla que se este intentando cumplir sea la correcta para representar al sistema.</p>
 <p><img src="img/01-intro/1-08.png" width="530" style="display: block; margin: auto;" /></p>
 <p><strong>No unicidad de la solución (información inconsistente):</strong> Dado un resultado observado <span class="math inline">\(y\)</span> , puede haber múltiples configuraciones de entrada <span class="math inline">\(x_1 x_2, ...\)</span> tales que <span class="math inline">\(f(x_i) = y\)</span></p>
 <p><img src="img/01-intro/1-09.png" width="566" style="display: block; margin: auto;" /></p>
@@ -267,10 +267,10 @@
 <p><img src="img/01-intro/2-07.png" width="494" style="display: block; margin: auto;" /></p>
 <table>
 <colgroup>
-<col width="19%" />
-<col width="19%" />
-<col width="19%" />
-<col width="42%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="37%" />
 </colgroup>
 <thead>
 <tr class="header">
