@@ -1,0 +1,146 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+<!-- ::: watermark -->
+<!-- <img src="img/aif-logo.png" width="400"/> -->
+<!-- ::: -->
+
+# (PART\*) Miscellanea: Graph Neural Networks {-} 
+
+# Introducción a la Teoría de Gráficas.
+## ¿Qué es una gráfica?
+
+Una gráfica es un objeto matemático que representa un conjunto de objetos y las
+relaciones entre ellos. En esencia, se trata de un conjunto de vértices
+$V = \{v_1, \ldots, v_n \}$ y de aristas $E = \{e_{i_1 i_j}, \ldots, e_{i_m i_m} \}$
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/sample-graph.png")
+```
+
+
+Estos se usan para modelar fenómenos complejos, como la interacción en redes sociales,
+redes de comunicaciones, las relaciones entre citas de documentos, la configuración 
+de compuestos químicos y demás.
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/cite_seer_data.jpg")
+```
+
+Si bien, el conjunto de aristas define la estructura de la gráfica es comun
+generar representaciones alternativas. Entre ellas se encuentra
+
+* **Matriz de adjyacencias:** $A\in \mathbb{R}^n$, donde $n$ es el número de vertices
+de la gráfica y las entradas de la matriz estan dadas como sigue
+
+$$A_{ij} = \begin{cases}
+    1,& \text{ existe arista entre } v_i \text{ y }v_j\\
+    0,& \text{ en otro caso }
+\end{cases}$$
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/adjacency_matrix.png")
+```
+Es de notar que en la práctica, dicha matriz suele ser de tipo *sparse*, dado
+que no todos los nodos están conectados.
+
+* **Lista de adjacencias:** Es una lista que compacta la representación de adyacencias.
+
+$$ \begin{cases}
+    A: & [B, C, D], \\
+    B: & [A, E], \\
+    C: & [A, D], \\
+    D: & [A, C, E], \\
+    E: & [B, E]
+\end{cases}$$
+* **Sparse Coodinate Format (COO):** Es una representacion tensorial de tipo
+*sparse* de las estructura de la gráfica. La idea es solo almacenar los indices
+de los nodos que denotan las adyacencias en la gráfica omitiendo aquellos 
+lugares donde no hay relaciones ente nodos. Véase el siguiente [link](https://docs.pytorch.org/docs/stable/sparse.html#sparse-coo-tensors).
+
+
+* Por otro lado, se puede considerar de forma opcional incluir en el análisis
+a características numéricas y categorícas (*features*) de los vértices de la
+gráfica.
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/graph-3-objects.png")
+```
+
+## ¿Qué caracteriza la estructura una gráfica?
+
+* Grado de sus vertices:
+* Centralidad
+* Betweness
+* Grado de Centalidad
+* Page Rank
+* Conexidad
+* Componentes conexas
+
+## ¿Por qué combinar Graficas y Deep Learning?
+
+WIP
+
+## ¿Existe un Teorema de Aproximación Univeral (TAU) para GNN's?
+
+* Muchas pruebas del existentes del TAU para GNN son extensiones de del Teorema de Stone-Weierstrass,
+
+* Un tema a resolver en problema a resolver es si dos gráficas son isomórficas.
+  * Weisfeiler y Leman idearon una heurística que trata de determinar si dos
+  gráficas son isomórficas entre si.
+  * Los resultados algoritmos son invariantes ante permutaciones de etiquetado
+  de las gráficas
+  * En la práctica, es muy dificil encontrar gráficas isomórficas entre si.
+  
+* Algunos resultados prueban la universalidad bajo ciertas condiciones:
+  *  Maron et al. On the Universality of Invariant Networks (2019) *"G-invariant networks are universal if high-order tensors are allowed (..)"*
+  * Universal Invariant and Equivariant Graph Neural Network (2019) *"GNNs are 
+  universal approximators in probability for node classification & regression
+  tasks, as they can approximate any measurable function that satisfies
+  the 1–WL equivalence on nodes"*
+
+## Enfoques de aprendizaje transductivo e inductivo
+
+**Aprendizaje Transductivo:** En este paradigma, el modelo se entrena
+considerando todo el grafo disponible, es decir, con todos los nodos y sus
+relaciones (aristas) presentes durante la fase de entrenamiento, incluso
+aquellos cuya informacion no se utiliza directamente para el cálculo de la
+función de pérdida.
+
+El modelo aprende representaciones (embeddings) dependientes de la estructura
+completa del grafo, por lo que no puede generalizar a nodos o subgrafos no
+observados durante el entrenamiento.
+
+**Aprendizaje Inductivo:** reservan conjuntos de datos de entrenamiento y prueba
+separados. El proceso de aprendizaje ingesta los datos de entrenamiento y, a
+continuación, el modelo aprendido se prueba utilizando los datos de prueba, que
+no ha observado antes en ninguna capacidad.
+
+## Tipos de problemas de GNN
+
+El aprendizaje automático en grafos se presenta en diversas modalidades:
+
+* **Aprendizaje Supervisado/Semi-supervisado:**
+
+  * *Clasificación de Grafos:* Grafos etiquetados → etiquetar nuevo grafo.
+    * Ejemplos: Clasificación de moléculas, predicción de la eficacia de fármacos.
+
+  * *Clasificación de Nodos (o Aristas):* Nodos etiquetados → etiquetar otros nodos.
+    * Ejemplos: Marketing (orientado/segmentaciones), predicción de interfaces proteicas.
+
+* **Aprendizaje No Supervisado (y Semi-supervisado)**
+    * Ejemplos:
+      * Detección de Comunidades: Un grafo → agrupar nodos
+      * Análisis de redes sociales.
+
+  * *Link prediction (o Vínculos): Un grafo → ¿posible nueva arista?*
+    * Ejemplos: Sistemas de recomendación.
+
+* **Otros tareasx:**
+  * Oredicción (de nodo, de arista) en grafos dinámicos (simulación de sistemas físicos),
+  * Generación de gráficas (diseño de fármacos)...
+
+
+
