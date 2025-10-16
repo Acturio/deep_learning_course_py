@@ -638,7 +638,7 @@ Esta idea es un concepto poderoso que conecta el cálculo diferencial con la com
 
 #### Historia
 
-Mientras tanto, el concepto de autodiferenciación es un tema más reciente en la historia de las matemáticas, encontrando las primeras referencias en el trabajo de Wengert en 1964 [^wengert1964] . Las ideas núcleo para la propagación hacia atrás se pueden trazar a una tesis de doctorado (PhD) de Speelpenning en 1980 [^Speelpenning1980] y fueron trabajadas y desarrolladas a finales de los 80's por Griewank [^griewank1989]. Aunque la propagación hacia atrás es el método por eleccción para calcular gradientes, no es la única opción que existe. Un ejemplo lo encontramos en el lenguaje de programación Julia, que emplea una propagación hacia adelante [^revelsetal2016].
+Mientras tanto, el concepto de autodiferenciación es un tema más reciente en la historia de las matemáticas, encontrando las primeras referencias en el trabajo de Wengert en 1964 [^Wengert1964] . Las ideas núcleo para la propagación hacia atrás se pueden trazar a una tesis de doctorado (PhD) de Speelpenning en 1980 [^Speelpenning1980] y fueron trabajadas y desarrolladas a finales de los 80's por Griewank [^Griewank1989]. Aunque la propagación hacia atrás es el método por eleccción para calcular gradientes, no es la única opción que existe. Un ejemplo lo encontramos en el lenguaje de programación Julia, que emplea una propagación hacia adelante [^RevelsEtAl2016].
 
 #### ¿Qué es?
 
