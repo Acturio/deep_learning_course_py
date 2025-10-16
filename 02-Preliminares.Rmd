@@ -5,3 +5,812 @@
 
 # Preliminares
 
+## Algebra Lineal
+
+### Introducción
+
+El álgebra lineal es la rama de las matemáticas que estudia los espacios vectoriales y transformaciones lineales así como los elementos que son parte de estas como son los vectores, matrices, bases, operadores así como las propiedades geométricas que ocurren en los espacios vectoriales.
+
+Enfocandose en como se representan y manipulan los datos que pueden tener múltiples dimensiones o características de una forma estructurada y dando así, interpretaciones de estos con una serie de observaciones, estructura y rigor matemático.
+
+### Motivación
+
+El aprendizaje profundo se basa en procesar y transformar datos numéricos (imágenes, sonidos, textos, etc) y dichas transformaciones son operaciones lineales y no lineales aplicadas repetidamente, encontramos una forma muy natural de hacer uso del álgebra lineal para el aprendizaje profundo, representado como el procesamiento de redes neuronales.
+
+De forma natural, podemos ver como las entradas, salidas, neuronas y funciones de activación hacen uso de estructuras como vectores, matrices y transformaciones lineales:
+#### Vectores
+
+Representan entradas, salidas y parámetros.
+
+#### Matrices
+
+Representan conexiones entre neuronas así como transformaciones entre espacios. Esto porque una red neuronal puede expresarse como
+$$
+	y = Wx + b
+$$
+donde:
+ - $x$ es el vector de entrada,
+ - $W$ es una matriz de pesos.
+ - $b$ es el sesgo,
+ - $y$ es la salida.
+
+#### Transformaciones lineales
+
+Cada capa lineal en una red neuronal transforma el espacio de las entradas. Estas transformaciones cambian orientación, posición, o escala de los datos en un espacio multidimensional.
+
+### Escalares
+
+#### Campos Algebraicos
+
+Un **campo algebraico** (o simplemente _campo_) es una estructura matemática formada por un conjunto de elementos en el que se pueden realizar las operaciones de **suma**, **resta**, **multiplicación** y **división** (excepto por cero), cumpliendo ciertas reglas de consistencia.
+
+Algunos ejemplos de campos algebraicos son los números reales (denotado por $\mathbb{R}$) y los números complejos (denotado por $\mathbb{C}$).
+
+En este contexto, cuando hablamos de escalares, nos referiremos a un elemento del campo sobre el que trabajamos, usualmente sobre los números reales, o en ocasiones particulares, números imaginarios.
+
+#### Dato curioso
+
+Si en lugar de un campo tenemos un anillo algebraico (a diferencia del campo, no necesariamente existe un inverso multiplicativo), entonces los escalares perteneceran al anillo, y en lugar de tener un espacio vectorial, diremos que tendremos un **módulo** y eso es campo de estudio de otra rama de las matemáticas. Por lo que en este contexto, únicamente trataremos con los números reales como campo y posiblemente con complejos.
+### Vectores
+
+Un vector es un objeto matemático que posee magnitud y dirección. Estos pertenecen a un espacio vectorial que está definido sobre un campo y por ende, las entradas de un vector, son elementos de este campo (denotado como escalares), así como dichas entradas es una lista ordenada.
+$$
+v =
+\begin{pmatrix}
+	v_1 \\
+	v_2 \\
+	\vdots \\
+	v_n
+\end{pmatrix}
+$$
+Estos números son las coordenadas del vector respecto a la base del espacio.
+### Matrices
+
+Una matríz es un arreglo rectangular de escalares (o con entradas en el campo vectorial), organizada en filas y columnas de la siguiente forma:
+$$
+A =
+\begin{pmatrix}
+	a_{11} & a_{12} & \dots & a_{1n} \\
+	a_{21} & a_{22} & \dots & a_{2n} \\
+	\vdots & \vdots & \ddots & \vdots \\
+	a_{m1} & a_{m2} & \dots & a_{mn}
+\end{pmatrix}
+$$
+donde $A$ tiene $m$ filas y $n$ columnas, y se dice que es de tamaño $m \times n$.
+
+#### Alternativas conceptuales para entenderlas
+
+Una matríz puede entenderse como:
+- Un conjunto de vectores organizados de manera estructurada.
+- Una herramienta para transformar un vector en otro mediante operaciones lineales.
+- Una representación compacta de un sistema de ecuaciones lineales.
+
+Por dar un ejemplo, la expresión $y = Ax$ con $x, y$ como vectores y $A$ como matríz, denota como se transforma $x$ en $y$ por medio de $A$, o un sistema de ecuaciones lineales.
+
+#### Propiedades matemáticas
+
+Las matrices permiten realizar:
+- Suma y multiplicación de transformaciones lineales.
+- Cálculo de determinante e inversas de matrices (en caso de existir).
+- Cambios de base, rotaciones, escalamientos y proyecciones.
+
+En esencia podemos pensar que son la forma algebraica de expresar operaciones lineales entre espacios vectoriales.
+#### En el aprendizaje profundo
+
+Las matrices son un componente clave en el núcleo operativo de las redes neuronales considerando las siguientes observaciones:
+ - Cada capa lineal se representa por una matríz de pesos que transforma las entradas en salidas.
+ - Las operaciones de multiplicación matricial permite combinar miles de variables de entrada con miles de parámetros a la vez.
+ - Durante el entrenamiento, las matrices cambian, siendo ajustadas para minimizar el error de predicción.
+
+#### Resumen
+
+Las matrices son arreglos ordenados de escalares o vectores que suelen representar transformaciones lineales así como bases vectoriales. Esta es la forma matemática que se usa para describir el procesamiento y transformación numérica que ocurre en una red neuronal.
+### Tensores
+
+De forma simétrica a las estructuras de escalares, vectores y matrices, un tensor es una estructura matemática que generaliza estos conceptos para describir relaciones lineales y multidimensionales entre conjuntos de datos numéricos.
+
+Una forma de ejemplificar usando como base la relación entre puntos, líneas, cuadrados y cubos puede ser la siguiente: una matríz es a un tensor (arreglo de matrices), como un vector es a una matríz (arreglo de vectores), como un escalar es a un vector (arreglo de escalares).
+
+#### Intuición geométrica
+
+Un tensor puede verse como un objeto que transforma o relaciona vectores y covectores de manera multilineal, conservando coherencia bajo cambios de coordenadas. Esto en espacios físicos permite describir propiedades como:
+- Fuerza y dirección (vectores).
+- Tensiones, deformaciones o inercia (tensores de segundo orden).
+- Curvaturas o transformaciones complejas (tensores de orden superior).
+
+#### Su rol en el aprendizaje profundo
+
+En el contexto del aprendizaje profundo, los tensores suelen usarse en un sentido computacional más que geométrico. Por ejemplo
+- Una imagen puede representarse como un arreglo dimensional de dos dimensiones, pero donde sus elementos son vectores de dimensión 3 (pixeles con sus 3 colores).
+- Un lote de imágenes forma un tensor de orden 4: número o etiqueta de la imagen, alto, ancho y colores.
+- Los pesos de una red neuronal y sus gradientes también son tensores.
+#### Propiedades básicas de la aritmética de tensores
+
+Escalares, vectores, matrices y tensores de orden superior tienen propiedades que son útiles, por ejemplo operaciones elemento a elemento producen salidas que tienen las mismas dimensiones que sus entradas.
+
+El producto de elemento a elemento de dos matrices es llamado _producto Hadamard_ y es denotado con $\odot$. Podemos ver esto de la siguiente forma para dos matrices $A, B \in \mathbb{R}^{m \times n}$:
+$$
+A \odot B =
+\begin{pmatrix}
+	a_{11}  b_{11} & a_{12}  b_{12} & \dots  & a_{1n}  b_{1n} \\
+	a_{21}  b_{21} & a_{22}  b_{22} & \dots  & a_{2n}  b_{2n} \\
+	\vdots & \vdots & \ddots & \vdots \\
+	a_{m1}  b_{m1} & a_{m2}  b_{m2} & \dots  & a_{mn}  b_{mn}
+\end{pmatrix}
+$$
+
+### Reducciones sobre tensores
+
+Una reducción es una operación que toma un tensor y "reduce" una o más de sus dimensiones, combinando los elementos mediante una operación como la suma, el promedio, máximo o cualquier otra función agregadora
+
+#### Ejemplos
+
+Suponiendo que tenemos la siguiente matriz
+$$
+A =
+\begin{pmatrix}
+	1 & 2 & 3 \\
+	4 & 5 & 6
+\end{pmatrix}
+$$
+Tenemos las siguientes posibilidades de sumas:
+- Suma total: $\mbox{sum}(A) = 1  + 2 + 3 + 4 + 5 + 6 = 21$
+- Suma por filas: $\mbox{sum}(A, \mbox{axis} = 1) = [6, 16]$ que es un vector (tensor de orden 1).#
+- Suma por columnas: $\mbox{sum}(A, \mbox{axis} = 0) = [5, 7, 9]$
+
+#### Intuición geométrica
+
+Una reducción colapsa una dirección del espacio del tensor.
+- Dada una matriz, reducir sobre las filas equivale a proyectar todo el espacio de datos sobre el eje de las columnas.
+- En tensores de orden mayor, esto trata de aplanar parte de la estructura multidimensional.
+
+#### En aprendizaje profundo
+
+Las reducciones son operaciones fundamentales en el cálculo dentro de las redes neuronales. Consideremos las siguientes:
+- Función de pérdida:
+	Se calcula reduciendo las diferencias entre predicciones y etiquetas. Por ejemplo:
+	$$
+		\mbox{loss} = \mbox{mean}((y_{\mbox{pred}} - y_{\mbox{true}})^2)
+	$$
+	reducción con media sobre todos los ejemplos.
+- Normalización:
+	Reducir sobre ciertas dimensiones (por ejemplo, el canal o lote) para calcular medias y desviaciones estándar.
+- Gradientes:
+	Durante el entrenamiento, los gradientes a menudo se *acumulan* (se reducen) sobre los lotes de datos.
+
+#### Tipos comunes de reducciones
+
+| Operación      | Resultado           | Uso típico                           |
+| -------------- | ------------------- | ------------------------------------ |
+| suma           | Suma de elementos   | Energía total, acumulaciones         |
+| promedio       | Promedio            | Pérdidas, normalización              |
+| máximo, mínimo | Valor extremo       | Selección, agrupamiento, submuestreo |
+| producto       | Producto total      | Escalados, combinaciones             |
+| norma          | Magnitud del tensor | Regularización, análisis geométrico  |
+#### Resumen
+
+Podemos pensar en la reducción como el proceso de combinar las entradas a lo largo de ciertas dimensiones, para producir una representación más simple o resumida del tensor original.
+
+Matemáticamente, una reducción es una contracción parcial de índices y computacionalmente, una operación de agregación que permite manejar de forma eficiente grandes volúmenes de datos en redes neuronales.
+### Producto punto
+
+De momento hemos estado revisando operaciones tanto de reducción como operaciones elemento a elemento. Pero para el producto punto, tenemos una combinación muy interesante. Ya que por un lado, es una operación binaria que toma dos vectores, y nos regresa una agregación, siendo esta la suma total del producto elemento a elemento. O más matemáticamente, sea $d \in \mathbb{N}$, dado $\mathbf{x}, \mathbf{y} \in \mathbb{R}^d$ y $\mathbf{x}^\top$ la transpuesta de $\mathbf{x}$, entonces su producto punto $\mathbf{x} \cdot \mathbf{y}$ ó $\mathbf{x}^\top \mathbf{y}$ (o también conocido como producto interno $\langle \mathbf{x}, \mathbf{y} \rangle$) se define así:
+$$
+	\mathbf{x}^\top \mathbf{y} = \sum_{i=1}^{d} x_i y_i
+$$
+Este resultado sin embargo, tiene repercusiones importantes así como interpretaciones geométricas de gran importancia. A este producto también se puede ver como una forma bilineal, es decir, que en ambas entradas, es linear (abre sumas y saca escalares: $f(ax + by) = af(x) + bf(y)$).
+
+#### Interpretación geométrica
+
+El producto punto mide _cuanto apunta un vector en la dirección de otro_ o el ángulo que hay entre estos:
+$$
+	\mathbf{a} \cdot \mathbf{b} = \|a\| \|b\| \cos(\theta)
+$$
+donde:
+- Las longitudes de los vectores están representadas por $\|a\|$ y $\|b\|$,
+- el ángulo entre estos es $\theta$.
+
+Si:
+- Apuntan en direcciones similares: $\mathbf{a} \cdot \mathbf{b} > 0$.
+- Son perpendiculares $\mathbf{a} \cdot \mathbf{b} = 0$.
+- Apuntan en direcciones opuestas: $\mathbf{a} \cdot \mathbf{b} < 0$.
+
+#### En el aprendizaje profundo
+
+El producto punto aparece de forma constante en redes neuronales:
+- En cada neurona, el valor de activación se calcula como un producto punto entre el vector de entrada y el vector de pesos:
+	$$
+		z = \mathbf{w} \cdot \mathbf{x} + b
+	$$
+- En el contexto de atención (*transformers*), se usa para medir la similitud entre representaciones:
+	$$
+		\mathbf{q} \sim \mathbf{k} = \mbox{sim}(\mathbf{q}, \mathbf{k}) = \mathbf{q} \cdot \mathbf{k}
+	$$
+
+#### Resumen
+
+El producto punto es la operación fundamental para medir la relación de direcciones y magnitud entre dos vectores, y en redes neuronales, es la base matemática de como las neuronas evalúan la información que procesan.
+
+### Producto entre matrices y vectores
+
+Para definir el producto entre matrices y vectores, tomemos $m, n \in \mathbb{N}$, una matriz $A \in \mathbb{R}^{n \times m}$ y un vector $x \in \mathbb{R}^m$, entonces lo definiremos de la siguiente forma:
+$$
+	A\cdot x =
+	\begin{pmatrix}
+		a_{11} & a_{12} & \cdots & a_{1m} \\
+		a_{21} & a_{22} & \cdots & a_{2m} \\
+		\vdots & \vdots & \ddots & \vdots \\
+		a_{n1} & a_{n2} & \cdots & a_{nm} \\
+	\end{pmatrix}
+	\cdot
+	\begin{pmatrix}
+		x_1 \\ x_2 \\ \vdots \\ x_m
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		a_{11}x_1 + a_{12}x_2 + \cdots + a_{1m}x_m \\
+		a_{21}x_1 + a_{22}x_2 + \cdots + a_{2m}x_m \\
+		\vdots \\
+		a_{n1}x_1 + a_{n2}x_2 + \cdots + a_{nm}x_m \\
+	\end{pmatrix}
+$$
+Si recordamos que $A$ puede verse como un arreglo o lista de vectores $n$ vectores $\mathbf{a}_j$ con $j \in {1, \cdots, n}$, entonces lo anterior lo podemos reescribir de la siguiente forma:
+$$
+	A \cdot x =
+	\begin{pmatrix}
+		\mathbf{a}_1^\top \cdot x \\
+		\mathbf{a}_2^\top \cdot x \\
+		\vdots \\
+		\mathbf{a}_n^\top \cdot x \\
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		\mathbf{a}_1^\top \\
+		\mathbf{a}_2^\top \\
+		\vdots \\
+		\mathbf{a}_n^\top \\
+	\end{pmatrix} \cdot x
+$$
+donde podemos ver como esta multiplicación matricial es una transformación que proyecta vectores de $\mathbb{R}^m$ hacia $\mathbb{R}^n$ (viendo como toma $x$, y lo transforma en $A\cdot x$).
+
+#### Interpretación geométrica
+
+Las transformaciones que puede hacer $A$ sobre $x$ son:
+- Rotarlo, escalarlo, reflejarlo o cambiar su dimensión.
+- Si $A$ es una matriz cuadrada ($A \in \mathbb{R}^{n \times n}$), entonces la transformación es hacia el mismo espacio
+- Cuando $A\cdot x = 0$, hablaremos del núcleo de la transformación ($\ker(A)$), o espacio nulo y este será todos los vectores $x$ tales que satisfacen esa condición.
+
+##### Teorema del rango y nulidad
+El teorema del rango y nulidad nos habla de la relación que existe entre el núcleo y la imagen de $A$: Sea $A: V \rightarrow W$  una transformación lineal entre espacios vectoriales de dimensión finita, donde:
+- $\dim(V) = n$.
+- $\mbox{rango}(A)$ es la imagen (también llamada rango),
+- $\ker(A)$ es el núcleo o kernel (también llamado espacio nulo).
+entonces:
+	$$
+		\dim(V) = dim(\mbox{rango(A)}) + \dim(\ker(A))
+	$$
+o de forma equivalente:
+	$$
+		n = \mbox{rango}(A) + \ker(A)
+	$$
+
+#### En aprendizaje profundo
+
+En una neurona o capa lineal, el cálculo principal es precisamente este producto:
+$$
+	\mathbf{y} = A\mathbf{x} + \mathbf{b}
+$$
+donde los elementos son los siguientes:
+- vector de entradas: $\mathbf{x}$,
+- matriz de pesos: $A$,
+- vector de sesgos: $\mathbf{b}$,
+- salida o activación previa: $\mathbf{y}$.
+
+Cada multiplicación entre matriz y vector permite a la red combinar las características y extraer patrones de los datos, siendo una de las operaciones más repetidas en todo el aprendizaje profundo.
+
+En relación al teorema de rango y nulidad en el contexto de redes neuronales, podemos ver lo siguiente:
+- Qué parte de la información de entrada puede conservarse (rango).
+- Qué parte se pierde o colapsa (nulidad).
+- Como el modelo puede aprender representaciones comprimidas al pasar de un espacio con alta dimensión a otro más pequeño.
+
+#### Resumen
+
+El producto de matriz con vector aplica una transformación lineal al vector, combinando sus componentes mediante productos punto con las filas de la matriz. Esta es la base matemática de como las redes neuronales procesan la información y generan nuevas representaciones.
+
+En conjunto con el teorema de rango y nulidad, podemos ver que en toda transformación lineal, la suma del número de direcciones que se conservan y las que se anulan es igual a la dimensión del espacio original.
+
+### Multiplicación matricial
+
+Siguiendo el patrón de partir de lo particular y empezar a generalizar, y teniendo presente que una matriz es un arreglo ordenado de vectores, naturalmente podemos preguntarnos por el producto matricial, y respondernos de forma directa.
+
+Sean $n, k, m \in \mathbb{N}$ y dos matrices $\mathbf{A} \in \mathbb{R}^{n \times k}$ y $\mathbf{B} \in \mathbb{R}^{k \times m}$ con la estructura que ya conocemos:
+$$
+\begin{split}\mathbf{A}=\begin{pmatrix}
+ a_{11} & a_{12} & \cdots & a_{1k} \\
+ a_{21} & a_{22} & \cdots & a_{2k} \\
+\vdots & \vdots & \ddots & \vdots \\
+ a_{n1} & a_{n2} & \cdots & a_{nk} \\
+\end{pmatrix},\quad
+\mathbf{B}=\begin{pmatrix}
+ b_{11} & b_{12} & \cdots & b_{1m} \\
+ b_{21} & b_{22} & \cdots & b_{2m} \\
+\vdots & \vdots & \ddots & \vdots \\
+ b_{k1} & b_{k2} & \cdots & b_{km} \\
+\end{pmatrix}.\end{split}
+$$
+Sea $\mathbf{a}_i^\top \in \mathbb{R}^k$ el $i$-ésimo vector fila de la matriz $\mathbf{A}$ y sea $\mathbf{b}_j \in \mathbb{R}^k$ el $j$-ésimo vector columna de $\mathbf{B}$, entonces:
+$$
+\begin{split}\mathbf{A}=
+\begin{pmatrix}
+\mathbf{a}^\top_{1} \\
+\mathbf{a}^\top_{2} \\
+\vdots \\
+\mathbf{a}^\top_n \\
+\end{pmatrix},
+\quad \mathbf{B}=\begin{pmatrix}
+ \mathbf{b}_{1} & \mathbf{b}_{2} & \cdots & \mathbf{b}_{m} \\
+\end{pmatrix}.\end{split}
+$$
+Para formar el producto matricial $\mathbf{C} \in \mathbb{R}^{n \times m}$, vamos a calcular el elemento $c_{ij}$ como el producto punto entre la $i$-ésima fila de $\mathbf{A}$ y la $j$-ésima columna de $\mathbf{B}$, es decir $\mathbf{a}_i^\top \mathbf{b}_j$:
+$$
+\begin{split}\mathbf{C} = \mathbf{AB} = \begin{pmatrix}
+\mathbf{a}^\top_{1} \\
+\mathbf{a}^\top_{2} \\
+\vdots \\
+\mathbf{a}^\top_n \\
+\end{pmatrix}
+\begin{pmatrix}
+ \mathbf{b}_{1} & \mathbf{b}_{2} & \cdots & \mathbf{b}_{m} \\
+\end{pmatrix}
+= \begin{pmatrix}
+\mathbf{a}^\top_{1} \mathbf{b}_1 & \mathbf{a}^\top_{1}\mathbf{b}_2& \cdots & \mathbf{a}^\top_{1} \mathbf{b}_m \\
+ \mathbf{a}^\top_{2}\mathbf{b}_1 & \mathbf{a}^\top_{2} \mathbf{b}_2 & \cdots & \mathbf{a}^\top_{2} \mathbf{b}_m \\
+ \vdots & \vdots & \ddots &\vdots\\
+\mathbf{a}^\top_{n} \mathbf{b}_1 & \mathbf{a}^\top_{n}\mathbf{b}_2& \cdots& \mathbf{a}^\top_{n} \mathbf{b}_m
+\end{pmatrix}.\end{split}
+$$
+De esta forma, podemos pensar en el producto matricial como realizar $m$ productos entre matrices y vectores o $m \times n$ productos punto y recolectandolos todos para formar una matriz de $n \times m$. Cabe mencionar que este no es el producto Hadamard mencionado previamente.
+
+#### Interpretación geométrica
+
+Dado que cada elemento del producto matricial, es el producto punto entre las filas de la matriz de la izquierda y las columnas de la matriz de la derecha, entonces el producto punto puede verse como una composición de transformaciones lineales:
+$$
+	(AB)x = A(Bx).
+$$
+Esto significa que aplicar primero $B$ y luego $A$ a un vector es equivalente a aplicar una sola transformación representada por $AB$.
+
+#### Propiedades importantes
+
+Sean $A, B, C$ matrices con las dimensiones compatibles para el producto matricial, hay algunos puntos muy importantes que se tienen que mencionar:
+- Las matrices no necesariamente conmutan: $AB \neq BA$.
+- Las matrices son asociativas: $(AB)C = A(BC)$.
+- Las matrices son distributivas: $A(B+C) = AB + AC$.
+- Compatibilidad con escalares: $(\alpha A)B = A(\alpha B) = \alpha(AB)$ para $\alpha$ escalar.
+
+#### En el aprendizaje profundo
+
+El producto matricial es la operación más esencial en el cálculo de redes neuronales:
+- Cada capa lineal o densa se expresa como:
+	$$
+		\mathbf{Y} = \mathbf{A}\mathbf{X} + \mathbf{B}
+	$$
+	donde $\mathbf{A}$ (matriz de pesos) multiplica la matriz o vector de entrada $\mathbf{X}$.
+- En redes convolucionales, transformadores o encajes vectoriales, los productos matriciales generalizan a productos tensoriales u operaciones de atención.
+
+#### Producto matricial como cambio de base del espacio vectorial
+
+Una interpretación adicional al producto matricial es la de cambio de base del espacio vectorial y esto puede verse de la siguiente forma
+
+#### Resumen
+
+El producto entre dos matrices es la combinación de filas y columnas entre la primera y segunda matriz para formar una nueva matriz, que representa la composición de transformaciones lineales: una idea central en álgebra lineal y por lo tanto, en aprendizaje profundo.
+
+### Normas
+
+Una norma es una función que asigna a cada vector un número real no negativo que representa su longitud, magnitud o tamaño dentro de un espacio vectorial.
+
+Descrito de forma matemática, sea $V$ un espacio vectorial sobre un campo $\mathbb{R}$ ó $\mathbb{C}$. Una forma es una función tal que:
+$$
+	\|\cdot\|:V \rightarrow \mathbb{R}_{\ge0}
+$$
+que a cada vector $v \in V$ le asigna el número $\|v\|$, cumpliendo las siguientes tres propiedades:
+1. No negatividad y definitud:
+	$$
+		\|v\| \ge 0, \space \mbox{y} \space \|v\| = 0 \Leftrightarrow v = 0
+	$$
+	(la longitud nunca es negativa y solamente es cero con el vector cero).
+2. Homogeneidad (o multiplicación por escalar):
+	$$
+	\|\alpha v\| = |\alpha| \|v\|
+	$$
+	(Escalar un vector cambia su longitud en el mismo factor absoluto).
+3. Desigualdad triangular:
+	$$
+		\|u + v\| \le \|u\| + \|v\|
+	$$
+	(la longitud de la suma nunca excede la suma de las longitudes, como ocurre en un triángulo).
+
+#### Ejemplos de normas
+
+Sea $V$ un espacio vectorial de dimensión $n \in \mathbb{N}$, con entradas en los reales o complejos, y sea $v \in V$ un vector, entonces las siguientes normas están definidas de la siguiente forma
+
+##### Norma Euclidiana (o $L^2$):
+
+$$
+	\|v\|_2 = \sqrt{v_1^2 + v_2^2 + \cdots + v_n^2}
+$$
+Observa que:
+$$
+	 \langle v, v \rangle= v^\top \cdot v = v_1^2 + v_2^2 + \cdots + v_n^2 = \|v\|_2^2,
+$$
+por lo tanto:
+$$
+	\|v\|_2 = \sqrt{\langle v, v\rangle} = \sqrt{v^\top \cdot v}.
+$$
+
+##### Norma Manhattan (o $L^1$)
+
+$$
+	\|v\|_1 = |v_1| + |v_2| + \cdots + |v_n|
+$$
+Esta norma también es conocida como la norma del taxista.
+
+##### Norma máxima ($L^{\infty}$)
+
+$$
+	\|v\|_{\infty} = \max_{i}|v_i|
+$$
+
+##### Norma Frobenius
+
+En el caso de las matrices, la situación es un poco más compleja. Esto porque las matrices pueden ser vistas como arreglos de vectores, o arreglos de números, al mismo tiempo que son transformaciones lineales. Por ejemplo, podríamos preguntarnos cuál es la relación de distancia para un producto de matriz y vector $Xv$ con relación a $v$. Esta línea de pensamiento nos lleva a algo llamado _norma espectral_. Pero por ahora presentamos la norma Frobenius, la cuál es mucho más fácil de calcular y queda definida de la siguiente forma
+$$
+	\|X\|_F = \sqrt{\sum_{i=1}^{m}\sum_{j=1}^{n}x_{ij}^2}.
+$$
+Esta norma se comporta como la norma $L^2$ para vectores, pero en caso matricial.
+
+#### Interpretación geométrica
+
+Una norma define la noción de la distancia y magnitud (o topología) dentro del espacio vectorial. Diferentes normas producen distintas geometrías del espacio (círculos, cuadrados, octágonos, etc).
+
+#### En aprendizaje profundo
+
+Las normas son esenciales para:
+- Medir errores (como ejemplo, usando la norma $L^2$ para el error cuadrático medio).
+- Regularización de modelos (normas como $L^1$ y $L^2$ reducen el sobreajuste penalizando los pesos grandes).
+- Normalizar datos o vectores de características, para estabilizar el entrenamiento y mejorar la interpretación de la similitud entre vectores.
+
+#### Resumen
+
+Una norma mide la longitud o tamaño de un vector de forma consistente con las reglas del espacio vectorial, permitiendo cuantificar distancias, magnitudes y relaciones entre vectores.
+
+## Cálculo Diferencial
+
+### Introducción
+
+Él cálculo diferencial es la rama de la matemática que surge para estudiar los cambios que ocurren en la naturaleza representado como fenómenos dinámicos, partiendo de las leyes Newtonianas estudiando el cambio de movimiento para definir así la velocidad, y posteriormente el cambio de la velocidad para entender la aceleración.
+
+En el contexto del aprendizaje profundo, este tema es de vital importancia ya que las redes neuronales se calibran optimizando funciones mediante la medición y ajuste de cambios infinitesimales usando conceptos como mínimos locales y globales por medio de un concepto llamado _gradiente_, minimizando algo conocido como función de pérdida y recurriendo a técnicas modernas como la autodiferenciación para optimizar estas funciones usando la propagación hacia atrás.
+
+Podemos pensar que una red neuronal aprende observando como las variaciones pequeñas en los pesos afectan el error o la función de pérdida. Esta relación, se describe con derivadas y gradientes.
+
+De esta forma, el cálculo diferencial proporciona el marco de trabajo para:
+- comprender como fluye la información y el error a través de la red.
+- Analizar la convergencia y estabilidad de los algoritmos de optimización.
+- Desarrollar modelos más eficientes y estables desde el punto de vista numérico y teórico.
+
+### Motivación
+
+La motivación directa es precisamente el optimizar las funciones de pérdida que están relacionadas con los pesos de las redes neuronales para mejorar como desempeña nuestra red neuronal.
+
+### Derivadas y diferenciación
+
+Para proceder con las derivadas, primero definiremos rápidamente (sin entrar en tanto detalle) el concepto de función para una variable y posteriormente, como función de múltiples variables.
+
+#### Funciones
+
+Sean $X, Y$ dos conjuntos, una función es una relación que existe entre dos conjuntos, de tal forma que para $x \in X$ y $y \in Y$, $f(x) = y$. Esto podemos pensarlo como una regla o mapeo para relacionar ambos conjuntos y lo denotamos como $f: X \rightarrow Y$.
+
+Para el cálculo de una variable, usualmente nuestro dominio será algún subconjunto $X$ de los números reales, y este estará relacionado con otro número real que de momento diremos pertenecerá a un subconjunto $Y$ de los reales, el cuál será el contradominio. Es decir: $f: X \subset\mathbb{R} \rightarrow Y \subset\mathbb{R}$.
+
+Para cuando trabajemos con cálculo vectorial, diremos que el dominio será precisamente un espacio vectorial $\mathbb{R}^n$, para $n \in \mathbb{N}$. Pero el contradominio será en los números reales. Es decir, las funciones para el cálculo vectorial serán: $f: \mathbb{R}^n \rightarrow \mathbb{R}$.
+
+#### Derivada
+
+La derivada de una función $f$ la vamos a definir de la siguiente forma:
+$$
+	f'(x) = \lim_{h \rightarrow 0}\frac{f(x + h) - f(x)}{h}.
+$$
+
+A esta expresión se le llama límite y se interpreta como hacer una pequeña perturbación que tiende a cero en el parámetro $h$ y cuando este límite existe, se dice que $f$ es diferenciable en $x$, siendo así $f'(x)$ su derivada. Esto se dice que debe ocurrir en al menos un subconjunto ya que al considerar las perturbaciones del parámetro $h$, estamos considerando números del orden infinitesimal ya que estamos tratando con los números reales, y estos poseen una propiedad de densidad que nos permite encontrar estos elementos para realizar dicho límite.
+
+Para mantener el foco en el aprendizaje profundo y no desviarnos a un curso tradicional de ciencias o ingeniería, de momento lo dejaremos hasta aquí en relación a las propiedades matemáticas de los reales, límites, y otros temas que tienen mucho material para ser desarrollados.
+
+Como dato útil, podemos pensar también en la derivada de la derivada, nombrando esta como la segunda derivada y sus propiedades serán las mismas por definición. Sin embargo, esta recursividad nos permite poder obtener información a partir de una función con sus diferentes derivadas de acuerdo al contexto. Por ejemplo, si registramos la aceleración de un objeto, la derivada nos indicará la velocidad del objeto, y su segunda derivada, la posición del objeto.
+
+#### Derivada vectorial
+
+De forma simétrica a como hemos definido la derivada en una variable, podemos ver para funciones escalar de varias variables $f: \mathbb{R}^n \rightarrow \mathbb{R}$, que el gradiente queda definido de la siguiente forma:
+$$
+	\nabla f(\vec{x}) =
+	\begin{pmatrix}
+		\frac{\partial}{\partial x_1}f(\vec{x}) \\
+		\frac{\partial}{\partial x_2}f(\vec{x}) \\
+		\vdots \\
+		\frac{\partial}{\partial x_n}f(\vec{x})
+	\end{pmatrix}
+$$
+donde para $0 \le i \le n$, tenemos que:
+$$
+	\frac{\partial}{\partial x_i}f(\vec{x})
+$$
+es la derivada de $f$ en la $i$-ésima dirección (o coordenada o variable) definida de la siguiente forma considerando $y = f(x_1, x_2, \dots, x_n)$:
+$$
+	\frac{\partial y}{\partial x_i} = \lim_{h \rightarrow 0} \frac{f(x_1, \ldots, x_{i-1}, x_i+h, x_{i+1}, \ldots, x_n) - f(x_1, \ldots, x_i, \ldots, x_n)}{h}.
+$$
+
+Como ejemplo, consideremos la función $f(x, y) = 3x^2 y$. Entonces tenemos lo siguiente:
+$$
+	\begin{align}
+		\frac{\partial}{\partial x}3x^2y = 6xy \\
+		\frac{\partial}{\partial y}3x^2y = 3x^2 \\
+	\end{align}
+$$
+Por lo tanto, su gradiente es:
+$$
+	\nabla f(x, y) =
+	\begin{pmatrix}
+		6xy \\
+		3x^2
+	\end{pmatrix}
+$$
+y este nos dirá como se comporta $f$ de forma análoga al caso de 1 variable. Otros casos como funciones vectoriales de una variable real, o funciones vectoriales de varias variables quedan fuera por el momento de este estudio.
+
+#### Algunas formulas y reglas
+
+A continuación hay algunas formulas que nos pueden ayudar a calcular algunas derivadas:
+$$
+\begin{split}\begin{aligned} \frac{d}{dx} C & = 0 && \textrm{para cualquier constante $C$} \\ \frac{d}{dx} x^n & = n x^{n-1} && \textrm{para } n \neq 0 \\ \frac{d}{dx} e^x & = e^x \\ \frac{d}{dx} \ln x & = x^{-1}. \end{aligned}\end{split}
+$$
+Y continuamos con algunas reglas que nos permitirán trabajar con funciones compuestas:
+$$
+\begin{split}\begin{aligned} \frac{d}{dx} [C f(x)] & = C \frac{d}{dx} f(x) && \textrm{La constante sale} \\ \frac{d}{dx} [f(x) + g(x)] & = \frac{d}{dx} f(x) + \frac{d}{dx} g(x) && \textrm{Suma de derivadas} \\ \frac{d}{dx} [f(x) g(x)] & = f(x) \frac{d}{dx} g(x) + g(x) \frac{d}{dx} f(x) && \textrm{Producto o multiplicación de derivadas} \\ \frac{d}{dx} \frac{f(x)}{g(x)} & = \frac{g(x) \frac{d}{dx} f(x) - f(x) \frac{d}{dx} g(x)}{g^2(x)} && \textrm{Cociente o división de derivadas} \end{aligned}\end{split}
+$$
+De esta forma, podemos hacer uso de diferentes reglas para calcular derivadas. Más aún, con el teorema fundamental del cálculo, y al ver la integral como anti-derivada, podemos aprovechar algunos resultados del cálculo integral.
+
+##### Reglas útiles para derivar funciones multivariable
+
+Para toda $A \in \mathbb{R}^{m \times n}$, tenemos $\nabla_x Ax = A^\top$ y $\nabla_x x^\top A = A$. Así como para matrices cuadradas $A \in \mathbb{R}^{n \times n}$, tenemos que $\nabla_x x^\top A x = (A + A^\top)x$, y en particular: $\nabla_x \|x\|^2 = \nabla_x x^\top x = 2x$.
+
+De forma similar para cualquier matriz $X$, tenemos $\nabla_x \|X\|_F^2 = 2X$.
+### Regla de la cadena
+
+En general, las funciones suelen tener composiciones más elaboradas y sofisticadas de lo que hemos enlistado antes, haciendo que sea complicado realizar el cálculo de la derivada en estos casos. Por fortuna existe algo llamado _regla de la cadena_ y que nos apoya completamente en estos escenarios.
+
+De momento pensando en derivadas de una variable, partamos de la siguiente función $y = f(g(x))$, resaltando que $y = f(u)$ así como $u = g(x)$ son ambas diferenciables. Entonces la regla de la cadena afirma que:
+$$
+	\frac{dy}{dx} = \frac{dy}{du}\frac{du}{dx}.
+$$
+De esta forma, viendo el escenario desde el contexto de funciones multivariable, supón que $y = f(\vec{u})$ tiene variables $u_1, u_2, \dots, u_m$ donde para cada $u_i = g_i(\vec{x})$ tiene variables $x_1, x_2, \dots, x_n$, es decir $\vec{u} = g(\vec{x})$, entonces la regla de la cadena afirma que:
+$$
+\frac{\partial y}{\partial x_{i}} = \frac{\partial y}{\partial u_{1}} \frac{\partial u_{1}}{\partial x_{i}} + \frac{\partial y}{\partial u_{2}} \frac{\partial u_{2}}{\partial x_{i}} + \ldots + \frac{\partial y}{\partial u_{m}} \frac{\partial u_{m}}{\partial x_{i}} \ \textrm{ y así } \ \nabla_{\mathbf{x}} y =  \mathbf{A} \nabla_{\mathbf{u}} y,
+$$
+donde $A \in \mathbb{R}^{n \times m}$ es una matriz que contiene la derivada del vector $\vec{u}$ con respecto al vector $\vec{x}$. Por lo tanto, para evaluar el gradiente requiere calcular un producto entre vector y matriz.
+
+Esta es una de las razones principales de por qué el álgebra lineal es un componente vital en la construcción de sistemas de aprendizaje profundo.
+### Interpretación geométrica de la derivada
+
+Calcular la derivada representa más que la definición que hemos dado, y esta sin duda tiene una interpretación geométrica: el ángulo de la línea tangente en el punto $x$ se le asocia con $f'(x)$. De esta forma podemos ver otras interpretaciones geométricas ya que a medida que las tangentes son positivas, podemos ver que la función se incrementa en valor, así como con tangentes negativas, significa que la función decrementa en valor. De esta forma, cuando encontramos que las tangentes son cero, significa que hay una meseta o valor constante en la función en ese punto.
+
+También podemos ver que para funciones escalares de varias variables, que su gradiente tiene una estructura similar, diciendonos estos comportamientos en sus variables o direcciones, pudiendo así conceptualizar como el pensar en _gradiente descendiente_ nos lleva a buscar las direcciones de decrecimiento de una función para así, buscar sus valores mínimos, pensando que al llegar a estas mesetas hundidas o valles, encontraremos los mínimos que buscamos.
+
+### Teorema fundamental del cálculo
+
+Un teorema muy importante en el cálculo es el teorema fundamental de este, estableciendo la conexión entre derivadas e integrales. Sirviendo así como puente para conectar las derivadas con las integrales, viendo a una integral como _antiderivada_.
+
+Sea $f: [a, b]: \rightarrow \mathbb{R}$ una función continua. Definamos una nueva función $F(x)$ como:
+$$
+	F(x) = \int_{a}^{x}f(t)dt,
+$$
+entonces
+$$
+	F'(x) = f(x).
+$$
+Es decir, derivar la integral de una función continua nos regresa la función original. Las interpretaciones de este resultado son:
+- $F(x)$ acumula el área bajo la curva de $f$ desde $a$ hasta $x$.
+- La derivada $F'(x)$ mide cuán rápido crece esa área al mover el límite superior $x$.
+- De esta forma, la derivada y la integral son operaciones inversas.
+
+### Autodiferenciación
+
+Esta idea es un concepto poderoso que conecta el cálculo diferencial con la computación moderna y el aprendizaje profundo. Esto porque computacionalmente, no es eficiente realizar cálculos simbólicos, así como la forma de calcular derivadas numéricas solía ser con una forma más antigua en un contexto de diferencias finitas.
+
+#### Historia
+
+Mientras tanto, el concepto de autodiferenciación es un tema más reciente en la historia de las matemáticas, encontrando las primeras referencias en el trabajo de Wengert en 1964 [^wengert1964] . Las ideas núcleo para la propagación hacia atrás se pueden trazar a una tesis de doctorado (PhD) de Speelpenning en 1980 [^Speelpenning1980] y fueron trabajadas y desarrolladas a finales de los 80's por Griewank [^griewank1989]. Aunque la propagación hacia atrás es el método por eleccción para calcular gradientes, no es la única opción que existe. Un ejemplo lo encontramos en el lenguaje de programación Julia, que emplea una propagación hacia adelante [^revelsetal2016].
+
+#### ¿Qué es?
+
+Es un conjunto de técnicas que permiten calcular derivadas de funciones expresadas como programas de manera exacta y eficiente. Utilizando la regla de la cadena a nivel de operaciones elementales. No tratándose de:
+- Diferenciación simbólica, donde se manipulan las expresiones algebraicamente (como en el caso de *SymPy*), resultando altamente ineficiente.
+- Ni de diferenciación numérica, que aproxima derivadas con diferencias finitas y es propensa a errores de redondeo.
+
+De esta forma la autodiferenciación combina la precisión del cálculo analítico con la eficiencia computacional del cálculo numérico.
+
+#### Fundamento matemático
+
+Toda función implementada computacionalmente se puede descomponer como una composición de operaciones elementales (suma, multiplicación, exponencial, etc). Consideremos el siguiente ejemplo:
+$$
+	y = f(x_1, x_2) = e^{x_1x_2} + \sin(x_1).
+$$
+El cálculo de su derivada implica aplicar sistemáticamente la regla de la cadena:
+$$
+	\frac{dy}{dx_i} = \frac{\partial f}{\partial x_i}.
+$$
+La autodiferenciación recorre ese mismo proceso de forma automática, propagando derivadas locales a lo largo de la gráfica o grafo computacional que representa dicha función.
+
+#### Dos modos principales
+
+##### Modo directo
+
+Calcula las derivadas de salida respecto a una entrada. Ideal cuando tienes pocas entradas y muchas salidas.
+
+Consideremos el siguiente ejemplo:
+$$
+	f(x, y) =
+	\begin{pmatrix}
+		x^2 + \sin(y) \\
+		e^{xy}
+	\end{pmatrix}
+$$
+
+```julia
+using ForwardDiff
+
+### f: ℝ² → ℝ²
+f(x::AbstractVector) = [
+    x[1]^2 + sin(x[2]);
+    exp(x[1] * x[2])
+]
+
+### g: ℝ² → ℝ (para gradiente y Hessiano)
+g(x::AbstractVector) = 0.5 * (x[1]^2 + 3x[2]^2) + sin(x[1]*x[2])
+
+x = [1.0, 0.5]
+
+### Jacobiano de f en x
+J = ForwardDiff.jacobian(f, x)
+
+### Gradiente de g en x
+∇g = ForwardDiff.gradient(g, x)
+
+### Hessiano de g en x
+H = ForwardDiff.hessian(g, x)
+
+println("J =\n", J)
+println("∇g = ", ∇g)
+println("H =\n", H)
+###=
+Resultados:
+J =
+[2.0 0.8775825618903728;
+ 0.8243606353500641 1.6487212707001282]
+∇g = [1.4387912809451864, 2.3775825618903728]
+H =
+[0.8801436153489492 0.6378697925882713;
+ 0.6378697925882713 2.520574461395797]
+=#
+```
+
+Los resultados son los siguientes:
+
+###### El Jacobiano $J_f(x, y)$:
+$$
+	\left.J_f(x_0, y_0)\right|_{x_0 = 1,\ y_0 = 0.5} =
+	\begin{pmatrix}
+		2.0 & 0.8775825618903728 \\
+		 0.8243606353500641 & 1.6487212707001282
+	\end{pmatrix}
+$$
+Lo que nos dice la sensibilidad al variar cerca de 
+###### El gradiente $\nabla g(x, y)$:
+$$
+	\left.\nabla g(x_0, y_0)\right|_{(x_0, y_0) = (1, 0.5)} =
+	\begin{pmatrix}
+		1.4387912809451864 \\
+		2.3775825618903728
+	\end{pmatrix}
+$$
+Esto nos dice la dirección de máximo incremento local de $g$; para un paso pequeño $\Delta x$, tenemos que $g(x + \Delta x) \approx g(x) + \nabla g(x) \cdot \Delta x$.  
+###### El hessiano $H_g(x, y)$
+$$
+	\left.H_g(x_0, y_0)\right|_{(x_0, y_0) = (1, 0.5)} =
+	\begin{pmatrix}
+		0.8801436153489492 & 0.6378697925882713 \\
+		0.6378697925882713 & 2.520574461395797
+	\end{pmatrix}
+$$
+Lo que nos dice esto es la curvatura local de $g$. Si $H$ es definida positiva en $(x, y)$, el punto es un mínimo local.
+
+###### Uso de estos resultados
+
+Estos cálculos nos sirven para los siguientes conceptos en la práctica:
+- Linealizar $f$ alrededor de $x$: $f(x + \Delta x) \approx f(x) + J \Delta x$. La derivada es una buena aproximación que tiene un comportamiento lineal de forma local.
+- Buscar descenso de $g$: mover $x$ en la dirección $-\nabla g$,
+- Aprovechar la curvatura: $\Delta x = -H^{-1} \nabla g$ si $H$ es bien condicionada y positiva definida ($H \succ 0$).
+
+**Qué pasa:** `ForwardDiff` propaga **números duales** (pares valor-derivada) por cada operación elemental y arma automáticamente el Jacobiano/gradiente/Hessiano.
+
+##### Modo inverso
+
+Calcula derivadas de una salida respecto a todas las entradas. Este modo es ideal cuando tienes una salida edscalar (como es el caso de una función de pérdida en aprendizaje profundo) y muchas entradas o parámetros.
+
+```julia
+using Zygote, LinearAlgebra, Statistics, Random
+Random.seed!(0)
+
+### Definimos un MLP Perceptrón Multicapa o Multilayer Perceptron
+### sencillo "a mano"
+struct MLP
+    W1::Matrix{Float64}
+    b1::Vector{Float64}
+    W2::Matrix{Float64}
+    b2::Vector{Float64}
+end
+
+### Inicialización
+function MLP(inDim::Int, hid::Int, outDim::Int; σ = 0.1)
+    W1 = σ .* randn(hid, inDim)
+    b1 = zeros(hid)
+    W2 = σ .* randn(outDim, hid)
+    b2 = zeros(outDim)
+    MLP(W1, b1, W2, b2)
+end
+
+### Forward pass
+predict(m::MLP, X::Matrix) = m.W2 * tanh.(m.W1 * X .+ m.b1) .+ m.b2
+
+### Pérdida MSE escalar
+mse(m::MLP, X::Matrix, Y::Matrix) = mean((predict(m, X) .- Y).^2)
+
+### Datos de juguete: 2 entradas, 1 salida, N muestras
+N = 5
+X = randn(2, N)
+trueW = [2.0 -1.0]             # fila 1x2
+Y = trueW * X .+ 0.1 .* randn(1, N)  # 1xN
+
+### Modelo: 2 neuronas de entrada, 8 en la capa oculta y 1 de salida.
+m = MLP(2, 8, 1)
+
+### Gradiente de la pérdida respecto a todos los parámetros
+loss(m) = mse(m, X, Y)
+grads = Zygote.gradient(loss, m)
+
+### grads es una tupla con ∂loss/∂(W1,b1,W2,b2) empaquetada como MLP
+∂W1 = grads[1].W1
+∂b1 = grads[1].b1
+∂W2 = grads[1].W2
+∂b2 = grads[1].b2
+
+println("‖∂W1‖ = ", norm(∂W1))
+println("‖∂b1‖ = ", norm(∂b1))
+println("‖∂W2‖ = ", norm(∂W2))
+println("‖∂b2‖ = ", norm(∂b2))
+```
+
+Las normas calculadas son las siguientes:
+
+| Parámetro | Norma | Capa   | Tipo   |
+| --------- | ----- | ------ | ------ |
+| ‖∂W1‖     | 0.34  | Oculta | Pesos  |
+| ‖∂b1‖     | 0.53  | Oculta | Sesgos |
+| ‖∂W2‖     | 0.25  | Salida | Pesos  |
+| ‖∂b2‖     | 1.77  | Salida | Sesgos |
+
+Con lo que podemos ver que no existe explosión ni desvanecimiento de gradiente. Y parece indicar que el modelo comienza _cerca_ de un mínimo local o en una zona de pérdida menos pronunciada.
+
+
+[^Wengert1964]: Wengert, R. E. (1964). A simple automatic derivative evaluation program. _Communications of the ACM_, _7_(8), 463–464.
+[^Speelpenning1980]: Speelpenning, B. (1980). _Compiling fast partial derivatives of functions given by algorithms_ (Doctoral dissertation). University of Illinois at Urbana-Champaign.
+[^Griewank1989]: Griewank, A. (1989). On automatic differentiation. _Mathematical Programming: Recent Developments and Applications_ (pp. 83–107). Kluwer.
+[^RevelsEtAl2016]: Revels, J., Lubin, M., & Papamarkou, T. (2016). Forward-mode automatic differentiation in Julia. _ArXiv:1607.07892_.
