@@ -101,3 +101,19 @@ tab16 { padding-left: 64em; }
 .quicktip {
   background-image: url("img/quicktip.jpeg");
 }
+
+/* Estilo para los elementos <details> */
+details summary {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+/* Alinear el texto dentro del detalle */
+details p {
+    margin-left: 15px;
+    margin-top: 5px;
+}

@@ -157,15 +157,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#bibliograf%C3%ADa"><i class="fa fa-check"></i>Bibliografía</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Parte 1: Bases y Preeliminares</b></span></li>
 <li class="chapter" data-level="1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html"><i class="fa fa-check"></i><b>1</b> Introducción a Deep Learning</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#introducci%C3%B3n-a-%C3%A1lgebra-lineal"><i class="fa fa-check"></i><b>1.1</b> Introducción a Álgebra Lineal</a>
+<li class="chapter" data-level="1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#introducci%C3%B3n-al-aprendizaje-autom%C3%A1tico"><i class="fa fa-check"></i><b>1.1</b> Introducción al aprendizaje automático</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#numpy"><i class="fa fa-check"></i><b>1.1.1</b> Numpy</a></li>
+<li class="chapter" data-level="1.1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#motivaci%C3%B3n-los-paradigmas-del-conocimiento"><i class="fa fa-check"></i><b>1.1.1</b> Motivación: Los paradigmas del conocimiento</a></li>
+<li class="chapter" data-level="1.1.2" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#machine-learning-supervisado"><i class="fa fa-check"></i><b>1.1.2</b> Machine learning supervisado</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#por-qu%C3%A9-deep-learning"><i class="fa fa-check"></i><b>1.2</b> ¿Por qué Deep Learning?</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#dimensi%C3%B3n-vc"><i class="fa fa-check"></i><b>1.2.1</b> Dimensión VC</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#el-truco-del-kernel-svm"><i class="fa fa-check"></i><b>1.2.2</b> El truco del Kernel (SVM)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#ingenier%C3%ADa-de-caracteristicas"><i class="fa fa-check"></i><b>1.2.3</b> Ingeniería de caracteristicas</a></li>
+<li class="chapter" data-level="1.2.4" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#beneficios-del-deep-learning"><i class="fa fa-check"></i><b>1.2.4</b> Beneficios del deep learning</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="preliminares.html"><a href="preliminares.html"><i class="fa fa-check"></i><b>2</b> Preliminares</a></li>
+<li class="chapter" data-level="2" data-path="preliminares.html"><a href="preliminares.html"><i class="fa fa-check"></i><b>2</b> Preliminares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="preliminares.html"><a href="preliminares.html#interpretaci%C3%B3n-geom%C3%A9trica-de-operaciones-b%C3%A1sicas-en-%C3%A1lgebra-lineal"><i class="fa fa-check"></i><b>2.1</b> Interpretación geométrica de operaciones básicas en álgebra lineal</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="preliminares.html"><a href="preliminares.html#operaciones-entre-vectores"><i class="fa fa-check"></i><b>2.1.1</b> Operaciones entre vectores</a></li>
+<li class="chapter" data-level="2.1.2" data-path="preliminares.html"><a href="preliminares.html#operaciones-con-matrices"><i class="fa fa-check"></i><b>2.1.2</b> Operaciones con matrices</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html"><i class="fa fa-check"></i><b>3</b> Redes neuronales Lineales para Regresión</a></li>
 <li class="chapter" data-level="4" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html"><i class="fa fa-check"></i><b>4</b> Redes neuronales Lineales para Clasificación</a></li>
 <li class="chapter" data-level="5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html"><i class="fa fa-check"></i><b>5</b> Perceptrón Multicapa</a></li>
@@ -200,10 +214,285 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="preliminares" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">Capítulo 2</span> Preliminares<a href="preliminares.html#preliminares" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="interpretación-geométrica-de-operaciones-básicas-en-álgebra-lineal" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Interpretación geométrica de operaciones básicas en álgebra lineal<a href="preliminares.html#interpretaci%C3%B3n-geom%C3%A9trica-de-operaciones-b%C3%A1sicas-en-%C3%A1lgebra-lineal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En esta sección exploraremos la interpretación geométrica de algunas de las operaciones fundamentales del álgebra lineal. Comprender estas representaciones visuales nos permitirá conectar los conceptos algebraicos con su significado espacial.</p>
+<div id="operaciones-entre-vectores" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Operaciones entre vectores<a href="preliminares.html#operaciones-entre-vectores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Suma de vectores</strong></p>
+<p><img src="img/02/09-01.png" width="515" style="display: block; margin: auto;" /></p>
+<p><strong>Resta de vectores</strong></p>
+<p><img src="img/02/09-02.png" width="515" style="display: block; margin: auto;" /></p>
+<p><strong>Escalamiento</strong></p>
+<p><img src="img/02/09-03.png" width="515" style="display: block; margin: auto;" /></p>
+<p><strong>Producto punto</strong></p>
+<p>La interpretación geométrica del producto punto suele ser menos intuitiva, ya que el resultado de la operación entre dos vectores no es otro vector, sino un <strong>escalar</strong>.
+Sin embargo, esta operación cobra gran relevancia al aplicarse en la multiplicación de matrices, donde los productos punto entre filas y columnas generan los elementos de la matriz resultante.</p>
+<p>Recordemos que el producto punto se define algebraicamente como:</p>
+<p><span class="math display">\[a \cdot b = a_1b_1 + a_2b_2 + ... + a_nb_n\]</span></p>
+<p>Aunque esta forma es útil para el cálculo, la <strong>expresión en términos de magnitud y ángulo</strong> resulta más reveladora desde el punto de vista geométrico:</p>
+<p><span class="math display">\[a \cdot b = |a||b|cos(\theta)\]</span></p>
+<p>A partir de esta relación se deriva uno de los resultados más importantes en las matemáticas: la <strong>desigualdad de Cauchy–Schwarz</strong>, la cual establece que el valor absoluto del producto punto de dos vectores está acotado por el producto de sus magnitudes:</p>
+<p><span class="math display">\[-1 \leq cos(\theta) \leq 1 \]</span> <span class="math display">\[|a||b| \leq a \cdot b \leq |a||b|\]</span> <span class="math display">\[|a \cdot b| \leq |a||b|\]</span> Entonces tenemos una pista.</p>
+<p><strong>Pregunta:</strong>¿Que podriamos inferir de los siguientes resultados?</p>
+<p><span class="math display">\[a \cdot b = |a||b|\]</span></p>
+<p><span class="math display">\[a \cdot b = 0\]</span></p>
+<details>
+<summary>
+Ver respuesta
+</summary>
+<p>El angulo <span class="math inline">\(\theta\)</span></p>
+<p>Si <span class="math inline">\(a \cdot b = |a||b|\)</span>, entonces los vectores son <strong>paralelos</strong>.</p>
+<p>Si <span class="math inline">\(a \cdot b = 0\)</span>, entonces los vectores son <strong>ortogonales</strong>.</p>
+</details>
+</div>
+<div id="operaciones-con-matrices" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Operaciones con matrices<a href="preliminares.html#operaciones-con-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="base-vectorial" class="section level4 hasAnchor" number="2.1.2.1">
+<h4><span class="header-section-number">2.1.2.1</span> Base vectorial<a href="preliminares.html#base-vectorial" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Una <strong>base vectorial</strong> de un espacio vectorial <span class="math inline">\(V\)</span> sobre un campo <span class="math inline">\(\mathbb{F}\)</span> (por ejemplo, <span class="math inline">\(\mathbb{R}\)</span> o <span class="math inline">\(\mathbb{C}\)</span>) es un conjunto de vectores <span class="math inline">\(\{ \mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n \} \subset V\)</span> que cumple dos propiedades fundamentales:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Independencia lineal</strong>: Ningún vector de la base puede expresarse como combinación lineal de los demás. Formalmente, si<br />
+<span class="math display">\[
+a_1 \mathbf{v}_1 + a_2 \mathbf{v}_2 + \dots + a_n \mathbf{v}_n = \mathbf{0},
+\]</span>
+entonces necesariamente <span class="math inline">\(a_1 = a_2 = \dots = a_n = 0\)</span>, con <span class="math inline">\(a_i \in \mathbb{F}\)</span>.</p></li>
+<li><p><strong>Generación del espacio</strong>: Cualquier vector <span class="math inline">\(\mathbf{u} \in V\)</span> puede escribirse de forma <strong>única</strong> como una combinación lineal de los vectores de la base:
+<span class="math display">\[
+\mathbf{u} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \dots + c_n \mathbf{v}_n,
+\]</span>
+donde <span class="math inline">\(c_i \in \mathbb{F}\)</span>.</p></li>
+</ol>
+<p>Cuando una base tiene un número finito <span class="math inline">\(n\)</span> de vectores, decimos que el espacio vectorial es de <strong>dimensión finita</strong>, y escribimos <span class="math inline">\(\dim(V) = n\)</span>.</p>
+<p>Un ejemplo clásico en <span class="math inline">\(\mathbb{R}^2\)</span> es la <strong>base canónica</strong>:
+<span class="math display">\[
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \quad
+\mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.
+\]</span></p>
+</div>
+<div id="relación-de-la-base-canónica-con-la-matriz-identidad" class="section level4 hasAnchor" number="2.1.2.2">
+<h4><span class="header-section-number">2.1.2.2</span> Relación de la base canónica con la matriz identidad<a href="preliminares.html#relaci%C3%B3n-de-la-base-can%C3%B3nica-con-la-matriz-identidad" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>La base canonica es bastante conveniente por ser ortonormal, lo cual permite una facil interpretación. Debido a que es la base que usamos como referencia natural tiene una relación intrinseca con la matriz identidad.</p>
+<p>Si colocamos los vectores canonicos como columnas dentro de una matriz, obtenemos:</p>
+<p><span class="math display">\[ E = [e_1 e_2 ... e_n]\]</span>
+Por tanto, <strong>la matriz identidad representa la base canónica</strong> del espacio vectorial.
+<span class="math display">\[E = I_n =
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; 0 &amp; \cdots &amp; 1
+\end{bmatrix}
+\]</span></p>
+</div>
+<div id="visualizando-las-matrices-como-transformadores-lineales" class="section level4 hasAnchor" number="2.1.2.3">
+<h4><span class="header-section-number">2.1.2.3</span> Visualizando las matrices como transformadores lineales<a href="preliminares.html#visualizando-las-matrices-como-transformadores-lineales" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>En el álgebra lineal, las matrices no solo representan conjuntos de números dispuestos en filas y columnas, sino también <strong>transformaciones geométricas y cambios de base</strong> dentro de los espacios vectoriales. Comprender esta dualidad entre estructura algebraica y significado geométrico permite visualizar cómo las matrices actúan sobre los vectores y cómo modifican la forma de un sistema de coordenadas.</p>
+<p>Empecemos visualizando el vector <span class="math inline">\(v\)</span> en el espacio canónico:</p>
+<p><span class="math display">\[
+v =
+\begin{bmatrix}
+3 \\
+2
+\end{bmatrix}
+\]</span></p>
+<p>Donde los vectores de la base canónica estará en color azul (<span class="math inline">\(e_1\)</span>), rojo (<span class="math inline">\(e_2\)</span>) y el vector estará representado en color morado (<span class="math inline">\(v\)</span>).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="preliminares.html#cb1-1" tabindex="-1"></a>dibujar_vectores([[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>],[<span class="dv">3</span>,<span class="dv">2</span>]], [<span class="st">&#39;red&#39;</span>, <span class="st">&#39;blue&#39;</span>, <span class="st">&#39;purple&#39;</span>])</span></code></pre></div>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-5-1.png" width="576" /></p>
+<p>Para entender mejor el impacto de aplicarle una transformación descrita por la matriz <span class="math inline">\(M\)</span> al vector <span class="math inline">\(v\)</span>, podemos primero mirar el impacto sobre la base canónica.</p>
+<p><span class="math display">\[M =
+\begin{bmatrix}
+-2 &amp; 0 \\
+0 &amp; -2
+\end{bmatrix},
+\]</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="preliminares.html#cb2-1" tabindex="-1"></a>M <span class="op">=</span> np.array([[<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>],</span>
+<span id="cb2-2"><a href="preliminares.html#cb2-2" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="op">-</span><span class="dv">2</span>]])</span>
+<span id="cb2-3"><a href="preliminares.html#cb2-3" tabindex="-1"></a>e1 <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">0</span>])</span>
+<span id="cb2-4"><a href="preliminares.html#cb2-4" tabindex="-1"></a>e2 <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb2-5"><a href="preliminares.html#cb2-5" tabindex="-1"></a>e1m <span class="op">=</span> M <span class="op">@</span> e1</span>
+<span id="cb2-6"><a href="preliminares.html#cb2-6" tabindex="-1"></a>e2m <span class="op">=</span> M <span class="op">@</span> e2</span>
+<span id="cb2-7"><a href="preliminares.html#cb2-7" tabindex="-1"></a>dibujar_vectores([e1m, e2m], [<span class="st">&#39;red&#39;</span>, <span class="st">&#39;blue&#39;</span>])</span></code></pre></div>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-6-3.png" width="576" /></p>
+<p>Basados en la transformación que tuvo la base canónica podemos anticipar que se realizo una rotación de 180 grados y cada componente se escalo en un factor de 2.</p>
+<p>Por consiguiente esperamos que justo tenga ese impacto sobre el vector <span class="math inline">\(v\)</span>.</p>
+<p>Por ejemplo si buscaramos entender el significado de aplicar la multiplicación de la matriz <span class="math inline">\(M\)</span> a un vector <span class="math inline">\(v\)</span>:</p>
+<p><span class="math display">\[M =
+\begin{bmatrix}
+-2 &amp; 0   \\
+0 &amp; -2
+\end{bmatrix},
+v =
+\begin{bmatrix}
+3 \\
+2
+\end{bmatrix}
+\\
+v_m = Mv =
+\begin{bmatrix}
+(-6+0) \\
+(0 + -4)
+\end{bmatrix} =
+\begin{bmatrix}
+-6 \\
+-4
+\end{bmatrix}
+\]</span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="preliminares.html#cb3-1" tabindex="-1"></a>M <span class="op">=</span> np.array([[<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>],</span>
+<span id="cb3-2"><a href="preliminares.html#cb3-2" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="op">-</span><span class="dv">2</span>]])</span>
+<span id="cb3-3"><a href="preliminares.html#cb3-3" tabindex="-1"></a>e1 <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">0</span>])</span>
+<span id="cb3-4"><a href="preliminares.html#cb3-4" tabindex="-1"></a>e2 <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb3-5"><a href="preliminares.html#cb3-5" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="dv">3</span>, <span class="dv">2</span>])</span>
+<span id="cb3-6"><a href="preliminares.html#cb3-6" tabindex="-1"></a>e1m <span class="op">=</span> M <span class="op">@</span> e1</span>
+<span id="cb3-7"><a href="preliminares.html#cb3-7" tabindex="-1"></a>e2m <span class="op">=</span> M <span class="op">@</span> e2</span>
+<span id="cb3-8"><a href="preliminares.html#cb3-8" tabindex="-1"></a>vm <span class="op">=</span> M<span class="op">@</span>v</span>
+<span id="cb3-9"><a href="preliminares.html#cb3-9" tabindex="-1"></a>dibujar_vectores([e1m, e2m,vm], [<span class="st">&#39;red&#39;</span>, <span class="st">&#39;blue&#39;</span>,<span class="st">&#39;purple&#39;</span>])</span></code></pre></div>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-7-5.png" width="576" /></p>
+<p>Algo importante que vemos en este ejemplo es que existieron 2 transformaciones. Una que representa la rotación <span class="math inline">\(R\)</span>.</p>
+<p><span class="math display">\[R =
+\begin{bmatrix}
+-1 &amp; 0   \\
+0 &amp; -1
+\end{bmatrix},
+\]</span></p>
+<p>Y otra que representa un escalamiento <span class="math inline">\(E\)</span></p>
+<p><span class="math display">\[E =
+\begin{bmatrix}
+2 &amp; 0   \\
+0 &amp; 2
+\end{bmatrix},
+\]</span></p>
+<p>Donde mediante una composición de estas 2 transformaciones podemos generar la matriz <span class="math inline">\(M = RE\)</span>.</p>
+<p><span class="math display">\[M =
+\begin{bmatrix}
+2 &amp; 0   \\
+0 &amp; 2
+\end{bmatrix}
+\begin{bmatrix}
+-1 &amp; 0   \\
+0 &amp; -1
+\end{bmatrix} =
+\begin{bmatrix}
+2(-1) + 0 &amp; 0 + 0   \\
+0 + 0 &amp; 0 + 2(-1)
+\end{bmatrix} =
+\begin{bmatrix}
+-2 &amp;  0   \\
+0  &amp; -2
+\end{bmatrix}
+\]</span></p>
+<p><strong>Pregunta:</strong> ¿Que efecto tendrá la transformación <span class="math inline">\(S\)</span> sobre un vector <span class="math inline">\(v\)</span>?</p>
+<p><span class="math display">\[S =
+\begin{bmatrix}
+1 &amp; 1   \\
+1 &amp; 1
+\end{bmatrix},
+\]</span></p>
+<details>
+<summary>
+Ver respuesta
+</summary>
+<p>Se sumaran las componentes del vector <span class="math inline">\(v\)</span> y formaran las nuevas componentes del vector <span class="math inline">\(v_s\)</span>. Generando vectores en 45º, 225º o sin magnitud.</p>
+<p><span class="math display">\[v_s =
+\begin{bmatrix}
+v_1 + v_2   \\
+v_1 + v_2
+\end{bmatrix},
+\]</span></p>
+</details>
+<p>Algo importante a no perder de vista es que si bien existe conmutatividad en la composición que mostramos hace un momento ya que <span class="math inline">\(RE = ER\)</span>. No se cumple bajo la propiedad del producto de matrices la propiedad de conmutatividad.</p>
+<p>Por poner un ejemplo sencillo sea:</p>
+<p><span class="math display">\[S =
+\begin{bmatrix}
+1 &amp; 2   \\
+3 &amp; -1
+\end{bmatrix}
+\\
+ZS =
+\begin{bmatrix}
+3 &amp; 3   \\
+2 &amp; 2
+\end{bmatrix}
+\\
+SZ =
+\begin{bmatrix}
+4 &amp; 1   \\
+4 &amp; 1
+\end{bmatrix}
+\\
+\]</span></p>
+<p>Sin embargo, la asociatividad si es algo que se cumple:</p>
+<p><span class="math display">\[(ZS)v = Z(Sv)\]</span></p>
+<p>Solo como recordatorio pondré las propiedades del producto de matrices:</p>
+<ul>
+<li><p><strong>Asociatividad</strong>:<br />
+<span class="math display">\[
+(AB)C = A(BC)
+\]</span><br />
+→ Siempre que las dimensiones sean compatibles.</p></li>
+<li><p><strong>Distributividad respecto a la suma</strong>:<br />
+<span class="math display">\[
+A(B + C) = AB + AC
+\]</span><br />
+<span class="math display">\[
+(A + B)C = AC + BC
+\]</span></p></li>
+<li><p><strong>Elemento neutro (matriz identidad)</strong>:<br />
+Si <span class="math inline">\(A\)</span> es cuadrada de tamaño <span class="math inline">\(n \times n\)</span>, entonces:
+<span class="math display">\[
+AI = IA = A,
+\]</span><br />
+donde <span class="math inline">\(I\)</span> es la matriz identidad de tamaño <span class="math inline">\(n \times n\)</span>.</p></li>
+<li><p>❌ <strong>No es conmutativo en general</strong>:<br />
+<span class="math display">\[
+AB \neq BA
+\]</span><br />
+(aunque puede darse en casos particulares).</p></li>
+</ul>
+<p><strong>Pregunta:</strong> ¿Que efecto tendrá la transformación de la matriz identidad <span class="math inline">\(I\)</span> sobre un vector <span class="math inline">\(v\)</span>?</p>
+<details>
+<summary>
+Ver respuesta
+</summary>
+<p>Pasar un vector en la base canonica a si misma no tendría ningun efecto, por lo cual el efecto esperado es
+<span class="math display">\[Iv = v\]</span></p>
+</details>
+<p><strong>Pregunta:</strong> Asumiendo un cuerpo reflejante en 2 dimensiones postrado horizontalmente, ¿es posible crear una matriz <span class="math inline">\(F\)</span> que reciba un rayo de luz <span class="math inline">\(v\)</span> y tenga como resultado el rayo de luz reflejado <span class="math inline">\(v_f\)</span>, decir así cual es?</p>
+<details>
+<summary>
+Ver respuesta
+</summary>
+<p>En un caso un tanto ideal, preservamos la componente horizontal del vector e invertimos la dirección de la componente vertical.</p>
+<p><span class="math display">\[F =
+\begin{bmatrix}
+1 &amp; 0   \\
+0 &amp; -1
+\end{bmatrix}
+\\\]</span></p>
+<p>Adicionalmente podriamos introducir un factor de atenuación como escalamiento mediante una composición si así lo desearamos.</p>
+</details>
+<p><img src="img/02/09-04.jpg" style="display: block; margin: auto;" /></p>
+<p><strong>Pregunta:</strong> En la pregunta anterior, si rotaramos el espejo <span class="math inline">\(\theta\)</span> grados desde el centro, ¿se podría generar una matriz <span class="math inline">\(F&#39;\)</span> para predecir el reflejo de un vector <span class="math inline">\(v\)</span>?</p>
+<details>
+<summary>
+Ver pista
+</summary>
+<p>Para resolver este caso, podemos partir de la matriz de rotación</p>
+<p><span class="math display">\[R(\theta) =
+\begin{bmatrix}
+\cos \theta &amp; -\sin \theta \\
+\sin \theta &amp; \phantom{-}\cos \theta
+\end{bmatrix}\]</span></p>
+<p>El resto del proceso se deja al lector como ejercicio.</p>
+</details>
 
 <!-- ::: watermark -->
 <!-- <img src="img/aif-logo.png" width="400"/> -->
 <!-- ::: -->
+</div>
+</div>
+</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -287,6 +576,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

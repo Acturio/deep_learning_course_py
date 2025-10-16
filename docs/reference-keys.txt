@@ -45,3 +45,17 @@ ingeniería-de-caracteristicas
 teorema-de-aproximación-universal
 extracción-automática-de-características-feature-extraction
 escalabilidad-con-datos-y-cómputo
+interpretación-geométrica-de-la-operación-entre-vectores-y-matrices.
+preliminares-1
+interpretación-geométrica-de-operaciones-basicas-en-algebra-lineal
+interpretación-geométrica-de-operaciones-básicas-en-álgebra-lineal
+operaciones-entre-vectores
+operaciones-con-matrices
+suma-de-vectores
+base-vectorial
+interpretación-geométrica-de-las-matrices-y-su-relación-con-las-bases-vectoriales
+matrices-como-transformaciones-lineales
+cambio-de-base-y-matrices-de-transición
+interpretación-geométrica
+visualizando-las-matrices-como-transformadores-lineales
+relación-de-la-base-canónica-con-la-matriz-identidad

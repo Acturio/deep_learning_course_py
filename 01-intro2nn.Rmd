@@ -10,7 +10,7 @@ output:
 
 <!-- ::: -->
 
-# (PART\*) Parte 1: Bases y Preeliminares {.unnumbered}
+<!--# (PART\*) Parte 1: Bases y Preeliminares {.unnumbered}-->
 
 # Introducción a Deep Learning
 
