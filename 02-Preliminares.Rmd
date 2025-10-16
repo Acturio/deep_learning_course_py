@@ -18,6 +18,7 @@ Enfocandose en como se representan y manipulan los datos que pueden tener múlti
 El aprendizaje profundo se basa en procesar y transformar datos numéricos (imágenes, sonidos, textos, etc) y dichas transformaciones son operaciones lineales y no lineales aplicadas repetidamente, encontramos una forma muy natural de hacer uso del álgebra lineal para el aprendizaje profundo, representado como el procesamiento de redes neuronales.
 
 De forma natural, podemos ver como las entradas, salidas, neuronas y funciones de activación hacen uso de estructuras como vectores, matrices y transformaciones lineales:
+
 #### Vectores
 
 Representan entradas, salidas y parámetros.
@@ -51,6 +52,7 @@ En este contexto, cuando hablamos de escalares, nos referiremos a un elemento de
 #### Dato curioso
 
 Si en lugar de un campo tenemos un anillo algebraico (a diferencia del campo, no necesariamente existe un inverso multiplicativo), entonces los escalares perteneceran al anillo, y en lugar de tener un espacio vectorial, diremos que tendremos un **módulo** y eso es campo de estudio de otra rama de las matemáticas. Por lo que en este contexto, únicamente trataremos con los números reales como campo y posiblemente con complejos.
+
 ### Vectores
 
 Un vector es un objeto matemático que posee magnitud y dirección. Estos pertenecen a un espacio vectorial que está definido sobre un campo y por ende, las entradas de un vector, son elementos de este campo (denotado como escalares), así como dichas entradas es una lista ordenada.
@@ -64,6 +66,7 @@ v =
 \end{pmatrix}
 $$
 Estos números son las coordenadas del vector respecto a la base del espacio.
+
 ### Matrices
 
 Una matríz es un arreglo rectangular de escalares (o con entradas en el campo vectorial), organizada en filas y columnas de la siguiente forma:
@@ -95,6 +98,7 @@ Las matrices permiten realizar:
 - Cambios de base, rotaciones, escalamientos y proyecciones.
 
 En esencia podemos pensar que son la forma algebraica de expresar operaciones lineales entre espacios vectoriales.
+
 #### En el aprendizaje profundo
 
 Las matrices son un componente clave en el núcleo operativo de las redes neuronales considerando las siguientes observaciones:
@@ -105,6 +109,7 @@ Las matrices son un componente clave en el núcleo operativo de las redes neuron
 #### Resumen
 
 Las matrices son arreglos ordenados de escalares o vectores que suelen representar transformaciones lineales así como bases vectoriales. Esta es la forma matemática que se usa para describir el procesamiento y transformación numérica que ocurre en una red neuronal.
+
 ### Tensores
 
 De forma simétrica a las estructuras de escalares, vectores y matrices, un tensor es una estructura matemática que generaliza estos conceptos para describir relaciones lineales y multidimensionales entre conjuntos de datos numéricos.
@@ -124,6 +129,7 @@ En el contexto del aprendizaje profundo, los tensores suelen usarse en un sentid
 - Una imagen puede representarse como un arreglo dimensional de dos dimensiones, pero donde sus elementos son vectores de dimensión 3 (pixeles con sus 3 colores).
 - Un lote de imágenes forma un tensor de orden 4: número o etiqueta de la imagen, alto, ancho y colores.
 - Los pesos de una red neuronal y sus gradientes también son tensores.
+
 #### Propiedades básicas de la aritmética de tensores
 
 Escalares, vectores, matrices y tensores de orden superior tienen propiedades que son útiles, por ejemplo operaciones elemento a elemento producen salidas que tienen las mismas dimensiones que sus entradas.
@@ -187,11 +193,13 @@ Las reducciones son operaciones fundamentales en el cálculo dentro de las redes
 | máximo, mínimo | Valor extremo       | Selección, agrupamiento, submuestreo |
 | producto       | Producto total      | Escalados, combinaciones             |
 | norma          | Magnitud del tensor | Regularización, análisis geométrico  |
+
 #### Resumen
 
 Podemos pensar en la reducción como el proceso de combinar las entradas a lo largo de ciertas dimensiones, para producir una representación más simple o resumida del tensor original.
 
 Matemáticamente, una reducción es una contracción parcial de índices y computacionalmente, una operación de agregación que permite manejar de forma eficiente grandes volúmenes de datos en redes neuronales.
+
 ### Producto punto
 
 De momento hemos estado revisando operaciones tanto de reducción como operaciones elemento a elemento. Pero para el producto punto, tenemos una combinación muy interesante. Ya que por un lado, es una operación binaria que toma dos vectores, y nos regresa una agregación, siendo esta la suma total del producto elemento a elemento. O más matemáticamente, sea $d \in \mathbb{N}$, dado $\mathbf{x}, \mathbf{y} \in \mathbb{R}^d$ y $\mathbf{x}^\top$ la transpuesta de $\mathbf{x}$, entonces su producto punto $\mathbf{x} \cdot \mathbf{y}$ ó $\mathbf{x}^\top \mathbf{y}$ (o también conocido como producto interno $\langle \mathbf{x}, \mathbf{y} \rangle$) se define así:
@@ -281,6 +289,7 @@ Las transformaciones que puede hacer $A$ sobre $x$ son:
 - Cuando $A\cdot x = 0$, hablaremos del núcleo de la transformación ($\ker(A)$), o espacio nulo y este será todos los vectores $x$ tales que satisfacen esa condición.
 
 ##### Teorema del rango y nulidad
+
 El teorema del rango y nulidad nos habla de la relación que existe entre el núcleo y la imagen de $A$: Sea $A: V \rightarrow W$  una transformación lineal entre espacios vectoriales de dimensión finita, donde:
 - $\dim(V) = n$.
 - $\mbox{rango}(A)$ es la imagen (también llamada rango),
@@ -583,6 +592,7 @@ De esta forma, podemos hacer uso de diferentes reglas para calcular derivadas. M
 Para toda $A \in \mathbb{R}^{m \times n}$, tenemos $\nabla_x Ax = A^\top$ y $\nabla_x x^\top A = A$. Así como para matrices cuadradas $A \in \mathbb{R}^{n \times n}$, tenemos que $\nabla_x x^\top A x = (A + A^\top)x$, y en particular: $\nabla_x \|x\|^2 = \nabla_x x^\top x = 2x$.
 
 De forma similar para cualquier matriz $X$, tenemos $\nabla_x \|X\|_F^2 = 2X$.
+
 ### Regla de la cadena
 
 En general, las funciones suelen tener composiciones más elaboradas y sofisticadas de lo que hemos enlistado antes, haciendo que sea complicado realizar el cálculo de la derivada en estos casos. Por fortuna existe algo llamado _regla de la cadena_ y que nos apoya completamente en estos escenarios.
@@ -598,6 +608,7 @@ $$
 donde $A \in \mathbb{R}^{n \times m}$ es una matriz que contiene la derivada del vector $\vec{u}$ con respecto al vector $\vec{x}$. Por lo tanto, para evaluar el gradiente requiere calcular un producto entre vector y matriz.
 
 Esta es una de las razones principales de por qué el álgebra lineal es un componente vital en la construcción de sistemas de aprendizaje profundo.
+
 ### Interpretación geométrica de la derivada
 
 Calcular la derivada representa más que la definición que hemos dado, y esta sin duda tiene una interpretación geométrica: el ángulo de la línea tangente en el punto $x$ se le asocia con $f'(x)$. De esta forma podemos ver otras interpretaciones geométricas ya que a medida que las tangentes son positivas, podemos ver que la función se incrementa en valor, así como con tangentes negativas, significa que la función decrementa en valor. De esta forma, cuando encontramos que las tangentes son cero, significa que hay una meseta o valor constante en la función en ese punto.
@@ -705,6 +716,7 @@ H =
 Los resultados son los siguientes:
 
 ###### El Jacobiano $J_f(x, y)$:
+
 $$
 	\left.J_f(x_0, y_0)\right|_{x_0 = 1,\ y_0 = 0.5} =
 	\begin{pmatrix}
@@ -712,8 +724,10 @@ $$
 		 0.8243606353500641 & 1.6487212707001282
 	\end{pmatrix}
 $$
-Lo que nos dice la sensibilidad al variar cerca de 
+Lo que nos dice la sensibilidad al variar cerca del punto $(x_0, y_0)$.
+
 ###### El gradiente $\nabla g(x, y)$:
+
 $$
 	\left.\nabla g(x_0, y_0)\right|_{(x_0, y_0) = (1, 0.5)} =
 	\begin{pmatrix}
@@ -721,8 +735,11 @@ $$
 		2.3775825618903728
 	\end{pmatrix}
 $$
+
 Esto nos dice la dirección de máximo incremento local de $g$; para un paso pequeño $\Delta x$, tenemos que $g(x + \Delta x) \approx g(x) + \nabla g(x) \cdot \Delta x$.  
+
 ###### El hessiano $H_g(x, y)$
+
 $$
 	\left.H_g(x_0, y_0)\right|_{(x_0, y_0) = (1, 0.5)} =
 	\begin{pmatrix}
