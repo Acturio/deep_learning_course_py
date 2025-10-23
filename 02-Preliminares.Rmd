@@ -30,6 +30,7 @@ $$
 	y = Wx + b
 $$
 donde:
+
  - $x$ es el vector de entrada,
  - $W$ es una matriz de pesos.
  - $b$ es el sesgo,
@@ -84,6 +85,7 @@ donde $A$ tiene $m$ filas y $n$ columnas, y se dice que es de tamaño $m \times 
 #### Alternativas conceptuales para entenderlas
 
 Una matríz puede entenderse como:
+
 - Un conjunto de vectores organizados de manera estructurada.
 - Una herramienta para transformar un vector en otro mediante operaciones lineales.
 - Una representación compacta de un sistema de ecuaciones lineales.
@@ -93,6 +95,7 @@ Por dar un ejemplo, la expresión $y = Ax$ con $x, y$ como vectores y $A$ como m
 #### Propiedades matemáticas
 
 Las matrices permiten realizar:
+
 - Suma y multiplicación de transformaciones lineales.
 - Cálculo de determinante e inversas de matrices (en caso de existir).
 - Cambios de base, rotaciones, escalamientos y proyecciones.
@@ -102,6 +105,7 @@ En esencia podemos pensar que son la forma algebraica de expresar operaciones li
 #### En el aprendizaje profundo
 
 Las matrices son un componente clave en el núcleo operativo de las redes neuronales considerando las siguientes observaciones:
+
  - Cada capa lineal se representa por una matríz de pesos que transforma las entradas en salidas.
  - Las operaciones de multiplicación matricial permite combinar miles de variables de entrada con miles de parámetros a la vez.
  - Durante el entrenamiento, las matrices cambian, siendo ajustadas para minimizar el error de predicción.
@@ -119,13 +123,15 @@ Una forma de ejemplificar usando como base la relación entre puntos, líneas, c
 #### Intuición geométrica
 
 Un tensor puede verse como un objeto que transforma o relaciona vectores y covectores de manera multilineal, conservando coherencia bajo cambios de coordenadas. Esto en espacios físicos permite describir propiedades como:
+
 - Fuerza y dirección (vectores).
 - Tensiones, deformaciones o inercia (tensores de segundo orden).
 - Curvaturas o transformaciones complejas (tensores de orden superior).
 
 #### Su rol en el aprendizaje profundo
 
-En el contexto del aprendizaje profundo, los tensores suelen usarse en un sentido computacional más que geométrico. Por ejemplo
+En el contexto del aprendizaje profundo, los tensores suelen usarse en un sentido computacional más que geométrico. Por ejemplo:
+
 - Una imagen puede representarse como un arreglo dimensional de dos dimensiones, pero donde sus elementos son vectores de dimensión 3 (pixeles con sus 3 colores).
 - Un lote de imágenes forma un tensor de orden 4: número o etiqueta de la imagen, alto, ancho y colores.
 - Los pesos de una red neuronal y sus gradientes también son tensores.
@@ -160,6 +166,7 @@ A =
 \end{pmatrix}
 $$
 Tenemos las siguientes posibilidades de sumas:
+
 - Suma total: $\mbox{sum}(A) = 1  + 2 + 3 + 4 + 5 + 6 = 21$
 - Suma por filas: $\mbox{sum}(A, \mbox{axis} = 1) = [6, 16]$ que es un vector (tensor de orden 1).#
 - Suma por columnas: $\mbox{sum}(A, \mbox{axis} = 0) = [5, 7, 9]$
@@ -167,12 +174,14 @@ Tenemos las siguientes posibilidades de sumas:
 #### Intuición geométrica
 
 Una reducción colapsa una dirección del espacio del tensor.
+
 - Dada una matriz, reducir sobre las filas equivale a proyectar todo el espacio de datos sobre el eje de las columnas.
 - En tensores de orden mayor, esto trata de aplanar parte de la estructura multidimensional.
 
 #### En aprendizaje profundo
 
 Las reducciones son operaciones fundamentales en el cálculo dentro de las redes neuronales. Consideremos las siguientes:
+
 - Función de pérdida:
 	Se calcula reduciendo las diferencias entre predicciones y etiquetas. Por ejemplo:
 	$$
@@ -215,10 +224,12 @@ $$
 	\mathbf{a} \cdot \mathbf{b} = \|a\| \|b\| \cos(\theta)
 $$
 donde:
+
 - Las longitudes de los vectores están representadas por $\|a\|$ y $\|b\|$,
 - el ángulo entre estos es $\theta$.
 
 Si:
+
 - Apuntan en direcciones similares: $\mathbf{a} \cdot \mathbf{b} > 0$.
 - Son perpendiculares $\mathbf{a} \cdot \mathbf{b} = 0$.
 - Apuntan en direcciones opuestas: $\mathbf{a} \cdot \mathbf{b} < 0$.
@@ -226,6 +237,7 @@ Si:
 #### En el aprendizaje profundo
 
 El producto punto aparece de forma constante en redes neuronales:
+
 - En cada neurona, el valor de activación se calcula como un producto punto entre el vector de entrada y el vector de pesos:
 	$$
 		z = \mathbf{w} \cdot \mathbf{x} + b
@@ -284,6 +296,7 @@ donde podemos ver como esta multiplicación matricial es una transformación que
 #### Interpretación geométrica
 
 Las transformaciones que puede hacer $A$ sobre $x$ son:
+
 - Rotarlo, escalarlo, reflejarlo o cambiar su dimensión.
 - Si $A$ es una matriz cuadrada ($A \in \mathbb{R}^{n \times n}$), entonces la transformación es hacia el mismo espacio
 - Cuando $A\cdot x = 0$, hablaremos del núcleo de la transformación ($\ker(A)$), o espacio nulo y este será todos los vectores $x$ tales que satisfacen esa condición.
@@ -291,6 +304,7 @@ Las transformaciones que puede hacer $A$ sobre $x$ son:
 ##### Teorema del rango y nulidad
 
 El teorema del rango y nulidad nos habla de la relación que existe entre el núcleo y la imagen de $A$: Sea $A: V \rightarrow W$  una transformación lineal entre espacios vectoriales de dimensión finita, donde:
+
 - $\dim(V) = n$.
 - $\mbox{rango}(A)$ es la imagen (también llamada rango),
 - $\ker(A)$ es el núcleo o kernel (también llamado espacio nulo).
@@ -310,6 +324,7 @@ $$
 	\mathbf{y} = A\mathbf{x} + \mathbf{b}
 $$
 donde los elementos son los siguientes:
+
 - vector de entradas: $\mathbf{x}$,
 - matriz de pesos: $A$,
 - vector de sesgos: $\mathbf{b}$,
@@ -318,6 +333,7 @@ donde los elementos son los siguientes:
 Cada multiplicación entre matriz y vector permite a la red combinar las características y extraer patrones de los datos, siendo una de las operaciones más repetidas en todo el aprendizaje profundo.
 
 En relación al teorema de rango y nulidad en el contexto de redes neuronales, podemos ver lo siguiente:
+
 - Qué parte de la información de entrada puede conservarse (rango).
 - Qué parte se pierde o colapsa (nulidad).
 - Como el modelo puede aprender representaciones comprimidas al pasar de un espacio con alta dimensión a otro más pequeño.
@@ -391,6 +407,7 @@ Esto significa que aplicar primero $B$ y luego $A$ a un vector es equivalente a 
 #### Propiedades importantes
 
 Sean $A, B, C$ matrices con las dimensiones compatibles para el producto matricial, hay algunos puntos muy importantes que se tienen que mencionar:
+
 - Las matrices no necesariamente conmutan: $AB \neq BA$.
 - Las matrices son asociativas: $(AB)C = A(BC)$.
 - Las matrices son distributivas: $A(B+C) = AB + AC$.
@@ -399,6 +416,7 @@ Sean $A, B, C$ matrices con las dimensiones compatibles para el producto matrici
 #### En el aprendizaje profundo
 
 El producto matricial es la operación más esencial en el cálculo de redes neuronales:
+
 - Cada capa lineal o densa se expresa como:
 	$$
 		\mathbf{Y} = \mathbf{A}\mathbf{X} + \mathbf{B}
@@ -485,6 +503,7 @@ Una norma define la noción de la distancia y magnitud (o topología) dentro del
 #### En aprendizaje profundo
 
 Las normas son esenciales para:
+
 - Medir errores (como ejemplo, usando la norma $L^2$ para el error cuadrático medio).
 - Regularización de modelos (normas como $L^1$ y $L^2$ reducen el sobreajuste penalizando los pesos grandes).
 - Normalizar datos o vectores de características, para estabilizar el entrenamiento y mejorar la interpretación de la similitud entre vectores.
@@ -504,6 +523,7 @@ En el contexto del aprendizaje profundo, este tema es de vital importancia ya qu
 Podemos pensar que una red neuronal aprende observando como las variaciones pequeñas en los pesos afectan el error o la función de pérdida. Esta relación, se describe con derivadas y gradientes.
 
 De esta forma, el cálculo diferencial proporciona el marco de trabajo para:
+
 - comprender como fluye la información y el error a través de la red.
 - Analizar la convergencia y estabilidad de los algoritmos de optimización.
 - Desarrollar modelos más eficientes y estables desde el punto de vista numérico y teórico.
@@ -628,6 +648,7 @@ $$
 	F'(x) = f(x).
 $$
 Es decir, derivar la integral de una función continua nos regresa la función original. Las interpretaciones de este resultado son:
+
 - $F(x)$ acumula el área bajo la curva de $f$ desde $a$ hasta $x$.
 - La derivada $F'(x)$ mide cuán rápido crece esa área al mover el límite superior $x$.
 - De esta forma, la derivada y la integral son operaciones inversas.
@@ -643,6 +664,7 @@ Mientras tanto, el concepto de autodiferenciación es un tema más reciente en l
 #### ¿Qué es?
 
 Es un conjunto de técnicas que permiten calcular derivadas de funciones expresadas como programas de manera exacta y eficiente. Utilizando la regla de la cadena a nivel de operaciones elementales. No tratándose de:
+
 - Diferenciación simbólica, donde se manipulan las expresiones algebraicamente (como en el caso de *SymPy*), resultando altamente ineficiente.
 - Ni de diferenciación numérica, que aproxima derivadas con diferencias finitas y es propensa a errores de redondeo.
 
@@ -752,6 +774,7 @@ Lo que nos dice esto es la curvatura local de $g$. Si $H$ es definida positiva e
 ###### Uso de estos resultados
 
 Estos cálculos nos sirven para los siguientes conceptos en la práctica:
+
 - Linealizar $f$ alrededor de $x$: $f(x + \Delta x) \approx f(x) + J \Delta x$. La derivada es una buena aproximación que tiene un comportamiento lineal de forma local.
 - Buscar descenso de $g$: mover $x$ en la dirección $-\nabla g$,
 - Aprovechar la curvatura: $\Delta x = -H^{-1} \nabla g$ si $H$ es bien condicionada y positiva definida ($H \succ 0$).
@@ -760,7 +783,7 @@ Estos cálculos nos sirven para los siguientes conceptos en la práctica:
 
 ##### Modo inverso
 
-Calcula derivadas de una salida respecto a todas las entradas. Este modo es ideal cuando tienes una salida edscalar (como es el caso de una función de pérdida en aprendizaje profundo) y muchas entradas o parámetros.
+Calcula derivadas de una salida respecto a todas las entradas. Este modo es ideal cuando tienes una salida escalar (como es el caso de una función de pérdida en aprendizaje profundo) y muchas entradas o parámetros.
 
 ```julia
 using Zygote, LinearAlgebra, Statistics, Random
