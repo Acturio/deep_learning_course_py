@@ -1,3 +1,6 @@
+# Se eliminan los HTML que cambian en cada teido
+docs/
+
 # History files
 .Rhistory
 .Rapp.history
