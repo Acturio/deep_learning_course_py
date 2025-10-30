@@ -5,3 +5,154 @@
 
 # Redes neuronales Lineales para Clasificación
 
+## Historia
+
+**Regresión lineal**
+
+```{r echo=FALSE, fig.align='left', out.width='50%'}
+knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/legendre-gauss.png")
+```
+El primer método de regresión lineal documentado es el método de los mínimos cuadrados, publicado por Legendre en 1805. 
+Posteriormente, Gauss publicó un trabajo donde se desarrolla con mayor detalle el tema.
+
+
+**Modelo Lineal Generalizado (GLM)**
+
+```{r echo=FALSE, fig.align='left', out.width='50%'}
+knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/nelder-wedderburn.png")
+```
+Los GLM fueron formulados por John Nelder y Robert Wedderburn en 1972 como una manera de unificar modelos estadísticos.
+
+Un modelo lineal generalizado es una generalización flexible de la regresión lineal ordinaria.
+
+**Redes Neuronales**
+
+```{r echo=FALSE, fig.align='left', out.width='50%'}
+knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig3.png")
+```
+En 1943 Warren McCulloch y Walter Pitts crearon un modelo para redes neuronales basados en la lógica de umbral. Este modelo señaló el camino para que la investigación de redes neuronales se divida en dos enfoques distintos:
+
+1. Un enfoque centrado en los procesos biológicos en el cerebro.
+2. Otro en la aplicación de redes neuronales para la inteligencia artificial.
+
+```{r echo=FALSE, fig.align='left', out.width='40%'}
+knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig4.png")
+```
+Para la aplicación de la inteligencia artificial, fue Marvin Minsky quien dio una gran aportación con el libro **“Perceptrones”** en 1969.
+Minsky es considerado como uno de los padres de las ciencias de la computación y fue cofundador del laboratorio de inteligencia artificial del MIT
+
+
+## Modelos Lineales Generalizados
+
+
+Los Modelos Lineales Generalizados (GLM) son una extensión de los modelos lineales tradicionales que permiten modelar variables respuesta que no necesariamente siguen una distribución normal (por ejemplo, binarias, de conteo o proporciones). Relacionan la distribución aleatoria de la variable dependiente (variable objetivo) en el experimento, con la parte sistemática a través de una función llamada función de enlace.
+
+Por lo tanto, un modelo lineal generalizado, tiene tres componentes  básicos:
+
+- **Componente aleatorio** *(Y ~ Distribución de probabilidad)*: Identifica la variable de objetivo y su distribución de probabilidad.
+- **Componente sistemática** *(𝜂 = x^TW)*: Especifica las variables explicativas de la función predictora lineal.
+- **Función de enlace** *(𝑔(𝝁) = 𝜂)*: Es una función del valor esperado de Y como una combinación lineal de las variables explicativas
+
+Algebraicamente:
+$$
+	𝔼(𝒀)=𝝁=𝑔^{−1}(WX)
+$$
+
+Los estudios de Wedderburn se limitaron los componentes aleatorios a la familia exponencial, cuya aplicación se puede dar de la siguiente manera:
+
+- **Normal**: regresión lineal
+- **Binomial**: regresión logística
+- **Poisson**: regresión de conteo
+- **Gamma**: regresión para tiempos o tasas positivas
+- Inversa Gaussiana, etc.
+
+| Distribución | Función de Enlace          | Nombre de modelo      |
+|--------------|----------------------------|-----------------------|
+| Normal       | g(μ) = μ                   | Regresión lineal      |
+| Binomial     | g(μ) = log(μ /(1−μ))       | Regresión logística   |
+| Poisson      | g(μ) = log(μ)              | Regresión de Poisson  |
+
+
+## Regresión Logística para Clasificación
+
+Iniciemos recordando que los algoritmos de Machine Learning pueden ser clasificados como:
+```{r echo=FALSE, fig.align='left', out.width='40%'}
+knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig5.png")
+```
+
+Los ***métodos de clasificación, métodos predictivos,  reconocimiento de patrones, aprendizaje supervisado*** son aquellos algoritmos en los cuales vamos a clasificar a los objetos en un conjunto de categorías previamente definidas.
+
+En estos métodos existe una variable, conocida como variable objetivo con la cual se buscarán dos resultados:
+
+- **Evidenciar** la razón por la cual existen las clases en cuestión, es decir, encontrar factores que puedan agrupar a los individuos en sus respectivos grupos.
+- Proyectar el ingreso de **nuevos individuos** en alguna de las características anteriores.
+
+**Definición**
+
+La clasificación es la tarea de **aprender una función, f,** que pueda mapear cada conjunto de atributos a una categoría predefinida.
+Busca predecir la clase a la cual pertenece un registro. 
+La diferencia principal contra el análisis de conglomerados es el deseo de predecir a nuevos individuos.
+
+Buscamos una función que vaya de D a C
+$$
+𝑓:𝐷→ Y
+$$
+Donde:
+
+ - $𝐷={(𝑥_𝑖,𝑦_𝑖) | 𝑖=1,2,…,𝑁}$ es el conjunto de individuos, incluyendo $𝑥_𝑖$ corresponde a las características explicativas de un individuo y $𝑦_𝑖$ corresponde al valor de la clase
+ - $Y={y _1,  y_2,…, y_𝑚}$ es el conjunto de clases.
+
+La función resultante puede ser un árbol de decisión, SVM, etc.
+
+La función que clasificará el conjunto X a la clase Y, comúnmente es llamada modelo de clasificación.
+```{r echo=FALSE, fig.align='left', out.width='60%'}
+knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig6.png")
+```
+
+Una vez recordado lo anterior, podemos definir a una regresión logística como un modelo en el cual se recibe una tabla relacional con *d* características descriptivas y una clase a la cual pertenece cada individuo de la tabla.
+
+Como resultado, el modelo nos proporciona la *probabilidad de pertenecer* a alguna clase.
+
+**Planteamiento del problema**
+
+El primer paso, consistiría en construir el modelo de regresión lineal, de la siguiente manera:
+$$
+𝑦_𝑖=𝛽_0+𝛽_1 𝑥_𝑖+𝜖_𝑖
+$$
+Vamos a suponer un modelo de **regresión clásica** de tal forma que:
+$$
+𝔼(𝑦_𝑖 | 𝑥_𝑖 )=𝛽_0+𝛽_1 𝑥_𝑖
+$$
+Al intentar buscar probabilidades a través de una regresión lineal, obtendríamos lo siguiente:
+
+Sea $𝑝_𝑖$ la probabilidad de pertenecer a la clase 1 dadas las características del individuo:
+$$
+𝑝_𝑖=ℙ(𝑦=1|𝑥_𝑖 )
+$$
+
+Podemos asumir que $𝑝_𝑖$ sigue una distribución Bernoulli, de tal forma que su esperanza sea:
+$$
+𝔼(𝑦|𝑥_𝑖 )=𝑝_𝑖×1+(1−𝑝_𝑖 )×0=𝑝_𝑖
+$$
+De tal forma que:
+$$
+𝑝_𝑖= 𝛽_0+𝛽_1 𝑥_𝑖
+$$
+No obstante, los resultados pueden resultar absurdos debido a que nuestra fórmula nos puede proporcionar **probabilidades negativas** o **mayores a cero** $!$
+
+Las probabilidades no tienen valores superiores a 1 ni negativas, pero el concepto de momios $p / (1-p)$ tiene como imagen de cero a infinito. La función exponencial tiene la misma imagen, entonces, la regresión logística tiene la intención de encontrar la siguiente igualdad
+$$
+ℙ(𝑦=1|𝑥_𝑖 )/(1−ℙ(𝑦=1|𝑥_𝑖 ) )=𝑒^{(𝛽_0+𝛽_1 𝑥_𝑖 )}
+$$
+Al aplicar el logaritmo natual, podemos apreciar la definición de la función logit:
+$$
+logit[𝑝_𝑖 ]=ln[𝑝_𝑖/(1−𝑝_𝑖 )]=𝛽_0+𝛽_1 𝑥_𝑖
+$$
+Recordando que la función logit es la inversa de la función logistica (o sigmoide)
+
+
+
+
+
+
+

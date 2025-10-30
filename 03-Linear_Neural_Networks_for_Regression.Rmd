@@ -4,5 +4,3 @@
 
 
 # Redes neuronales Lineales para Regresión
-
-## Test
