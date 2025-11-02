@@ -171,6 +171,18 @@ ggplot(data, aes(x=x, y=y)) +
   theme_minimal(base_size=14)
 ```
 
+La función logit es apropiada para los problemas de clasificación con dos clases. No obstante, la generalización para múltiples clases se hace con la función Softmax()
+$$
+\sigma_{softmax} = \frac{e^{z_m}}{\sum_{m=1}^M e^{z_m}}
+$$
+
+La estructura aplicada en Redes Neuronales es la siguiente:
+```{r echo=FALSE, fig.align='left', out.width='70%'}
+knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig20.png")
+```
+
+<br>
+
 
 
 ## Redes neuronales
