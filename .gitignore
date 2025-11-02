@@ -1,5 +1,7 @@
-# Se eliminan los HTML que cambian en cada teido
+
+# Se eliminan los archivos de soporte que cambian en cada tejido
 docs/
+deep_learning_course_python_files/
 
 # History files
 .Rhistory
