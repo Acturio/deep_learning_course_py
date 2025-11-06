@@ -58,7 +58,9 @@ Los estudios de Wedderburn se limitaron los componentes aleatorios a la familia 
 | Poisson      | g(μ) = log(μ)              | Regresión de Poisson  |
 
 
-Podemos apreciar una regresión logística como una neurona:
+**Representación gráfica**
+
+Podemos apreciar una regresión lineal como una neurona:
 ```{r echo=FALSE, fig.align='left', out.width='60%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig18.png")
 ```
@@ -213,7 +215,7 @@ Puede recibir variables cuantitativas y cualitativas. Es un algoritmo sensible a
 ### Neurona
 
 Célula del sistema nerviosos formada por un núcleo y una serie de prolongaciones, una de las cuales es más larga que las demás.
-Están especializadas en la recepción de estímulos y conducción del impulso nerviosos entre ellas o con otros tipos celulares
+Están especializadas en la recepción de estímulos y conducción del impulso nerviosos entre ellas o con otros tipos celulas
 
 ```{r echo=FALSE, fig.align='left', out.width='60%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig7.png")
@@ -274,6 +276,7 @@ Como el resultado depende del signo, la función se representa como:
 $$
 𝑦=𝑠𝑖𝑔𝑛(𝑤,𝑥)
 $$
+
 Cuando intentamos hacer la separación de un XOr, podemos notar que necesitamos dos discriminadores lineales:
 
 ```{r echo=FALSE, fig.align='left', out.width='60%'}
