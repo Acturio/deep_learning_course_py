@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 4 Redes neuronales Lineales para Clasificación | Deep Learning</title>
+  <meta name="description" content="Capítulo 4 Redes neuronales Lineales para Clasificación | Deep Learning" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 4 Redes neuronales Lineales para Clasificación | Deep Learning" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Capítulo 4 Redes neuronales Lineales para Clasificación | Deep Learning" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 4 Redes neuronales Lineales para Clasificación | Deep Learning" />
+  
+  <meta name="twitter:description" content="Capítulo 4 Redes neuronales Lineales para Clasificación | Deep Learning" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="redes-neuronales-lineales-para-regresión.html"/>
+<link rel="next" href="perceptrón-multicapa.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"><img src="img/aif-logo.png" width="280"></a></li|
+|:-:|  
+<center>Curso de Redes Neuronales Artificiales</center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>BIENVENIDA</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivo"><i class="fa fa-check"></i>Objetivo</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#alcances-del-programa"><i class="fa fa-check"></i>Alcances del Programa</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#temario"><i class="fa fa-check"></i>Temario:</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#c%C3%B3digo"><i class="fa fa-check"></i>Código</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#duraci%C3%B3n-y-evaluaci%C3%B3n-del-programa"><i class="fa fa-check"></i>Duración y evaluación del programa</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-y-din%C3%A1mica"><i class="fa fa-check"></i>Recursos y dinámica</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#agenda"><i class="fa fa-check"></i>Agenda</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#software"><i class="fa fa-check"></i>Software</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#bibliograf%C3%ADa"><i class="fa fa-check"></i>Bibliografía</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Parte 1: Bases y Preeliminares</b></span></li>
+<li class="chapter" data-level="1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html"><i class="fa fa-check"></i><b>1</b> Introducción a Deep Learning</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#introducci%C3%B3n-al-aprendizaje-autom%C3%A1tico"><i class="fa fa-check"></i><b>1.1</b> Introducción al aprendizaje automático</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#motivaci%C3%B3n-los-paradigmas-del-conocimiento"><i class="fa fa-check"></i><b>1.1.1</b> Motivación: Los paradigmas del conocimiento</a></li>
+<li class="chapter" data-level="1.1.2" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#machine-learning-supervisado"><i class="fa fa-check"></i><b>1.1.2</b> Machine learning supervisado</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#por-qu%C3%A9-deep-learning"><i class="fa fa-check"></i><b>1.2</b> ¿Por qué Deep Learning?</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#dimensi%C3%B3n-vc"><i class="fa fa-check"></i><b>1.2.1</b> Dimensión VC</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#el-truco-del-kernel-svm"><i class="fa fa-check"></i><b>1.2.2</b> El truco del Kernel (SVM)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#ingenier%C3%ADa-de-caracteristicas"><i class="fa fa-check"></i><b>1.2.3</b> Ingeniería de caracteristicas</a></li>
+<li class="chapter" data-level="1.2.4" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#beneficios-del-deep-learning"><i class="fa fa-check"></i><b>1.2.4</b> Beneficios del deep learning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="preliminares.html"><a href="preliminares.html"><i class="fa fa-check"></i><b>2</b> Preliminares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="preliminares.html"><a href="preliminares.html#algebra-lineal"><i class="fa fa-check"></i><b>2.1</b> Algebra Lineal</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="preliminares.html"><a href="preliminares.html#introducci%C3%B3n"><i class="fa fa-check"></i><b>2.1.1</b> Introducción</a></li>
+<li class="chapter" data-level="2.1.2" data-path="preliminares.html"><a href="preliminares.html#motivaci%C3%B3n"><i class="fa fa-check"></i><b>2.1.2</b> Motivación</a></li>
+<li class="chapter" data-level="2.1.3" data-path="preliminares.html"><a href="preliminares.html#escalares"><i class="fa fa-check"></i><b>2.1.3</b> Escalares</a></li>
+<li class="chapter" data-level="2.1.4" data-path="preliminares.html"><a href="preliminares.html#vectores-1"><i class="fa fa-check"></i><b>2.1.4</b> Vectores</a></li>
+<li class="chapter" data-level="2.1.5" data-path="preliminares.html"><a href="preliminares.html#matrices-1"><i class="fa fa-check"></i><b>2.1.5</b> Matrices</a></li>
+<li class="chapter" data-level="2.1.6" data-path="preliminares.html"><a href="preliminares.html#tensores"><i class="fa fa-check"></i><b>2.1.6</b> Tensores</a></li>
+<li class="chapter" data-level="2.1.7" data-path="preliminares.html"><a href="preliminares.html#reducciones-sobre-tensores"><i class="fa fa-check"></i><b>2.1.7</b> Reducciones sobre tensores</a></li>
+<li class="chapter" data-level="2.1.8" data-path="preliminares.html"><a href="preliminares.html#producto-punto"><i class="fa fa-check"></i><b>2.1.8</b> Producto punto</a></li>
+<li class="chapter" data-level="2.1.9" data-path="preliminares.html"><a href="preliminares.html#producto-entre-matrices-y-vectores"><i class="fa fa-check"></i><b>2.1.9</b> Producto entre matrices y vectores</a></li>
+<li class="chapter" data-level="2.1.10" data-path="preliminares.html"><a href="preliminares.html#multiplicaci%C3%B3n-matricial"><i class="fa fa-check"></i><b>2.1.10</b> Multiplicación matricial</a></li>
+<li class="chapter" data-level="2.1.11" data-path="preliminares.html"><a href="preliminares.html#normas"><i class="fa fa-check"></i><b>2.1.11</b> Normas</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="preliminares.html"><a href="preliminares.html#c%C3%A1lculo-diferencial"><i class="fa fa-check"></i><b>2.2</b> Cálculo Diferencial</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="preliminares.html"><a href="preliminares.html#introducci%C3%B3n-1"><i class="fa fa-check"></i><b>2.2.1</b> Introducción</a></li>
+<li class="chapter" data-level="2.2.2" data-path="preliminares.html"><a href="preliminares.html#motivaci%C3%B3n-1"><i class="fa fa-check"></i><b>2.2.2</b> Motivación</a></li>
+<li class="chapter" data-level="2.2.3" data-path="preliminares.html"><a href="preliminares.html#derivadas-y-diferenciaci%C3%B3n"><i class="fa fa-check"></i><b>2.2.3</b> Derivadas y diferenciación</a></li>
+<li class="chapter" data-level="2.2.4" data-path="preliminares.html"><a href="preliminares.html#regla-de-la-cadena"><i class="fa fa-check"></i><b>2.2.4</b> Regla de la cadena</a></li>
+<li class="chapter" data-level="2.2.5" data-path="preliminares.html"><a href="preliminares.html#interpretaci%C3%B3n-geom%C3%A9trica-de-la-derivada"><i class="fa fa-check"></i><b>2.2.5</b> Interpretación geométrica de la derivada</a></li>
+<li class="chapter" data-level="2.2.6" data-path="preliminares.html"><a href="preliminares.html#teorema-fundamental-del-c%C3%A1lculo"><i class="fa fa-check"></i><b>2.2.6</b> Teorema fundamental del cálculo</a></li>
+<li class="chapter" data-level="2.2.7" data-path="preliminares.html"><a href="preliminares.html#autodiferenciaci%C3%B3n"><i class="fa fa-check"></i><b>2.2.7</b> Autodiferenciación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html"><i class="fa fa-check"></i><b>3</b> Redes neuronales Lineales para Regresión</a></li>
+<li class="chapter" data-level="4" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html"><i class="fa fa-check"></i><b>4</b> Redes neuronales Lineales para Clasificación</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#modelos-lineales-generalizados"><i class="fa fa-check"></i><b>4.1</b> Modelos Lineales Generalizados</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#historia-1"><i class="fa fa-check"></i><b>4.1.1</b> Historia</a></li>
+<li class="chapter" data-level="4.1.2" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#definici%C3%B3n"><i class="fa fa-check"></i><b>4.1.2</b> Definición</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#regresi%C3%B3n-log%C3%ADstica-para-clasificaci%C3%B3n"><i class="fa fa-check"></i><b>4.2</b> Regresión Logística para Clasificación</a></li>
+<li class="chapter" data-level="4.3" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#redes-neuronales"><i class="fa fa-check"></i><b>4.3</b> Redes neuronales</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#historia-2"><i class="fa fa-check"></i><b>4.3.1</b> Historia</a></li>
+<li class="chapter" data-level="4.3.2" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#definici%C3%B3n-1"><i class="fa fa-check"></i><b>4.3.2</b> Definición</a></li>
+<li class="chapter" data-level="4.3.3" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#neurona"><i class="fa fa-check"></i><b>4.3.3</b> Neurona</a></li>
+<li class="chapter" data-level="4.3.4" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#redes-neuronales-1"><i class="fa fa-check"></i><b>4.3.4</b> Redes Neuronales</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#notas-adicionales"><i class="fa fa-check"></i>Notas adicionales</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html"><i class="fa fa-check"></i><b>5</b> Perceptrón Multicapa</a></li>
+<li class="part"><span><b>Parte 2: Técnicas Modernas de Deep Learning</b></span></li>
+<li class="chapter" data-level="6" data-path="guía-del-constructor.html"><a href="guía-del-constructor.html"><i class="fa fa-check"></i><b>6</b> Guía del Constructor</a></li>
+<li class="chapter" data-level="7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html"><i class="fa fa-check"></i><b>7</b> Redes Neuronales Convolucionales</a></li>
+<li class="chapter" data-level="8" data-path="redes-neuronales-convolucionales-modernas.html"><a href="redes-neuronales-convolucionales-modernas.html"><i class="fa fa-check"></i><b>8</b> Redes Neuronales Convolucionales Modernas</a></li>
+<li class="chapter" data-level="9" data-path="redes-neuronales-recurrentes.html"><a href="redes-neuronales-recurrentes.html"><i class="fa fa-check"></i><b>9</b> Redes Neuronales Recurrentes</a></li>
+<li class="chapter" data-level="10" data-path="redes-neuronales-recurrentes-modernas.html"><a href="redes-neuronales-recurrentes-modernas.html"><i class="fa fa-check"></i><b>10</b> Redes Neuronales Recurrentes Modernas</a></li>
+<li class="chapter" data-level="11" data-path="mecanismos-de-atención-y-transformers.html"><a href="mecanismos-de-atención-y-transformers.html"><i class="fa fa-check"></i><b>11</b> Mecanismos de Atención y Transformers</a></li>
+<li class="part"><span><b>Parte 3: Escalabilidad, Eficiencia y Aplicaciones</b></span></li>
+<li class="chapter" data-level="12" data-path="algoritmos-de-optimización.html"><a href="algoritmos-de-optimización.html"><i class="fa fa-check"></i><b>12</b> Algoritmos de Optimización</a></li>
+<li class="divider"></li>
+<li><a href="./"><img src="img/aif-logo.png" width="280"></a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Deep Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="redes-neuronales-lineales-para-clasificación" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Capítulo 4</span> Redes neuronales Lineales para Clasificación<a href="redes-neuronales-lineales-para-clasificación.html#redes-neuronales-lineales-para-clasificaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="modelos-lineales-generalizados" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Modelos Lineales Generalizados<a href="redes-neuronales-lineales-para-clasificación.html#modelos-lineales-generalizados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="historia-1" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Historia<a href="redes-neuronales-lineales-para-clasificación.html#historia-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Regresión lineal</strong></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig1.png" width="50%" style="display: block; margin: auto auto auto 0;" />
+El primer método de regresión lineal documentado es el método de los mínimos cuadrados, publicado por Legendre en 1805.
+Posteriormente, Gauss publicó un trabajo donde se desarrolla con mayor detalle el tema.</p>
+<p><strong>Modelo Lineal Generalizado (GLM)</strong></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig2.png" width="60%" style="display: block; margin: auto auto auto 0;" />
+Los GLM fueron formulados por John Nelder y Robert Wedderburn en 1972 como una manera de unificar modelos estadísticos.</p>
+<p>Un modelo lineal generalizado es una generalización flexible de la regresión lineal ordinaria.</p>
+</div>
+<div id="definición" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Definición<a href="redes-neuronales-lineales-para-clasificación.html#definici%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los Modelos Lineales Generalizados (GLM) son una extensión de los modelos lineales tradicionales que permiten modelar variables respuesta que no necesariamente siguen una distribución normal (por ejemplo, binarias, de conteo o proporciones). Relacionan la distribución aleatoria de la variable dependiente (variable objetivo) en el experimento, con la parte sistemática a través de una función llamada función de enlace.</p>
+<p>Por lo tanto, un modelo lineal generalizado, tiene tres componentes básicos:</p>
+<ul>
+<li><strong>Componente aleatorio</strong> <em>(Y ~ Distribución de probabilidad)</em>: Identifica la variable de objetivo y su distribución de probabilidad.</li>
+<li><strong>Componente sistemática</strong> <em>(𝜂 = xW)</em>: Especifica las variables explicativas de la función predictora lineal.</li>
+<li><strong>Función de enlace</strong> <em>(𝑔(𝝁) = 𝜂)</em>: Es una función del valor esperado de Y como una combinación lineal de las variables explicativas</li>
+</ul>
+<p>Algebraicamente:
+<span class="math display">\[
+    𝔼(𝒀)=𝝁=𝑔^{−1}(WX)
+\]</span></p>
+<p>Los estudios de Wedderburn se limitaron los componentes aleatorios a la familia exponencial, cuya aplicación se puede dar de la siguiente manera:</p>
+<ul>
+<li><strong>Normal</strong>: regresión lineal</li>
+<li><strong>Binomial</strong>: regresión logística</li>
+<li><strong>Poisson</strong>: regresión de conteo</li>
+<li><strong>Gamma</strong>: regresión para tiempos o tasas positivas</li>
+<li>Inversa Gaussiana, etc.</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Distribución</th>
+<th>Función de Enlace</th>
+<th>Nombre de modelo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Normal</td>
+<td>g(μ) = μ</td>
+<td>Regresión lineal</td>
+</tr>
+<tr class="even">
+<td>Binomial</td>
+<td>g(μ) = log(μ /(1−μ))</td>
+<td>Regresión logística</td>
+</tr>
+<tr class="odd">
+<td>Poisson</td>
+<td>g(μ) = log(μ)</td>
+<td>Regresión de Poisson</td>
+</tr>
+</tbody>
+</table>
+<p>Podemos apreciar una regresión logística como una neurona:
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig18.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p>Haciendo uso de una regresión logística, podemos pasar de <em>how much?</em> a <em>wich class?</em>, el diagrama sería el siguiente:
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig19.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+</div>
+</div>
+<div id="regresión-logística-para-clasificación" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Regresión Logística para Clasificación<a href="redes-neuronales-lineales-para-clasificación.html#regresi%C3%B3n-log%C3%ADstica-para-clasificaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Iniciemos recordando que los algoritmos de Machine Learning pueden ser clasificados como:
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig5.png" width="40%" style="display: block; margin: auto auto auto 0;" /></p>
+<p>Los <strong><em>métodos de clasificación, métodos predictivos, reconocimiento de patrones, aprendizaje supervisado</em></strong> son aquellos algoritmos en los cuales vamos a clasificar a los objetos en un conjunto de categorías previamente definidas.</p>
+<p>En estos métodos existe una variable, conocida como variable objetivo con la cual se buscarán dos resultados:</p>
+<ul>
+<li><strong>Evidenciar</strong> la razón por la cual existen las clases en cuestión, es decir, encontrar factores que puedan agrupar a los individuos en sus respectivos grupos.</li>
+<li>Proyectar el ingreso de <strong>nuevos individuos</strong> en alguna de las características anteriores.</li>
+</ul>
+<p><strong>Definición</strong></p>
+<p>La clasificación es la tarea de <strong>aprender una función, f,</strong> que pueda mapear cada conjunto de atributos a una categoría predefinida.
+Busca predecir la clase a la cual pertenece un registro.
+La diferencia principal contra el análisis de conglomerados es el deseo de predecir a nuevos individuos.</p>
+<p>Buscamos una función que vaya de D a C
+<span class="math display">\[
+𝑓:𝐷→ Y
+\]</span>
+Donde:</p>
+<ul>
+<li><span class="math inline">\(𝐷={(𝑥_𝑖,𝑦_𝑖) | 𝑖=1,2,…,𝑁}\)</span> es el conjunto de individuos, incluyendo <span class="math inline">\(𝑥_𝑖\)</span> corresponde a las características explicativas de un individuo y <span class="math inline">\(𝑦_𝑖\)</span> corresponde al valor de la clase</li>
+<li><span class="math inline">\(Y={y _1,  y_2,…, y_𝑚}\)</span> es el conjunto de clases.</li>
+</ul>
+<p>La función resultante puede ser un árbol de decisión, SVM, etc.</p>
+<p>La función que clasificará el conjunto X a la clase Y, comúnmente es llamada modelo de clasificación.
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig6.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p>Una vez recordado lo anterior, podemos definir a una regresión logística como un modelo en el cual se recibe una tabla relacional con <em>d</em> características descriptivas y una clase a la cual pertenece cada individuo de la tabla.</p>
+<p>Como resultado, el modelo nos proporciona la <em>probabilidad de pertenecer</em> a alguna clase.</p>
+<p><strong>Planteamiento del problema</strong></p>
+<p>El primer paso, consistiría en construir el modelo de regresión, de tal forma que el componente aleatorio (<span class="math inline">\(y_i\)</span>) se conecte con la componente sistémica (regresión lineal):
+<span class="math display">\[
+𝑦_𝑖↔𝛽_0+𝛽_1 𝑥_𝑖+𝜖_𝑖
+\]</span></p>
+<hr />
+<p>Vamos a suponer un modelo de <strong>regresión lineal clásica</strong> de tal forma que:
+<span class="math display">\[
+𝔼(𝑦_𝑖 | 𝑥_𝑖 )=𝛽_0+𝛽_1 𝑥_𝑖
+\]</span>
+Al intentar buscar probabilidades a través de una regresión lineal, obtendríamos lo siguiente:</p>
+<p>Sea <span class="math inline">\(𝑝_𝑖\)</span> la probabilidad de pertenecer a la clase 1 dadas las características del individuo:
+<span class="math display">\[
+𝑝_𝑖=ℙ(𝑦=1|𝑥_𝑖 )
+\]</span></p>
+<p>Podemos asumir que <span class="math inline">\(𝑝_𝑖\)</span> sigue una distribución Bernoulli, de tal forma que su esperanza sea:
+<span class="math display">\[
+𝔼(𝑦|𝑥_𝑖 )=𝑝_𝑖×1+(1−𝑝_𝑖 )×0=𝑝_𝑖
+\]</span>
+De tal forma que:
+<span class="math display">\[
+𝑝_𝑖= 𝛽_0+𝛽_1 𝑥_𝑖
+\]</span>
+No obstante, los resultados pueden resultar absurdos debido a que nuestra fórmula nos puede proporcionar <strong>probabilidades negativas</strong> o <strong>mayores a cero</strong> <span class="math inline">\(!\)</span></p>
+<hr />
+<p>Las probabilidades no tienen valores superiores a 1 ni negativas, pero el concepto de momios <span class="math inline">\(p / (1-p)\)</span> tiene como imagen de cero a infinito. La función exponencial tiene la misma imagen, entonces, la regresión logística relaciona ambos concpetos a través de la siguiente igualdad
+<span class="math display">\[
+ℙ(𝑦=1|𝑥_𝑖 )/(1−ℙ(𝑦=1|𝑥_𝑖 ) )=𝑒^{(𝛽_0+𝛽_1 𝑥_𝑖 )}
+\]</span>
+Al aplicar el logaritmo natual, podemos apreciar la definición de la función logit:
+<span class="math display">\[
+logit[𝑝_𝑖 ]=ln[𝑝_𝑖/(1−𝑝_𝑖 )]=𝛽_0+𝛽_1 𝑥_𝑖
+\]</span>
+Recordando que la función logit es la inversa de la función logistica (o sigmoide)</p>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-30-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
+<p>La función logit es apropiada para los problemas de clasificación con dos clases. No obstante, la generalización para múltiples clases se hace con la función Softmax()
+<span class="math display">\[
+\sigma_{softmax} = \frac{e^{z_m}}{\sum_{m=1}^M e^{z_m}}
+\]</span></p>
+<p>La estructura aplicada en Redes Neuronales es la siguiente:
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig20.png" width="70%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><br></p>
+</div>
+<div id="redes-neuronales" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Redes neuronales<a href="redes-neuronales-lineales-para-clasificación.html#redes-neuronales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="historia-2" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Historia<a href="redes-neuronales-lineales-para-clasificación.html#historia-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Redes Neuronales</strong></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig3.png" width="50%" style="display: block; margin: auto auto auto 0;" />
+En 1943 Warren McCulloch (neurocientífico, médico, neurólogo y fisiólogo) y Walter Pitts (matemático, psicólogo, filósofo y neurocientífico) crearon un modelo para redes neuronales basados en la lógica de umbral. Este modelo señaló el camino para que la investigación de redes neuronales se divida en dos enfoques distintos:</p>
+<ol style="list-style-type: decimal">
+<li>Un enfoque centrado en los procesos biológicos en el cerebro.</li>
+<li>Otro en la aplicación de redes neuronales para la inteligencia artificial.</li>
+</ol>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig4.png" width="40%" style="display: block; margin: auto auto auto 0;" />
+Para la aplicación de la inteligencia artificial, fue Marvin Minsky quien dio una gran aportación con el libro <strong>“Perceptrones”</strong> en 1969.
+Minsky es considerado como uno de los padres de las ciencias de la computación y fue cofundador del laboratorio de inteligencia artificial del MIT</p>
+</div>
+<div id="definición-1" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Definición<a href="redes-neuronales-lineales-para-clasificación.html#definici%C3%B3n-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las redes neuronales son algoritmos que tienen como objetivo el simular en una computadora la forma en la cual funcionan las redes neuronales en los humanos.
+Puede recibir variables cuantitativas y cualitativas. Es un algoritmo sensible a cambios en los datos y parámetros</p>
+</div>
+<div id="neurona" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Neurona<a href="redes-neuronales-lineales-para-clasificación.html#neurona" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Célula del sistema nerviosos formada por un núcleo y una serie de prolongaciones, una de las cuales es más larga que las demás.
+Están especializadas en la recepción de estímulos y conducción del impulso nerviosos entre ellas o con otros tipos celulares</p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig7.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><br></p>
+<p><strong>Dentrita:</strong> Es la fuente de un impulso nerviosos. De hecho el impulso nervioso es unidireccional, es decir, solamente se transmite desde las dendritas hacia el axón (canal de entrada)</p>
+<p><strong>Axón:</strong> Prolongación que arranca del cuerpo de la neurona y termina en una ramificación que está en contacto con otras células. Es la vía por la cual circulan los impulsos eléctricos (canal de salida)</p>
+<p><strong>Sinapsis:</strong> Región de comunicación entre el axón de una neurona y las dendritas o el cuerpo de otra</p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig8.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><strong>Emulación:</strong></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig9.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p>Las redes neuronales, tratan de modelar una red neuronal donde cada nodo es una neurona, y los arcos representan la sinapsis entre las neuronas.
+Como algoritmo, las redes neuronales reciben n entradas y pueden otorgar n salidas.</p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig10.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p>Un perceptrón puede entenderse como la unidad básica de inferencia en forma de discriminador lineal. Un perceptrón va a separar a los puntos a través de un hiperplano
+Es el modelo biológico más sencillo hace referencia a una sola neurona. El perceptrón consiste de dos tipos de nodos:</p>
+<ul>
+<li>Nodos de entrada: ingreso de los atributos</li>
+<li>Nodos de salida: representa a los resultados del modelo</li>
+</ul>
+<p>Un perceptrón genera sus resultados realizando una suma ponderada de sus atributos de entrada, restando un valor t y examinando el signo del resultado.
+Supongamos la siguiente tabla:</p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig11.png" width="30%" style="display: block; margin: auto auto auto 0;" /></p>
+<p>El perceptrón sería aquella red neuronal que recibiera de entrada cada uno de los valores x y diera como resultado y</p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig12.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><span class="math display">\[
+y =
+\begin{cases}
+    \text{1, si:  } 0.3𝑥_1+0.3𝑥_1+0.3𝑥_1−0.4 ≥ 0 \\
+    \text{-1, si:  } 0.3𝑥_1+0.3𝑥_1+0.3𝑥_1−0.4 &lt; 0 \\
+\end{cases}
+\]</span>
+Como el resultado depende del signo, la función se representa como:
+<span class="math display">\[
+𝑦=𝑠𝑖𝑔𝑛(𝑤,𝑥)
+\]</span>
+Cuando intentamos hacer la separación de un XOr, podemos notar que necesitamos dos discriminadores lineales:</p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig13.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+</div>
+<div id="redes-neuronales-1" class="section level3 hasAnchor" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Redes Neuronales<a href="redes-neuronales-lineales-para-clasificación.html#redes-neuronales-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las redes neuronales, son una estructura más compleja que un perceptrón. Algunas de las complejidades son:</p>
+<ul>
+<li>Las redes neuronales tienen <strong>varios nodos intermedios</strong> entre los nodos de entrada y los nodos de salida.</li>
+<li>Las capas ocultas pueden utilizar <strong>funciones de activación diferentes</strong></li>
+</ul>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig14.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig15.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p>Con una capa oculta, es posible generar una función de discriminación para una tabla XOr</p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig17.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><strong>Funciones de activación comunes</strong></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig16.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+</div>
+</div>
+<div id="notas-adicionales" class="section level2 unnumbered hasAnchor">
+<h2>Notas adicionales<a href="redes-neuronales-lineales-para-clasificación.html#notas-adicionales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Curso de Git: <a href="https://www.youtube.com/watch?v=3GymExBkKjE&amp;t=195s" class="uri">https://www.youtube.com/watch?v=3GymExBkKjE&amp;t=195s</a></p>
+
+<!-- ::: watermark -->
+<!-- <img src="img/aif-logo.png" width="400"/> -->
+<!-- ::: -->
+</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+$('.pipehover_incremental tr').hover(function() {
+  $(this).removeClass()
+  $(this).prevAll().removeClass()
+  $(this).nextAll().removeClass()
+  $(this).addClass('hover');
+  $(this).prevAll().addClass('hover');
+  $(this).closest('div').next().find('img').attr("src", $(this).attr("link"));
+});
+
+
+$('.pipehover_select_one_row tr').hover(function() {
+  $(this).removeClass()
+  $(this).prevAll().removeClass()
+  $(this).nextAll().removeClass()
+  $(this).addClass('hover');
+  $(this).closest('div').next().find('img').attr("src", $(this).attr("link"));
+});
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="redes-neuronales-lineales-para-regresión.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="perceptrón-multicapa.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["deep_learning_course_python.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
