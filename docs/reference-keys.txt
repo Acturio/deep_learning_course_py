@@ -104,6 +104,15 @@ definición-1
 neurona
 redes-neuronales-1
 perceptrón-multicapa
+perceptrones-multicapa
+capas-ocultas
+limitaciones-de-los-modelos-lineales
+implementación-de-perceptrones-multicapa
+forward-propagation-backward-propagation
+estabilidad-numérica-e-inicialización
+generalización-en-deep-learning
+dropout
+ejemplo
 guía-del-constructor
 redes-neuronales-convolucionales
 redes-neuronales-convolucionales-modernas

@@ -218,7 +218,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#notas-adicionales"><i class="fa fa-check"></i>Notas adicionales</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html"><i class="fa fa-check"></i><b>5</b> Perceptrón Multicapa</a></li>
+<li class="chapter" data-level="5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html"><i class="fa fa-check"></i><b>5</b> Perceptrón Multicapa</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#perceptrones-multicapa"><i class="fa fa-check"></i><b>5.1</b> Perceptrones multicapa</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#capas-ocultas"><i class="fa fa-check"></i><b>5.1.1</b> Capas ocultas</a></li>
+<li class="chapter" data-level="5.1.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#limitaciones-de-los-modelos-lineales"><i class="fa fa-check"></i><b>5.1.2</b> Limitaciones de los modelos lineales</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-de-perceptrones-multicapa"><i class="fa fa-check"></i><b>5.2</b> Implementación de Perceptrones Multicapa</a></li>
+<li class="chapter" data-level="5.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#forward-propagation-backward-propagation"><i class="fa fa-check"></i><b>5.3</b> Forward Propagation, Backward Propagation</a></li>
+<li class="chapter" data-level="5.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#estabilidad-num%C3%A9rica-e-inicializaci%C3%B3n"><i class="fa fa-check"></i><b>5.4</b> Estabilidad Numérica e Inicialización</a></li>
+<li class="chapter" data-level="5.5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#generalizaci%C3%B3n-en-deep-learning"><i class="fa fa-check"></i><b>5.5</b> Generalización en Deep Learning</a></li>
+<li class="chapter" data-level="5.6" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#dropout"><i class="fa fa-check"></i><b>5.6</b> Dropout</a></li>
+<li class="chapter" data-level="5.7" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejemplo"><i class="fa fa-check"></i><b>5.7</b> Ejemplo</a></li>
+</ul></li>
 <li class="part"><span><b>Parte 2: Técnicas Modernas de Deep Learning</b></span></li>
 <li class="chapter" data-level="6" data-path="guía-del-constructor.html"><a href="guía-del-constructor.html"><i class="fa fa-check"></i><b>6</b> Guía del Constructor</a></li>
 <li class="chapter" data-level="7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html"><i class="fa fa-check"></i><b>7</b> Redes Neuronales Convolucionales</a></li>
@@ -250,10 +263,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="perceptrón-multicapa" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Capítulo 5</span> Perceptrón Multicapa<a href="perceptrón-multicapa.html#perceptr%C3%B3n-multicapa" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="perceptrones-multicapa" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Perceptrones multicapa<a href="perceptrón-multicapa.html#perceptrones-multicapa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En la Sección anterior, se presentó la regresión softmax, implementando el algoritmo desde cero. Esto permitió entrenar clasificadores capaces de reconocer 10 categorías de prendas de vestir a partir de imágenes de baja resolución. Durante el proceso, aprendimos a manipular los datos, a convertir las salidas en una distribución de probabilidad válida, a aplicar una función de pérdida adecuada y a minimizarla con respecto a los parámetros del modelo. Ahora que se conocen estos aspectos en el contexto de modelos lineales simples, podemos comenzar la exploración de las redes neuronales profundas, la clase de modelos relativamente rica que constituye el tema principal de este curso.</p>
+<div id="capas-ocultas" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Capas ocultas<a href="perceptrón-multicapa.html#capas-ocultas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En la sección 3.1., se describen las transformaciones afines como transformaciones lineales con un sesgo añadido. Para empezar, recordemos la arquitectura del modelo correspondiente a nuestro ejemplo de regresión softmax, ilustrado en la figura 4.1.1. Este modelo asigna directamente las entradas a las salidas mediante una única transformación afín, seguida de una operación softmax. Si nuestras etiquetas estuvieran realmente relacionadas con los datos de entrada mediante una simple transformación afín, este enfoque sería suficiente. Sin embargo, la linealidad (en las transformaciones afines) es una suposición muy restrictiva.</p>
+</div>
+<div id="limitaciones-de-los-modelos-lineales" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Limitaciones de los modelos lineales<a href="perceptrón-multicapa.html#limitaciones-de-los-modelos-lineales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La linealidad supone una relación monotónica: si una variable aumenta, la salida del modelo siempre sube o baja según el signo del peso. Esto a veces es razonable, como al predecir el pago de un préstamo según ingresos, aunque la relación no sea estrictamente lineal. En estos casos, funciones como la logística pueden hacer más plausible la linealidad.</p>
+<p>Sin embargo, muchas relaciones reales no son monotónicas. Por ejemplo, la temperatura corporal: valores por encima o por debajo de 37 °C aumentan el riesgo, por lo que conviene transformar la variable (p. ej., usar la distancia a 37 °C).</p>
+<p><img src="img/05_Multilayer_Perceptron/lineal_vs_no_lineal.png" width="650pt" height="300pt" style="display: block; margin: auto;" /></p>
+<p>En problemas como la clasificación de imágenes, la linealidad es claramente insuficiente: cambiar el brillo de un solo píxel no determina si hay un gato o un perro. Aquí el significado de cada píxel depende de su contexto, y no existe un preprocesamiento simple que lo capture. Las redes neuronales profundas resuelven esto aprendiendo simultáneamente una representación adecuada y un predictor lineal sobre esa representación.</p>
+<p>La necesidad de modelar no linealidades se conoce desde hace un siglo y ha dado lugar a enfoques como árboles de decisión, métodos kernel, splines y, más recientemente, redes neuronales, inspiradas en las conexiones jerárquicas entre neuronas del cerebro.</p>
+</div>
+</div>
+<div id="implementación-de-perceptrones-multicapa" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Implementación de Perceptrones Multicapa<a href="perceptrón-multicapa.html#implementaci%C3%B3n-de-perceptrones-multicapa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para superar las limitaciones de los modelos lineales, podemos agregar capas ocultas. La idea más básica es apilar varias capas totalmente conectadas: cada capa envía su salida a la siguiente. Las primeras capas aprenden una representación de los datos y la última capa actúa como un modelo lineal sobre esa representación.</p>
+<p>A esta arquitectura se le llama perceptrón multicapa o MLP.</p>
+<p>Observa la siguiente imagen que contempla un MLP con 4 entradas, 1 capa oculta con 5 neuronas y 3 salidas. Como la capa de entrada no calcula nada, realmente el modelo tiene 2 capas de cálculo: la oculta y la de salida.</p>
+<p><img src="img/05_Multilayer_Perceptron/MLP01_example.png" width="650pt" height="300pt" style="display: block; margin: auto;" /></p>
+<p>En un MLP, cada neurona de una capa está conectada con todas las neuronas de la siguiente. Es decir, cada entrada afecta a todas las neuronas ocultas, y cada una de estas afecta a todas las neuronas de salida.</p>
+</div>
+<div id="forward-propagation-backward-propagation" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Forward Propagation, Backward Propagation<a href="perceptrón-multicapa.html#forward-propagation-backward-propagation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="estabilidad-numérica-e-inicialización" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Estabilidad Numérica e Inicialización<a href="perceptrón-multicapa.html#estabilidad-num%C3%A9rica-e-inicializaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="generalización-en-deep-learning" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Generalización en Deep Learning<a href="perceptrón-multicapa.html#generalizaci%C3%B3n-en-deep-learning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="dropout" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Dropout<a href="perceptrón-multicapa.html#dropout" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="ejemplo" class="section level2 hasAnchor" number="5.7">
+<h2><span class="header-section-number">5.7</span> Ejemplo<a href="perceptrón-multicapa.html#ejemplo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 <!-- ::: watermark -->
 <!-- <img src="img/aif-logo.png" width="400"/> -->
 <!-- ::: -->
+</div>
 </div>
 
 
