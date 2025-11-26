@@ -1,32 +1,47 @@
 FROM rocker/rstudio:latest
 
-# Installing dependecies ..
+# ---------------------------
+# 1. System dependencies
+# ---------------------------
 RUN apt-get update && apt-get install -y \
     python3 python3-pip python3-venv \
     libssl-dev libcurl4-openssl-dev libxml2-dev \
     make pandoc texlive \ 
-    #texlive-latex-extra
-    #texlive-fonts-recommended texlive-fonts-extra l
+    libgl1 libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Setup R packages
+# ---------------------------
+# 2. Install R packages
+# ---------------------------
 RUN R -e "install.packages(c('bookdown', 'knitr', 'rmarkdown'), lib='/usr/local/lib/R/site-library')"
-RUN R -e "install.packages(c('magrittr','stringl','stringr'), lib='/usr/local/lib/R/site-library')"
+RUN R -e "install.packages(c('magrittr','stringl', 'tidyverse'), lib='/usr/local/lib/R/site-library')"
 RUN R -e "install.packages('reticulate', lib='/usr/local/lib/R/site-library')"
 
-# Setup Python3 with reticulate library
-# Create a virtualenv
+# ---------------------------
+# 3. Create Python virtual environment
+# ---------------------------
 RUN python3 -m venv /opt/venv \
     && /opt/venv/bin/pip install --no-cache-dir --upgrade pip
 
-# Copying the requirements.txt file
+# ---------------------------
+# 4. Install Python packages from the requirements.txt file
+# ---------------------------
 COPY requirements.txt /tmp/requirements.txt
-RUN if [ -f /tmp/requirements.txt ]; then /opt/venv/bin/pip install -r /tmp/requirements.txt; fi
+RUN if [ -f /tmp/requirements.txt ]; then \
+        /opt/venv/bin/pip install -r /tmp/requirements.txt ; \
+    else \
+        /opt/venv/bin/pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
+        /opt/venv/bin/pip install numpy matplotlib pandas jupyter ; \
+    fi
 
-# Configure reticulate to use the venv
+# ---------------------------
+# 5. Configure reticulate
+# ---------------------------
 ENV RETICULATE_PYTHON=/opt/venv/bin/python
 
-# Create the project directory inside the container
+# ---------------------------
+# 6. Workspace
+# ---------------------------
 WORKDIR /home/rstudio/project
 
 # copy the content to the project directory

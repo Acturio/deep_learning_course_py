@@ -1,3 +1,8 @@
 numpy
 pandas
 matplotlib
+torch
+torchvision
+torchaudio
+requests
+jupyter
