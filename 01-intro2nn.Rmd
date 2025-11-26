@@ -10,12 +10,6 @@ output:
 
 <!-- ::: -->
 
-```{r, echo=FALSE, warning=FALSE}
-install.packages("ggplot2")
-library(ggplot2)
-```
-
-
 # (PART\*) Parte 1: Bases y Preeliminares {.unnumbered}
 
 # Introducción a Deep Learning

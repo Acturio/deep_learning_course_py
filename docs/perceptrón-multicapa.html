@@ -223,10 +223,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#perceptrones-multicapa"><i class="fa fa-check"></i><b>5.1</b> Perceptrones multicapa</a>
 <ul>
 <li class="chapter" data-level="5.1.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#capas-ocultas"><i class="fa fa-check"></i><b>5.1.1</b> Capas ocultas</a></li>
-<li class="chapter" data-level="5.1.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#limitaciones-de-los-modelos-lineales"><i class="fa fa-check"></i><b>5.1.2</b> Limitaciones de los modelos lineales</a></li>
+<li class="chapter" data-level="5.1.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#funciones-de-activaci%C3%B3n"><i class="fa fa-check"></i><b>5.1.2</b> Funciones de activación</a></li>
+<li class="chapter" data-level="5.1.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#discusi%C3%B3n"><i class="fa fa-check"></i><b>5.1.3</b> Discusión</a></li>
+<li class="chapter" data-level="5.1.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios"><i class="fa fa-check"></i><b>5.1.4</b> Ejercicios</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-de-perceptrones-multicapa"><i class="fa fa-check"></i><b>5.2</b> Implementación de Perceptrones Multicapa</a></li>
-<li class="chapter" data-level="5.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#forward-propagation-backward-propagation"><i class="fa fa-check"></i><b>5.3</b> Forward Propagation, Backward Propagation</a></li>
+<li class="chapter" data-level="5.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-de-perceptrones-multicapa"><i class="fa fa-check"></i><b>5.2</b> Implementación de Perceptrones Multicapa</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-desde-cero"><i class="fa fa-check"></i><b>5.2.1</b> Implementación desde Cero</a></li>
+<li class="chapter" data-level="5.2.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n"><i class="fa fa-check"></i><b>5.2.2</b> Implementación</a></li>
+<li class="chapter" data-level="5.2.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-1"><i class="fa fa-check"></i><b>5.2.3</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#forward-propagation-backward-propagation"><i class="fa fa-check"></i><b>5.3</b> Forward Propagation, Backward Propagation</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#forward-propagation"><i class="fa fa-check"></i><b>5.3.1</b> Forward Propagation</a></li>
+</ul></li>
 <li class="chapter" data-level="5.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#estabilidad-num%C3%A9rica-e-inicializaci%C3%B3n"><i class="fa fa-check"></i><b>5.4</b> Estabilidad Numérica e Inicialización</a></li>
 <li class="chapter" data-level="5.5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#generalizaci%C3%B3n-en-deep-learning"><i class="fa fa-check"></i><b>5.5</b> Generalización en Deep Learning</a></li>
 <li class="chapter" data-level="5.6" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#dropout"><i class="fa fa-check"></i><b>5.6</b> Dropout</a></li>
@@ -269,26 +279,520 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="capas-ocultas" class="section level3 hasAnchor" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> Capas ocultas<a href="perceptrón-multicapa.html#capas-ocultas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En la sección 3.1., se describen las transformaciones afines como transformaciones lineales con un sesgo añadido. Para empezar, recordemos la arquitectura del modelo correspondiente a nuestro ejemplo de regresión softmax, ilustrado en la figura 4.1.1. Este modelo asigna directamente las entradas a las salidas mediante una única transformación afín, seguida de una operación softmax. Si nuestras etiquetas estuvieran realmente relacionadas con los datos de entrada mediante una simple transformación afín, este enfoque sería suficiente. Sin embargo, la linealidad (en las transformaciones afines) es una suposición muy restrictiva.</p>
-</div>
-<div id="limitaciones-de-los-modelos-lineales" class="section level3 hasAnchor" number="5.1.2">
-<h3><span class="header-section-number">5.1.2</span> Limitaciones de los modelos lineales<a href="perceptrón-multicapa.html#limitaciones-de-los-modelos-lineales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig15.png" width="650pt" height="300pt" style="display: block; margin: auto;" /></p>
+<div id="limitaciones-de-los-modelos-lineales" class="section level4 hasAnchor" number="5.1.1.1">
+<h4><span class="header-section-number">5.1.1.1</span> Limitaciones de los modelos lineales<a href="perceptrón-multicapa.html#limitaciones-de-los-modelos-lineales" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>La linealidad supone una relación monotónica: si una variable aumenta, la salida del modelo siempre sube o baja según el signo del peso. Esto a veces es razonable, como al predecir el pago de un préstamo según ingresos, aunque la relación no sea estrictamente lineal. En estos casos, funciones como la logística pueden hacer más plausible la linealidad.</p>
 <p>Sin embargo, muchas relaciones reales no son monotónicas. Por ejemplo, la temperatura corporal: valores por encima o por debajo de 37 °C aumentan el riesgo, por lo que conviene transformar la variable (p. ej., usar la distancia a 37 °C).</p>
 <p><img src="img/05_Multilayer_Perceptron/lineal_vs_no_lineal.png" width="650pt" height="300pt" style="display: block; margin: auto;" /></p>
 <p>En problemas como la clasificación de imágenes, la linealidad es claramente insuficiente: cambiar el brillo de un solo píxel no determina si hay un gato o un perro. Aquí el significado de cada píxel depende de su contexto, y no existe un preprocesamiento simple que lo capture. Las redes neuronales profundas resuelven esto aprendiendo simultáneamente una representación adecuada y un predictor lineal sobre esa representación.</p>
 <p>La necesidad de modelar no linealidades se conoce desde hace un siglo y ha dado lugar a enfoques como árboles de decisión, métodos kernel, splines y, más recientemente, redes neuronales, inspiradas en las conexiones jerárquicas entre neuronas del cerebro.</p>
 </div>
-</div>
-<div id="implementación-de-perceptrones-multicapa" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> Implementación de Perceptrones Multicapa<a href="perceptrón-multicapa.html#implementaci%C3%B3n-de-perceptrones-multicapa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="incorporación-de-capas-ocultas" class="section level4 hasAnchor" number="5.1.1.2">
+<h4><span class="header-section-number">5.1.1.2</span> Incorporación de Capas Ocultas<a href="perceptrón-multicapa.html#incorporaci%C3%B3n-de-capas-ocultas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para superar las limitaciones de los modelos lineales, podemos agregar capas ocultas. La idea más básica es apilar varias capas totalmente conectadas: cada capa envía su salida a la siguiente. Las primeras capas aprenden una representación de los datos y la última capa actúa como un modelo lineal sobre esa representación.</p>
 <p>A esta arquitectura se le llama perceptrón multicapa o MLP.</p>
 <p>Observa la siguiente imagen que contempla un MLP con 4 entradas, 1 capa oculta con 5 neuronas y 3 salidas. Como la capa de entrada no calcula nada, realmente el modelo tiene 2 capas de cálculo: la oculta y la de salida.</p>
 <p><img src="img/05_Multilayer_Perceptron/MLP01_example.png" width="650pt" height="300pt" style="display: block; margin: auto;" /></p>
 <p>En un MLP, cada neurona de una capa está conectada con todas las neuronas de la siguiente. Es decir, cada entrada afecta a todas las neuronas ocultas, y cada una de estas afecta a todas las neuronas de salida.</p>
 </div>
+<div id="de-lo-lineal-a-lo-no-lineal" class="section level4 hasAnchor" number="5.1.1.3">
+<h4><span class="header-section-number">5.1.1.3</span> De lo Lineal a lo No Lineal<a href="perceptrón-multicapa.html#de-lo-lineal-a-lo-no-lineal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Como antes, denotamos con la matriz <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span> un minibatch de <span class="math inline">\(n\)</span> ejemplos, donde cada ejemplo tiene <span class="math inline">\(d\)</span> entradas (características). Para un MLP de una capa oculta cuya capa oculta tiene <span class="math inline">\(h\)</span> unidades ocultas, denotamos por <span class="math inline">\(H \in \mathbb{R}^{n \times h}\)</span> las salidas de la capa oculta, que son representaciones ocultas. Dado que las capas oculta y de salida están completamente conectadas, tenemos pesos de capas ocultas <span class="math inline">\(W^{(1)} \in \mathbb{R}^{d \times h}\)</span> y sesgos <span class="math inline">\(b^{(1)} \in \mathbb{R}^{1 \times h}\)</span> y pesos <span class="math inline">\(W^{(2)} \in \mathbb{R}^{h \times q}\)</span> y sesgos <span class="math inline">\(b^{(2)} \in \mathbb{R}^{1 \times q}\)</span> de la capa de salida. Esto nos permite calcular las salidas <span class="math inline">\(O \in \mathbb{R}^{n \times q}\)</span> del MLP de una capa oculta de la siguiente manera:</p>
+<p><span class="math display">\[
+H=XW^{(1)}+b^{(1)},
+\]</span>
+<span class="math display">\[
+O=HW^{(2)}+b^{(2)}.
+\]</span></p>
+<div class="infobox important">
+<p><strong>¡¡ RECORDATORIO !!</strong></p>
+<p>Una función “Afín” está dada por: <span class="math inline">\(f(x)=Ax+b\)</span>,</p>
+<p>Mientras que una función lineal está dado por: <span class="math inline">\(f(x)=Ax\)</span></p>
+</div>
+<p>Hay que tener en cuenta que, tras añadir la capa oculta, el modelo requiere que se rastree y actualicen conjuntos adicionales de parámetros. ¿Qué se ha ganado a cambio? Sorprendentemente, el modelo definido anteriormente, ¡NO GANA NADA! y la razón es sencilla. Las unidades ocultas anteriores se dan mediante una función afín de las entradas, y las salidas (pre-softmax) son simplemente una función afín de las unidades ocultas. La composición de funciones afines es todavía una función afín. Además, el modelo lineal ya era capaz de representar cualquier función afín.</p>
+<p>Para verlo formalmente, se puede simplemente colapsar la capa oculta en la definición anterior, lo que genera un modelo equivalente de una sola capa con parámetros.</p>
+<p><span class="math display">\[
+W=W^{(1)}W^{(2)} \text{ and } b=b^{1}W^{(2)}+b^{(2)}:
+\]</span>
+<span class="math display">\[
+O=(XW^{(1)}+b^{(1)})W^{(2)}+b^{(2)}=XW^{(1)}W^{(2)}+b^{(1)}W^{(2)}+b^{(2)}=XW+b
+\]</span></p>
+<p>Para aprovechar el potencial de las arquitecturas multicapa, se necesita un ingrediente clave adicional: <strong>una función de activación no lineal</strong> que se aplique a cada unidad oculta tras la transformación afín. na opción popular es la función de activación ReLU (unidad lineal rectificada) (Nair y Hinton, 2010) <span class="math inline">\(\sigma(x)=max(0, x)\)</span>, que opera sobre sus argumentos elemento por elemento. Las salidas de las funciones de activación <span class="math inline">\(\sigma(\cdot)\)</span> se denominan <strong>activaciones</strong>. En general, con las funciones de activación establecidas, ya no es posible convertir el MLP en un modelo lineal:</p>
+<p><span class="math display">\[
+H=\sigma(XW^{(1)}+b^{(1)}),
+\]</span>
+<span class="math display">\[
+O=HW^{(2)}+b^{(2)}.
+\]</span></p>
+<p>Dado que cada fila en <span class="math inline">\(X\)</span> corresponde a un ejemplo en el minibatch, con cierto abuso de notación, definimos la no linealidad <span class="math inline">\(\sigma\)</span> para aplicarla a sus entradas por filas, es decir, un ejemplo a la vez. Con frecuencia, las funciones de activación se aplican no solo por filas, sino también por elementos. Esto significa que, tras calcular la parte lineal de la capa, se calcula cada activación sin tener en cuenta los valores tomados por las demás unidades ocultas.</p>
+</div>
+<div id="aproximadores-universales" class="section level4 hasAnchor" number="5.1.1.4">
+<h4><span class="header-section-number">5.1.1.4</span> Aproximadores Universales<a href="perceptrón-multicapa.html#aproximadores-universales" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="infobox quicktip">
+<p><strong>¿Qué es un aproximador universal?</strong></p>
+<p>Es un resultado teórico que dice que <strong>una red neuronal con una sola capa oculta puede representar prácticamente cualquier función</strong>, si tiene suficientes neuronas y parámetros.</p>
+</div>
+<p><strong>Pero ojo:</strong></p>
+<p>Que pueda representar cualquier función no significa que sea fácil aprenderla. Tener una sola capa oculta puede requerir muchísimas neuronas (algo poco práctico). A veces es mejor usar: métodos de kernels, cuando aplican, porque resuelven el problema de forma exacta; redes más profundas, que permiten representar las mismas funciones de manera más compacta y eficiente.</p>
+<p><strong>Idea didáctica clave</strong></p>
+<p>La profundidad importa. Con suficiente profundidad, una red puede aprender funciones complejas de forma más eficiente que una red muy ancha con una sola capa.</p>
+</div>
+</div>
+<div id="funciones-de-activación" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Funciones de activación<a href="perceptrón-multicapa.html#funciones-de-activaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las funciones de activación determinan si una neurona debe activarse o no calculando la suma ponderada y agregándole un sesgo. Son operadores diferenciables que transforman señales de entrada en salidas, y la mayoría añade no linealidad. Dado que las funciones de activación son fundamentales para el aprendizaje profundo, se revisarán algunas de las más comunes.</p>
+<div id="función-relu" class="section level4 hasAnchor" number="5.1.2.1">
+<h4><span class="header-section-number">5.1.2.1</span> Función ReLU<a href="perceptrón-multicapa.html#funci%C3%B3n-relu" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>La opción más popular, debido tanto a su simplicidad de implementación como a su buen rendimiento en diversas tareas predictivas, es la unidad lineal rectificada (ReLU) (Nair y Hinton, 2010). ReLU proporciona una transformación no lineal muy simple. Dado un elemento , la función se define como el máximo de ese elemento y 0:</p>
+<p><span class="math display">\[
+ReLU(x)=max(x, 0).
+\]</span></p>
+<p>De manera informal, <strong>la función ReLU conserva solo los elementos positivos y descarta todos los negativos</strong> estableciendo las activaciones correspondientes a 0. Para una mayor comprensión, podemos representar gráficamente la función. Como se puede observar, la función de activación es lineal por partes.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="perceptrón-multicapa.html#cb4-1" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb4-2"><a href="perceptrón-multicapa.html#cb4-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-3"><a href="perceptrón-multicapa.html#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="perceptrón-multicapa.html#cb4-4" tabindex="-1"></a><span class="co"># Datos</span></span>
+<span id="cb4-5"><a href="perceptrón-multicapa.html#cb4-5" tabindex="-1"></a>x <span class="op">=</span> torch.arange(<span class="op">-</span><span class="fl">8.0</span>, <span class="fl">8.0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb4-6"><a href="perceptrón-multicapa.html#cb4-6" tabindex="-1"></a>y <span class="op">=</span> torch.relu(x)</span>
+<span id="cb4-7"><a href="perceptrón-multicapa.html#cb4-7" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="perceptrón-multicapa.html#cb4-8" tabindex="-1"></a><span class="co"># Gráfica</span></span>
+<span id="cb4-9"><a href="perceptrón-multicapa.html#cb4-9" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="fl">2.5</span>))</span>
+<span id="cb4-10"><a href="perceptrón-multicapa.html#cb4-10" tabindex="-1"></a>plt.plot(x, y)</span>
+<span id="cb4-11"><a href="perceptrón-multicapa.html#cb4-11" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;x&quot;</span>)</span>
+<span id="cb4-12"><a href="perceptrón-multicapa.html#cb4-12" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;ReLU(x)&quot;</span>)</span>
+<span id="cb4-13"><a href="perceptrón-multicapa.html#cb4-13" tabindex="-1"></a>plt.title(<span class="st">&quot;Función de activación ReLU&quot;</span>)</span>
+<span id="cb4-14"><a href="perceptrón-multicapa.html#cb4-14" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb4-15"><a href="perceptrón-multicapa.html#cb4-15" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-47-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Cuando la entrada es negativa, la derivada de la función ReLU es 0, y cuando la entrada es positiva, la derivada de la función ReLU es 1. Nótese que la función ReLU no es diferenciable cuando la entrada toma valor exactamente igual a 0. En estos casos, se usa por defecto la derivada del lado izquierdo y decimos que la derivada es 0 cuando la entrada es 0. Podemos evitar esto porque la entrada puede que nunca sea realmente cero (los matemáticos dirían que no es diferenciable en un conjunto de medida cero). Hay un viejo adagio que dice que si las condiciones de contorno sutiles importan, probablemente estemos haciendo matemáticas (reales), no ingeniería. Esa sabiduría convencional puede aplicarse aquí, o al menos, el hecho de que no estamos realizando optimización restringida (Mangasarian, 1965, Rockafellar, 1970). se traza la derivada de la función ReLU a continuación.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="perceptrón-multicapa.html#cb5-1" tabindex="-1"></a>x <span class="op">=</span> torch.arange(<span class="op">-</span><span class="fl">8.0</span>, <span class="fl">8.0</span>, <span class="fl">0.1</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-2"><a href="perceptrón-multicapa.html#cb5-2" tabindex="-1"></a>y <span class="op">=</span> torch.relu(x)</span>
+<span id="cb5-3"><a href="perceptrón-multicapa.html#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="perceptrón-multicapa.html#cb5-4" tabindex="-1"></a>y.backward(torch.ones_like(x))</span>
+<span id="cb5-5"><a href="perceptrón-multicapa.html#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="perceptrón-multicapa.html#cb5-6" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="fl">2.5</span>))</span>
+<span id="cb5-7"><a href="perceptrón-multicapa.html#cb5-7" tabindex="-1"></a>plt.plot(x.detach(), x.grad)</span>
+<span id="cb5-8"><a href="perceptrón-multicapa.html#cb5-8" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;x&#39;</span>)</span>
+<span id="cb5-9"><a href="perceptrón-multicapa.html#cb5-9" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;grad ReLU(x)&#39;</span>)</span>
+<span id="cb5-10"><a href="perceptrón-multicapa.html#cb5-10" tabindex="-1"></a>plt.title(<span class="st">&#39;Derivada de ReLU&#39;</span>)</span>
+<span id="cb5-11"><a href="perceptrón-multicapa.html#cb5-11" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb5-12"><a href="perceptrón-multicapa.html#cb5-12" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-48-3.png" width="480" style="display: block; margin: auto;" /></p>
+<p>La razón para usar ReLU es que sus derivadas se comportan particularmente bien: o se anulan o simplemente dejan pasar el argumento. Esto mejora el comportamiento de la optimización y mitiga el problema bien documentado de los gradientes evanescentes que afectaba a versiones anteriores de redes neuronales (más sobre esto más adelante).</p>
+<p>Cabe destacar que existen muchas variantes de la función ReLU, incluyendo la función ReLU parametrizada (pReLU) (He et al., 2015). Esta variación añade un término lineal a ReLU, por lo que parte de la información se transmite, incluso cuando el argumento es negativo:</p>
+<p><span class="math display">\[
+pReLU(x)=max(0,x)+\alpha \cdot min(0,x).
+\]</span></p>
+</div>
+<div id="función-sigmoide" class="section level4 hasAnchor" number="5.1.2.2">
+<h4><span class="header-section-number">5.1.2.2</span> Función Sigmoide<a href="perceptrón-multicapa.html#funci%C3%B3n-sigmoide" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>La función sigmoidea transforma las entradas cuyos valores se encuentran en el dominio <span class="math inline">\(\mathbb{R}\)</span>, en salidas que se encuentran en el intervalo (0, 1). Por esta razón, la función sigmoidea suele denominarse función de aplastamiento (<em>squashing function</em>): aplasta cualquier entrada en el rango (-inf, inf) a un valor en el rango (0, 1):</p>
+<p><span class="math display">\[
+\text{sigmoid}(x)=\frac{1}{1+\text{exp}(-x)}
+\]</span></p>
+<p>A continuación, se grafica la función sigmoidea. Nótese que cuando la entrada se acerca a 0, la función sigmoidea se aproxima a una transformación lineal.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="perceptrón-multicapa.html#cb6-1" tabindex="-1"></a>x <span class="op">=</span> torch.arange(<span class="op">-</span><span class="fl">8.0</span>, <span class="fl">8.0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb6-2"><a href="perceptrón-multicapa.html#cb6-2" tabindex="-1"></a>y <span class="op">=</span> torch.sigmoid(x)</span>
+<span id="cb6-3"><a href="perceptrón-multicapa.html#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="perceptrón-multicapa.html#cb6-4" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="fl">2.5</span>))</span>
+<span id="cb6-5"><a href="perceptrón-multicapa.html#cb6-5" tabindex="-1"></a>plt.plot(x.detach(), y.detach())</span>
+<span id="cb6-6"><a href="perceptrón-multicapa.html#cb6-6" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;x&quot;</span>)</span>
+<span id="cb6-7"><a href="perceptrón-multicapa.html#cb6-7" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;sigmoid(x)&quot;</span>)</span>
+<span id="cb6-8"><a href="perceptrón-multicapa.html#cb6-8" tabindex="-1"></a>plt.title(<span class="st">&quot;Función Sigmoid&quot;</span>)</span>
+<span id="cb6-9"><a href="perceptrón-multicapa.html#cb6-9" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb6-10"><a href="perceptrón-multicapa.html#cb6-10" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-49-5.png" width="480" style="display: block; margin: auto;" /></p>
+<p>La derivada de la función sigmoide está dada por la siguiente ecuación:</p>
+<p><span class="math display">\[
+\frac{d}{dx}\text{sigmoid}(x)=\frac{\text{exp(-x)}}{(1+\text{exp}(-x))^2}=\text{sigmoid}(x)(1-\text{sigmoid}(x))
+\]</span></p>
+<p>La derivada de la función sigmoidea se grafica a continuación. Nótese que cuando la entrada es 0, la derivada de la función sigmoidea alcanza un máximo de 0,25. A medida que la entrada diverge de 0 en cualquier dirección, la derivada tiende a 0.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="perceptrón-multicapa.html#cb7-1" tabindex="-1"></a><span class="co"># Definir x con gradientes</span></span>
+<span id="cb7-2"><a href="perceptrón-multicapa.html#cb7-2" tabindex="-1"></a>x <span class="op">=</span> torch.arange(<span class="op">-</span><span class="fl">8.0</span>, <span class="fl">8.0</span>, <span class="fl">0.1</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-3"><a href="perceptrón-multicapa.html#cb7-3" tabindex="-1"></a>y <span class="op">=</span> torch.sigmoid(x)</span>
+<span id="cb7-4"><a href="perceptrón-multicapa.html#cb7-4" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="perceptrón-multicapa.html#cb7-5" tabindex="-1"></a><span class="co"># Borrar gradientes previos (si los hubiera)</span></span>
+<span id="cb7-6"><a href="perceptrón-multicapa.html#cb7-6" tabindex="-1"></a><span class="cf">if</span> x.grad <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb7-7"><a href="perceptrón-multicapa.html#cb7-7" tabindex="-1"></a>    x.grad.zero_()</span>
+<span id="cb7-8"><a href="perceptrón-multicapa.html#cb7-8" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="perceptrón-multicapa.html#cb7-9" tabindex="-1"></a><span class="co"># Backprop para obtener la derivada</span></span>
+<span id="cb7-10"><a href="perceptrón-multicapa.html#cb7-10" tabindex="-1"></a>y.backward(torch.ones_like(x), retain_graph<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-11"><a href="perceptrón-multicapa.html#cb7-11" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="perceptrón-multicapa.html#cb7-12" tabindex="-1"></a><span class="co"># Graficar</span></span>
+<span id="cb7-13"><a href="perceptrón-multicapa.html#cb7-13" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="fl">2.5</span>))</span>
+<span id="cb7-14"><a href="perceptrón-multicapa.html#cb7-14" tabindex="-1"></a>plt.plot(x.detach(), x.grad.detach())</span>
+<span id="cb7-15"><a href="perceptrón-multicapa.html#cb7-15" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;x&quot;</span>)</span>
+<span id="cb7-16"><a href="perceptrón-multicapa.html#cb7-16" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;grad sigmoid(x)&quot;</span>)</span>
+<span id="cb7-17"><a href="perceptrón-multicapa.html#cb7-17" tabindex="-1"></a>plt.title(<span class="st">&quot;Derivada de la función Sigmoid&quot;</span>)</span>
+<span id="cb7-18"><a href="perceptrón-multicapa.html#cb7-18" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb7-19"><a href="perceptrón-multicapa.html#cb7-19" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-50-7.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="función-tanh" class="section level4 hasAnchor" number="5.1.2.3">
+<h4><span class="header-section-number">5.1.2.3</span> Función Tanh<a href="perceptrón-multicapa.html#funci%C3%B3n-tanh" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Al igual que la función sigmoidea, la función tangente hiperbólica también reduce sus valores de entrada, transformándolos en elementos del intervalo entre -1 y 1.</p>
+<p><span class="math display">\[
+\text{tanh}(x)=\frac{1-\text{exp}(-2x)}{1+\text{exp}(-2x)}
+\]</span></p>
+<p>Nótese que, a medida que la entrada se acerca a 0, la función tanh se aproxima a una transformación lineal. Aunque la forma de la función es similar a la de la función sigmoidea, la función tanh presenta <strong>simetría puntual respecto al origen</strong> del sistema de coordenadas (Kalman y Kwasny, 1992).</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="perceptrón-multicapa.html#cb8-1" tabindex="-1"></a><span class="co"># Datos</span></span>
+<span id="cb8-2"><a href="perceptrón-multicapa.html#cb8-2" tabindex="-1"></a>x <span class="op">=</span> torch.arange(<span class="op">-</span><span class="fl">8.0</span>, <span class="fl">8.0</span>, <span class="fl">0.1</span>)</span>
+<span id="cb8-3"><a href="perceptrón-multicapa.html#cb8-3" tabindex="-1"></a>y <span class="op">=</span> torch.tanh(x)</span>
+<span id="cb8-4"><a href="perceptrón-multicapa.html#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="perceptrón-multicapa.html#cb8-5" tabindex="-1"></a><span class="co"># Gráfica</span></span>
+<span id="cb8-6"><a href="perceptrón-multicapa.html#cb8-6" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="fl">2.5</span>))</span>
+<span id="cb8-7"><a href="perceptrón-multicapa.html#cb8-7" tabindex="-1"></a>plt.plot(x.detach(), y.detach())</span>
+<span id="cb8-8"><a href="perceptrón-multicapa.html#cb8-8" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;x&quot;</span>)</span>
+<span id="cb8-9"><a href="perceptrón-multicapa.html#cb8-9" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;tanh(x)&quot;</span>)</span>
+<span id="cb8-10"><a href="perceptrón-multicapa.html#cb8-10" tabindex="-1"></a>plt.title(<span class="st">&quot;Función tanh&quot;</span>)</span>
+<span id="cb8-11"><a href="perceptrón-multicapa.html#cb8-11" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb8-12"><a href="perceptrón-multicapa.html#cb8-12" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-51-9.png" width="480" style="display: block; margin: auto;" /></p>
+<p>La derivada de la función <em>tanh</em> es:</p>
+<p><span class="math display">\[
+\frac{d}{dx}\text{tanh}(x)=1-\text{tanh}^{2}(x)
+\]</span></p>
+<p>A medida que la entrada se acerca a 0, la derivada de la función <em>tanh</em> se acerca a un máximo de 1. Y, como se vio con la función sigmoidea, a medida que la entrada se aleja de 0 en cualquier dirección, la derivada de la función <em>tanh</em> se acerca a 0.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="perceptrón-multicapa.html#cb9-1" tabindex="-1"></a><span class="co"># Definir x con gradientes activados</span></span>
+<span id="cb9-2"><a href="perceptrón-multicapa.html#cb9-2" tabindex="-1"></a>x <span class="op">=</span> torch.arange(<span class="op">-</span><span class="fl">8.0</span>, <span class="fl">8.0</span>, <span class="fl">0.1</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-3"><a href="perceptrón-multicapa.html#cb9-3" tabindex="-1"></a>y <span class="op">=</span> torch.tanh(x)</span>
+<span id="cb9-4"><a href="perceptrón-multicapa.html#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="perceptrón-multicapa.html#cb9-5" tabindex="-1"></a><span class="co"># Borrar gradientes anteriores</span></span>
+<span id="cb9-6"><a href="perceptrón-multicapa.html#cb9-6" tabindex="-1"></a><span class="cf">if</span> x.grad <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb9-7"><a href="perceptrón-multicapa.html#cb9-7" tabindex="-1"></a>    x.grad.zero_()</span>
+<span id="cb9-8"><a href="perceptrón-multicapa.html#cb9-8" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="perceptrón-multicapa.html#cb9-9" tabindex="-1"></a><span class="co"># Backprop para obtener la derivada</span></span>
+<span id="cb9-10"><a href="perceptrón-multicapa.html#cb9-10" tabindex="-1"></a>y.backward(torch.ones_like(x), retain_graph<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-11"><a href="perceptrón-multicapa.html#cb9-11" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="perceptrón-multicapa.html#cb9-12" tabindex="-1"></a><span class="co"># Graficar la derivada</span></span>
+<span id="cb9-13"><a href="perceptrón-multicapa.html#cb9-13" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="fl">2.5</span>))</span>
+<span id="cb9-14"><a href="perceptrón-multicapa.html#cb9-14" tabindex="-1"></a>plt.plot(x.detach(), x.grad.detach())</span>
+<span id="cb9-15"><a href="perceptrón-multicapa.html#cb9-15" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;x&quot;</span>)</span>
+<span id="cb9-16"><a href="perceptrón-multicapa.html#cb9-16" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;grad tanh(x)&quot;</span>)</span>
+<span id="cb9-17"><a href="perceptrón-multicapa.html#cb9-17" tabindex="-1"></a>plt.title(<span class="st">&quot;Derivada de la función tanh&quot;</span>)</span>
+<span id="cb9-18"><a href="perceptrón-multicapa.html#cb9-18" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb9-19"><a href="perceptrón-multicapa.html#cb9-19" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-52-11.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="discusión" class="section level3 hasAnchor" number="5.1.3">
+<h3><span class="header-section-number">5.1.3</span> Discusión<a href="perceptrón-multicapa.html#discusi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ahora sabemos cómo incorporar <strong>no linealidades</strong> para construir arquitecturas expresivas de redes neuronales multicapa. Una ventaja de la función ReLU es que es significativamente más fácil de optimizar que la función sigmoidea o la función tanh. Se podría argumentar que esta fue una de las innovaciones clave que impulsaron el resurgimiento del aprendizaje profundo en la última década.</p>
+<p>Cabe destacar, sin embargo, que la investigación en funciones de activación no se ha detenido. Por ejemplo, la función de activación GELU (unidad lineal de error gaussiano) <span class="math inline">\(x\phi(x)\)</span> de Hendrycks y Gimpel (2016) <span class="math inline">\(\phi(x)\)</span> (es la función de distribución acumulativa gaussiana estándar) y la función de activación <em>Swish</em> <span class="math inline">\(\sigma(x)=x\cdot\text{sigmoid}(\beta x)\)</span>, propuesta por Ramachandran et al. (2017), pueden ofrecer una mayor precisión en muchos casos.</p>
+</div>
+<div id="ejercicios" class="section level3 hasAnchor" number="5.1.4">
+<h3><span class="header-section-number">5.1.4</span> Ejercicios<a href="perceptrón-multicapa.html#ejercicios" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Demuestre que añadir capas a una red lineal profunda, es decir, una red sin no linealidad <span class="math inline">\(\sigma\)</span>, nunca puede aumentar su potencia expresiva. Dé un ejemplo donde la reduzca activamente.</p></li>
+<li><p>Calcule la derivada de la función de activación pReLU.</p></li>
+<li><p>Calcule la derivada de la función de activación Swish <span class="math inline">\(x\cdot \text{sigmoid}(\beta x)\)</span>.</p></li>
+<li><p>Demuestre que una MLP que utiliza solo ReLU (o pReLU) construye una función lineal continua por partes.</p></li>
+<li><p>Sigmoid y tanh son muy similares.</p></li>
+</ol>
+<ul>
+<li><p>Demuestre que <span class="math inline">\(\text{tanh}(x)+1 = 2\text{sigmoid}(2x)\)</span>.</p></li>
+<li><p>Demuestre que las clases de función parametrizadas por ambas no linealidades son idénticas. Pista: las capas afines también tienen términos de sesgo.</p></li>
+</ul>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Suponga que tenemos una no linealidad que se aplica a un minibatch a la vez, como la normalización por lotes (Ioffe y Szegedy, 2015). ¿Qué tipo de problemas espera que esto cause?</p></li>
+<li><p>Dé un ejemplo donde los gradientes se anulen para la función de activación sigmoide.</p></li>
+</ol>
+</div>
+</div>
+<div id="implementación-de-perceptrones-multicapa" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Implementación de Perceptrones Multicapa<a href="perceptrón-multicapa.html#implementaci%C3%B3n-de-perceptrones-multicapa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Los perceptrones multicapa (MLP) no son mucho más complejos de implementar que los modelos lineales simples. La diferencia conceptual clave radica en que ahora se concatenan múltiples capas.</p>
+<div id="implementación-desde-cero" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Implementación desde Cero<a href="perceptrón-multicapa.html#implementaci%C3%B3n-desde-cero" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Comencemos de nuevo implementando dicha red desde cero.</p>
+<div id="inicialización-de-parámetros-del-modelo" class="section level4 hasAnchor" number="5.2.1.1">
+<h4><span class="header-section-number">5.2.1.1</span> Inicialización de parámetros del modelo<a href="perceptrón-multicapa.html#inicializaci%C3%B3n-de-par%C3%A1metros-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>El conjunto de datos <strong>Fashion-MNIST</strong> contiene 10 clases de imágenes y cada imagen consiste en una cuadrícula de valores de píxeles en escala de grises. Como antes, por ahora ignoraremos la estructura espacial entre los píxeles, por lo que podemos considerarlo como un conjunto de datos de clasificación con 784 características de entrada y 10 clases. Para comenzar, implementaremos un MLP con una capa oculta y 256 unidades ocultas. Tanto el número de capas como su ancho son ajustables (se consideran hiperparámetros).</p>
+<div class="infobox quicktip">
+<p><strong>Tip:</strong></p>
+<p>Normalmente, se busca que <strong>el ancho de las capas (número de neuronas) sea divisible por potencias mayores de 2</strong>, es decir: 4, 8, 16, 32, 64, 128, 256, 512, etc. Esto es computacionalmente eficiente debido a que las GPUs trabajan internamente con bloques de tamaño 32 y potencias de 2, haciendo que esos anchos sean:</p>
+<ul>
+<li>Más rápidos</li>
+<li>Más fáciles de paralelizar</li>
+<li>Más eficientes en memoria</li>
+</ul>
+</div>
+<p>De nuevo, representaremos nuestros parámetros con varios tensores. Tenga en cuenta que, para cada capa, debemos registrar una matriz de ponderación y un vector de sesgo. Es importante tomar en cuenta la asignación de memoria para los gradientes de pérdida con respecto a estos parámetros.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="perceptrón-multicapa.html#cb10-1" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb10-2"><a href="perceptrón-multicapa.html#cb10-2" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
+<span id="cb10-3"><a href="perceptrón-multicapa.html#cb10-3" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb10-4"><a href="perceptrón-multicapa.html#cb10-4" tabindex="-1"></a><span class="im">import</span> inspect</span>
+<span id="cb10-5"><a href="perceptrón-multicapa.html#cb10-5" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="perceptrón-multicapa.html#cb10-6" tabindex="-1"></a><span class="kw">class</span> Module(nn.Module):</span>
+<span id="cb10-7"><a href="perceptrón-multicapa.html#cb10-7" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb10-8"><a href="perceptrón-multicapa.html#cb10-8" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb10-9"><a href="perceptrón-multicapa.html#cb10-9" tabindex="-1"></a>        <span class="va">self</span>.metrics <span class="op">=</span> {}</span>
+<span id="cb10-10"><a href="perceptrón-multicapa.html#cb10-10" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="perceptrón-multicapa.html#cb10-11" tabindex="-1"></a>    <span class="kw">def</span> save_hyperparameters(<span class="va">self</span>, ignore<span class="op">=</span>[]):</span>
+<span id="cb10-12"><a href="perceptrón-multicapa.html#cb10-12" tabindex="-1"></a>        frame <span class="op">=</span> inspect.currentframe().f_back</span>
+<span id="cb10-13"><a href="perceptrón-multicapa.html#cb10-13" tabindex="-1"></a>        _, _, _, local_vars <span class="op">=</span> inspect.getargvalues(frame)</span>
+<span id="cb10-14"><a href="perceptrón-multicapa.html#cb10-14" tabindex="-1"></a>        <span class="cf">for</span> k, v <span class="kw">in</span> local_vars.items():</span>
+<span id="cb10-15"><a href="perceptrón-multicapa.html#cb10-15" tabindex="-1"></a>            <span class="cf">if</span> k <span class="kw">not</span> <span class="kw">in</span> ignore <span class="kw">and</span> k <span class="op">!=</span> <span class="st">&quot;self&quot;</span>:</span>
+<span id="cb10-16"><a href="perceptrón-multicapa.html#cb10-16" tabindex="-1"></a>                <span class="bu">setattr</span>(<span class="va">self</span>, k, v)</span>
+<span id="cb10-17"><a href="perceptrón-multicapa.html#cb10-17" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="perceptrón-multicapa.html#cb10-18" tabindex="-1"></a>    <span class="kw">def</span> plot(<span class="va">self</span>, name, value, train<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb10-19"><a href="perceptrón-multicapa.html#cb10-19" tabindex="-1"></a>        <span class="co">&quot;&quot;&quot;Guarda valores para graficarlos al final.&quot;&quot;&quot;</span></span>
+<span id="cb10-20"><a href="perceptrón-multicapa.html#cb10-20" tabindex="-1"></a>        key <span class="op">=</span> <span class="ss">f&quot;</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span><span class="st">&#39;train&#39;</span> <span class="cf">if</span> train <span class="cf">else</span> <span class="st">&#39;val&#39;</span><span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb10-21"><a href="perceptrón-multicapa.html#cb10-21" tabindex="-1"></a>        <span class="cf">if</span> key <span class="kw">not</span> <span class="kw">in</span> <span class="va">self</span>.metrics:</span>
+<span id="cb10-22"><a href="perceptrón-multicapa.html#cb10-22" tabindex="-1"></a>            <span class="va">self</span>.metrics[key] <span class="op">=</span> []</span>
+<span id="cb10-23"><a href="perceptrón-multicapa.html#cb10-23" tabindex="-1"></a>        <span class="va">self</span>.metrics[key].append(value)</span>
+<span id="cb10-24"><a href="perceptrón-multicapa.html#cb10-24" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="perceptrón-multicapa.html#cb10-25" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, X):</span>
+<span id="cb10-26"><a href="perceptrón-multicapa.html#cb10-26" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">NotImplementedError</span>(<span class="st">&quot;Define forward() in subclass&quot;</span>)</span>
+<span id="cb10-27"><a href="perceptrón-multicapa.html#cb10-27" tabindex="-1"></a></span>
+<span id="cb10-28"><a href="perceptrón-multicapa.html#cb10-28" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="perceptrón-multicapa.html#cb10-29" tabindex="-1"></a><span class="kw">class</span> Classifier(Module):</span>
+<span id="cb10-30"><a href="perceptrón-multicapa.html#cb10-30" tabindex="-1"></a>    <span class="kw">def</span> loss(<span class="va">self</span>, y_hat, y):</span>
+<span id="cb10-31"><a href="perceptrón-multicapa.html#cb10-31" tabindex="-1"></a>        <span class="cf">return</span> nn.CrossEntropyLoss()(y_hat, y)</span>
+<span id="cb10-32"><a href="perceptrón-multicapa.html#cb10-32" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="perceptrón-multicapa.html#cb10-33" tabindex="-1"></a>    <span class="kw">def</span> accuracy(<span class="va">self</span>, y_hat, y):</span>
+<span id="cb10-34"><a href="perceptrón-multicapa.html#cb10-34" tabindex="-1"></a>        preds <span class="op">=</span> y_hat.argmax(dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb10-35"><a href="perceptrón-multicapa.html#cb10-35" tabindex="-1"></a>        <span class="cf">return</span> (preds <span class="op">==</span> y).<span class="bu">float</span>().mean()</span>
+<span id="cb10-36"><a href="perceptrón-multicapa.html#cb10-36" tabindex="-1"></a></span>
+<span id="cb10-37"><a href="perceptrón-multicapa.html#cb10-37" tabindex="-1"></a>    <span class="co"># def train_step(self, batch):</span></span>
+<span id="cb10-38"><a href="perceptrón-multicapa.html#cb10-38" tabindex="-1"></a>    <span class="co">#     X, y = batch</span></span>
+<span id="cb10-39"><a href="perceptrón-multicapa.html#cb10-39" tabindex="-1"></a>    <span class="co">#     y_hat = self.forward(X)</span></span>
+<span id="cb10-40"><a href="perceptrón-multicapa.html#cb10-40" tabindex="-1"></a>    <span class="co">#     loss = self.loss(y_hat, y)</span></span>
+<span id="cb10-41"><a href="perceptrón-multicapa.html#cb10-41" tabindex="-1"></a>    <span class="co"># </span></span>
+<span id="cb10-42"><a href="perceptrón-multicapa.html#cb10-42" tabindex="-1"></a>    <span class="co">#     # backprop</span></span>
+<span id="cb10-43"><a href="perceptrón-multicapa.html#cb10-43" tabindex="-1"></a>    <span class="co">#     self.optimizer.zero_grad()</span></span>
+<span id="cb10-44"><a href="perceptrón-multicapa.html#cb10-44" tabindex="-1"></a>    <span class="co">#     loss.backward()</span></span>
+<span id="cb10-45"><a href="perceptrón-multicapa.html#cb10-45" tabindex="-1"></a>    <span class="co">#     self.optimizer.step()</span></span>
+<span id="cb10-46"><a href="perceptrón-multicapa.html#cb10-46" tabindex="-1"></a>    <span class="co"># </span></span>
+<span id="cb10-47"><a href="perceptrón-multicapa.html#cb10-47" tabindex="-1"></a>    <span class="co">#     return loss.item(), self.accuracy(y_hat, y).item()</span></span>
+<span id="cb10-48"><a href="perceptrón-multicapa.html#cb10-48" tabindex="-1"></a>       </span>
+<span id="cb10-49"><a href="perceptrón-multicapa.html#cb10-49" tabindex="-1"></a>    <span class="kw">def</span> evaluation_step(<span class="va">self</span>, X, y):</span>
+<span id="cb10-50"><a href="perceptrón-multicapa.html#cb10-50" tabindex="-1"></a>        <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb10-51"><a href="perceptrón-multicapa.html#cb10-51" tabindex="-1"></a>            y_hat <span class="op">=</span> <span class="va">self</span>(X)</span>
+<span id="cb10-52"><a href="perceptrón-multicapa.html#cb10-52" tabindex="-1"></a>            <span class="cf">return</span> (</span>
+<span id="cb10-53"><a href="perceptrón-multicapa.html#cb10-53" tabindex="-1"></a>                <span class="va">self</span>.loss(y_hat, y).item(),</span>
+<span id="cb10-54"><a href="perceptrón-multicapa.html#cb10-54" tabindex="-1"></a>                <span class="va">self</span>.accuracy(y_hat, y).item(),</span>
+<span id="cb10-55"><a href="perceptrón-multicapa.html#cb10-55" tabindex="-1"></a>            )</span>
+<span id="cb10-56"><a href="perceptrón-multicapa.html#cb10-56" tabindex="-1"></a></span>
+<span id="cb10-57"><a href="perceptrón-multicapa.html#cb10-57" tabindex="-1"></a></span>
+<span id="cb10-58"><a href="perceptrón-multicapa.html#cb10-58" tabindex="-1"></a></span>
+<span id="cb10-59"><a href="perceptrón-multicapa.html#cb10-59" tabindex="-1"></a><span class="co"># ------ Decorador para agregar métodos ------</span></span>
+<span id="cb10-60"><a href="perceptrón-multicapa.html#cb10-60" tabindex="-1"></a><span class="kw">def</span> add_to_class(cls):</span>
+<span id="cb10-61"><a href="perceptrón-multicapa.html#cb10-61" tabindex="-1"></a>    <span class="kw">def</span> decorator(fn):</span>
+<span id="cb10-62"><a href="perceptrón-multicapa.html#cb10-62" tabindex="-1"></a>        <span class="bu">setattr</span>(cls, fn.<span class="va">__name__</span>, fn)</span>
+<span id="cb10-63"><a href="perceptrón-multicapa.html#cb10-63" tabindex="-1"></a>        <span class="cf">return</span> fn</span>
+<span id="cb10-64"><a href="perceptrón-multicapa.html#cb10-64" tabindex="-1"></a>    <span class="cf">return</span> decorator</span></code></pre></div>
+<p>En el código siguiente usamos nn.Parameter para registrar automáticamente un atributo de clase como un parámetro que será rastreado por autograd.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="perceptrón-multicapa.html#cb11-1" tabindex="-1"></a><span class="kw">class</span> MLPScratch(Classifier):</span>
+<span id="cb11-2"><a href="perceptrón-multicapa.html#cb11-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_inputs, num_outputs, num_hiddens, lr, sigma<span class="op">=</span><span class="fl">0.01</span>):</span>
+<span id="cb11-3"><a href="perceptrón-multicapa.html#cb11-3" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb11-4"><a href="perceptrón-multicapa.html#cb11-4" tabindex="-1"></a>        <span class="va">self</span>.save_hyperparameters()</span>
+<span id="cb11-5"><a href="perceptrón-multicapa.html#cb11-5" tabindex="-1"></a>        <span class="va">self</span>.lr <span class="op">=</span> lr</span>
+<span id="cb11-6"><a href="perceptrón-multicapa.html#cb11-6" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="perceptrón-multicapa.html#cb11-7" tabindex="-1"></a>        <span class="va">self</span>.W1 <span class="op">=</span> nn.Parameter(torch.randn(num_inputs, num_hiddens) <span class="op">*</span> sigma)</span>
+<span id="cb11-8"><a href="perceptrón-multicapa.html#cb11-8" tabindex="-1"></a>        <span class="va">self</span>.b1 <span class="op">=</span> nn.Parameter(torch.zeros(num_hiddens))</span>
+<span id="cb11-9"><a href="perceptrón-multicapa.html#cb11-9" tabindex="-1"></a>        </span>
+<span id="cb11-10"><a href="perceptrón-multicapa.html#cb11-10" tabindex="-1"></a>        <span class="va">self</span>.W2 <span class="op">=</span> nn.Parameter(torch.randn(num_hiddens, num_outputs) <span class="op">*</span> sigma)</span>
+<span id="cb11-11"><a href="perceptrón-multicapa.html#cb11-11" tabindex="-1"></a>        <span class="va">self</span>.b2 <span class="op">=</span> nn.Parameter(torch.zeros(num_outputs))</span></code></pre></div>
+</div>
+<div id="modelo" class="section level4 hasAnchor" number="5.2.1.2">
+<h4><span class="header-section-number">5.2.1.2</span> Modelo<a href="perceptrón-multicapa.html#modelo" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Para asegurarnos de que sabemos cómo funciona todo, implementaremos la activación de ReLU nosotros mismos en lugar de invocar directamente la función relu incorporada.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="perceptrón-multicapa.html#cb12-1" tabindex="-1"></a><span class="kw">def</span> relu(X):</span>
+<span id="cb12-2"><a href="perceptrón-multicapa.html#cb12-2" tabindex="-1"></a>    a <span class="op">=</span> torch.zeros_like(X)</span>
+<span id="cb12-3"><a href="perceptrón-multicapa.html#cb12-3" tabindex="-1"></a>    <span class="cf">return</span> torch.<span class="bu">max</span>(X, a)</span></code></pre></div>
+<p>Como ignoramos la estructura espacial, transformamos cada imagen bidimensional en un vector plano de longitud num_inputs. Finalmente, implementamos nuestro modelo con solo unas pocas líneas de código. Como usamos el framework autograd integrado, esto es todo lo que necesitamos.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="perceptrón-multicapa.html#cb13-1" tabindex="-1"></a><span class="co"># Añadir método usando el decorador</span></span>
+<span id="cb13-2"><a href="perceptrón-multicapa.html#cb13-2" tabindex="-1"></a><span class="at">@add_to_class</span>(MLPScratch)</span>
+<span id="cb13-3"><a href="perceptrón-multicapa.html#cb13-3" tabindex="-1"></a><span class="kw">def</span> forward(<span class="va">self</span>, X):</span>
+<span id="cb13-4"><a href="perceptrón-multicapa.html#cb13-4" tabindex="-1"></a>    X <span class="op">=</span> X.reshape((<span class="op">-</span><span class="dv">1</span>, <span class="va">self</span>.num_inputs))</span>
+<span id="cb13-5"><a href="perceptrón-multicapa.html#cb13-5" tabindex="-1"></a>    H <span class="op">=</span> relu(torch.matmul(X, <span class="va">self</span>.W1) <span class="op">+</span> <span class="va">self</span>.b1)</span>
+<span id="cb13-6"><a href="perceptrón-multicapa.html#cb13-6" tabindex="-1"></a>    <span class="cf">return</span> torch.matmul(H, <span class="va">self</span>.W2) <span class="op">+</span> <span class="va">self</span>.b2</span></code></pre></div>
+</div>
+<div id="entrenamiento" class="section level4 hasAnchor" number="5.2.1.3">
+<h4><span class="header-section-number">5.2.1.3</span> Entrenamiento<a href="perceptrón-multicapa.html#entrenamiento" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Afortunadamente, el ciclo de entrenamiento para las MLP es exactamente el mismo que para la regresión softmax. Definimos el modelo, los datos y el entrenador, y finalmente invocamos el método de ajuste en el modelo y los datos.</p>
+<p>Primero, unas clases auxiliares:</p>
+<div id="dataloader" class="section level5 unnumbered hasAnchor">
+<h5>DataLoader:<a href="perceptrón-multicapa.html#dataloader" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="perceptrón-multicapa.html#cb14-1" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> DataLoader</span>
+<span id="cb14-2"><a href="perceptrón-multicapa.html#cb14-2" tabindex="-1"></a><span class="im">from</span> torchvision <span class="im">import</span> datasets, transforms</span>
+<span id="cb14-3"><a href="perceptrón-multicapa.html#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="perceptrón-multicapa.html#cb14-4" tabindex="-1"></a><span class="kw">class</span> FashionMNISTData:</span>
+<span id="cb14-5"><a href="perceptrón-multicapa.html#cb14-5" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, batch_size<span class="op">=</span><span class="dv">256</span>):</span>
+<span id="cb14-6"><a href="perceptrón-multicapa.html#cb14-6" tabindex="-1"></a>        <span class="va">self</span>.batch_size <span class="op">=</span> batch_size</span>
+<span id="cb14-7"><a href="perceptrón-multicapa.html#cb14-7" tabindex="-1"></a>        <span class="va">self</span>.transform <span class="op">=</span> transforms.ToTensor()</span>
+<span id="cb14-8"><a href="perceptrón-multicapa.html#cb14-8" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="perceptrón-multicapa.html#cb14-9" tabindex="-1"></a>        <span class="va">self</span>.train <span class="op">=</span> datasets.FashionMNIST(</span>
+<span id="cb14-10"><a href="perceptrón-multicapa.html#cb14-10" tabindex="-1"></a>            root<span class="op">=</span><span class="st">&quot;./data&quot;</span>, train<span class="op">=</span><span class="va">True</span>, download<span class="op">=</span><span class="va">True</span>, transform<span class="op">=</span><span class="va">self</span>.transform</span>
+<span id="cb14-11"><a href="perceptrón-multicapa.html#cb14-11" tabindex="-1"></a>        )</span>
+<span id="cb14-12"><a href="perceptrón-multicapa.html#cb14-12" tabindex="-1"></a>        <span class="va">self</span>.test <span class="op">=</span> datasets.FashionMNIST(</span>
+<span id="cb14-13"><a href="perceptrón-multicapa.html#cb14-13" tabindex="-1"></a>            root<span class="op">=</span><span class="st">&quot;./data&quot;</span>, train<span class="op">=</span><span class="va">False</span>, download<span class="op">=</span><span class="va">True</span>, transform<span class="op">=</span><span class="va">self</span>.transform</span>
+<span id="cb14-14"><a href="perceptrón-multicapa.html#cb14-14" tabindex="-1"></a>        )</span>
+<span id="cb14-15"><a href="perceptrón-multicapa.html#cb14-15" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="perceptrón-multicapa.html#cb14-16" tabindex="-1"></a>        <span class="va">self</span>.train_loader <span class="op">=</span> DataLoader(<span class="va">self</span>.train, batch_size<span class="op">=</span>batch_size, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-17"><a href="perceptrón-multicapa.html#cb14-17" tabindex="-1"></a>        <span class="va">self</span>.test_loader <span class="op">=</span> DataLoader(<span class="va">self</span>.test, batch_size<span class="op">=</span>batch_size)</span>
+<span id="cb14-18"><a href="perceptrón-multicapa.html#cb14-18" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="perceptrón-multicapa.html#cb14-19" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__iter__</span>(<span class="va">self</span>):</span>
+<span id="cb14-20"><a href="perceptrón-multicapa.html#cb14-20" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">iter</span>(<span class="va">self</span>.train_loader)</span>
+<span id="cb14-21"><a href="perceptrón-multicapa.html#cb14-21" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="perceptrón-multicapa.html#cb14-22" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__len__</span>(<span class="va">self</span>):</span>
+<span id="cb14-23"><a href="perceptrón-multicapa.html#cb14-23" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">len</span>(<span class="va">self</span>.train_loader)</span></code></pre></div>
+</div>
+<div id="trainer-minimalista" class="section level5 unnumbered hasAnchor">
+<h5>Trainer minimalista<a href="perceptrón-multicapa.html#trainer-minimalista" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="perceptrón-multicapa.html#cb15-1" tabindex="-1"></a><span class="kw">class</span> Trainer:</span>
+<span id="cb15-2"><a href="perceptrón-multicapa.html#cb15-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, max_epochs<span class="op">=</span><span class="dv">10</span>):</span>
+<span id="cb15-3"><a href="perceptrón-multicapa.html#cb15-3" tabindex="-1"></a>        <span class="va">self</span>.max_epochs <span class="op">=</span> max_epochs</span>
+<span id="cb15-4"><a href="perceptrón-multicapa.html#cb15-4" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="perceptrón-multicapa.html#cb15-5" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, model, data):</span>
+<span id="cb15-6"><a href="perceptrón-multicapa.html#cb15-6" tabindex="-1"></a>        model.metrics <span class="op">=</span> {}</span>
+<span id="cb15-7"><a href="perceptrón-multicapa.html#cb15-7" tabindex="-1"></a>        optimizer <span class="op">=</span> torch.optim.SGD(model.parameters(), lr<span class="op">=</span>model.lr)</span>
+<span id="cb15-8"><a href="perceptrón-multicapa.html#cb15-8" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="perceptrón-multicapa.html#cb15-9" tabindex="-1"></a>        <span class="co"># Asegura que exista test_loader</span></span>
+<span id="cb15-10"><a href="perceptrón-multicapa.html#cb15-10" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="bu">hasattr</span>(data, <span class="st">&quot;test_loader&quot;</span>):</span>
+<span id="cb15-11"><a href="perceptrón-multicapa.html#cb15-11" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;El dataset debe tener data.test_loader para validación&quot;</span>)</span>
+<span id="cb15-12"><a href="perceptrón-multicapa.html#cb15-12" tabindex="-1"></a>        </span>
+<span id="cb15-13"><a href="perceptrón-multicapa.html#cb15-13" tabindex="-1"></a>        <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.max_epochs):</span>
+<span id="cb15-14"><a href="perceptrón-multicapa.html#cb15-14" tabindex="-1"></a>            total_loss, total_acc, count <span class="op">=</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span></span>
+<span id="cb15-15"><a href="perceptrón-multicapa.html#cb15-15" tabindex="-1"></a>            </span>
+<span id="cb15-16"><a href="perceptrón-multicapa.html#cb15-16" tabindex="-1"></a>            <span class="cf">for</span> X, y <span class="kw">in</span> data:</span>
+<span id="cb15-17"><a href="perceptrón-multicapa.html#cb15-17" tabindex="-1"></a>                optimizer.zero_grad()</span>
+<span id="cb15-18"><a href="perceptrón-multicapa.html#cb15-18" tabindex="-1"></a>                y_hat <span class="op">=</span> model(X)</span>
+<span id="cb15-19"><a href="perceptrón-multicapa.html#cb15-19" tabindex="-1"></a>                loss <span class="op">=</span> model.loss(y_hat, y)</span>
+<span id="cb15-20"><a href="perceptrón-multicapa.html#cb15-20" tabindex="-1"></a>                loss.backward()</span>
+<span id="cb15-21"><a href="perceptrón-multicapa.html#cb15-21" tabindex="-1"></a>                optimizer.step()</span>
+<span id="cb15-22"><a href="perceptrón-multicapa.html#cb15-22" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="perceptrón-multicapa.html#cb15-23" tabindex="-1"></a>                total_loss <span class="op">+=</span> loss.item() <span class="op">*</span> X.size(<span class="dv">0</span>)</span>
+<span id="cb15-24"><a href="perceptrón-multicapa.html#cb15-24" tabindex="-1"></a>                total_acc <span class="op">+=</span> model.accuracy(y_hat, y).item() <span class="op">*</span> X.size(<span class="dv">0</span>)</span>
+<span id="cb15-25"><a href="perceptrón-multicapa.html#cb15-25" tabindex="-1"></a>                count <span class="op">+=</span> X.size(<span class="dv">0</span>)</span>
+<span id="cb15-26"><a href="perceptrón-multicapa.html#cb15-26" tabindex="-1"></a>                </span>
+<span id="cb15-27"><a href="perceptrón-multicapa.html#cb15-27" tabindex="-1"></a>            <span class="co"># Al final de cada epoch: guardar promedios de entrenamiento</span></span>
+<span id="cb15-28"><a href="perceptrón-multicapa.html#cb15-28" tabindex="-1"></a>            model.plot(<span class="st">&quot;loss&quot;</span>, total_loss <span class="op">/</span> count, train<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-29"><a href="perceptrón-multicapa.html#cb15-29" tabindex="-1"></a>            model.plot(<span class="st">&quot;acc&quot;</span>, total_acc <span class="op">/</span> count, train<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-30"><a href="perceptrón-multicapa.html#cb15-30" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="perceptrón-multicapa.html#cb15-31" tabindex="-1"></a>            <span class="co"># ---------- VALIDACIÓN ----------</span></span>
+<span id="cb15-32"><a href="perceptrón-multicapa.html#cb15-32" tabindex="-1"></a>            val_loss, val_acc, val_count <span class="op">=</span> <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span></span>
+<span id="cb15-33"><a href="perceptrón-multicapa.html#cb15-33" tabindex="-1"></a>            <span class="cf">for</span> X, y <span class="kw">in</span> data.test_loader:</span>
+<span id="cb15-34"><a href="perceptrón-multicapa.html#cb15-34" tabindex="-1"></a>                l, a <span class="op">=</span> model.evaluation_step(X, y)</span>
+<span id="cb15-35"><a href="perceptrón-multicapa.html#cb15-35" tabindex="-1"></a>                val_loss <span class="op">+=</span> l <span class="op">*</span> X.size(<span class="dv">0</span>)</span>
+<span id="cb15-36"><a href="perceptrón-multicapa.html#cb15-36" tabindex="-1"></a>                val_acc <span class="op">+=</span> a <span class="op">*</span> X.size(<span class="dv">0</span>)</span>
+<span id="cb15-37"><a href="perceptrón-multicapa.html#cb15-37" tabindex="-1"></a>                val_count <span class="op">+=</span> X.size(<span class="dv">0</span>)</span>
+<span id="cb15-38"><a href="perceptrón-multicapa.html#cb15-38" tabindex="-1"></a>            </span>
+<span id="cb15-39"><a href="perceptrón-multicapa.html#cb15-39" tabindex="-1"></a>            <span class="co"># guardar métricas de validación por epoch</span></span>
+<span id="cb15-40"><a href="perceptrón-multicapa.html#cb15-40" tabindex="-1"></a>            model.plot(<span class="st">&quot;loss&quot;</span>, val_loss <span class="op">/</span> val_count, train<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-41"><a href="perceptrón-multicapa.html#cb15-41" tabindex="-1"></a>            model.plot(<span class="st">&quot;acc&quot;</span>, val_acc <span class="op">/</span> val_count, train<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-42"><a href="perceptrón-multicapa.html#cb15-42" tabindex="-1"></a>            </span>
+<span id="cb15-43"><a href="perceptrón-multicapa.html#cb15-43" tabindex="-1"></a>            <span class="co"># -------- PRINT FULL METRICS --------</span></span>
+<span id="cb15-44"><a href="perceptrón-multicapa.html#cb15-44" tabindex="-1"></a>            <span class="bu">print</span>(</span>
+<span id="cb15-45"><a href="perceptrón-multicapa.html#cb15-45" tabindex="-1"></a>                <span class="ss">f&quot;Epoch </span><span class="sc">{</span>epoch<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">: &quot;</span></span>
+<span id="cb15-46"><a href="perceptrón-multicapa.html#cb15-46" tabindex="-1"></a>                <span class="ss">f&quot;train_loss=</span><span class="sc">{</span>total_loss<span class="op">/</span>count<span class="sc">:.3f}</span><span class="ss">, &quot;</span></span>
+<span id="cb15-47"><a href="perceptrón-multicapa.html#cb15-47" tabindex="-1"></a>                <span class="ss">f&quot;val_loss=</span><span class="sc">{</span>val_loss<span class="op">/</span>val_count<span class="sc">:.3f}</span><span class="ss">, &quot;</span></span>
+<span id="cb15-48"><a href="perceptrón-multicapa.html#cb15-48" tabindex="-1"></a>                <span class="ss">f&quot;train_acc=</span><span class="sc">{</span>total_acc<span class="op">/</span>count<span class="sc">:.3f}</span><span class="ss">, &quot;</span></span>
+<span id="cb15-49"><a href="perceptrón-multicapa.html#cb15-49" tabindex="-1"></a>                <span class="ss">f&quot;val_acc=</span><span class="sc">{</span>val_acc<span class="op">/</span>val_count<span class="sc">:.3f}</span><span class="ss">&quot;</span></span>
+<span id="cb15-50"><a href="perceptrón-multicapa.html#cb15-50" tabindex="-1"></a>            )</span>
+<span id="cb15-51"><a href="perceptrón-multicapa.html#cb15-51" tabindex="-1"></a>            </span>
+<span id="cb15-52"><a href="perceptrón-multicapa.html#cb15-52" tabindex="-1"></a>        <span class="co"># Al final → graficar exactamente como el libro</span></span>
+<span id="cb15-53"><a href="perceptrón-multicapa.html#cb15-53" tabindex="-1"></a>        <span class="va">self</span>._plot_metrics(model)</span>
+<span id="cb15-54"><a href="perceptrón-multicapa.html#cb15-54" tabindex="-1"></a></span>
+<span id="cb15-55"><a href="perceptrón-multicapa.html#cb15-55" tabindex="-1"></a>    <span class="kw">def</span> _plot_metrics(<span class="va">self</span>, model):</span>
+<span id="cb15-56"><a href="perceptrón-multicapa.html#cb15-56" tabindex="-1"></a>        metrics <span class="op">=</span> model.metrics</span>
+<span id="cb15-57"><a href="perceptrón-multicapa.html#cb15-57" tabindex="-1"></a>        </span>
+<span id="cb15-58"><a href="perceptrón-multicapa.html#cb15-58" tabindex="-1"></a>        n <span class="op">=</span> <span class="bu">len</span>(metrics[<span class="st">&quot;loss_train&quot;</span>])</span>
+<span id="cb15-59"><a href="perceptrón-multicapa.html#cb15-59" tabindex="-1"></a>        epochs <span class="op">=</span> <span class="bu">range</span>(n)</span>
+<span id="cb15-60"><a href="perceptrón-multicapa.html#cb15-60" tabindex="-1"></a>    </span>
+<span id="cb15-61"><a href="perceptrón-multicapa.html#cb15-61" tabindex="-1"></a>        plt.plot(epochs, metrics[<span class="st">&quot;loss_train&quot;</span>], label<span class="op">=</span><span class="st">&quot;train_loss&quot;</span>)</span>
+<span id="cb15-62"><a href="perceptrón-multicapa.html#cb15-62" tabindex="-1"></a>        <span class="co">#plt.plot(epochs, metrics[&quot;loss_val&quot;], label=&quot;val_loss&quot;)</span></span>
+<span id="cb15-63"><a href="perceptrón-multicapa.html#cb15-63" tabindex="-1"></a>        plt.plot(epochs, metrics[<span class="st">&quot;acc_train&quot;</span>], label<span class="op">=</span><span class="st">&quot;train_acc&quot;</span>)</span>
+<span id="cb15-64"><a href="perceptrón-multicapa.html#cb15-64" tabindex="-1"></a>        plt.plot(epochs, metrics[<span class="st">&quot;acc_val&quot;</span>], label<span class="op">=</span><span class="st">&quot;val_acc&quot;</span>)</span>
+<span id="cb15-65"><a href="perceptrón-multicapa.html#cb15-65" tabindex="-1"></a>    </span>
+<span id="cb15-66"><a href="perceptrón-multicapa.html#cb15-66" tabindex="-1"></a>        plt.xlabel(<span class="st">&quot;epoch&quot;</span>)</span>
+<span id="cb15-67"><a href="perceptrón-multicapa.html#cb15-67" tabindex="-1"></a>        plt.legend()</span>
+<span id="cb15-68"><a href="perceptrón-multicapa.html#cb15-68" tabindex="-1"></a>        plt.title(<span class="st">&quot;Training and Validation Metrics&quot;</span>)</span>
+<span id="cb15-69"><a href="perceptrón-multicapa.html#cb15-69" tabindex="-1"></a>        plt.show()</span>
+<span id="cb15-70"><a href="perceptrón-multicapa.html#cb15-70" tabindex="-1"></a>        </span>
+<span id="cb15-71"><a href="perceptrón-multicapa.html#cb15-71" tabindex="-1"></a>        plt.clf()       <span class="co"># Limpia la figura actual</span></span>
+<span id="cb15-72"><a href="perceptrón-multicapa.html#cb15-72" tabindex="-1"></a>        plt.close()</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="perceptrón-multicapa.html#cb16-1" tabindex="-1"></a><span class="co"># Crear modelo</span></span>
+<span id="cb16-2"><a href="perceptrón-multicapa.html#cb16-2" tabindex="-1"></a>model <span class="op">=</span> MLPScratch(</span>
+<span id="cb16-3"><a href="perceptrón-multicapa.html#cb16-3" tabindex="-1"></a>    num_inputs<span class="op">=</span><span class="dv">784</span>,</span>
+<span id="cb16-4"><a href="perceptrón-multicapa.html#cb16-4" tabindex="-1"></a>    num_outputs<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb16-5"><a href="perceptrón-multicapa.html#cb16-5" tabindex="-1"></a>    num_hiddens<span class="op">=</span><span class="dv">256</span>,</span>
+<span id="cb16-6"><a href="perceptrón-multicapa.html#cb16-6" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">0.1</span></span>
+<span id="cb16-7"><a href="perceptrón-multicapa.html#cb16-7" tabindex="-1"></a>)</span>
+<span id="cb16-8"><a href="perceptrón-multicapa.html#cb16-8" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="perceptrón-multicapa.html#cb16-9" tabindex="-1"></a><span class="co"># Cargar datos (reemplaza d2l.FashionMNIST)</span></span>
+<span id="cb16-10"><a href="perceptrón-multicapa.html#cb16-10" tabindex="-1"></a>data <span class="op">=</span> FashionMNISTData(batch_size<span class="op">=</span><span class="dv">256</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="perceptrón-multicapa.html#cb17-1" tabindex="-1"></a>trainer <span class="op">=</span> Trainer(max_epochs<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb17-2"><a href="perceptrón-multicapa.html#cb17-2" tabindex="-1"></a><span class="co"># trainer.fit(model, data)</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="implementación" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Implementación<a href="perceptrón-multicapa.html#implementaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La implementación pasada es bastante útil para entender cómo funciona el modelo, no obstante, al implementar las API de alto nivel, podemos crear MLP de forma aún más concisa.</p>
+<div id="modelo-1" class="section level4 hasAnchor" number="5.2.2.1">
+<h4><span class="header-section-number">5.2.2.1</span> Modelo<a href="perceptrón-multicapa.html#modelo-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>En comparación con la implementación concisa de la regresión softmax, la única diferencia radica en que se añaden dos capas completamente conectadas donde antes solo se añadía una. La primera es la capa oculta y la segunda, la capa de salida.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="perceptrón-multicapa.html#cb18-1" tabindex="-1"></a><span class="kw">class</span> MLP(Classifier):</span>
+<span id="cb18-2"><a href="perceptrón-multicapa.html#cb18-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_outputs, num_hiddens, lr):</span>
+<span id="cb18-3"><a href="perceptrón-multicapa.html#cb18-3" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb18-4"><a href="perceptrón-multicapa.html#cb18-4" tabindex="-1"></a>        <span class="va">self</span>.save_hyperparameters()</span>
+<span id="cb18-5"><a href="perceptrón-multicapa.html#cb18-5" tabindex="-1"></a>        <span class="va">self</span>.net <span class="op">=</span> nn.Sequential(</span>
+<span id="cb18-6"><a href="perceptrón-multicapa.html#cb18-6" tabindex="-1"></a>            nn.Flatten(), </span>
+<span id="cb18-7"><a href="perceptrón-multicapa.html#cb18-7" tabindex="-1"></a>            nn.LazyLinear(num_hiddens),</span>
+<span id="cb18-8"><a href="perceptrón-multicapa.html#cb18-8" tabindex="-1"></a>            nn.ReLU(), </span>
+<span id="cb18-9"><a href="perceptrón-multicapa.html#cb18-9" tabindex="-1"></a>            nn.LazyLinear(num_outputs)</span>
+<span id="cb18-10"><a href="perceptrón-multicapa.html#cb18-10" tabindex="-1"></a>        )</span>
+<span id="cb18-11"><a href="perceptrón-multicapa.html#cb18-11" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="perceptrón-multicapa.html#cb18-12" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, X):</span>
+<span id="cb18-13"><a href="perceptrón-multicapa.html#cb18-13" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.net(X)</span></code></pre></div>
+<p>Anteriormente, definimos métodos <strong>forward</strong> para que los modelos transformen la entrada utilizando los parámetros del modelo. Estas operaciones son esencialmente una secuencia: se toma una entrada y se aplica una transformación (por ejemplo, multiplicación de matrices con pesos seguida de la adición de sesgos), y luego se utiliza repetidamente la salida de la transformación actual como entrada para la siguiente transformación. Sin embargo, es posible notar que aquí no se define ningún método <strong>forward</strong>.</p>
+<p>De hecho, MLP hereda el método de <em>forward</em> de la clase Module para simplemente invocar self.net(X) (X es la entrada), que ahora se define como una secuencia de transformaciones mediante la clase <em>Sequential</em>. La clase <em>Sequential</em> abstrae el proceso de avance (forward), lo que nos permite centrarnos en las transformaciones. Analizaremos con más detalle el funcionamiento de la clase <em>Sequential</em> en secciones posteriores.</p>
+</div>
+<div id="entrenamiento-1" class="section level4 hasAnchor" number="5.2.2.2">
+<h4><span class="header-section-number">5.2.2.2</span> Entrenamiento<a href="perceptrón-multicapa.html#entrenamiento-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>El ciclo de entrenamiento es exactamente el mismo que cuando implementamos la regresión softmax. Esta modularidad permite separar los aspectos relacionados con la arquitectura del modelo de las consideraciones ortogonales.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="perceptrón-multicapa.html#cb19-1" tabindex="-1"></a>model <span class="op">=</span> MLP(num_outputs<span class="op">=</span><span class="dv">10</span>, num_hiddens<span class="op">=</span><span class="dv">256</span>, lr<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb19-2"><a href="perceptrón-multicapa.html#cb19-2" tabindex="-1"></a><span class="co"># trainer.fit(model, data)</span></span></code></pre></div>
+</div>
+</div>
+<div id="ejercicios-1" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Ejercicios<a href="perceptrón-multicapa.html#ejercicios-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Cambie el número de unidades ocultas num_hiddens y grafique cómo su número afecta la precisión del modelo. ¿Cuál es el mejor valor para este hiperparámetro?</p></li>
+<li><p>Intente añadir una capa oculta para ver cómo afecta a los resultados.</p></li>
+<li><p>¿Por qué es una mala idea insertar una capa oculta con una sola neurona? ¿Qué podría salir mal?</p></li>
+<li><p>¿Cómo altera los resultados el cambio de la tasa de aprendizaje? Con todos los demás parámetros fijos, ¿qué tasa de aprendizaje ofrece los mejores resultados? ¿Cómo se relaciona esto con el número de épocas?</p></li>
+<li><p>Optimicemos todos los hiperparámetros conjuntamente: tasa de aprendizaje, número de épocas, número de capas ocultas y número de unidades ocultas por capa.</p></li>
+</ol>
+<ul>
+<li>¿Cuál es el mejor resultado que se puede obtener optimizando todos ellos?</li>
+<li>¿Por qué es mucho más difícil gestionar varios hiperparámetros?</li>
+<li>Describa una estrategia eficiente para optimizar varios parámetros conjuntamente.</li>
+</ul>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Compare la velocidad del framework y la implementación desde cero para un problema complejo. ¿Cómo cambia con la complejidad de la red?</p></li>
+<li><p>Mide la velocidad de las multiplicaciones tensor-matriz para matrices bien alineadas y desalineadas. Por ejemplo, prueba matrices con dimensiones 1024, 1025, 1026, 1028 y 1032.</p></li>
+</ol>
+<ul>
+<li>¿Cómo cambia esto entre GPU y CPU?</li>
+<li>Determina el ancho del bus de memoria de tu CPU y GPU.</li>
+</ul>
+<ol start="8" style="list-style-type: decimal">
+<li><p>Prueba diferentes funciones de activación. ¿Cuál funciona mejor?</p></li>
+<li><p>¿Existe alguna diferencia entre las inicializaciones de peso de la red? ¿Tiene importancia?</p></li>
+</ol>
+</div>
+</div>
 <div id="forward-propagation-backward-propagation" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Forward Propagation, Backward Propagation<a href="perceptrón-multicapa.html#forward-propagation-backward-propagation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Hasta ahora hemos entrenado redes con descenso de gradiente usando minibatches, pero siempre confiando en que el framework calcule los gradientes por nosotros. Gracias a la diferenciación automática, no necesitamos derivar a mano expresiones complicadas, como se hacía antes en los artículos académicos.</p>
+<p>Pero para entender realmente cómo aprenden las redes, es importante saber qué ocurre detrás de escena. Por eso, en esta sección vamos a estudiar backpropagation, el mecanismo que calcula cómo cambia cada parámetro según el error cometido. Usaremos matemáticas básicas y grafos computacionales, trabajando con un ejemplo sencillo: un MLP de una capa oculta con regularización (weight decay <span class="math inline">\(l_2\)</span>). Esto nos permitirá entender no sólo el qué, sino el cómo del aprendizaje profundo.</p>
+<div id="forward-propagation" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Forward Propagation<a href="perceptrón-multicapa.html#forward-propagation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
 </div>
 <div id="estabilidad-numérica-e-inicialización" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Estabilidad Numérica e Inicialización<a href="perceptrón-multicapa.html#estabilidad-num%C3%A9rica-e-inicializaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
