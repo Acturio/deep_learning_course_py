@@ -279,11 +279,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="historia-1" class="section level3 hasAnchor" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Historia<a href="redes-neuronales-lineales-para-clasificación.html#historia-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Regresión lineal</strong></p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig1.png" width="50%" style="display: block; margin: auto auto auto 0;" />
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig1.png" width="50%" style="display: block; margin: auto;" />
 El primer método de regresión lineal documentado es el método de los mínimos cuadrados, publicado por Legendre en 1805.
 Posteriormente, Gauss publicó un trabajo donde se desarrolla con mayor detalle el tema.</p>
 <p><strong>Modelo Lineal Generalizado (GLM)</strong></p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig2.png" width="60%" style="display: block; margin: auto auto auto 0;" />
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig2.png" width="60%" style="display: block; margin: auto;" />
 Los GLM fueron formulados por John Nelder y Robert Wedderburn en 1972 como una manera de unificar modelos estadísticos.</p>
 <p>Un modelo lineal generalizado es una generalización flexible de la regresión lineal ordinaria.</p>
 </div>
@@ -336,15 +336,15 @@ Los GLM fueron formulados por John Nelder y Robert Wedderburn en 1972 como una m
 </table>
 <p><strong>Representación gráfica</strong></p>
 <p>Podemos apreciar una regresión lineal como una neurona:
-<img src="img/04_Linear_Neural_Networks_for_Classification/fig18.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig18.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>Haciendo uso de una regresión logística, podemos pasar de <em>how much?</em> a <em>wich class?</em>, el diagrama sería el siguiente:
-<img src="img/04_Linear_Neural_Networks_for_Classification/fig19.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig19.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="regresión-logística-para-clasificación" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Regresión Logística para Clasificación<a href="redes-neuronales-lineales-para-clasificación.html#regresi%C3%B3n-log%C3%ADstica-para-clasificaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Iniciemos recordando que los algoritmos de Machine Learning pueden ser clasificados como:
-<img src="img/04_Linear_Neural_Networks_for_Classification/fig5.png" width="40%" style="display: block; margin: auto auto auto 0;" /></p>
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig5.png" width="40%" style="display: block; margin: auto;" /></p>
 <p>Los <strong><em>métodos de clasificación, métodos predictivos, reconocimiento de patrones, aprendizaje supervisado</em></strong> son aquellos algoritmos en los cuales vamos a clasificar a los objetos en un conjunto de categorías previamente definidas.</p>
 <p>En estos métodos existe una variable, conocida como variable objetivo con la cual se buscarán dos resultados:</p>
 <ul>
@@ -366,7 +366,7 @@ Donde:</p>
 </ul>
 <p>La función resultante puede ser un árbol de decisión, SVM, etc.</p>
 <p>La función que clasificará el conjunto X a la clase Y, comúnmente es llamada modelo de clasificación.
-<img src="img/04_Linear_Neural_Networks_for_Classification/fig6.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig6.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>Una vez recordado lo anterior, podemos definir a una regresión logística como un modelo en el cual se recibe una tabla relacional con <em>d</em> características descriptivas y una clase a la cual pertenece cada individuo de la tabla.</p>
 <p>Como resultado, el modelo nos proporciona la <em>probabilidad de pertenecer</em> a alguna clase.</p>
 <p><strong>Planteamiento del problema</strong></p>
@@ -403,13 +403,13 @@ Al aplicar el logaritmo natual, podemos apreciar la definición de la función l
 logit[𝑝_𝑖 ]=ln[𝑝_𝑖/(1−𝑝_𝑖 )]=𝛽_0+𝛽_1 𝑥_𝑖
 \]</span>
 Recordando que la función logit es la inversa de la función logistica (o sigmoide)</p>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>La función logit es apropiada para los problemas de clasificación con dos clases. No obstante, la generalización para múltiples clases se hace con la función Softmax()
 <span class="math display">\[
 \sigma_{softmax} = \frac{e^{z_m}}{\sum_{m=1}^M e^{z_m}}
 \]</span></p>
 <p>La estructura aplicada en Redes Neuronales es la siguiente:
-<img src="img/04_Linear_Neural_Networks_for_Classification/fig20.png" width="70%" style="display: block; margin: auto auto auto 0;" /></p>
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig20.png" width="70%" style="display: block; margin: auto;" /></p>
 <p><br></p>
 </div>
 <div id="redes-neuronales" class="section level2 hasAnchor" number="4.3">
@@ -417,13 +417,13 @@ Recordando que la función logit es la inversa de la función logistica (o sigmo
 <div id="historia-2" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Historia<a href="redes-neuronales-lineales-para-clasificación.html#historia-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Redes Neuronales</strong></p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig3.png" width="50%" style="display: block; margin: auto auto auto 0;" />
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig3.png" width="50%" style="display: block; margin: auto;" />
 En 1943 Warren McCulloch (neurocientífico, médico, neurólogo y fisiólogo) y Walter Pitts (matemático, psicólogo, filósofo y neurocientífico) crearon un modelo para redes neuronales basados en la lógica de umbral. Este modelo señaló el camino para que la investigación de redes neuronales se divida en dos enfoques distintos:</p>
 <ol style="list-style-type: decimal">
 <li>Un enfoque centrado en los procesos biológicos en el cerebro.</li>
 <li>Otro en la aplicación de redes neuronales para la inteligencia artificial.</li>
 </ol>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig4.png" width="40%" style="display: block; margin: auto auto auto 0;" />
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig4.png" width="40%" style="display: block; margin: auto;" />
 Para la aplicación de la inteligencia artificial, fue Marvin Minsky quien dio una gran aportación con el libro <strong>“Perceptrones”</strong> en 1969.
 Minsky es considerado como uno de los padres de las ciencias de la computación y fue cofundador del laboratorio de inteligencia artificial del MIT</p>
 </div>
@@ -436,17 +436,17 @@ Puede recibir variables cuantitativas y cualitativas. Es un algoritmo sensible a
 <h3><span class="header-section-number">4.3.3</span> Neurona<a href="redes-neuronales-lineales-para-clasificación.html#neurona" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Célula del sistema nerviosos formada por un núcleo y una serie de prolongaciones, una de las cuales es más larga que las demás.
 Están especializadas en la recepción de estímulos y conducción del impulso nerviosos entre ellas o con otros tipos celulas</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig7.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig7.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><br></p>
 <p><strong>Dentrita:</strong> Es la fuente de un impulso nerviosos. De hecho el impulso nervioso es unidireccional, es decir, solamente se transmite desde las dendritas hacia el axón (canal de entrada)</p>
 <p><strong>Axón:</strong> Prolongación que arranca del cuerpo de la neurona y termina en una ramificación que está en contacto con otras células. Es la vía por la cual circulan los impulsos eléctricos (canal de salida)</p>
 <p><strong>Sinapsis:</strong> Región de comunicación entre el axón de una neurona y las dendritas o el cuerpo de otra</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig8.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig8.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Emulación:</strong></p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig9.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig9.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>Las redes neuronales, tratan de modelar una red neuronal donde cada nodo es una neurona, y los arcos representan la sinapsis entre las neuronas.
 Como algoritmo, las redes neuronales reciben n entradas y pueden otorgar n salidas.</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig10.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig10.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>Un perceptrón puede entenderse como la unidad básica de inferencia en forma de discriminador lineal. Un perceptrón va a separar a los puntos a través de un hiperplano
 Es el modelo biológico más sencillo hace referencia a una sola neurona. El perceptrón consiste de dos tipos de nodos:</p>
 <ul>
@@ -455,9 +455,9 @@ Es el modelo biológico más sencillo hace referencia a una sola neurona. El per
 </ul>
 <p>Un perceptrón genera sus resultados realizando una suma ponderada de sus atributos de entrada, restando un valor t y examinando el signo del resultado.
 Supongamos la siguiente tabla:</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig11.png" width="30%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig11.png" width="30%" style="display: block; margin: auto;" /></p>
 <p>El perceptrón sería aquella red neuronal que recibiera de entrada cada uno de los valores x y diera como resultado y</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig12.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig12.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><span class="math display">\[
 y =
 \begin{cases}
@@ -470,7 +470,7 @@ Como el resultado depende del signo, la función se representa como:
 𝑦=𝑠𝑖𝑔𝑛(𝑤,𝑥)
 \]</span></p>
 <p>Cuando intentamos hacer la separación de un XOr, podemos notar que necesitamos dos discriminadores lineales:</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig13.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig13.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="redes-neuronales-1" class="section level3 hasAnchor" number="4.3.4">
 <h3><span class="header-section-number">4.3.4</span> Redes Neuronales<a href="redes-neuronales-lineales-para-clasificación.html#redes-neuronales-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -479,12 +479,12 @@ Como el resultado depende del signo, la función se representa como:
 <li>Las redes neuronales tienen <strong>varios nodos intermedios</strong> entre los nodos de entrada y los nodos de salida.</li>
 <li>Las capas ocultas pueden utilizar <strong>funciones de activación diferentes</strong></li>
 </ul>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig14.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig15.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig14.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig15.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>Con una capa oculta, es posible generar una función de discriminación para una tabla XOr</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig17.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig17.png" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Funciones de activación comunes</strong></p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig16.png" width="60%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig16.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="notas-adicionales" class="section level2 unnumbered hasAnchor">

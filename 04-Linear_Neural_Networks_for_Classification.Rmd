@@ -12,7 +12,7 @@
 
 **Regresión lineal**
 
-```{r echo=FALSE, fig.align='left', out.width='50%'}
+```{r echo=FALSE, fig.align='left', out.width='50%', fig.align='center'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig1.png")
 ```
 El primer método de regresión lineal documentado es el método de los mínimos cuadrados, publicado por Legendre en 1805. 
@@ -21,7 +21,7 @@ Posteriormente, Gauss publicó un trabajo donde se desarrolla con mayor detalle 
 
 **Modelo Lineal Generalizado (GLM)**
 
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='left', out.width='60%', fig.align='center'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig2.png")
 ```
 Los GLM fueron formulados por John Nelder y Robert Wedderburn en 1972 como una manera de unificar modelos estadísticos.
@@ -61,13 +61,13 @@ Los estudios de Wedderburn se limitaron los componentes aleatorios a la familia 
 **Representación gráfica**
 
 Podemos apreciar una regresión lineal como una neurona:
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='left', out.width='60%', fig.align='center'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig18.png")
 ```
 
 
 Haciendo uso de una regresión logística, podemos pasar de *how much?* a *wich class?*, el diagrama sería el siguiente:
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='left', out.width='60%', fig.align='center'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig19.png")
 ```
 
@@ -75,7 +75,7 @@ knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig19.
 ## Regresión Logística para Clasificación
 
 Iniciemos recordando que los algoritmos de Machine Learning pueden ser clasificados como:
-```{r echo=FALSE, fig.align='left', out.width='40%'}
+```{r echo=FALSE, fig.align='left', out.width='40%', fig.align='center'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig5.png")
 ```
 
@@ -104,7 +104,7 @@ Donde:
 La función resultante puede ser un árbol de decisión, SVM, etc.
 
 La función que clasificará el conjunto X a la clase Y, comúnmente es llamada modelo de clasificación.
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='left', out.width='60%', fig.align='center'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig6.png")
 ```
 
@@ -154,7 +154,7 @@ logit[𝑝_𝑖 ]=ln[𝑝_𝑖/(1−𝑝_𝑖 )]=𝛽_0+𝛽_1 𝑥_𝑖
 $$
 Recordando que la función logit es la inversa de la función logistica (o sigmoide)
 
-```{r echo=FALSE, fig.align='left', fig.width=6, fig.height=4}
+```{r echo=FALSE, fig.align='center', fig.width=6, fig.height=4}
 library(ggplot2)
 
 # Datos para la curva
@@ -179,7 +179,7 @@ $$
 $$
 
 La estructura aplicada en Redes Neuronales es la siguiente:
-```{r echo=FALSE, fig.align='left', out.width='70%'}
+```{r echo=FALSE, fig.align='center', out.width='70%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig20.png")
 ```
 
@@ -193,7 +193,7 @@ knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig20.
 
 **Redes Neuronales**
 
-```{r echo=FALSE, fig.align='left', out.width='50%'}
+```{r echo=FALSE, fig.align='center', out.width='50%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig3.png")
 ```
 En 1943 Warren McCulloch (neurocientífico, médico, neurólogo y fisiólogo) y Walter Pitts (matemático, psicólogo, filósofo y neurocientífico) crearon un modelo para redes neuronales basados en la lógica de umbral. Este modelo señaló el camino para que la investigación de redes neuronales se divida en dos enfoques distintos:
@@ -201,7 +201,7 @@ En 1943 Warren McCulloch (neurocientífico, médico, neurólogo y fisiólogo) y 
 1. Un enfoque centrado en los procesos biológicos en el cerebro.
 2. Otro en la aplicación de redes neuronales para la inteligencia artificial.
 
-```{r echo=FALSE, fig.align='left', out.width='40%'}
+```{r echo=FALSE, fig.align='center', out.width='40%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig4.png")
 ```
 Para la aplicación de la inteligencia artificial, fue Marvin Minsky quien dio una gran aportación con el libro **“Perceptrones”** en 1969.
@@ -217,7 +217,7 @@ Puede recibir variables cuantitativas y cualitativas. Es un algoritmo sensible a
 Célula del sistema nerviosos formada por un núcleo y una serie de prolongaciones, una de las cuales es más larga que las demás.
 Están especializadas en la recepción de estímulos y conducción del impulso nerviosos entre ellas o con otros tipos celulas
 
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='center', out.width='60%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig7.png")
 ```
 
@@ -229,20 +229,20 @@ knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig7.p
 
 **Sinapsis:** Región de comunicación entre el axón de una neurona y las dendritas o el cuerpo de otra
 
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='center', out.width='60%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig8.png")
 ```
 
 **Emulación:**
 
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='center', out.width='60%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig9.png")
 ```
 
 Las redes neuronales, tratan de modelar una red neuronal donde cada nodo es una neurona, y los arcos representan la sinapsis entre las neuronas. 
 Como algoritmo, las redes neuronales reciben n entradas y pueden otorgar n salidas.
 
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='center', out.width='60%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig10.png")
 ```
 
@@ -255,13 +255,13 @@ Es el modelo biológico más sencillo hace referencia a una sola neurona. El per
 Un perceptrón genera sus resultados realizando una suma ponderada de sus atributos de entrada, restando un valor t y examinando el signo del resultado. 
 Supongamos la siguiente tabla:
 
-```{r echo=FALSE, fig.align='left', out.width='30%'}
+```{r echo=FALSE, fig.align='center', out.width='30%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig11.png")
 ```
 
 El perceptrón sería aquella red neuronal que recibiera de entrada cada uno de los valores x y diera como resultado y
 
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='center', out.width='60%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig12.png")
 ```
 
@@ -279,7 +279,7 @@ $$
 
 Cuando intentamos hacer la separación de un XOr, podemos notar que necesitamos dos discriminadores lineales:
 
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='center', out.width='60%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig13.png")
 ```
 
@@ -291,25 +291,25 @@ Las redes neuronales, son una estructura más compleja que un perceptrón. Algun
 - Las redes neuronales tienen **varios nodos intermedios** entre los nodos de entrada y los nodos de salida.
 - Las capas ocultas pueden utilizar **funciones de activación diferentes**
 
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='center', out.width='60%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig14.png")
 ```
 
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='center', out.width='60%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig15.png")
 ```
 
 
 Con una capa oculta, es posible generar una función de discriminación para una tabla XOr
 
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='center', out.width='60%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig17.png")
 ```
 
 
 **Funciones de activación comunes**
 
-```{r echo=FALSE, fig.align='left', out.width='60%'}
+```{r echo=FALSE, fig.align='center', out.width='60%'}
 knitr::include_graphics("img/04_Linear_Neural_Networks_for_Classification/fig16.png")
 ```
 

@@ -559,7 +559,7 @@ data = FashionMNISTData(batch_size=256)
 
 ```{python, eval=T}
 trainer = Trainer(max_epochs=10)
-# trainer.fit(model, data)
+trainer.fit(model, data)
 ```
 
 ### Implementación
@@ -597,7 +597,7 @@ El ciclo de entrenamiento es exactamente el mismo que cuando implementamos la re
 
 ```{python}
 model = MLP(num_outputs=10, num_hiddens=256, lr=0.1)
-# trainer.fit(model, data)
+trainer.fit(model, data)
 
 ```
 
@@ -680,7 +680,46 @@ $$\frac{\partial Z}{\partial X} = \text{prod} \left( \frac{\partial Z}{\partial 
 
 Aquí usamos el operador $prod$ para multiplicar sus argumentos después de realizar las operaciones necesarias, como la transposición y el intercambio de posiciones de entrada. Para vectores, esto es sencillo: se trata simplemente de una multiplicación matriz-matriz. Para tensores de mayor dimensión, usamos el operador correspondiente. El operador $prod$ elimina toda la sobrecarga de notación.
 
+```{r echo=FALSE, fig.align='center', out.height='300pt', out.width='650pt'}
+knitr::include_graphics("img/05_Multilayer_Perceptron/Gradient_descent.gif")
+```
 
+El objetivo de la retropropagación es calcular los gradientes $\frac{\partial J}{\partial W^{(1)}}$ y $\frac{\partial J}{\partial W^{(2)}}$. Para ello, aplicamos la regla de la cadena y calculamos, a su vez, el gradiente de cada variable y parámetro intermedio. El orden de los cálculos se invierte con respecto a los realizados en la propagación hacia adelante, ya que debemos comenzar con el resultado del grafo computacional y avanzar hacia los parámetros. El primer paso es calcular los gradientes de la función objetivo $J=L+s$ con respecto al término de pérdida $L$ y al término de regularización $s$:
+
+$$
+\frac{\partial J}{\partial L} = 1 \quad \text{and} \quad\frac{\partial J}{\partial s}=1
+$$
+A continuación, calculamos el gradiente de la función objetivo con respecto a la variable de la capa de salida $o$ según la regla de la cadena:
+
+$$
+\frac{\partial J}{\partial o}=\text{prod}\left( \frac{\partial J}{\partial L}, \frac{\partial L}{\partial o} \right) = \frac{\partial J}{\partial o}\in \mathbb{R}^{q}.
+$$
+A continuación, calculamos los gradientes del término de regularización con respecto a ambos parámetros:
+
+$$
+\frac{\partial s}{\partial W^{(1)}}=\lambda W^{(1)} \quad and \quad \frac{\partial s}{\partial W^{(2)}}=\lambda W^{(2)}
+$$
+Ahora podemos calcular el gradiente $\frac{\partial J}{\partial W^{(2)}}$ de los parámetros del modelo más cercanos a la capa de salida. Usando la regla de la cadena obtenemos:
+
+$$
+\frac{\partial J}{\partial W^{(2)}}=prod\left(\frac{\partial J}{\partial o}, \frac{\partial o}{\partial W^{(2)}}\right)+prod\left(\frac{\partial J}{\partial s}, \frac{\partial s}{\partial W^{(2)}}\right)=\frac{\partial J}{\partial o}h^{T}+\lambda W^{(2)}
+$$
+
+Para obtener el gradiente con respecto a $W^{(1)}$, necesitamos continuar la retropropagación a lo largo de la capa de salida hasta la capa oculta. El gradiente con respecto a la salida de la capa oculta $\frac{\partial J}{\partial h}\in \mathbb{R}^{h}$ está dado por:
+
+$$
+\frac{\partial J}{\partial h}=prod\left(\frac{\partial J}{\partial o}, \frac{\partial o}{\partial h}\right)=W^{(2)^{T}}\frac{\partial J}{\partial o}
+$$
+Dado que la función de activación $\phi$ se aplica elemento por elemento, para calcular el gradiente $\frac{\partial J}{\partial z} \in \mathbb{R}^{h}$ de la variable intermedia $z$ es necesario utilizar el operador de multiplicación elemento por elemento, que denotamos como $\odot$:
+
+$$
+\frac{\partial J}{\partial z}=prod\left(\frac{\partial J}{\partial h}, \frac{\partial h}{\partial z}\right)=\frac{\partial J}{\partial h}\odot\phi^{\prime}(z).
+$$
+Finalmente, podemos obtener el gradiente $\frac{\partial J}{\partial W^{(1)}}\in \mathbb{R}^{h\times d}$ de los parámetros del modelo más cercanos a la capa de entrada. Según la regla de la cadena, obtenemos:
+
+$$
+\frac{\partial J}{\partial W^{(1)}}=prod\left(\frac{\partial J}{\partial z}, \frac{\partial z}{\partial W^{(1)}}\right)+prod\left(\frac{\partial J}{\partial s}, \frac{\partial s}{\partial W^{(1)}}\right)=\frac{\partial J}{\partial z}x^{T}+\lambda W^{(1)}
+$$
 
 
 ## Estabilidad Numérica e Inicialización
