@@ -1,3 +1,4 @@
+fig:unnamed-chunk-63
 introducción-a-deep-learning
 introducción-al-aprendizaje-automático
 motivación-los-paradigmas-del-conocimiento
@@ -127,6 +128,7 @@ entrenamiento-1
 ejercicios-1
 forward-propagation-backward-propagation
 forward-propagation
+backpropagation
 estabilidad-numérica-e-inicialización
 generalización-en-deep-learning
 dropout

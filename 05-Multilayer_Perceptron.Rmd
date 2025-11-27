@@ -424,7 +424,8 @@ Como ignoramos la estructura espacial, transformamos cada imagen bidimensional e
 def forward(self, X):
     X = X.reshape((-1, self.num_inputs))
     H = relu(torch.matmul(X, self.W1) + self.b1)
-    return torch.matmul(H, self.W2) + self.b2
+    O = torch.matmul(H, self.W2) + self.b2
+    return O
 
 ```
 
@@ -637,11 +638,47 @@ Pero para entender realmente cómo aprenden las redes, es importante saber qué 
 
 ### Forward Propagation
 
+La propagación hacia adelante (forward propagation o pase hacia adelante) se refiere al cálculo y almacenamiento de variables intermedias (incluidas las salidas) para una red neuronal, desde la capa de entrada hasta la capa de salida. A continuación, se explica paso a paso la mecánica de una red neuronal con una capa oculta. 
+
+Para simplificar, supongamos que el ejemplo de entrada es $x\in \mathbb{R}^{d}$ y que nuestra capa oculta no incluye un término de sesgo. En este caso, la variable intermedia es:
+
+$$\mathbb{z}=W^{(1)}x,$$
+
+donde $W^{(1)} \in \mathbb{R}^{h\times d}$ es el peso del parámetro de las capas ocultas. Luego de ejecutar la variable intermedia $z\in \mathbb{R}^{h}$ a través de la función de activación $\phi$, se obtiene el vector de activación oculto de longitud $h$:
+
+$$h=\phi(z).$$
+
+La salida de la capa oculta $h$ también es una variable intermedia. Suponiendo que los parámetros de la capa de salida solo tienen un peso de $W^{(2)}\in \mathbb{R}^{q\times h}$, se puede obtener una variable de capa de salida con un vector de longitud $q$:
+
+$$\mathbb{o}=W^{(2)}h$$
+
+Asumiendo que la función de pérdida es $l$ y la etiqueta de ejemplo es $y$, se puede calcular el término de pérdida para un solo ejemplo de datos,
+
+$$L=l(o,y)$$
+
+Como veremos en la definición de regularización ($l_2$) que se presentará más adelante, dado el hiperparámetro $\lambda$, el término de regularización es:
+
+$$s=\frac{\lambda}{2} \left(||W^{(1)}||^{2}_{F}+||W^{(2)}||^{2}_{F} \right),$$
+
+Donde la *norma de Frobenius* de la matriz es simplemente la norma $l_2$ aplicada tras aplanar la matriz a un vector. Finalmente, la pérdida regularizada del modelo en un ejemplo de datos dado es:
+
+$$J=L+s.$$
+
+Refiriéndose a $J$ como la *función objetivo* en la siguiente discusión. A continuación se muestra el flujo computacional del proceso **Forward**.
+
+```{r echo=FALSE, fig.align='center', out.height='300pt', out.width='650pt', fig.cap = "Computational graph of forward propagation of Dive into Deep Learning Book"}
+knitr::include_graphics("img/05_Multilayer_Perceptron/computational_grapg_forward_propagation.png")
+```
 
 
 
+### Backpropagation
 
+La retropropagación se refiere al método para calcular el gradiente de los parámetros de una red neuronal. En resumen, el método recorre **la red en orden inverso**, desde la capa de salida hasta la de entrada, según la **regla de la cadena** del cálculo. El algoritmo almacena las variables intermedias (derivadas parciales) necesarias para calcular el gradiente con respecto a algunos parámetros. Supongamos que tenemos funciones $Y=f(X)$ y $Z=g(Y)$, donde la entrada y la salida $X, Y, Z$ son tensores de formas arbitrarias. Utilizando la regla de la cadena, podemos calcular la derivada de $Z$ con respecto a $X$ mediante:
 
+$$\frac{\partial Z}{\partial X} = \text{prod} \left( \frac{\partial Z}{\partial Y}, \frac{\partial Y}{\partial X} \right)$$
+
+Aquí usamos el operador $prod$ para multiplicar sus argumentos después de realizar las operaciones necesarias, como la transposición y el intercambio de posiciones de entrada. Para vectores, esto es sencillo: se trata simplemente de una multiplicación matriz-matriz. Para tensores de mayor dimensión, usamos el operador correspondiente. El operador $prod$ elimina toda la sobrecarga de notación.
 
 
 

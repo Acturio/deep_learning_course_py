@@ -236,6 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#forward-propagation-backward-propagation"><i class="fa fa-check"></i><b>5.3</b> Forward Propagation, Backward Propagation</a>
 <ul>
 <li class="chapter" data-level="5.3.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#forward-propagation"><i class="fa fa-check"></i><b>5.3.1</b> Forward Propagation</a></li>
+<li class="chapter" data-level="5.3.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#backpropagation"><i class="fa fa-check"></i><b>5.3.2</b> Backpropagation</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#estabilidad-num%C3%A9rica-e-inicializaci%C3%B3n"><i class="fa fa-check"></i><b>5.4</b> Estabilidad Numérica e Inicialización</a></li>
 <li class="chapter" data-level="5.5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#generalizaci%C3%B3n-en-deep-learning"><i class="fa fa-check"></i><b>5.5</b> Generalización en Deep Learning</a></li>
@@ -608,7 +609,8 @@ pReLU(x)=max(0,x)+\alpha \cdot min(0,x).
 <span id="cb13-3"><a href="perceptrón-multicapa.html#cb13-3" tabindex="-1"></a><span class="kw">def</span> forward(<span class="va">self</span>, X):</span>
 <span id="cb13-4"><a href="perceptrón-multicapa.html#cb13-4" tabindex="-1"></a>    X <span class="op">=</span> X.reshape((<span class="op">-</span><span class="dv">1</span>, <span class="va">self</span>.num_inputs))</span>
 <span id="cb13-5"><a href="perceptrón-multicapa.html#cb13-5" tabindex="-1"></a>    H <span class="op">=</span> relu(torch.matmul(X, <span class="va">self</span>.W1) <span class="op">+</span> <span class="va">self</span>.b1)</span>
-<span id="cb13-6"><a href="perceptrón-multicapa.html#cb13-6" tabindex="-1"></a>    <span class="cf">return</span> torch.matmul(H, <span class="va">self</span>.W2) <span class="op">+</span> <span class="va">self</span>.b2</span></code></pre></div>
+<span id="cb13-6"><a href="perceptrón-multicapa.html#cb13-6" tabindex="-1"></a>    O <span class="op">=</span> torch.matmul(H, <span class="va">self</span>.W2) <span class="op">+</span> <span class="va">self</span>.b2</span>
+<span id="cb13-7"><a href="perceptrón-multicapa.html#cb13-7" tabindex="-1"></a>    <span class="cf">return</span> O</span></code></pre></div>
 </div>
 <div id="entrenamiento" class="section level4 hasAnchor" number="5.2.1.3">
 <h4><span class="header-section-number">5.2.1.3</span> Entrenamiento<a href="perceptrón-multicapa.html#entrenamiento" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -792,6 +794,32 @@ pReLU(x)=max(0,x)+\alpha \cdot min(0,x).
 <p>Pero para entender realmente cómo aprenden las redes, es importante saber qué ocurre detrás de escena. Por eso, en esta sección vamos a estudiar backpropagation, el mecanismo que calcula cómo cambia cada parámetro según el error cometido. Usaremos matemáticas básicas y grafos computacionales, trabajando con un ejemplo sencillo: un MLP de una capa oculta con regularización (weight decay <span class="math inline">\(l_2\)</span>). Esto nos permitirá entender no sólo el qué, sino el cómo del aprendizaje profundo.</p>
 <div id="forward-propagation" class="section level3 hasAnchor" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> Forward Propagation<a href="perceptrón-multicapa.html#forward-propagation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La propagación hacia adelante (forward propagation o pase hacia adelante) se refiere al cálculo y almacenamiento de variables intermedias (incluidas las salidas) para una red neuronal, desde la capa de entrada hasta la capa de salida. A continuación, se explica paso a paso la mecánica de una red neuronal con una capa oculta.</p>
+<p>Para simplificar, supongamos que el ejemplo de entrada es <span class="math inline">\(x\in \mathbb{R}^{d}\)</span> y que nuestra capa oculta no incluye un término de sesgo. En este caso, la variable intermedia es:</p>
+<p><span class="math display">\[\mathbb{z}=W^{(1)}x,\]</span></p>
+<p>donde <span class="math inline">\(W^{(1)} \in \mathbb{R}^{h\times d}\)</span> es el peso del parámetro de las capas ocultas. Luego de ejecutar la variable intermedia <span class="math inline">\(z\in \mathbb{R}^{h}\)</span> a través de la función de activación <span class="math inline">\(\phi\)</span>, se obtiene el vector de activación oculto de longitud <span class="math inline">\(h\)</span>:</p>
+<p><span class="math display">\[h=\phi(z).\]</span></p>
+<p>La salida de la capa oculta <span class="math inline">\(h\)</span> también es una variable intermedia. Suponiendo que los parámetros de la capa de salida solo tienen un peso de <span class="math inline">\(W^{(2)}\in \mathbb{R}^{q\times h}\)</span>, se puede obtener una variable de capa de salida con un vector de longitud <span class="math inline">\(q\)</span>:</p>
+<p><span class="math display">\[\mathbb{o}=W^{(2)}h\]</span></p>
+<p>Asumiendo que la función de pérdida es <span class="math inline">\(l\)</span> y la etiqueta de ejemplo es <span class="math inline">\(y\)</span>, se puede calcular el término de pérdida para un solo ejemplo de datos,</p>
+<p><span class="math display">\[L=l(o,y)\]</span></p>
+<p>Como veremos en la definición de regularización (<span class="math inline">\(l_2\)</span>) que se presentará más adelante, dado el hiperparámetro <span class="math inline">\(\lambda\)</span>, el término de regularización es:</p>
+<p><span class="math display">\[s=\frac{\lambda}{2} \left(||W^{(1)}||^{2}_{F}+||W^{(2)}||^{2}_{F} \right),\]</span></p>
+<p>Donde la <em>norma de Frobenius</em> de la matriz es simplemente la norma <span class="math inline">\(l_2\)</span> aplicada tras aplanar la matriz a un vector. Finalmente, la pérdida regularizada del modelo en un ejemplo de datos dado es:</p>
+<p><span class="math display">\[J=L+s.\]</span></p>
+<p>Refiriéndose a <span class="math inline">\(J\)</span> como la <em>función objetivo</em> en la siguiente discusión. A continuación se muestra el flujo computacional del proceso <strong>Forward</strong>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-63"></span>
+<img src="img/05_Multilayer_Perceptron/computational_grapg_forward_propagation.png" alt="Computational graph of forward propagation of Dive into Deep Learning Book" width="650pt" height="300pt" />
+<p class="caption">
+Figure 5.1: Computational graph of forward propagation of Dive into Deep Learning Book
+</p>
+</div>
+</div>
+<div id="backpropagation" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Backpropagation<a href="perceptrón-multicapa.html#backpropagation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La retropropagación se refiere al método para calcular el gradiente de los parámetros de una red neuronal. En resumen, el método recorre <strong>la red en orden inverso</strong>, desde la capa de salida hasta la de entrada, según la <strong>regla de la cadena</strong> del cálculo. El algoritmo almacena las variables intermedias (derivadas parciales) necesarias para calcular el gradiente con respecto a algunos parámetros. Supongamos que tenemos funciones <span class="math inline">\(Y=f(X)\)</span> y <span class="math inline">\(Z=g(Y)\)</span>, donde la entrada y la salida <span class="math inline">\(X, Y, Z\)</span> son tensores de formas arbitrarias. Utilizando la regla de la cadena, podemos calcular la derivada de <span class="math inline">\(Z\)</span> con respecto a <span class="math inline">\(X\)</span> mediante:</p>
+<p><span class="math display">\[\frac{\partial Z}{\partial X} = \text{prod} \left( \frac{\partial Z}{\partial Y}, \frac{\partial Y}{\partial X} \right)\]</span></p>
+<p>Aquí usamos el operador <span class="math inline">\(prod\)</span> para multiplicar sus argumentos después de realizar las operaciones necesarias, como la transposición y el intercambio de posiciones de entrada. Para vectores, esto es sencillo: se trata simplemente de una multiplicación matriz-matriz. Para tensores de mayor dimensión, usamos el operador correspondiente. El operador <span class="math inline">\(prod\)</span> elimina toda la sobrecarga de notación.</p>
 </div>
 </div>
 <div id="estabilidad-numérica-e-inicialización" class="section level2 hasAnchor" number="5.4">
