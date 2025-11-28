@@ -559,7 +559,7 @@ data = FashionMNISTData(batch_size=256)
 
 ```{python, eval=T}
 trainer = Trainer(max_epochs=10)
-trainer.fit(model, data)
+#trainer.fit(model, data)
 ```
 
 ### Implementación
@@ -720,6 +720,12 @@ Finalmente, podemos obtener el gradiente $\frac{\partial J}{\partial W^{(1)}}\in
 $$
 \frac{\partial J}{\partial W^{(1)}}=prod\left(\frac{\partial J}{\partial z}, \frac{\partial z}{\partial W^{(1)}}\right)+prod\left(\frac{\partial J}{\partial s}, \frac{\partial s}{\partial W^{(1)}}\right)=\frac{\partial J}{\partial z}x^{T}+\lambda W^{(1)}
 $$
+
+Al entrenar redes neuronales, la propagación hacia adelante y la retropropagación se necesitan mutuamente. En la fase hacia adelante se recorre el grafo computacional según sus dependencias y se calculan variables intermedias que luego serán reutilizadas en la retropropagación.
+
+En una red simple, por ejemplo, el término de regularización depende de los parámetros actuales $W^{(1)}$ y $W^{(2)}$, actualizados previamente mediante retropropagación. A su vez, el cálculo de gradientes en la retropropagación depende de valores generados hacia adelante, como la salida oculta $h&.
+
+En resumen, el entrenamiento alterna continuamente entre ambas fases: la propagación hacia adelante produce valores intermedios, la retropropagación usa esos valores para obtener gradientes y actualizar parámetros, y esos parámetros actualizados se usan en la siguiente pasada hacia adelante. Esto requiere almacenar los valores intermedios hasta que termine la retropropagación.
 
 
 ## Estabilidad Numérica e Inicialización
