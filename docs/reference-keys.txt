@@ -129,7 +129,14 @@ ejercicios-1
 forward-propagation-backward-propagation
 forward-propagation
 backpropagation
+resumen-6
+ejercicios-2
 estabilidad-numérica-e-inicialización
+explotación-y-desvanecimiento-de-gradientes
+desvanecimiento-de-gradientes
+gradientes-explosivos
+rompiendo-la-simetría
+inicialización-paramétrica
 generalización-en-deep-learning
 dropout
 ejemplo

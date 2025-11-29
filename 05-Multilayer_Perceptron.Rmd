@@ -597,7 +597,7 @@ El ciclo de entrenamiento es exactamente el mismo que cuando implementamos la re
 
 ```{python}
 model = MLP(num_outputs=10, num_hiddens=256, lr=0.1)
-trainer.fit(model, data)
+#trainer.fit(model, data)
 
 ```
 
@@ -727,10 +727,127 @@ En una red simple, por ejemplo, el término de regularización depende de los pa
 
 En resumen, el entrenamiento alterna continuamente entre ambas fases: la propagación hacia adelante produce valores intermedios, la retropropagación usa esos valores para obtener gradientes y actualizar parámetros, y esos parámetros actualizados se usan en la siguiente pasada hacia adelante. Esto requiere almacenar los valores intermedios hasta que termine la retropropagación.
 
+### Resumen
+
+La propagación hacia adelante calcula, paso a paso, las variables intermedias del grafo computacional de la red, avanzando desde la entrada hasta la salida. La retropropagación hace lo mismo pero en sentido inverso: calcula y almacena los gradientes de esas variables y de los parámetros.
+
+Durante el entrenamiento, ambas fases dependen una de la otra, por lo que se necesita mucha más memoria que en la simple fase de predicción.
+
+### Ejercicios
+
+1. Suponga que las entradas $X$ de una función escalar $f$ son matrices $n \times m$. ¿Cuál es la dimensionalidad del gradiente $f$ de con respecto a $X$?
+
+2. Agregue un sesgo a la capa oculta del modelo descrito en esta sección (no es necesario incluirlo en el término de regularización).
+
+    * Dibuje el grafo computacional correspondiente.
+    * Obtenga las ecuaciones de propagación hacia adelante y hacia atrás.
+
+3. Calcule la huella de memoria para el entrenamiento y la predicción en el modelo descrito en esta sección.
+
+4. Suponga que desea calcular las derivadas secundarias. ¿Qué ocurre con el grafo computacional? ¿Cuánto tiempo espera que tarde el cálculo?
+
+5. Suponga que el grafo computacional es demasiado grande para su GPU.
+
+    * ¿Puede particionarlo en más de una GPU?
+    * ¿Cuáles son las ventajas y desventajas del entrenamiento en un minibatch más pequeño?
+
+
 
 ## Estabilidad Numérica e Inicialización
 
+Hasta ahora, todos los modelos que hemos visto necesitaban **inicializar sus parámetros usando alguna distribución predefinida**. Hemos pasado por alto cómo se eligen realmente estos valores, lo que podría dar la impresión de que no importa demasiado. Pero en realidad, la forma de inicializar los parámetros es clave para que una red neuronal aprenda bien y mantenga la estabilidad numérica.
+
+::: {.infobox .note data-latex="{note}"}
+**¡¡ RECORDAR !!**
+
+la forma de inicializar los parámetros es clave para que una red neuronal aprenda bien y mantenga la estabilidad numérica.
+:::
+
+Además, la inicialización está estrechamente relacionada con la función de activación elegida. **Ambas decisiones influyen en qué tan rápido converge el algoritmo de optimización**. Una mala combinación puede provocar problemas típicos como gradientes que explotan o desaparecen (exploding or vanishing).
+
+En esta sección exploraremos estos temas con más detalle y veremos reglas prácticas que resultan muy útiles al trabajar con deep learning.
+
+
+### Explotación y Desvanecimiento de Gradientes
+
+Considera una red neuronal con $L$ capas, entrada $x$ y salida $o$. Con cada capa $l$ definida por la transformación $f_l$ parametrizada por los pesos $W^{(l)}$, cuya capa oculta de salida es $h^{(l)}$ (siendo $h^{(0)}=x$), la red puede ser expresada como:
+
+$$
+h^{(l)}=f_l(h^{(l-1)}) \quad \text{y entonces} \quad o=f_L \circ \cdot \cdot \cdot \circ f_{1}(x) 
+$$
+Si la salida y la entrada de la capa oculta son vectores, podemos escribir el gradiente de $o$ con respecto a cualquier conjunto de parámetros $W^{(l)}$ de la siguiente manera:
+
+$$
+\partial_{W^{(l)}}o=\underbrace{\partial_{h^{(l-1)}}h^{L}}_{M^{(L)}} \cdot \cdot \cdot  \underbrace{\partial_{h^{(l)}}h^{l+1}}_{M^{(l+1)}}\underbrace{\partial_{W^{(l)}}h^{l}}_{v^{(l)}}
+$$
+
+Resumiendo, este gradiente es el producto de $L-l$ matrices $M^{(L)}\cdot\cdot\cdot M^{(l+1)}$ y el vector gradiente $v^{(l)}.$ Esto puede causar problemas numéricos similares a cuando multiplicamos muchas probabilidades y obtenemos valores extremadamente pequeños. En probabilidades solemos pasar a “log-espacio” para evitarlo, pero aquí el problema es más serio: las matrices involucradas $M^{(l)}$ pueden tener *eigenvalores* muy grandes o muy pequeños, y su producto puede descontrolarse.
+
+Cuando los gradientes se vuelven inestables, no solo fallan las representaciones numéricas, sino que también se afecta el proceso de optimización. Podemos terminar con actualizaciones demasiado grandes, que destrozan el modelo (gradientes que explotan), o demasiado pequeñas, donde los parámetros casi no cambian y la red deja de aprender (gradientes que desaparecen).
+
+```{r echo=FALSE, fig.align='center', out.height='300pt', out.width='650pt'}
+knitr::include_graphics("img/05_Multilayer_Perceptron/vanishing_and_exploding_gradient.webp")
+```
+
+#### Desvanecimiento de Gradientes
+
+Un culpable frecuente del problema de gradientes que desaparecen es la función de activación $\sigma$ que se aplica después de cada operación lineal. Históricamente, la función sigmoide $\frac{1}{1+exp(-x)}$ fue muy usada porque se parece a una función de umbral, evocando la idea de neuronas biológicas que “disparan” o no. Sin embargo, si se observa más de cerca la sigmoide, vemos por qué puede provocar que los gradientes se vuelvan muy pequeños y, por lo tanto, que el aprendizaje se frene.
+
+```{python}
+# Datos y cómputo de la sigmoide y su gradiente
+x = torch.arange(-8.0, 8.0, 0.1, requires_grad=True)
+y = torch.sigmoid(x)
+y.backward(torch.ones_like(x))
+
+# Convertimos a numpy para graficar
+x_np = x.detach().numpy()
+y_np = y.detach().numpy()
+grad_np = x.grad.detach().numpy()
+
+# Graficar
+plt.figure(figsize=(4.5, 2.5))
+plt.plot(x_np, y_np, label='sigmoid')
+plt.plot(x_np, grad_np, label='gradient')
+plt.legend()
+plt.xlabel('x')
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+```
+
+La sigmoide tiene un inconveniente importante: **su gradiente se hace casi cero cuando la entrada es muy grande o muy pequeña**. Esto significa que, al retropropagar a través de muchas capas, el gradiente total tiende a desaparecer a menos que todas las sigmoides trabajen en una zona muy específica cerca de cero. En redes profundas esto era un problema común: en algún punto el gradiente simplemente se “cortaba”.
+
+::: {.infobox .quicktip data-latex="{quicktip}"}
+**¡¡ RECORDAR !!**
+
+Funciones como ReLU se volvieron la opción estándar. Aunque son menos parecidas a las neuronas biológicas, resultan mucho más estables y facilitan entrenar redes más profundas.
+:::
+
+
+#### Gradientes Explosivos
+
+El problema opuesto, cuando los gradientes explotan, puede ser igualmente complejo. Para ilustrarlo mejor, dibujamos 100 matrices aleatorias gaussianas y las multiplicamos por una matriz inicial. Para la escala elegida (la elección de la varianza $\sigma^{2}=1$), el producto de la matriz explota. Cuando esto ocurre debido a la inicialización de una red profunda, no tenemos posibilidad de lograr la convergencia de un optimizador de descenso de gradiente.
+
+```{python}
+M = torch.normal(0, 1, size=(4, 4))
+print('a single matrix \n',M)
+for i in range(100):
+    M = M @ torch.normal(0, 1, size=(4, 4))
+print('after multiplying 100 matrices\n', M)
+```
+
+#### Rompiendo la Simetría
+
+Otro problema en el diseño de redes neuronales es la simetría inherente a su parametrización. Supongamos que tenemos un MLP simple con una capa oculta y dos unidades. En este caso, podríamos permutar los pesos $W^{(1)}$ de la primera capa y, de igual manera, los de la capa de salida para obtener la misma función. No hay ninguna diferencia especial entre la primera y la segunda unidad oculta. En otras palabras, tenemos simetría de permutación entre las unidades ocultas de cada capa.
+
+Esto es más que una simple molestia teórica. Consideremos el MLP de una capa oculta mencionado anteriormente con dos unidades ocultas. A modo de ilustración, supongamos que la capa de salida transforma las dos unidades ocultas en una sola unidad de salida. Imaginemos qué sucedería si inicializáramos todos los parámetros de la capa oculta como $W^{(1)}=c$ para una constante $c$. En este caso, durante la propagación hacia adelante, cualquiera de las unidades ocultas toma las mismas entradas y parámetros, lo que produce la misma activación que se aplica a la unidad de salida. Durante la retropropagación, la diferenciación de la unidad de salida con respecto a los parámetros $W^{(1)}$ da como resultado un gradiente cuyos elementos toman el mismo valor. Por lo tanto, tras una iteración basada en gradientes (p. ej., el descenso de gradiente estocástico en minibatch), todos los elementos de $W^{(1)}$ siguen teniendo el mismo valor. Dichas iteraciones nunca romperían la simetría por sí solas y es posible que nunca seamos capaces de apreciar el potencial expresivo de la red. La capa oculta se comportaría como si solo tuviera una unidad. Cabe destacar que, si bien el descenso de gradiente estocástico en minibatch no rompería esta simetría, la regularización por abandono (que se presentará más adelante) sí lo haría.
+
+### Inicialización paramétrica
+
 ## Generalización en Deep Learning
+
+
 
 ## Dropout
 
