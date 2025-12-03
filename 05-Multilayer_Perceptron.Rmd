@@ -841,13 +841,130 @@ print('after multiplying 100 matrices\n', M)
 
 Otro problema en el diseño de redes neuronales es la simetría inherente a su parametrización. Supongamos que tenemos un MLP simple con una capa oculta y dos unidades. En este caso, podríamos permutar los pesos $W^{(1)}$ de la primera capa y, de igual manera, los de la capa de salida para obtener la misma función. No hay ninguna diferencia especial entre la primera y la segunda unidad oculta. En otras palabras, tenemos simetría de permutación entre las unidades ocultas de cada capa.
 
+```{r echo=FALSE, fig.align='center', out.height='300pt', out.width='300pt'}
+knitr::include_graphics("img/05_Multilayer_Perceptron/simetry.jpg")
+```
+
 Esto es más que una simple molestia teórica. Consideremos el MLP de una capa oculta mencionado anteriormente con dos unidades ocultas. A modo de ilustración, supongamos que la capa de salida transforma las dos unidades ocultas en una sola unidad de salida. Imaginemos qué sucedería si inicializáramos todos los parámetros de la capa oculta como $W^{(1)}=c$ para una constante $c$. En este caso, durante la propagación hacia adelante, cualquiera de las unidades ocultas toma las mismas entradas y parámetros, lo que produce la misma activación que se aplica a la unidad de salida. Durante la retropropagación, la diferenciación de la unidad de salida con respecto a los parámetros $W^{(1)}$ da como resultado un gradiente cuyos elementos toman el mismo valor. Por lo tanto, tras una iteración basada en gradientes (p. ej., el descenso de gradiente estocástico en minibatch), todos los elementos de $W^{(1)}$ siguen teniendo el mismo valor. Dichas iteraciones nunca romperían la simetría por sí solas y es posible que nunca seamos capaces de apreciar el potencial expresivo de la red. La capa oculta se comportaría como si solo tuviera una unidad. Cabe destacar que, si bien el descenso de gradiente estocástico en minibatch no rompería esta simetría, la regularización por abandono (que se presentará más adelante) sí lo haría.
 
 ### Inicialización paramétrica
 
+Una forma de abordar, o al menos mitigar, los problemas planteados anteriormente es mediante una inicialización cuidadosa. Como veremos más adelante, un cuidado adicional durante la optimización y una regularización adecuada pueden mejorar aún más la estabilidad.
+
+#### Inicialización Default
+
+En las secciones anteriores, utilizamos una **distribución normal** para inicializar los valores de nuestros pesos. Si no especificamos el método de inicialización, **el framework utilizará un método de inicialización aleatorio predeterminado**, que suele funcionar bien en la práctica para problemas de tamaño moderado.
+
+#### Inicialización Xavier
+
+Veamos la distribución de escala de una salida $o_i$ para una capa completamente conectada sin no linealidades. Con $n_{in}$ entradas $x_{ij}$ y sus pesos asociados $w_{ij}$ para esta capa, la salida viene dada por
+
+$$
+o_i=\sum_{j=1}^{n_{in}}{w_{ij}x_{j}}
+$$
+Los pesos $w_{ij}$ se extraen independientemente de la misma distribución. Además, supongamos que esta distribución tiene media y varianza $\sigma^{2}$ cero. Tenga en cuenta que esto no significa que la distribución deba ser gaussiana, solo que la media y la varianza deben existir. Por ahora, supongamos que las entradas de la capa $x_{j}$ también tienen media y varianza $\gamma^{2}$ cero y que son independientes de $w_{ij}$ e independientes entre sí. En este caso, podemos calcular la media de $o_i$:
+
+\begin{align}
+E[o_i] &= \sum_{j=1}^{n_{in}}{E[w_{ij}x_{j}]} \\
+&= \sum_{j=1}^{n_{in}}{E[w_{ij}]E[x_{j}]} \\
+&= 0
+\end{align}
+
+y la varianza:
+
+\begin{align}
+Var[o_i] &= E[o_{i}^{2}] - \left(E[o_i] \right)^{2} \\
+&= \sum_{j=1}^{n_{in}}{E[w^{2}_{ij}x^{2}_{j}]} - 0 \\
+&= \sum_{j=1}^{n_{in}}{E[w^{2}_{ij}]E[x^{2}_{j}]} \\
+&= n_{in}\sigma^{2}\gamma^{2}.
+\end{align}
+
+Una forma de mantener la varianza fija es establecer $n_{in}\sigma^{2}=1$. Consideremos ahora la retropropagación. En este caso, nos enfrentamos a un problema similar, aunque con gradientes que se propagan desde las capas más cercanas a la salida. Utilizando el mismo razonamiento que para la propagación hacia adelante, vemos que la varianza de los gradientes puede dispararse a menos que $n_{out}\sigma^{2}=1$, donde $n_{out}$ es el número de salidas de esta capa. Esto nos plantea un dilema: no podemos satisfacer ambas condiciones simultáneamente. En su lugar, simplemente intentamos satisfacer:
+
+$$
+\frac{1}{2}(n_{in}+n_{out})\sigma^{2}=1 \quad \text{o equivalentemente } \quad \sigma=\sqrt{\frac{2}{n_{in}+n_{out}}}
+$$
+Este es el razonamiento subyacente a la inicialización de Xavier, ahora estándar y prácticamente beneficiosa, llamada así por el primer autor de sus creadores (Glorot y Bengio, 2010). Normalmente, la inicialización de Xavier muestrea ponderaciones de una distribución gaussiana con media y varianza cero $\sigma^{2}=\frac{2}{n_{in}+n_{out}}$. También podemos adaptar esto para elegir la varianza al muestrear ponderaciones de una distribución uniforme. Nótese que la distribución uniforme $U(-a, a)$ tiene varianza $\frac{a^{2}}{3}$. Al sustituir $\frac{a^{2}}{3}$ en nuestra condición $\sigma^{2}$, nos lleva a inicializar según:
+
+$$U\left(-\sqrt{\frac{6}{n_{in}+n_{out}}}, \sqrt{\frac{6}{n_{in}+n_{out}}} \right)$$
+
+Aunque el supuesto de inexistencia de no linealidades en el razonamiento matemático anterior puede violarse fácilmente en redes neuronales, el método de inicialización de Xavier resulta funcionar bien en la práctica.
+
+### Ejercicios
+
+1. ¿Puedes diseñar otros casos donde una red neuronal pueda presentar simetría que deba romperse, además de la simetría de permutación en las capas de una MLP?
+
+2. ¿Podemos inicializar todos los parámetros de peso en la regresión lineal o en la regresión softmax con el mismo valor?
+
+3. Consulta los límites analíticos de los autovalores del producto de dos matrices. ¿Qué te indica esto sobre cómo asegurar que los gradientes estén bien condicionados?
+
+4. Si sabemos que algunos términos divergen, ¿podemos corregirlo posteriormente? Consulta el artículo sobre escalamiento de tasa adaptativo por capas para inspirarte (You et al., 2017).
+
+
 ## Generalización en Deep Learning
 
+El teorema “no free lunch” nos recuerda que ningún algoritmo aprende bien en todas las situaciones: para generalizar necesitamos asumir algo sobre cómo es el mundo. Estas suposiciones se llaman sesgos inductivos. Por ejemplo, una red profunda tiene el sesgo de construir funciones complejas combinando funciones simples capa a capa.
 
+En machine learning solemos seguir dos pasos:
+
+1. Ajustar el modelo a los datos de entrenamiento.
+2. Medir la generalización evaluando en datos separados.
+
+La diferencia entre ambos resultados es la brecha de generalización, y si es grande hablamos de overfitting: el modelo “memoriza” el entrenamiento pero falla con ejemplos nuevos.
+
+En el enfoque clásico, el overfitting se relaciona con tener modelos demasiado complejos. La solución típica es regularizar, reduciendo parámetros o limitando su tamaño para evitar que el modelo se vuelva excesivamente flexible.
+
+Sin embargo, en deep learning esta idea se vuelve contraintuitiva. Las redes profundas son tan expresivas que pueden ajustar perfectamente incluso enormes conjuntos de datos. Lo sorprendente es que, aun alcanzando cero error de entrenamiento, a veces mejoramos la generalización haciendo el modelo más grande, añadiendo capas, neuronas o entrenando más tiempo. Esto da lugar al fenómeno de double descent, donde aumentar la complejidad primero empeora y luego mejora la generalización.
+
+En resumen, aunque las redes puedan memorizarlo todo, en la práctica generalizan, y muchas de las herramientas del deep learning —algunas que restringen el modelo y otras que lo hacen más flexible— se usan precisamente para controlar el overfitting. Lo curioso es que la teoría clásica no explica bien este éxito: medidas como VC dimension o Rademacher complexity no predicen por qué las redes profundas generalizan tan bien.
+
+### Sobreajuste y Regularización
+
+El teorema no free lunch dice que para generalizar necesitamos sesgos inductivos, es decir, suposiciones sobre cómo es el mundo. Las redes profundas tienen el sesgo de construir funciones complejas a partir de funciones simples.
+
+En ML primero ajustamos los datos de entrenamiento y luego medimos la generalización. Si la diferencia es grande, aparece el overfitting. En el enfoque clásico, esto se controla reduciendo la complejidad del modelo mediante regularización.
+
+Pero en deep learning el panorama es distinto: las redes pueden memorizar perfectamente el entrenamiento, y aun así generalizar mejor al hacerlas más grandes. Esto lleva al fenómeno de double descent, donde más complejidad primero perjudica y luego ayuda.
+
+Lo más curioso es que la teoría clásica no explica por qué las redes profundas generalizan tan bien. Aun así, en la práctica usamos una combinación de trucos y regularizaciones para reducir el overfitting y mejorar la generalización.
+
+### Inspiración de los no paramétricos
+
+Aunque las redes neuronales tienen millones de parámetros, a veces es más útil pensar en ellas como modelos no paramétricos. En estos modelos, la complejidad crece con la cantidad de datos, en lugar de estar fija desde el inicio.
+
+Un ejemplo clásico de modelo no paramétrico es k-nearest neighbors (k-NN): el algoritmo básicamente memoriza el conjunto de entrenamiento y, al predecir, busca los puntos más cercanos según alguna métrica de distancia. Con $k=1$, siempre logra cero error de entrenamiento, y aun así puede generalizar bien bajo ciertas condiciones. Eso sí, distintas métricas de distancia implican diferentes sesgos inductivos y pueden producir predictores distintos.
+
+Las redes neuronales profundas, al estar sobrerrepresentadas (tienen muchos más parámetros de los necesarios para ajustar los datos), también tienden a interpolar o memorizar completamente el entrenamiento, comportándose en varios aspectos como modelos no paramétricos.
+
+De hecho, investigaciones recientes muestran una conexión profunda entre redes muy anchas y métodos de kernels. En particular, cuando un MLP se hace infinitamente ancho, su comportamiento converge a un método de kernel no paramétrico llamado neural tangent kernel (NTK). Aunque el NTK no explica todo lo que ocurre en redes modernas, sirve como herramienta teórica para entender por qué los modelos sobredimensionados pueden generalizar tan bien.
+
+### Early Stopping
+
+Las redes neuronales profundas pueden memorizar etiquetas arbitrarias o aleatorias, pero lo hacen tarde en el entrenamiento. Estudios recientes muestran que primero aprenden los ejemplos correctamente etiquetados y solo después empiezan a ajustar las etiquetas incorrectas o ruidosas. Esto tiene una implicación importante: si el modelo ya ajustó los datos limpios pero aún no ha memorizado las etiquetas aleatorias, entonces ya está generalizando.
+
+Este comportamiento motiva el uso de early stopping como técnica de regularización. En lugar de limitar los pesos, limitamos el número de épocas entrenadas. Lo usual es vigilar el error de validación y detener el entrenamiento cuando deja de mejorar después de cierta “paciencia”. Esto no solo mejora la generalización en presencia de ruido, sino que ahorra mucho tiempo y costo computacional, especialmente en modelos grandes.
+
+Cuando las etiquetas no contienen ruido (problemas bien separables como gatos vs. perros), el early stopping aporta poco. Pero cuando hay ruido, ambigüedad o variabilidad natural en las etiquetas (como en medicina), el early stopping se vuelve crucial, porque entrenar hasta que el modelo memorice el ruido suele ser perjudicial.
+
+### Métodos clásicos de regularización para redes profundas
+
+Anteriormente vimos técnicas clásicas de regularización, como *weight decay*, que añade un término a la función de pérdida para penalizar pesos grandes. Según la norma usada, se conoce como ridge ($l_2$) o lasso ($l_1$). En el enfoque clásico, estas penalizaciones limitan la complejidad del modelo y evitan que ajuste etiquetas arbitrarias.
+
+En deep learning, el *weight decay* sigue siendo muy usado, pero se ha observado que, por sí solo, no impide que las redes profundas interpolen completamente los datos. Por eso, sus beneficios suelen entenderse mejor cuando se combina con *early stopping*. Sin esta combinación, el efecto de técnicas como *weight decay* puede deberse menos a “restringir” la capacidad del modelo y más a introducir sesgos inductivos compatibles con los patrones reales de los datos.
+
+Aun así, los regularizadores clásicos siguen siendo populares en práctica. Además, el deep learning ha desarrollado variantes inspiradas en estas ideas, como agregar ruido durante el entrenamiento. En la siguiente sección aparecerá dropout, una técnica muy usada cuyo funcionamiento efectivo también tiene una base teórica parcial, pero funciona muy bien en la práctica.
+
+### Ejercicios
+
+1. ¿En qué sentido las medidas tradicionales basadas en la complejidad no tienen en cuenta la generalización de las redes neuronales profundas?
+
+2. ¿Por qué la interrupción anticipada podría considerarse una técnica de regularización?
+
+3. ¿Cómo suelen determinar los investigadores el criterio de parada?
+
+4. ¿Qué factor importante parece diferenciar los casos en los que la interrupción temprana conduce a grandes mejoras en la generalización?
+
+5. Más allá de la generalización, describa otro beneficio de dejar de fumar temprano.
 
 ## Dropout
 
