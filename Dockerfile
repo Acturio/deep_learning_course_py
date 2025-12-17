@@ -45,7 +45,7 @@ ENV RETICULATE_PYTHON=/opt/venv/bin/python
 WORKDIR /home/rstudio/project
 
 # copy the content to the project directory
-COPY . /home/studio/project
+COPY . /home/rstudio/project
 
 # adding some permisions
 RUN chown -R rstudio:rstudio /home/rstudio/project
