@@ -968,7 +968,155 @@ Aun así, los regularizadores clásicos siguen siendo populares en práctica. Ad
 
 ## Dropout
 
-## Ejemplo
+Pensemos brevemente en lo que esperamos de un buen modelo predictivo. Queremos que tenga un buen desempeño sobre datos no vistos. La teoría clásica de generalización sugiere que, para cerrar la brecha entre el rendimiento en entrenamiento y en prueba, deberíamos aspirar a un modelo simple. La simplicidad puede presentarse en forma de un número pequeño de dimensiones. Otra noción útil de simplicidad es la suavidad, es decir, que la función no sea sensible a pequeños cambios en sus entradas. Por ejemplo, al clasificar imágenes, esperaríamos que añadir algo de ruido aleatorio a los píxeles sea en su mayoría inofensivo.
+
+Bishop (1995) formalizó esta idea cuando demostró que el entrenamiento con ruido en la entrada es equivalente a la regularización de Tikhonov. Este trabajo estableció una conexión matemática clara entre el requisito de que una función sea suave (y por tanto simple) y el requisito de que sea resistente a perturbaciones en la entrada.
+
+Posteriormente, Srivastava et al. (2014) desarrollaron una idea ingeniosa para aplicar también la idea de Bishop a las capas internas de una red. Su propuesta, llamada dropout, consiste en inyectar ruido durante el cálculo de cada capa interna en la propagación hacia adelante, y se ha convertido en una técnica estándar para entrenar redes neuronales. El método se llama dropout porque literalmente se “eliminan” algunas neuronas durante el entrenamiento. A lo largo del entrenamiento, en cada iteración, el dropout estándar consiste en poner a cero una fracción de los nodos en cada capa antes de calcular la capa siguiente, la técnica de dropout en sí ha demostrado ser duradera, y diversas variantes de dropout están implementadas en la mayoría de las bibliotecas de aprendizaje profundo.
+
+En la regularización dropout estándar, se ponen a cero una fracción de los nodos en cada capa y luego se corrige el sesgo de cada capa normalizando por la fracción de nodos que se conservaron (no eliminados). En otras palabras, con una probabilidad de dropout $p$, cada activación intermedia $h$ se sustituye por una variable aleatoria $h'$ de la siguiente manera:$$h' = \begin{cases} 
+0 & \text{con probabilidad } p \\ 
+\frac{h}{1-p} & \text{en otro caso} 
+\end{cases}$$Por diseño, la esperanza se mantiene inalterada, es decir, $E[h'] = h$.
+
+### Dropout en la práctica
+
+Recuerda el MLP con una capa oculta y cinco unidades ocultas de la Sección 4.1.1. Cuando aplicamos dropout a una capa oculta, poniendo a cero cada unidad oculta con probabilidad $p$, el resultado puede verse como una red que contiene solo un subconjunto de las neuronas originales. En la Fig. 4.6.1, $h_2$ y $h_5$ han sido eliminadas. En consecuencia, el cálculo de las salidas ya no depende de $h_2$ o $h_5$ y sus respectivos gradientes también desaparecen al realizar la retropropagación (backpropagation). De esta manera, el cálculo de la capa de salida no puede ser excesivamente dependiente de ningún elemento individual de $h_1, \dots, h_5$.
+
+```{r echo=FALSE, fig.cap="MLP antes y después del dropout", fig.align='center', out.height='300pt', out.width='650pt'}
+knitr::include_graphics("img/05_Multilayer_Perceptron/MLP before and after dropout.png")
+```
+
+Típicamente, desactivamos el dropout en el momento de la prueba (test time). Dado un modelo entrenado y un nuevo ejemplo, no eliminamos ningún nodo y, por lo tanto, no necesitamos normalizar. Sin embargo, existen algunas excepciones: algunos investigadores utilizan el dropout en el momento de la prueba como una heurística para estimar la incertidumbre de las predicciones de la red neuronal: si las predicciones coinciden a través de muchas salidas diferentes de dropout, entonces podríamos decir que la red tiene mayor confianza.
+
+### Implementación desde cero
+
+Para implementar la función de dropout para una sola capa, debemos extraer tantas muestras de una variable aleatoria de Bernoulli (binaria) como dimensiones tenga nuestra capa, donde la variable toma el valor $1$ (mantener) con probabilidad $1 - p$ y $0$ (eliminar) con probabilidad $p$. Una forma sencilla de implementar esto es extraer primero muestras de la distribución uniforme $U[0, 1]$. Luego podemos conservar aquellos nodos para los cuales la muestra correspondiente sea mayor que $p$, descartando el resto.
+
+En el siguiente código, implementamos una función dropout_layer que elimina elementos en el tensor de entrada X con probabilidad dropout, reescalando el resto como se describió anteriormente: dividiendo los supervivientes por 1.0 - dropout.
+
+```{python, fig.align='center'}
+def dropout_layer(X, dropout):
+    assert 0 <= dropout <= 1
+    if dropout == 1: return torch.zeros_like(X)
+    mask = (torch.rand(X.shape) > dropout).float()
+    return mask * X / (1.0 - dropout)
+```
+
+Podemos probar la función dropout_layer con algunos ejemplos. En las siguientes líneas de código, pasamos nuestra entrada X a través de la operación de dropout, con probabilidades $0$, $0.5$ y $1$, respectivamente.
+
+```{python, fig.align='center'}
+import torch
+X = torch.arange(16, dtype = torch.float32).reshape((2, 8))
+print('dropout_p = 0:', dropout_layer(X, 0))
+print('dropout_p = 0.5:', dropout_layer(X, 0.5))
+print('dropout_p = 1:', dropout_layer(X, 1))
+```
+
+### Definición del modelo
+
+El modelo a continuación aplica dropout a la salida de cada capa oculta (siguiendo a la función de activación). Podemos configurar las probabilidades de dropout para cada capa de forma separada. Una elección común es establecer una probabilidad de dropout más baja en las capas cercanas a la de entrada. Nos aseguramos de que el dropout esté activo únicamente durante el entrenamiento.
+
+```{python, fig.align='center'}
+class DropoutMLPScratch(Classifier):
+    def __init__(self, num_outputs, num_hiddens_1, num_hiddens_2,
+                 dropout_1, dropout_2, lr):
+        super().__init__()
+        self.save_hyperparameters()
+        self.lin1 = nn.LazyLinear(num_hiddens_1)
+        self.lin2 = nn.LazyLinear(num_hiddens_2)
+        self.lin3 = nn.LazyLinear(num_outputs)
+        self.relu = nn.ReLU()
+
+    def forward(self, X):
+        H1 = self.relu(self.lin1(X.reshape((X.shape[0], -1))))
+        if self.training:
+            H1 = dropout_layer(H1, self.dropout_1)
+        H2 = self.relu(self.lin2(H1))
+        if self.training:
+            H2 = dropout_layer(H2, self.dropout_2)
+        return self.lin3(H2)
+```
+
+
+### Entrenamiento
+
+Lo siguiente es similar al entrenamiento de los MLP descritos anteriormente.
+
+```{python, fig.align='center'}
+hparams = {'num_outputs':10, 'num_hiddens_1':256, 'num_hiddens_2':256,
+           'dropout_1':0.5, 'dropout_2':0.5, 'lr':0.1}
+model = DropoutMLPScratch(**hparams)
+data = FashionMNISTData(batch_size=256)
+trainer = Trainer(max_epochs=10)
+trainer.fit(model, data)
+```
+
+```{r echo=FALSE, fig.align='center', out.height='150pt'}
+knitr::include_graphics("img/05_Multilayer_Perceptron/dropout output.png")
+```
+
+### Implementación concisa
+
+Con las APIs de alto nivel, todo lo que necesitamos hacer es añadir una capa Dropout después de cada capa totalmente conectada (fully connected), pasando la probabilidad de dropout como único argumento a su constructor. Durante el entrenamiento, la capa Dropout eliminará aleatoriamente las salidas de la capa anterior (o, equivalentemente, las entradas a la capa posterior) de acuerdo con la probabilidad de dropout especificada. Cuando no se está en modo de entrenamiento, la capa Dropout simplemente deja pasar los datos durante la fase de prueba.
+
+```{python, fig.align='center'}
+class DropoutMLP(Classifier):
+    def __init__(self, num_outputs, num_hiddens_1, num_hiddens_2,
+                 dropout_1, dropout_2, lr):
+        super().__init__()
+        self.save_hyperparameters()
+        self.net = nn.Sequential(
+            nn.Flatten(), nn.LazyLinear(num_hiddens_1), nn.ReLU(),
+            nn.Dropout(dropout_1), nn.LazyLinear(num_hiddens_2), nn.ReLU(),
+            nn.Dropout(dropout_2), nn.LazyLinear(num_outputs))
+```
+
+A continuación, entrenamos el modelo.
+
+```{python, fig.align='center'}
+model = DropoutMLP(**hparams)
+trainer.fit(model, data)
+```
+
+```{r echo=FALSE, fig.align='center', out.height='150pt'}
+knitr::include_graphics("img/05_Multilayer_Perceptron/dropout output2.png")
+```
+
+### Resumen
+
+Además de controlar el número de dimensiones y el tamaño del vector de pesos, dropout es otra herramienta más para evitar el sobreajuste. A menudo, estas herramientas se utilizan de manera conjunta. Obsérvese que dropout se usa únicamente durante el entrenamiento: reemplaza una activación $h$ por una variable aleatoria cuyo valor esperado es $h$.
+
+### Ejercicios
+
+1. ¿Qué sucede si se cambian las probabilidades de dropout para la primera y la segunda capa? En particular, ¿qué ocurre si se intercambian las probabilidades de ambas capas? Diseña un experimento para responder a estas preguntas, describe tus resultados de forma cuantitativa y resume las conclusiones cualitativas.
+
+2. Incrementa el número de épocas y compara los resultados obtenidos al usar dropout con aquellos en los que no se utiliza.
+
+3. ¿Cuál es la varianza de las activaciones en cada capa oculta cuando se aplica dropout y cuando no se aplica? Dibuja una gráfica que muestre cómo evoluciona esta cantidad a lo largo del tiempo para ambos modelos.
+
+4. ¿Por qué dropout no se utiliza típicamente en la fase de prueba?
+
+5. Usando el modelo de esta sección como ejemplo, compara los efectos de usar dropout y weight decay (decaimiento de pesos). ¿Qué ocurre cuando dropout y weight decay se usan al mismo tiempo? ¿Son los resultados aditivos? ¿Existen rendimientos decrecientes (o algo peor)? ¿Se anulan entre sí?
+
+6. ¿Qué sucede si aplicamos dropout a los pesos individuales de la matriz de pesos en lugar de a las activaciones?
+
+7. Inventa otra técnica para inyectar ruido aleatorio en cada capa que sea distinta de la técnica estándar de dropout. ¿Puedes desarrollar un método que supere a dropout en el conjunto de datos Fashion-MNIST (para una arquitectura fija)?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
