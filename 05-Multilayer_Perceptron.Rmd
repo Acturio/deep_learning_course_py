@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 <!-- ::: watermark -->
 <!-- <img src="img/aif-logo.png" width="400"/> -->
 <!-- ::: -->
@@ -1102,21 +1107,6 @@ Además de controlar el número de dimensiones y el tamaño del vector de pesos,
 6. ¿Qué sucede si aplicamos dropout a los pesos individuales de la matriz de pesos en lugar de a las activaciones?
 
 7. Inventa otra técnica para inyectar ruido aleatorio en cada capa que sea distinta de la técnica estándar de dropout. ¿Puedes desarrollar un método que supere a dropout en el conjunto de datos Fashion-MNIST (para una arquitectura fija)?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

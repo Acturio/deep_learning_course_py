@@ -178,3 +178,4 @@ redes-neuronales-recurrentes
 redes-neuronales-recurrentes-modernas
 mecanismos-de-atención-y-transformers
 algoritmos-de-optimización
+fig:unnamed-chunk-20
