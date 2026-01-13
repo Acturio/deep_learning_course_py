@@ -1,4 +1,6 @@
 fig:unnamed-chunk-65
+fig:unnamed-chunk-71
+fig:unnamed-chunk-80
 introducción-a-deep-learning
 introducción-al-aprendizaje-automático
 motivación-los-paradigmas-del-conocimiento
@@ -170,7 +172,20 @@ early-stopping
 métodos-clásicos-de-regularización-para-redes-profundas
 ejercicios-4
 dropout
-ejemplo
+dropout-en-la-práctica
+implementación-desde-cero-1
+definición-del-modelo
+entrenamiento-2
+implementación-concisa
+resumen-7
+ejercicios-5
+dropout-en-la-práctica-1
+implementación-desde-cero-2
+definición-del-modelo-1
+entrenamiento-3
+implementación-concisa-1
+resumen-8
+ejercicios-6
 guía-del-constructor
 redes-neuronales-convolucionales
 redes-neuronales-convolucionales-modernas
@@ -178,7 +193,3 @@ redes-neuronales-recurrentes
 redes-neuronales-recurrentes-modernas
 mecanismos-de-atención-y-transformers
 algoritmos-de-optimización
-fig:unnamed-chunk-20
-dropout-in-practice
-dropout-en-la-práctica
-fig:unnamed-chunk-26

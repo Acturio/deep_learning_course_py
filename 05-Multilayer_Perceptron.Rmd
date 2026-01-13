@@ -980,10 +980,16 @@ Bishop (1995) formalizó esta idea cuando demostró que el entrenamiento con rui
 Posteriormente, Srivastava et al. (2014) desarrollaron una idea ingeniosa para aplicar también la idea de Bishop a las capas internas de una red. Su propuesta, llamada dropout, consiste en inyectar ruido durante el cálculo de cada capa interna en la propagación hacia adelante, y se ha convertido en una técnica estándar para entrenar redes neuronales. El método se llama dropout porque literalmente se “eliminan” algunas neuronas durante el entrenamiento. A lo largo del entrenamiento, en cada iteración, el dropout estándar consiste en poner a cero una fracción de los nodos en cada capa antes de calcular la capa siguiente, la técnica de dropout en sí ha demostrado ser duradera, y diversas variantes de dropout están implementadas en la mayoría de las bibliotecas de aprendizaje profundo.
 <<<<<<< HEAD
 
-En la regularización dropout estándar, se ponen a cero una fracción de los nodos en cada capa y luego se corrige el sesgo de cada capa normalizando por la fracción de nodos que se conservaron (no eliminados). En otras palabras, con una probabilidad de dropout $p$, cada activación intermedia $h$ se sustituye por una variable aleatoria $h'$ de la siguiente manera:$$h' = \begin{cases} 
+En la regularización dropout estándar, se ponen a cero una fracción de los nodos en cada capa y luego se corrige el sesgo de cada capa normalizando por la fracción de nodos que se conservaron (no eliminados). En otras palabras, con una probabilidad de dropout $p$, cada activación intermedia $h$ se sustituye por una variable aleatoria $h'$ de la siguiente manera:
+
+$$
+h' = \begin{cases} 
 0 & \text{con probabilidad } p \\ 
 \frac{h}{1-p} & \text{en otro caso} 
-\end{cases}$$Por diseño, la esperanza se mantiene inalterada, es decir, $E[h'] = h$.
+\end{cases}
+$$
+
+Por diseño, la esperanza se mantiene inalterada, es decir, $E[h'] = h$.
 
 ### Dropout en la práctica
 
@@ -1001,7 +1007,7 @@ Para implementar la función de dropout para una sola capa, debemos extraer tant
 
 En el siguiente código, implementamos una función dropout_layer que elimina elementos en el tensor de entrada X con probabilidad dropout, reescalando el resto como se describió anteriormente: dividiendo los supervivientes por 1.0 - dropout.
 
-```{python, fig.align='center'}
+```{python}
 def dropout_layer(X, dropout):
     assert 0 <= dropout <= 1
     if dropout == 1: return torch.zeros_like(X)
@@ -1013,7 +1019,9 @@ Podemos probar la función dropout_layer con algunos ejemplos. En las siguientes
 
 ```{python, fig.align='center'}
 import torch
+
 X = torch.arange(16, dtype = torch.float32).reshape((2, 8))
+
 print('dropout_p = 0:', dropout_layer(X, 0))
 print('dropout_p = 0.5:', dropout_layer(X, 0.5))
 print('dropout_p = 1:', dropout_layer(X, 1))
@@ -1023,7 +1031,7 @@ print('dropout_p = 1:', dropout_layer(X, 1))
 
 El modelo a continuación aplica dropout a la salida de cada capa oculta (siguiendo a la función de activación). Podemos configurar las probabilidades de dropout para cada capa de forma separada. Una elección común es establecer una probabilidad de dropout más baja en las capas cercanas a la de entrada. Nos aseguramos de que el dropout esté activo únicamente durante el entrenamiento.
 
-```{python, fig.align='center'}
+```{python}
 class DropoutMLPScratch(Classifier):
     def __init__(self, num_outputs, num_hiddens_1, num_hiddens_2,
                  dropout_1, dropout_2, lr):
@@ -1050,10 +1058,18 @@ class DropoutMLPScratch(Classifier):
 Lo siguiente es similar al entrenamiento de los MLP descritos anteriormente.
 
 ```{python, fig.align='center'}
-hparams = {'num_outputs':10, 'num_hiddens_1':256, 'num_hiddens_2':256,
-           'dropout_1':0.5, 'dropout_2':0.5, 'lr':0.1}
+hparams = {
+  'num_outputs':10, 
+  'num_hiddens_1':256, 
+  'num_hiddens_2':256,
+  'dropout_1':0.5, 
+  'dropout_2':0.5, 
+  'lr':0.1
+  }
+           
 model = DropoutMLPScratch(**hparams)
 data = FashionMNISTData(batch_size=256)
+
 trainer = Trainer(max_epochs=10)
 trainer.fit(model, data)
 ```
@@ -1072,10 +1088,20 @@ class DropoutMLP(Classifier):
                  dropout_1, dropout_2, lr):
         super().__init__()
         self.save_hyperparameters()
+        
         self.net = nn.Sequential(
-            nn.Flatten(), nn.LazyLinear(num_hiddens_1), nn.ReLU(),
-            nn.Dropout(dropout_1), nn.LazyLinear(num_hiddens_2), nn.ReLU(),
-            nn.Dropout(dropout_2), nn.LazyLinear(num_outputs))
+            nn.Flatten(), 
+            nn.LazyLinear(num_hiddens_1), 
+            nn.ReLU(),
+            nn.Dropout(dropout_1), 
+            nn.LazyLinear(num_hiddens_2), 
+            nn.ReLU(),
+            nn.Dropout(dropout_2), 
+            nn.LazyLinear(num_outputs)
+            )
+    
+    def forward(self, X):
+        return self.net(X)
 ```
 
 A continuación, entrenamos el modelo.
@@ -1144,7 +1170,9 @@ Podemos probar la función dropout_layer con algunos ejemplos. En las siguientes
 
 ```{python, fig.align='center'}
 import torch
+
 X = torch.arange(16, dtype = torch.float32).reshape((2, 8))
+
 print('dropout_p = 0:', dropout_layer(X, 0))
 print('dropout_p = 0.5:', dropout_layer(X, 0.5))
 print('dropout_p = 1:', dropout_layer(X, 1))
@@ -1181,15 +1209,23 @@ class DropoutMLPScratch(Classifier):
 Lo siguiente es similar al entrenamiento de los MLP descritos anteriormente.
 
 ```{python, fig.align='center'}
-hparams = {'num_outputs':10, 'num_hiddens_1':256, 'num_hiddens_2':256,
-           'dropout_1':0.5, 'dropout_2':0.5, 'lr':0.1}
+hparams = {
+  'num_outputs':10, 
+  'num_hiddens_1':256, 
+  'num_hiddens_2':256,
+  'dropout_1':0.5, 
+  'dropout_2':0.5, 
+  'lr':0.1
+  }
+
 model = DropoutMLPScratch(**hparams)
 data = FashionMNISTData(batch_size=256)
+
 trainer = Trainer(max_epochs=10)
 trainer.fit(model, data)
 ```
 
-```{r echo=FALSE, fig.align='center', out.height='150pt'}
+```{r echo=FALSE, fig.align='center', out.height='450pt'}
 knitr::include_graphics("img/05_Multilayer_Perceptron/dropout output.png")
 ```
 
@@ -1202,11 +1238,22 @@ class DropoutMLP(Classifier):
     def __init__(self, num_outputs, num_hiddens_1, num_hiddens_2,
                  dropout_1, dropout_2, lr):
         super().__init__()
+        
         self.save_hyperparameters()
+        
         self.net = nn.Sequential(
-            nn.Flatten(), nn.LazyLinear(num_hiddens_1), nn.ReLU(),
-            nn.Dropout(dropout_1), nn.LazyLinear(num_hiddens_2), nn.ReLU(),
-            nn.Dropout(dropout_2), nn.LazyLinear(num_outputs))
+            nn.Flatten(), 
+            nn.LazyLinear(num_hiddens_1), 
+            nn.ReLU(),
+            nn.Dropout(dropout_1), 
+            nn.LazyLinear(num_hiddens_2), 
+            nn.ReLU(),
+            nn.Dropout(dropout_2), 
+            nn.LazyLinear(num_outputs)
+            )
+    
+    def forward(self, X):
+        return self.net(X)
 ```
 
 A continuación, entrenamos el modelo.
@@ -1216,7 +1263,7 @@ model = DropoutMLP(**hparams)
 trainer.fit(model, data)
 ```
 
-```{r echo=FALSE, fig.align='center', out.height='150pt'}
+```{r echo=FALSE, fig.align='center', out.height='450pt'}
 knitr::include_graphics("img/05_Multilayer_Perceptron/dropout output2.png")
 ```
 
@@ -1239,17 +1286,5 @@ Además de controlar el número de dimensiones y el tamaño del vector de pesos,
 6. ¿Qué sucede si aplicamos dropout a los pesos individuales de la matriz de pesos en lugar de a las activaciones?
 
 7. Inventa otra técnica para inyectar ruido aleatorio en cada capa que sea distinta de la técnica estándar de dropout. ¿Puedes desarrollar un método que supere a dropout en el conjunto de datos Fashion-MNIST (para una arquitectura fija)?
-
-
-
-
-
-
-
-
-
-
-
-
 
 
