@@ -179,3 +179,6 @@ redes-neuronales-recurrentes-modernas
 mecanismos-de-atención-y-transformers
 algoritmos-de-optimización
 fig:unnamed-chunk-20
+dropout-in-practice
+dropout-en-la-práctica
+fig:unnamed-chunk-26

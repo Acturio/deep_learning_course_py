@@ -282,7 +282,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#m%C3%A9todos-cl%C3%A1sicos-de-regularizaci%C3%B3n-para-redes-profundas"><i class="fa fa-check"></i><b>4.5.4</b> Métodos clásicos de regularización para redes profundas</a></li>
 <li class="chapter" data-level="4.5.5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-4"><i class="fa fa-check"></i><b>4.5.5</b> Ejercicios</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#dropout"><i class="fa fa-check"></i><b>4.6</b> Dropout</a></li>
+<li class="chapter" data-level="4.6" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#dropout"><i class="fa fa-check"></i><b>4.6</b> Dropout</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#dropout-en-la-pr%C3%A1ctica"><i class="fa fa-check"></i><b>4.6.1</b> Dropout en la práctica</a></li>
+</ul></li>
 <li class="chapter" data-level="4.7" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejemplo"><i class="fa fa-check"></i><b>4.7</b> Ejemplo</a></li>
 </ul></li>
 <li class="part"><span><b>Parte 2: Técnicas Modernas de Deep Learning</b></span></li>
@@ -976,18 +979,18 @@ Si la salida y la entrada de la capa oculta son vectores, podemos escribir el gr
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="perceptrón-multicapa.html#cb18-1" tabindex="-1"></a>M <span class="op">=</span> torch.normal(<span class="dv">0</span>, <span class="dv">1</span>, size<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>))</span>
 <span id="cb18-2"><a href="perceptrón-multicapa.html#cb18-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;a single matrix </span><span class="ch">\n</span><span class="st">&#39;</span>,M)</span></code></pre></div>
 <pre><code>## a single matrix 
-##  tensor([[ 0.6417, -0.7110,  0.1352, -1.0167],
-##         [ 0.3110, -2.0357, -0.8661,  1.1268],
-##         [ 0.2044, -0.8462, -0.1306, -0.9756],
-##         [-0.1281,  0.4983,  0.2387, -0.0335]])</code></pre>
+##  tensor([[-0.5402,  0.0320, -1.9324,  0.7777],
+##         [-0.1177, -1.3671,  1.1809, -0.6876],
+##         [-0.0848,  0.6232, -0.4370,  1.2215],
+##         [-1.4847, -1.6700,  0.3961,  0.0623]])</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="perceptrón-multicapa.html#cb20-1" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):</span>
 <span id="cb20-2"><a href="perceptrón-multicapa.html#cb20-2" tabindex="-1"></a>    M <span class="op">=</span> M <span class="op">@</span> torch.normal(<span class="dv">0</span>, <span class="dv">1</span>, size<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>))</span>
 <span id="cb20-3"><a href="perceptrón-multicapa.html#cb20-3" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;after multiplying 100 matrices</span><span class="ch">\n</span><span class="st">&#39;</span>, M)</span></code></pre></div>
 <pre><code>## after multiplying 100 matrices
-##  tensor([[ 8.2770e+26,  3.8567e+27,  7.6621e+26,  3.0169e+27],
-##         [ 7.1414e+27,  3.3276e+28,  6.6109e+27,  2.6030e+28],
-##         [ 1.6120e+27,  7.5112e+27,  1.4923e+27,  5.8756e+27],
-##         [-1.6955e+27, -7.9002e+27, -1.5695e+27, -6.1798e+27]])</code></pre>
+##  tensor([[-9.8701e+25,  1.2372e+26,  7.2798e+25,  8.5048e+25],
+##         [ 7.7112e+25, -9.6658e+25, -5.6875e+25, -6.6445e+25],
+##         [-7.8869e+24,  9.8859e+24,  5.8170e+24,  6.7959e+24],
+##         [ 7.6766e+25, -9.6224e+25, -5.6620e+25, -6.6147e+25]])</code></pre>
 </div>
 <div id="rompiendo-la-simetría" class="section level4 hasAnchor" number="4.4.1.3">
 <h4><span class="header-section-number">4.4.1.3</span> Rompiendo la Simetría<a href="perceptrón-multicapa.html#rompiendo-la-simetr%C3%ADa" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1094,7 +1097,22 @@ Este es el razonamiento subyacente a la inicialización de Xavier, ahora estánd
 <h2><span class="header-section-number">4.6</span> Dropout<a href="perceptrón-multicapa.html#dropout" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Pensemos brevemente en lo que esperamos de un buen modelo predictivo. Queremos que tenga un buen desempeño sobre datos no vistos. La teoría clásica de generalización sugiere que, para cerrar la brecha entre el rendimiento en entrenamiento y en prueba, deberíamos aspirar a un modelo simple. La simplicidad puede presentarse en forma de un número pequeño de dimensiones. Otra noción útil de simplicidad es la suavidad, es decir, que la función no sea sensible a pequeños cambios en sus entradas. Por ejemplo, al clasificar imágenes, esperaríamos que añadir algo de ruido aleatorio a los píxeles sea en su mayoría inofensivo.</p>
 <p>Bishop (1995) formalizó esta idea cuando demostró que el entrenamiento con ruido en la entrada es equivalente a la regularización de Tikhonov. Este trabajo estableció una conexión matemática clara entre el requisito de que una función sea suave (y por tanto simple) y el requisito de que sea resistente a perturbaciones en la entrada.</p>
-<p>Posteriormente, Srivastava et al. (2014) desarrollaron una idea ingeniosa para aplicar también la idea de Bishop a las capas internas de una red. Su propuesta, llamada dropout, consiste en inyectar ruido durante el cálculo de cada capa interna en la propagación hacia adelante, y se ha convertido en una técnica estándar para entrenar redes neuronales. El método se llama dropout porque literalmente se “eliminan” algunas neuronas durante el entrenamiento. A lo largo del entrenamiento, en cada iteración, el dropout estándar consiste en poner a cero una fracción de los nodos en cada capa antes de calcular la capa siguiente.</p>
+<p>Posteriormente, Srivastava et al. (2014) desarrollaron una idea ingeniosa para aplicar también la idea de Bishop a las capas internas de una red. Su propuesta, llamada dropout, consiste en inyectar ruido durante el cálculo de cada capa interna en la propagación hacia adelante, y se ha convertido en una técnica estándar para entrenar redes neuronales. El método se llama dropout porque literalmente se “eliminan” algunas neuronas durante el entrenamiento. A lo largo del entrenamiento, en cada iteración, el dropout estándar consiste en poner a cero una fracción de los nodos en cada capa antes de calcular la capa siguiente, la técnica de dropout en sí ha demostrado ser duradera, y diversas variantes de dropout están implementadas en la mayoría de las bibliotecas de aprendizaje profundo.</p>
+<p>En la regularización dropout estándar, se ponen a cero una fracción de los nodos en cada capa y luego se corrige el sesgo de cada capa normalizando por la fracción de nodos que se conservaron (no eliminados). En otras palabras, con una probabilidad de dropout <span class="math inline">\(p\)</span>, cada activación intermedia <span class="math inline">\(h\)</span> se sustituye por una variable aleatoria <span class="math inline">\(h&#39;\)</span> de la siguiente manera:<span class="math display">\[h&#39; = \begin{cases}
+0 &amp; \text{con probabilidad } p \\
+\frac{h}{1-p} &amp; \text{en otro caso}
+\end{cases}\]</span>Por diseño, la esperanza se mantiene inalterada, es decir, <span class="math inline">\(E[h&#39;] = h\)</span>.</p>
+<div id="dropout-en-la-práctica" class="section level3 hasAnchor" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> Dropout en la práctica<a href="perceptrón-multicapa.html#dropout-en-la-pr%C3%A1ctica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Recuerda el MLP con una capa oculta y cinco unidades ocultas de la Sección 4.1.1. Cuando aplicamos dropout a una capa oculta, poniendo a cero cada unidad oculta con probabilidad <span class="math inline">\(p\)</span>, el resultado puede verse como una red que contiene solo un subconjunto de las neuronas originales. En la Fig. 4.6.1, <span class="math inline">\(h_2\)</span> y <span class="math inline">\(h_5\)</span> han sido eliminadas. En consecuencia, el cálculo de las salidas ya no depende de <span class="math inline">\(h_2\)</span> o <span class="math inline">\(h_5\)</span> y sus respectivos gradientes también desaparecen al realizar la retropropagación (backpropagation). De esta manera, el cálculo de la capa de salida no puede ser excesivamente dependiente de ningún elemento individual de <span class="math inline">\(h_1, \dots, h_5\)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-26"></span>
+<img src="img/05_Multilayer_Perceptron/MLP%20before%20and%20after%20dropout.png" alt="Fig. 4.6.1 MLP antes y después del dropout" width="650pt" height="300pt" />
+<p class="caption">
+Figure 4.2: Fig. 4.6.1 MLP antes y después del dropout
+</p>
+</div>
+<p>Típicamente, desactivamos el dropout en el momento de la prueba (test time). Dado un modelo entrenado y un nuevo ejemplo, no eliminamos ningún nodo y, por lo tanto, no necesitamos normalizar. Sin embargo, existen algunas excepciones: algunos investigadores utilizan el dropout en el momento de la prueba como una heurística para estimar la incertidumbre de las predicciones de la red neuronal: si las predicciones coinciden a través de muchas salidas diferentes de dropout, entonces podríamos decir que la red tiene mayor confianza.</p>
+</div>
 </div>
 <div id="ejemplo" class="section level2 hasAnchor" number="4.7">
 <h2><span class="header-section-number">4.7</span> Ejemplo<a href="perceptrón-multicapa.html#ejemplo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
