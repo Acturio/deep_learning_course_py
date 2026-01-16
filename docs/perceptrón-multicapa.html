@@ -992,18 +992,18 @@ Si la salida y la entrada de la capa oculta son vectores, podemos escribir el gr
 <div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="perceptrón-multicapa.html#cb21-1" tabindex="-1"></a>M <span class="op">=</span> torch.normal(<span class="dv">0</span>, <span class="dv">1</span>, size<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>))</span>
 <span id="cb21-2"><a href="perceptrón-multicapa.html#cb21-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;a single matrix </span><span class="ch">\n</span><span class="st">&#39;</span>,M)</span></code></pre></div>
 <pre><code>## a single matrix 
-##  tensor([[-0.9475,  1.4926,  0.5969, -1.3426],
-##         [-0.6615, -1.5244,  0.0662,  0.0539],
-##         [ 1.3521, -0.1277, -0.6170,  0.1916],
-##         [-1.3840,  0.2962,  1.4394, -0.5848]])</code></pre>
+##  tensor([[ 0.9059, -0.5833,  0.3908,  1.6229],
+##         [-0.0290,  1.2576,  1.6023, -0.5520],
+##         [-0.6166, -0.7285, -0.9683, -1.1237],
+##         [-0.6062, -0.0816,  1.6717,  1.7170]])</code></pre>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="perceptrón-multicapa.html#cb23-1" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):</span>
 <span id="cb23-2"><a href="perceptrón-multicapa.html#cb23-2" tabindex="-1"></a>    M <span class="op">=</span> M <span class="op">@</span> torch.normal(<span class="dv">0</span>, <span class="dv">1</span>, size<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>))</span>
 <span id="cb23-3"><a href="perceptrón-multicapa.html#cb23-3" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;after multiplying 100 matrices</span><span class="ch">\n</span><span class="st">&#39;</span>, M)</span></code></pre></div>
 <pre><code>## after multiplying 100 matrices
-##  tensor([[ 1.4967e+22, -4.1462e+21, -1.0121e+22,  2.3612e+22],
-##         [-2.6926e+21,  7.4591e+20,  1.8208e+21, -4.2479e+21],
-##         [-1.7685e+22,  4.8991e+21,  1.1959e+22, -2.7900e+22],
-##         [ 9.2012e+21, -2.5489e+21, -6.2220e+21,  1.4516e+22]])</code></pre>
+##  tensor([[-2.9649e+22,  1.4944e+23, -1.6709e+23, -9.2844e+22],
+##         [-1.9762e+22,  9.9603e+22, -1.1137e+23, -6.1882e+22],
+##         [ 3.4320e+22, -1.7298e+23,  1.9342e+23,  1.0747e+23],
+##         [-2.5175e+22,  1.2689e+23, -1.4188e+23, -7.8834e+22]])</code></pre>
 </div>
 <div id="rompiendo-la-simetría" class="section level4 hasAnchor" number="5.4.1.3">
 <h4><span class="header-section-number">5.4.1.3</span> Rompiendo la Simetría<a href="perceptrón-multicapa.html#rompiendo-la-simetr%C3%ADa" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1149,8 +1149,8 @@ Figure 5.2: MLP antes y después del dropout
 <pre><code>## dropout_p = 0: tensor([[ 0.,  1.,  2.,  3.,  4.,  5.,  6.,  7.],
 ##         [ 8.,  9., 10., 11., 12., 13., 14., 15.]])</code></pre>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="perceptrón-multicapa.html#cb28-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;dropout_p = 0.5:&#39;</span>, dropout_layer(X, <span class="fl">0.5</span>))</span></code></pre></div>
-<pre><code>## dropout_p = 0.5: tensor([[ 0.,  2.,  0.,  6.,  8.,  0., 12.,  0.],
-##         [16.,  0.,  0., 22.,  0.,  0.,  0., 30.]])</code></pre>
+<pre><code>## dropout_p = 0.5: tensor([[ 0.,  0.,  0.,  0.,  0.,  0.,  0., 14.],
+##         [16.,  0., 20., 22., 24.,  0., 28., 30.]])</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="perceptrón-multicapa.html#cb30-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;dropout_p = 1:&#39;</span>, dropout_layer(X, <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## dropout_p = 1: tensor([[0., 0., 0., 0., 0., 0., 0., 0.],
 ##         [0., 0., 0., 0., 0., 0., 0., 0.]])</code></pre>
@@ -1194,16 +1194,16 @@ Figure 5.2: MLP antes y después del dropout
 <span id="cb33-12"><a href="perceptrón-multicapa.html#cb33-12" tabindex="-1"></a></span>
 <span id="cb33-13"><a href="perceptrón-multicapa.html#cb33-13" tabindex="-1"></a>trainer <span class="op">=</span> Trainer(max_epochs<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb33-14"><a href="perceptrón-multicapa.html#cb33-14" tabindex="-1"></a>trainer.fit(model, data)</span></code></pre></div>
-<pre><code>## Epoch 1: train_loss=1.167, val_loss=0.796, train_acc=0.576, val_acc=0.705
-## Epoch 2: train_loss=0.691, val_loss=0.658, train_acc=0.751, val_acc=0.759
-## Epoch 3: train_loss=0.585, val_loss=0.602, train_acc=0.793, val_acc=0.777
-## Epoch 4: train_loss=0.533, val_loss=0.565, train_acc=0.812, val_acc=0.795
-## Epoch 5: train_loss=0.498, val_loss=0.513, train_acc=0.823, val_acc=0.816
-## Epoch 6: train_loss=0.474, val_loss=0.496, train_acc=0.832, val_acc=0.823
-## Epoch 7: train_loss=0.459, val_loss=0.500, train_acc=0.837, val_acc=0.820
-## Epoch 8: train_loss=0.441, val_loss=0.499, train_acc=0.842, val_acc=0.820
-## Epoch 9: train_loss=0.429, val_loss=0.482, train_acc=0.847, val_acc=0.833
-## Epoch 10: train_loss=0.417, val_loss=0.489, train_acc=0.852, val_acc=0.826</code></pre>
+<pre><code>## Epoch 1: train_loss=1.158, val_loss=0.822, train_acc=0.578, val_acc=0.684
+## Epoch 2: train_loss=0.689, val_loss=0.653, train_acc=0.755, val_acc=0.767
+## Epoch 3: train_loss=0.582, val_loss=0.585, train_acc=0.795, val_acc=0.793
+## Epoch 4: train_loss=0.529, val_loss=0.558, train_acc=0.813, val_acc=0.803
+## Epoch 5: train_loss=0.498, val_loss=0.520, train_acc=0.823, val_acc=0.819
+## Epoch 6: train_loss=0.476, val_loss=0.510, train_acc=0.832, val_acc=0.817
+## Epoch 7: train_loss=0.456, val_loss=0.489, train_acc=0.837, val_acc=0.827
+## Epoch 8: train_loss=0.442, val_loss=0.493, train_acc=0.843, val_acc=0.820
+## Epoch 9: train_loss=0.429, val_loss=0.472, train_acc=0.849, val_acc=0.835
+## Epoch 10: train_loss=0.419, val_loss=0.461, train_acc=0.851, val_acc=0.837</code></pre>
 <p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-75-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><img src="img/05_Multilayer_Perceptron/dropout%20output.png" width="234" height="150pt" style="display: block; margin: auto;" /></p>
 </div>
@@ -1232,16 +1232,16 @@ Figure 5.2: MLP antes y después del dropout
 <p>A continuación, entrenamos el modelo.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="perceptrón-multicapa.html#cb36-1" tabindex="-1"></a>model <span class="op">=</span> DropoutMLP(<span class="op">**</span>hparams)</span>
 <span id="cb36-2"><a href="perceptrón-multicapa.html#cb36-2" tabindex="-1"></a>trainer.fit(model, data)</span></code></pre></div>
-<pre><code>## Epoch 1: train_loss=1.154, val_loss=0.794, train_acc=0.580, val_acc=0.707
-## Epoch 2: train_loss=0.687, val_loss=0.643, train_acc=0.754, val_acc=0.772
-## Epoch 3: train_loss=0.585, val_loss=0.574, train_acc=0.794, val_acc=0.802
-## Epoch 4: train_loss=0.531, val_loss=0.564, train_acc=0.813, val_acc=0.805
-## Epoch 5: train_loss=0.500, val_loss=0.518, train_acc=0.822, val_acc=0.817
-## Epoch 6: train_loss=0.475, val_loss=0.544, train_acc=0.832, val_acc=0.809
-## Epoch 7: train_loss=0.454, val_loss=0.491, train_acc=0.839, val_acc=0.832
-## Epoch 8: train_loss=0.440, val_loss=0.486, train_acc=0.845, val_acc=0.828
-## Epoch 9: train_loss=0.428, val_loss=0.462, train_acc=0.848, val_acc=0.837
-## Epoch 10: train_loss=0.420, val_loss=0.460, train_acc=0.851, val_acc=0.841</code></pre>
+<pre><code>## Epoch 1: train_loss=1.166, val_loss=0.799, train_acc=0.575, val_acc=0.697
+## Epoch 2: train_loss=0.684, val_loss=0.648, train_acc=0.754, val_acc=0.771
+## Epoch 3: train_loss=0.579, val_loss=0.588, train_acc=0.797, val_acc=0.789
+## Epoch 4: train_loss=0.525, val_loss=0.557, train_acc=0.813, val_acc=0.798
+## Epoch 5: train_loss=0.490, val_loss=0.533, train_acc=0.826, val_acc=0.813
+## Epoch 6: train_loss=0.469, val_loss=0.509, train_acc=0.833, val_acc=0.823
+## Epoch 7: train_loss=0.451, val_loss=0.486, train_acc=0.839, val_acc=0.827
+## Epoch 8: train_loss=0.439, val_loss=0.496, train_acc=0.844, val_acc=0.818
+## Epoch 9: train_loss=0.426, val_loss=0.465, train_acc=0.848, val_acc=0.837
+## Epoch 10: train_loss=0.417, val_loss=0.466, train_acc=0.853, val_acc=0.833</code></pre>
 <p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-78-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><img src="img/05_Multilayer_Perceptron/dropout%20output2.png" width="236" height="150pt" style="display: block; margin: auto;" /></p>
 </div>
@@ -1309,8 +1309,8 @@ Figure 5.3: MLP antes y después del dropout
 <pre><code>## dropout_p = 0: tensor([[ 0.,  1.,  2.,  3.,  4.,  5.,  6.,  7.],
 ##         [ 8.,  9., 10., 11., 12., 13., 14., 15.]])</code></pre>
 <div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="perceptrón-multicapa.html#cb41-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;dropout_p = 0.5:&#39;</span>, dropout_layer(X, <span class="fl">0.5</span>))</span></code></pre></div>
-<pre><code>## dropout_p = 0.5: tensor([[ 0.,  0.,  0.,  0.,  8.,  0., 12., 14.],
-##         [16.,  0.,  0., 22.,  0.,  0., 28., 30.]])</code></pre>
+<pre><code>## dropout_p = 0.5: tensor([[ 0.,  0.,  0.,  0.,  8.,  0., 12.,  0.],
+##         [ 0.,  0., 20., 22.,  0.,  0.,  0.,  0.]])</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="perceptrón-multicapa.html#cb43-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;dropout_p = 1:&#39;</span>, dropout_layer(X, <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## dropout_p = 1: tensor([[0., 0., 0., 0., 0., 0., 0., 0.],
 ##         [0., 0., 0., 0., 0., 0., 0., 0.]])</code></pre>
@@ -1354,18 +1354,18 @@ Figure 5.3: MLP antes y después del dropout
 <span id="cb46-12"><a href="perceptrón-multicapa.html#cb46-12" tabindex="-1"></a></span>
 <span id="cb46-13"><a href="perceptrón-multicapa.html#cb46-13" tabindex="-1"></a>trainer <span class="op">=</span> Trainer(max_epochs<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb46-14"><a href="perceptrón-multicapa.html#cb46-14" tabindex="-1"></a>trainer.fit(model, data)</span></code></pre></div>
-<pre><code>## Epoch 1: train_loss=1.168, val_loss=0.812, train_acc=0.572, val_acc=0.709
-## Epoch 2: train_loss=0.691, val_loss=0.644, train_acc=0.752, val_acc=0.772
-## Epoch 3: train_loss=0.582, val_loss=0.581, train_acc=0.795, val_acc=0.794
-## Epoch 4: train_loss=0.531, val_loss=0.532, train_acc=0.812, val_acc=0.814
-## Epoch 5: train_loss=0.498, val_loss=0.546, train_acc=0.823, val_acc=0.802
-## Epoch 6: train_loss=0.470, val_loss=0.508, train_acc=0.833, val_acc=0.820
-## Epoch 7: train_loss=0.456, val_loss=0.501, train_acc=0.839, val_acc=0.822
-## Epoch 8: train_loss=0.443, val_loss=0.495, train_acc=0.842, val_acc=0.824
-## Epoch 9: train_loss=0.428, val_loss=0.475, train_acc=0.847, val_acc=0.833
-## Epoch 10: train_loss=0.422, val_loss=0.502, train_acc=0.850, val_acc=0.823</code></pre>
+<pre><code>## Epoch 1: train_loss=1.187, val_loss=0.825, train_acc=0.567, val_acc=0.695
+## Epoch 2: train_loss=0.698, val_loss=0.661, train_acc=0.748, val_acc=0.755
+## Epoch 3: train_loss=0.583, val_loss=0.593, train_acc=0.794, val_acc=0.787
+## Epoch 4: train_loss=0.528, val_loss=0.557, train_acc=0.813, val_acc=0.798
+## Epoch 5: train_loss=0.495, val_loss=0.513, train_acc=0.823, val_acc=0.819
+## Epoch 6: train_loss=0.472, val_loss=0.509, train_acc=0.833, val_acc=0.818
+## Epoch 7: train_loss=0.456, val_loss=0.487, train_acc=0.837, val_acc=0.829
+## Epoch 8: train_loss=0.443, val_loss=0.480, train_acc=0.845, val_acc=0.827
+## Epoch 9: train_loss=0.430, val_loss=0.505, train_acc=0.847, val_acc=0.815
+## Epoch 10: train_loss=0.422, val_loss=0.483, train_acc=0.850, val_acc=0.830</code></pre>
 <p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-84-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p><img src="img/05_Multilayer_Perceptron/dropout%20output.png" width="234" height="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="img/05_Multilayer_Perceptron/dropout%20output.png" width="300pt" height="300pt" style="display: block; margin: auto;" /></p>
 </div>
 <div id="implementación-concisa-1" class="section level3 hasAnchor" number="5.6.12">
 <h3><span class="header-section-number">5.6.12</span> Implementación concisa<a href="perceptrón-multicapa.html#implementaci%C3%B3n-concisa-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1393,18 +1393,18 @@ Figure 5.3: MLP antes y después del dropout
 <p>A continuación, entrenamos el modelo.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="perceptrón-multicapa.html#cb49-1" tabindex="-1"></a>model <span class="op">=</span> DropoutMLP(<span class="op">**</span>hparams)</span>
 <span id="cb49-2"><a href="perceptrón-multicapa.html#cb49-2" tabindex="-1"></a>trainer.fit(model, data)</span></code></pre></div>
-<pre><code>## Epoch 1: train_loss=1.161, val_loss=0.792, train_acc=0.579, val_acc=0.711
-## Epoch 2: train_loss=0.690, val_loss=0.651, train_acc=0.752, val_acc=0.764
-## Epoch 3: train_loss=0.581, val_loss=0.575, train_acc=0.795, val_acc=0.798
-## Epoch 4: train_loss=0.528, val_loss=0.540, train_acc=0.815, val_acc=0.811
-## Epoch 5: train_loss=0.494, val_loss=0.514, train_acc=0.826, val_acc=0.817
-## Epoch 6: train_loss=0.473, val_loss=0.499, train_acc=0.832, val_acc=0.826
-## Epoch 7: train_loss=0.454, val_loss=0.487, train_acc=0.840, val_acc=0.830
-## Epoch 8: train_loss=0.441, val_loss=0.474, train_acc=0.844, val_acc=0.834
-## Epoch 9: train_loss=0.426, val_loss=0.501, train_acc=0.849, val_acc=0.821
-## Epoch 10: train_loss=0.417, val_loss=0.457, train_acc=0.852, val_acc=0.840</code></pre>
+<pre><code>## Epoch 1: train_loss=1.175, val_loss=0.824, train_acc=0.567, val_acc=0.705
+## Epoch 2: train_loss=0.692, val_loss=0.664, train_acc=0.753, val_acc=0.759
+## Epoch 3: train_loss=0.582, val_loss=0.585, train_acc=0.794, val_acc=0.792
+## Epoch 4: train_loss=0.529, val_loss=0.542, train_acc=0.813, val_acc=0.811
+## Epoch 5: train_loss=0.499, val_loss=0.514, train_acc=0.823, val_acc=0.818
+## Epoch 6: train_loss=0.475, val_loss=0.514, train_acc=0.832, val_acc=0.815
+## Epoch 7: train_loss=0.455, val_loss=0.521, train_acc=0.839, val_acc=0.815
+## Epoch 8: train_loss=0.440, val_loss=0.477, train_acc=0.843, val_acc=0.833
+## Epoch 9: train_loss=0.431, val_loss=0.490, train_acc=0.845, val_acc=0.824
+## Epoch 10: train_loss=0.423, val_loss=0.484, train_acc=0.850, val_acc=0.821</code></pre>
 <p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-87-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p><img src="img/05_Multilayer_Perceptron/dropout%20output2.png" width="236" height="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="img/05_Multilayer_Perceptron/dropout%20output2.png" width="300pt" height="300pt" style="display: block; margin: auto;" /></p>
 </div>
 <div id="resumen-8" class="section level3 hasAnchor" number="5.6.13">
 <h3><span class="header-section-number">5.6.13</span> Resumen<a href="perceptrón-multicapa.html#resumen-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>

@@ -1225,7 +1225,7 @@ trainer = Trainer(max_epochs=10)
 trainer.fit(model, data)
 ```
 
-```{r echo=FALSE, fig.align='center', out.height='450pt'}
+```{r echo=FALSE, fig.align='center', out.height='300pt', out.width='300pt'}
 knitr::include_graphics("img/05_Multilayer_Perceptron/dropout output.png")
 ```
 
@@ -1263,7 +1263,7 @@ model = DropoutMLP(**hparams)
 trainer.fit(model, data)
 ```
 
-```{r echo=FALSE, fig.align='center', out.height='450pt'}
+```{r echo=FALSE, fig.align='center', out.height='300pt', out.width='300pt'}
 knitr::include_graphics("img/05_Multilayer_Perceptron/dropout output2.png")
 ```
 
@@ -1286,5 +1286,3 @@ Además de controlar el número de dimensiones y el tamaño del vector de pesos,
 6. ¿Qué sucede si aplicamos dropout a los pesos individuales de la matriz de pesos en lugar de a las activaciones?
 
 7. Inventa otra técnica para inyectar ruido aleatorio en cada capa que sea distinta de la técnica estándar de dropout. ¿Puedes desarrollar un método que supere a dropout en el conjunto de datos Fashion-MNIST (para una arquitectura fija)?
-
-
