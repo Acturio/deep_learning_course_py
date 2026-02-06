@@ -96,21 +96,14 @@ WIP
   
 * Algunos resultados prueban la universalidad bajo ciertas condiciones:
   *  Maron et al. On the Universality of Invariant Networks (2019) *"G-invariant networks are universal if high-order tensors are allowed (..)"*
-  * Universal Invariant and Equivariant Graph Neural Network (2019) *"GNNs are 
-  universal approximators in probability for node classification & regression
-  tasks, as they can approximate any measurable function that satisfies
+  * Universal Invariant and Equivariant Graph Neural Network (2019) *"GNNs are universal approximators in probability for node classification & regression tasks, as they can approximate any measurable function that satisfies
   the 1–WL equivalence on nodes"*
 
 ## Enfoques de aprendizaje transductivo e inductivo
 
-**Aprendizaje Transductivo:** En este paradigma, el modelo se entrena
-considerando todo el grafo disponible, es decir, con todos los nodos y sus
-relaciones (aristas) presentes durante la fase de entrenamiento, incluso
-aquellos cuya informacion no se utiliza directamente para el cálculo de la
-función de pérdida.
+**Aprendizaje Transductivo:** En este paradigma, el modelo se entrena considerando todo el grafo disponible, es decir, con todos los nodos y sus relaciones (aristas) presentes durante la fase de entrenamiento, incluso aquellos cuya informacion no se utiliza directamente para el cálculo de la función de pérdida.
 
-El modelo aprende representaciones (embeddings) dependientes de la estructura
-completa del grafo, por lo que no puede generalizar a nodos o subgrafos no
+El modelo aprende representaciones (embeddings) dependientes de la estructura completa del grafo, por lo que no puede generalizar a nodos o subgrafos no
 observados durante el entrenamiento.
 
 **Aprendizaje Inductivo:** reservan conjuntos de datos de entrenamiento y prueba
@@ -142,5 +135,138 @@ El aprendizaje automático en grafos se presenta en diversas modalidades:
   * Oredicción (de nodo, de arista) en grafos dinámicos (simulación de sistemas físicos),
   * Generación de gráficas (diseño de fármacos)...
 
+```{python echo=FALSE, fig.align='center'}
+import torch
+import torch.nn as nn
+from torch.nn import Linear
+from torch_geometric.datasets import KarateClub
+from torch_geometric.utils import to_dense_adj
 
+import numpy as np
+import networkx as nx
+import matplotlib.pyplot as plt
+
+
+# Import dataset from PyTorch Geometric
+dataset = KarateClub()
+
+# Print information
+print(dataset)
+print('------------')
+print(f'Number of graphs: {len(dataset)}')
+print(f'Number of features: {dataset.num_features}')
+print(f'Number of classes: {dataset.num_classes}')
+
+data = dataset[0]
+
+print(f'x = {data.x.shape}')
+print(data.x)
+
+print(f'edge_index = {data.edge_index.shape}')
+print(data.edge_index)
+```
+
+```{python echo=FALSE, fig.align='center'}
+
+```{python echo=FALSE, fig.align='center'}
+from torch_geometric.utils import to_networkx
+
+G = to_networkx(data, to_undirected=True)
+plt.figure(figsize=(12,12))
+plt.axis('off')
+nx.draw_networkx(G,
+                pos=nx.spring_layout(G, seed=0),
+                with_labels=True,
+                node_size=400,
+                node_color=data.y,
+                cmap="hsv",
+                vmin=-2,
+                vmax=3,
+                width=0.8,
+                edge_color="grey",
+                font_size=14
+                )
+plt.show()
+```
+```{python echo=FALSE, fig.align='center'}
+from torch.nn import Linear
+from torch_geometric.nn import GCNConv
+
+class GCN(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.gcn = GCNConv(dataset.num_features, 3)
+        self.out = Linear(3, dataset.num_classes)
+
+    def forward(self, x, edge_index):
+        h = self.gcn(x, edge_index).relu()
+        z = self.out(h)
+        return h, z
+
+model = GCN()
+print(model)
+```
+
+
+```{python echo=FALSE, fig.align='center'}
+criterion = torch.nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.02)
+
+# Calculate accuracy
+def accuracy(pred_y, y):
+    return (pred_y == y).sum() / len(y)
+
+# Data for animations
+embeddings = []
+losses = []
+accuracies = []
+outputs = []
+
+# Training loop
+for epoch in range(201):
+    # Clear gradients
+    optimizer.zero_grad()
+
+    # Forward pass
+    h, z = model(data.x, data.edge_index)
+
+    # Calculate loss function
+    loss = criterion(z, data.y)
+
+    # Calculate accuracy
+    acc = accuracy(z.argmax(dim=1), data.y)
+
+    # Compute gradients
+    loss.backward()
+
+    # Tune parameters
+    optimizer.step()
+
+    # Store data for animations
+    embeddings.append(h)
+    losses.append(loss)
+    accuracies.append(acc)
+    outputs.append(z.argmax(dim=1))
+
+    # Print metrics every 10 epochs
+    if epoch % 10 == 0:
+        print(f'Epoch {epoch:>3} | Loss: {loss:.2f} | Acc: {acc*100:.2f}%')
+```
+
+```{python echo=FALSE, fig.align='center'}
+import this
+```
+
+
+```{python echo=FALSE, fig.align='center'}
+
+```
+
+```{python echo=FALSE, fig.align='center'}
+
+```
+
+```{python echo=FALSE, fig.align='center'}
+
+```
 
