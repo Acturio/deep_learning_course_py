@@ -26,6 +26,7 @@ from torch_geometric.datasets import Planetoid
 from torch_geometric.utils import (
   to_dense_adj, to_networkx
 )
+from torch_geometric.utils import degree
 
 import numpy as np
 import networkx as nx
@@ -40,6 +41,8 @@ print(f"Number of nodes: {G.number_of_nodes()}")
 print(f"Number of edges: {G.number_of_edges()}")
 
 ```
+
+
 ```{python echo=FALSE, fig.align='center'}
 # Get the club membership attribute for coloring
 club_labels = [G.nodes[i]['club'] for i in G.nodes]
@@ -73,9 +76,7 @@ knitr::include_graphics("img/21-gnn/sample-graph.png")
 
 
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("img/21-gnn/cite_seer_data.jpg")
-```
+
 
 Si bien, el conjunto de aristas define la estructura de la gráfica es comun
 generar representaciones alternativas. Entre ellas se encuentran:
@@ -100,6 +101,11 @@ de los nodos que denotan las adyacencias en la gráfica omitiendo aquellos
 lugares donde no hay relaciones ente nodos. Véase el siguiente [link](https://docs.pytorch.org/docs/stable/sparse.html#sparse-coo-tensors).
 
 
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/sparse_coo.png")
+```
+
+
 * Por otro lado, se puede considerar de forma opcional incluir en el análisis
 a características numéricas y categorícas (*features*) de los vértices de la
 gráfica.
@@ -108,11 +114,7 @@ gráfica.
 knitr::include_graphics("img/21-gnn/graph-3-objects.png")
 ```
 
-## ¿Qué caracteriza la estructura una gráfica?
-
-Una gráfica 
-
-* Grado de sus vertices: el grado de un nodo $deg(v_i)$  como a la cantidad de aristas
+* **Grado de sus vertices:** el grado de un nodo $deg(v_i)$  como a la cantidad de aristas
 donde dicho nodo está presente. Este se puede calcular como:
 
 $$deg(v_i) = \sum_{i=1}^N A_{ij}$$
@@ -138,6 +140,58 @@ plt.show()
 print(f"deg(A) = {G.degree['A']}")
 print(f"deg(B) = {G.degree['B']}")
 ```
+
+## Problemas clásicos de teoría de gráficas (selección)
+
+###  Caminos y conectividad
+**Problema:** determinar si dos nodos están conectados y cómo se propaga la información a través del grafo.  
+**Aplicaciones:** navegación y mapas, análisis de redes sociales, propagación de epidemias, redes de comunicación.
+
+### Detección de comunidades
+**Problema:** identificar grupos de nodos densamente conectados entre sí.  
+**Aplicaciones:** segmentación de usuarios, análisis de redes sociales, biología de sistemas, recomendación de contenidos.
+
+### Centralidad e influencia
+**Problema:** medir la importancia relativa de los nodos dentro de un grafo.  
+**Aplicaciones:** ranking de páginas web, detección de líderes de opinión, identificación de nodos críticos en infraestructura, epidemiología.
+
+### Emparejamiento y asignación
+**Problema:** asignar nodos entre dos conjuntos respetando restricciones estructurales.  
+**Aplicaciones:** asignación de tareas, sistemas de recomendación, mercados laborales, publicidad y subastas.
+
+
+## Ecosistema de Herramientas para el Trabajo con Grafos
+1) Software para Visualización y Análisis de Grafos
+
+* *Gephi:* Herramienta open source la visualización interactiva y el análisis exploratorio de redes complejas y grandes grafos. https://gephi.org. La siguiente imagen fue generada en dicha herramienta
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/cite_seer_data.jpg")
+```
+
+* **Bases de datos de Grafos:**
+  * *Neo4j:* Sistema de gestión de bases de datos orientada a grafos que incluye el Graph Data Science (GDS) Library para ejecutar algoritmos directamente sobre los datos almacenados.
+  * **Memgraph**: Base de datos de grafos con capacidades de Streaming https://memgraph.com
+  * *AWS Neptune*: Base de datos serveless, funcioina en la nube de AWS https://aws.amazon.com/es/neptune/
+* *Graphviz:* Herramienta basada en scripts (lenguaje DOT) que permite la generación automática de diagramas de grafos de manera estructural y jerárquica.
+
+2) Librerías de Python para Manipulación y Algoritmos
+
+* *NetworkX:* La librería de creación, manipulación y estudio de estructuras de
+red; flexible e implementa algoritmos clásicos. https://networkx.org/en/
+* *Graph:* Es un framework de Spark para trabajar con gráficas en ambientes distribuidas (https://spark.apache.org/graphx/)
+* *Mercury-graph*: Libreria de BBVA para gráficos, disponible en Mercury, cuenta 
+con algoritmos implementados para Python y Spark. https://www.bbvaaifactory.com/es/graph-analytics-with-mercury-graph/
+
+3) Librerías de Deep Learning para Grafos (GNN)
+
+* *PyTorch Geometric (PyG):* Construida sobre PyTorch. Ofrece implementaciones de última generación para operaciones de convolución y pooling en grafos. https://pytorch-geometric.readthedocs.io/en/latest/
+
+* *Deep Graph Library (DGL):* Una librería optimizada y agnóstica al framework
+(compatible con PyTorch, TensorFlow y JAX), diseñada para facilitar la
+implementación de modelos GNN a escala industrial. https://www.dgl.ai
+
+
 
 ## ¿Por qué combinar Graficas y Deep Learning?
 Cuando los datos de un problema, ademas de features numéricas tambien incorporan
@@ -364,60 +418,19 @@ pd.DataFrame(
 )
 ```
 
+En este ejemplo, el factor que marco la diferencia de la accion de la matriz
+de transaciones sobre los pesos de la red, pues intutivamente sirve para
+comunicar la estructura de relaciones de los nodos en el proceso de aprendizaje.
 
+Dicho modelo es una implementación *dummy* de una familia conocida como
+**Graph Convolutional Networks** que abordaremos más adelante.
 
-## Tipos de problemas de GNN
+### ¿Qué esta haciendo la red?
 
-El aprendizaje automático en grafos se presenta en diversas modalidades:
+En este caso usaremos los datos del Karate Club presentes en PyTorch Geoemtric.
 
-* **Aprendizaje Supervisado/Semi-supervisado:**
-
-  * *Clasificación de Grafos:* Grafos etiquetados → etiquetar nuevo grafo.
-    * Ejemplos: Clasificación de moléculas, predicción de la eficacia de fármacos.
-
-  * *Clasificación de Nodos (o Aristas):* Nodos etiquetados → etiquetar otros nodos.
-    * Ejemplos: Marketing (orientado/segmentaciones), predicción de interfaces proteicas.
-
-* **Aprendizaje No Supervisado (y Semi-supervisado)**
-    * Ejemplos:
-      * Detección de Comunidades: Un grafo → agrupar nodos
-      * Análisis de redes sociales.
-
-  * *Link prediction (o Vínculos): Un grafo → ¿posible nueva arista?*
-    * Ejemplos: Sistemas de recomendación.
-
-* **Otros tareasx:**
-  * Oredicción (de nodo, de arista) en grafos dinámicos (simulación de sistemas físicos),
-  * Generación de gráficas (diseño de fármacos)...
-  
-
-## ¿Existe un Teorema de Aproximación Univeral (TAU) para GNN's?
-
-* Muchas pruebas del existentes del TAU para GNN son extensiones de del Teorema de Stone-Weierstrass,
-
-* Un tema a resolver en problema a resolver es si dos gráficas son isomórficas.
-  * Weisfeiler y Leman idearon una heurística que trata de determinar si dos
-  gráficas son isomórficas entre si.
-  * Los resultados algoritmos son invariantes ante permutaciones de etiquetado
-  de las gráficas
-  * En la práctica, es muy dificil encontrar gráficas isomórficas entre si.
-  
-* Algunos resultados prueban la universalidad bajo ciertas condiciones:
-  *  Maron et al. On the Universality of Invariant Networks (2019) *"G-invariant networks are universal if high-order tensors are allowed (..)"*
-  * Universal Invariant and Equivariant Graph Neural Network (2019) *"GNNs are universal approximators in probability for node classification & regression tasks, as they can approximate any measurable function that satisfies
-  the 1–WL equivalence on nodes"*
-
-## Enfoques de aprendizaje transductivo e inductivo
-
-**Aprendizaje Transductivo:** En este paradigma, el modelo se entrena considerando todo el grafo disponible, es decir, con todos los nodos y sus relaciones (aristas) presentes durante la fase de entrenamiento, incluso aquellos cuya informacion no se utiliza directamente para el cálculo de la función de pérdida.
-
-El modelo aprende representaciones (embeddings) dependientes de la estructura completa del grafo, por lo que no puede generalizar a nodos o subgrafos no
-observados durante el entrenamiento.
-
-**Aprendizaje Inductivo:** reservan conjuntos de datos de entrenamiento y prueba
-separados. El proceso de aprendizaje ingesta los datos de entrenamiento y, a
-continuación, el modelo aprendido se prueba utilizando los datos de prueba, que
-no ha observado antes en ninguna capacidad.
+Entrenaremos nuevamente una red con la misma idea previa, que las features
+numéricas sean multiplicadas por la matriz de adyancencia
 
 
 
@@ -426,22 +439,32 @@ from torch_geometric.datasets import KarateClub
 
 # Import dataset from PyTorch Geometric
 dataset = KarateClub()
+data = dataset[0]
+```
 
+Podemos acceder a la información de la gráfica:
+
+```{python echo=FALSE, fig.align='center'}
 # Print information
 print(dataset)
 print('------------')
 print(f'Number of graphs: {len(dataset)}')
 print(f'Number of features: {dataset.num_features}')
 print(f'Number of classes: {dataset.num_classes}')
+```
 
-data = dataset[0]
+En este caso las features numéricas son solo encoding de los nodos con el indice
+que se han numerado:
 
+```{python echo=FALSE, fig.align='center'}
 print(f'x = {data.x.shape}')
 print(data.x)
 
 print(f'edge_index = {data.edge_index.shape}')
 pd.DataFrame(data.x, columns=["x"+str(i+1) for i in range(data.x.shape[0])]).head()
 ```
+
+
 
 ```{python echo=FALSE, fig.align='center'}
 from torch_geometric.utils import to_networkx
@@ -529,6 +552,135 @@ for epoch in range(201):
     if epoch % 10 == 0:
         print(f'Epoch {epoch:>3} | Loss: {loss:.2f} | Acc: {acc*100:.2f}%')
 ```
+
+```{python}
+plt.rcParams["animation.bitrate"] = 3000
+
+def draw_predicted_graph(i):
+    G = to_networkx(data, to_undirected=True)
+    fig = plt.figure(figsize=(12, 12))
+    plt.axis('off')
+    nx.draw_networkx(G,
+                    pos=nx.spring_layout(G, seed=0),
+                    with_labels=True,
+                    node_size=300,
+                    node_color=outputs[i].numpy(),
+                    cmap="hsv",
+                    vmin=0,
+                    vmax=5,
+                    width=0.8,
+                    edge_color="grey",
+                    font_size=14
+                    )
+    plt.title(
+      f'Epoch {i} | Loss: {losses[i]:.2f} | Acc: {accuracies[i]*100:.2f}%',
+      fontsize=18, pad=20)
+    plt.show()
+```
+
+```{python}
+draw_predicted_graph(1)
+```
+
+
+```{python}
+draw_predicted_graph(5)
+```
+
+```{python}
+draw_predicted_graph(9)
+```
+```{python}
+draw_predicted_graph(100)
+```
+
+En las imágenes se aprecia como poco a poco, los pesos se van ajustando, a través
+de la información de la matriz de adyancias, para predecir las etiquetas de los nodos.
+
+## Tipos de problemas de GNN
+
+El aprendizaje automático en grafos se presenta en diversas modalidades:
+
+* **Aprendizaje Supervisado/Semi-supervisado:**
+
+  * *Clasificación de Nodos (o Aristas):* Nodos etiquetados → etiquetar otros nodos.
+    * Ejemplos: Marketing (orientado/segmentaciones), predicción de interfaces proteicas.
+
+  * *Clasificación de Grafos:* Grafos etiquetados → etiquetar nuevo grafo.
+    * Ejemplos: Clasificación de moléculas, predicción de la eficacia de fármacos.
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/gnn_node_classification.png")
+```
+
+
+* **Aprendizaje No Supervisado (y Semi-supervisado)**
+    * Ejemplos:
+      * Detección de Comunidades: Un grafo → agrupar nodos
+      * Análisis de redes sociales.
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/gnn_node_clustering.png")
+```
+
+
+  * *Link prediction (o Vínculos): Un grafo → ¿posible nueva arista?*
+    * Ejemplos: Sistemas de recomendación. Cabe mencionar que Uber usa modelos
+    de este este estilo para hacer recomendaciones de comida https://www.uber.com/en-MX/blog/uber-eats-graph-learning/
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/gnn_link_prediction.png")
+```
+
+* **Otros tareas:**
+  * Predicción (de nodo, de arista) en grafos dinámicos (simulación de sistemas físicos),
+  * Generación de gráficas (diseño de fármacos)
+  * Predicción de Tráfico: Google Maps hace estimaciones de condiciones de tráfico empleando Graph Nuera Networks https://deepmind.google/blog/traffic-prediction-with-advanced-graph-neural-networks/
+  
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/gnn_graph_classification.png")
+```
+
+## ¿Existe un Teorema de Aproximación Univeral (TAU) para GNN's?
+
+* Muchas pruebas del existentes del TAU para GNN son extensiones de del Teorema de Stone-Weierstrass,
+
+* Un tema a resolver en problema a resolver es si dos gráficas son isomórficas.
+  * Weisfeiler y Leman idearon una heurística que trata de determinar si dos
+  gráficas son isomórficas entre si.
+  * Los resultados algoritmos son invariantes ante permutaciones de etiquetado
+  de las gráficas
+  * En la práctica, es muy dificil encontrar gráficas isomórficas entre si.
+  
+* Algunos resultados prueban la universalidad bajo ciertas condiciones:
+  *  Maron et al. On the Universality of Invariant Networks (2019)
+  *"G-invariant networks are universal if high-order tensors are allowed (..)"*
+  * Universal Invariant and Equivariant Graph Neural Network (2019) *"GNNs are universal approximators in probability for node classification & regression tasks, as they can approximate any measurable function that satisfies
+  the 1–WL equivalence on nodes"*
+
+## Enfoques de aprendizaje transductivo e inductivo
+
+**Aprendizaje Transductivo:** En este paradigma, el modelo se entrena
+considerando todo el grafo disponible, es decir, con todos los nodos y sus
+relaciones (aristas) presentes durante la fase de entrenamiento, incluso aquellos
+cuya informacion no se utiliza directamente para el cálculo de la función de pérdida.
+
+**Nota:** Bajo dicho enfoque, un modelo aprende representaciones
+(embeddings) dependientes de la estructura completa del grafo, por lo que **no
+puede generalizar a nodos o subgrafos no observados durante el entrenamiento**.
+
+**Aprendizaje Inductivo:** reservan conjuntos de datos de entrenamiento y prueba
+separados. El proceso de aprendizaje ingesta los datos de entrenamiento y, a
+continuación, el modelo aprendido se prueba utilizando los datos de prueba, que
+no ha observado antes en ninguna capacidad.
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/transductive-inductive.png")
+```
+
+
+
+
 
 
 
