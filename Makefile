@@ -31,9 +31,10 @@ build:
 
 ## Execute a rstudio server session
 start:
-	docker run -d --name $(CONTAINER_NAME) -p 8787:8787 \
+	docker run -d -p 8787:8787 \
 		-e PASSWORD=dlhub \
 		-v $$(pwd):/home/rstudio/project \
+		-e ROOT=TRUE \
 		$(IMAGE_NAME)
 	
 ## Enter to the container (bash)
@@ -46,7 +47,14 @@ book:
 
 ## Stoping the container
 stop:
-	docker stop $(CONTAINER_NAME) || true
+	@# Use a backslash to keep the command in a single shell execution
+	CONTAINER_ID=$$(docker ps -q --filter "ancestor=dlhub-rstudio"); \
+	if [ -n "$$CONTAINER_ID" ]; then \
+		echo "Stopping container: $$CONTAINER_ID"; \
+		docker stop $$CONTAINER_ID; \
+	else \
+		echo "No running container found for dlhub-rstudio"; \
+	fi
 
 ## Deleting thecontainer
 clean:
