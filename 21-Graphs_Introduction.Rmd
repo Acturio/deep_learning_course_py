@@ -17,7 +17,7 @@ relaciones entre ellos. Estos se usan para modelar fenómenos complejos, como la
 interacción en redes sociales, redes de comunicaciones, las relaciones entre
 citas de documentos, la configuración de compuestos químicos y demás.
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 import torch
 import torch.nn as nn
 from torch.nn import Linear
@@ -43,7 +43,7 @@ print(f"Number of edges: {G.number_of_edges()}")
 ```
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 # Get the club membership attribute for coloring
 club_labels = [G.nodes[i]['club'] for i in G.nodes]
 
@@ -389,7 +389,7 @@ class GNN(torch.nn.Module):
 
 Ahora entrenamos ambos modelos:
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 mlp = MLP(dataset.num_features, 16, dataset.num_classes)
 print(mlp)
 mlp.fit(data, epochs=100)
@@ -397,7 +397,7 @@ acc_mlp = mlp.test(data)
 print(f'\nMLP test accuracy: {acc_mlp*100:.2f}%')
 ```
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 adjacency = GraphUtils.create_adjacency_matrix(data)
 gnn = GNN(dataset.num_features, 16, dataset.num_classes)
 print(gnn)
@@ -408,7 +408,7 @@ print(f'\nGNN test accuracy: {acc_gnn*100:.2f}%')
 ```
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 pd.DataFrame(
   {
     "modelo": ["MLP", "GNN"],
@@ -433,7 +433,7 @@ numéricas sean multiplicadas por la matriz de adyancencia
 
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 from torch_geometric.datasets import KarateClub
 
 # Import dataset from PyTorch Geometric
@@ -443,7 +443,7 @@ data = dataset[0]
 
 Podemos acceder a la información de la gráfica:
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 # Print information
 print(dataset)
 print('------------')
@@ -455,7 +455,7 @@ print(f'Number of classes: {dataset.num_classes}')
 En este caso las features numéricas son solo encoding de los nodos con el indice
 que se han numerado:
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 print(f'x = {data.x.shape}')
 print(data.x)
 
@@ -465,7 +465,7 @@ pd.DataFrame(data.x, columns=["x"+str(i+1) for i in range(data.x.shape[0])]).hea
 
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 from torch_geometric.utils import to_networkx
 
 G = to_networkx(data, to_undirected=True)
@@ -487,7 +487,7 @@ plt.show()
 ```
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 from torch.nn import Linear
 from torch_geometric.nn import GCNConv
 
@@ -507,7 +507,7 @@ print(model)
 ```
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 criterion = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.02)
 

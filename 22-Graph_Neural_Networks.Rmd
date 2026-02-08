@@ -134,7 +134,7 @@ y el tráfico mensual promedio entre octubre de 2017 y noviembre de 2018 para ca
 
 https://snap.stanford.edu/data/wikipedia-article-networks.html
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
@@ -153,7 +153,7 @@ chameleon_transform = T.RandomNodeSplit(num_val=300, num_test=300)
 Descargamos la data:
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 dataset = WikipediaNetwork(
     root="./data/",
     name="chameleon",
@@ -202,7 +202,7 @@ class GraphUtils:
 
 Algunas estadisticas
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 print()
 print(data)
 print('===========================================================================================================')
@@ -227,19 +227,19 @@ GraphUtils.plot_graph(g, y)
 Ahora leeremos los datos de trafico a los sitios:
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 df = pd.read_csv('./data/wikipedia/chameleon/musae_chameleon_target.csv')
 ```
 
 Este archivo contiene el tráfico, medido en cantidas de visitas, que representan
 los nodos del conjunto (sitios web de Wikipedia).
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 df.head()
 ```
 Vamos a concentranos en predecir el logaritmo de las visitas:
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 values = np.log10(df['target'])
 df['target'] = values
 ```
@@ -247,7 +247,7 @@ df['target'] = values
 Ahora definiremos una red basada en capas de GCN para predeir el tráfico a los
 nodos:
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 class GCNRegressor(torch.nn.Module):
     def __init__(self, dim_in, dim_h, dim_out):
         super().__init__()
@@ -301,19 +301,19 @@ class GCNRegressor(torch.nn.Module):
 
 Ahora instanciamos el modelo:
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 gcn_regressor = GCNRegressor(dataset.num_features, dim_h=128, dim_out=1)
 print(gcn_regressor)
 ```
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 gcn_regressor.fit(data, epochs=200)
 loss = gcn_regressor.test(data)
 print(f'\nGCN test loss: {loss:.5f}\n')
 ```
 Ahora veamos los resultados con distintas metricas en el conjunto de test:
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 out = gcn_regressor(data.x, data.edge_index)
 y_pred = out.squeeze()[data.test_mask].detach().numpy()
 mse = mean_squared_error(data.y[data.test_mask], y_pred)
@@ -326,7 +326,7 @@ print('=' * 43)
 ```
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 def plot_true_vs_predicted(y_true, y_pred):
     # Convert to numpy if they are torch tensors
     if hasattr(y_true, "detach"):
@@ -362,7 +362,7 @@ def plot_true_vs_predicted(y_true, y_pred):
 
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 def plot_residuals_distribution(y_true, y_pred):
     # 1. Convert to numpy and flatten
     if hasattr(y_true, "detach"):
@@ -429,12 +429,12 @@ def plot_residuals_distribution(y_true, y_pred):
 
 # Ejemplo: Clasificación de artículos de investigación por categoría
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 from torch_geometric.datasets import Planetoid
 from torch_geometric.transforms import NormalizeFeatures
 ```
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 dataset = Planetoid(
     root='./data/',
     name='Cora',
@@ -474,7 +474,7 @@ knitr::include_graphics("img/21-gnn/gcn_class_example.png")
 Esta es su implementación:
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 import torch
 import torch.nn.functional as F
 from torch_geometric.nn import GCNConv
@@ -541,7 +541,7 @@ class GCNClassifier(torch.nn.Module):
         return correct.sum().item() / int(data.test_mask.sum())
 ```
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 model = GCNClassifier(
     dim_in=dataset.num_features,
     dim_h=16,
@@ -556,7 +556,7 @@ print(f"Test Accuracy: {test_acc:.4f}")
 ```
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 
@@ -572,7 +572,7 @@ def visualize(h, color):
 ```
 
 
-```{python echo=FALSE, fig.align='center'}   
+```{python}   
 out = model(data.x, data.edge_index)
 visualize(out, color=data.y)
 ```
@@ -664,15 +664,15 @@ Enn resumen, los componentes de las GAT pueden esquematizarse como:
 * $\exp(\cdot)$: La función exponencial, utilizada para calcular el peso relativo de cada conexión antes de la normalización.
 
 
-# Implementación en PyTorch Geometric
+## Implementación en PyTorch Geometric
 
-## Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)
+### Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)
 
 Volveremos a trabajar con el conjunto de datos Cora, para predecir la categorìa
 a la que pertnecen sus artìculos de investigacion. Como cambio, usaremos redes
 GAT para revisar el cambio de performace en la predicción:
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 import torch
 import torch.nn.functional as F
 from torch_geometric.nn import GATConv
@@ -758,7 +758,7 @@ class GATClassifier(torch.nn.Module):
 Ahora instanciamos el modelo:
 
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 model = GATClassifier(
     dim_in=dataset.num_features,
     dim_h=6,
@@ -770,12 +770,12 @@ print(model)
 ```
 Ahora entrenamos el modelo con capaz GAT:
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 model.fit(data, epochs=50)
 ```
 Ahora evaluamos al modelo:
 
-```{python echo=FALSE, fig.align='center'}
+```{python}
 test_acc = model.test(data)
 print(f"Final Test Accuracy: {test_acc:.4f}")
 ```
