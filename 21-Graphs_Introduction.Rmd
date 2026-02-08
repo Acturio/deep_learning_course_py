@@ -7,7 +7,7 @@ output:
 <!-- <img src="img/aif-logo.png" width="400"/> -->
 <!-- ::: -->
 
-# (PART\*) Miscellanea: Graph Neural Networks {-} 
+# Miscellanea: Intro to Graph Neural Networks {-} 
 
 # Introducción a la Teoría de Gráficas.
 ## ¿Qué es una gráfica?
@@ -230,7 +230,6 @@ data = dataset[0]
 ```
 
 ```{python}
-
 class GraphUtils:
     @staticmethod
     def create_adjacency_matrix(data):

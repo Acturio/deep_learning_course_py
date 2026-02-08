@@ -1,0 +1,75 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+<!-- ::: watermark -->
+<!-- <img src="img/aif-logo.png" width="400"/> -->
+<!-- ::: -->
+
+# Embeddings y Graph Neural Network
+## ¿Qué es un embedding?
+
+XXX
+
+## Node2Vec
+
+Antes de que las GNN fueran el estándar, el reto era: ¿Cómo convertimos un nodo
+de un grafo en un vector de números (embedding) que una red neuronal tradicional pueda entender?
+
+La inspiración (DeepWalk y Word2vec): En NLP, word2vec demostró que las palabras
+que aparecen en contextos similares tienen vectores similares. Node2vec nace de 
+una idea brillante: Si las palabras son a las oraciones lo que los nodos son a 
+los caminos aleatorios (random walks), podemos tratar un grafo como un lenguaje.
+
+La motivación de node2vec específicamente fue mejorar a su predecesor, DeepWalk,
+que era demasiado rígido. Node2vec surge para permitir que el algoritmo explore 
+el grafo de forma más flexible, capturando tanto comunidades locales como roles estructurales.
+
+
+Introducción
+
+
+
+La diferencia clave entre las incrustaciones de nodos superficiales
+(p. ej., Node2Vec) y las incrustaciones de nodos profundos (p. ej., GNN) reside
+en la elección del codificador. Específicamente, las técnicas de incrustación de
+nodos superficiales se basan en la incrustación de nodos en representaciones 
+vectoriales de baja dimensión mediante una tabla de búsqueda de incrustaciones
+superficiales, de modo que se maximiza la probabilidad de preservar las
+vecindades; es decir, los nodos cercanos deberían recibir incrustaciones similares,
+mientras que los nodos distantes deberían recibir incrustaciones distintas. Estas
+técnicas generalizan el famoso modelo SkipGram para obtener incrustaciones de
+palabras de baja dimensión, en el que las secuencias de palabras se interpretan
+ahora como secuencias de nodos, p. ej., dadas mediante recorridos generados
+aleatoriamente:
+
+
+
+Específicamente, dado un recorrido aleatorio de longitud que comienza en el nodo,
+el objetivo es maximizar la probabilidad de observar el nodo dado el nodo. 
+
+Este objetivo se puede entrenar eficientemente mediante el descenso de gradiente
+estocástico en un escenario de aprendizaje contrastivo, en el que los recorridos
+inexistentes (denominados ejemplos negativos) se muestrean y entrenan conjuntamente,
+lo que denota la función. Cabe destacar que el producto escalar entre las 
+incrustaciones se utiliza habitualmente para medir la similitud, pero también son
+aplicables otras medidas de similitud.
+
+Es importante destacar que las incrustaciones de nodos superficiales se entrenan
+de forma no supervisada y pueden utilizarse como entrada para una tarea posterior
+determinada; por ejemplo, en tareas a nivel de nodo, pueden utilizarse directamente
+como entrada para un clasificador final. Para tareas a nivel de borde, las
+representaciones a nivel de borde se pueden obtener mediante el promedio o el
+producto de Hadamard.
+
+A pesar de la simplicidad de las técnicas de incrustación de nodos, también presentan
+ciertas deficiencias. En particular, no incorporan información rica de características
+asociada a nodos y aristas, y no pueden aplicarse fácilmente a grafos no visibles,
+ya que los parámetros aprendibles están fijados a los nodos de un grafo en particular
+(lo que hace que este enfoque sea transductivo por naturaleza y difícil de escalar
+debido a la complejidad de los parámetros). Sin embargo, sigue siendo una técnica
+común para preservar la información estructural del grafo en vectores de tamaño fijo,
+y a menudo también se utiliza para generar entradas a las GNN para su posterior
+procesamiento en caso de que el conjunto inicial de características de los nodos
+no sea rico.
