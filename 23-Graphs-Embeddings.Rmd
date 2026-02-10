@@ -78,7 +78,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 criterion = nn.CrossEntropyLoss()
 
 # Entrenamiento breve
-for _ in range(100):
+for epoch in range(100):
     for xb, yb in loader:
         optimizer.zero_grad()
         logits, _ = model(xb)
@@ -134,16 +134,18 @@ En donde
 * $V$: Tamaño del vocabulario o número total de entidades.
 * $d$: Dimensionalidad del espacio latente (hiperparámetro).
 * $e_1 \cdot e_2$: Producto punto, que mide la dirección común de los vectores.
-* $\|e\|$: Norma euclidiana que normaliza el vector para ignorar su magnitud y enfocarse en la orientación.
+* $\|e\|$: Norma euclidiana que normaliza el vector para ignorar su magnitud y 
+enfocarse en la orientación.
 
-Para obtener el vector $e_i$ de un elemento con índice $i$, multiplicamos un vector $\textit{one-hot} $x_i$
-por la matriz:
+Para obtener el vector $e_i$ de un elemento con índice $i$, multiplicamos un 
+vector $\textit{one-hot} $x_i$ por la matriz:
 
 \begin{equation}
 e_i = x_i^\top E
 \end{equation}
 
-Un forma común de saber qué tan parecidos son dos embeddings es mediante el coseno del ángulo entre ellos:
+Un forma común de saber qué tan parecidos son dos embeddings es mediante el
+coseno del ángulo entre ellos:
 
 \begin{equation}
 \text{sim}(e_1, e_2) = \frac{e_1 \cdot e_2}{\|e_1\| \|e_2\|}
@@ -167,6 +169,10 @@ Antes de que las GNN fueran el estándar, el reto era: ¿Cómo convertimos un no
 de un grafo en un vector de números (embedding) que una red neuronal tradicional
 pueda entender?
 
+```{r echo=FALSE, fig.align='center', out.width="120%"}
+knitr::include_graphics("img/21-gnn/shallow_node_embeddings.png")
+```
+
 Como hemos mencionado previamente, en el área de procesamiento de lenguaje natural
 se propuso al modelo *word2vec* en donde se construye un embedding de palabras
 usando la idea que las palabras que aparecen en contextos similares deben
@@ -184,23 +190,41 @@ Las caminatas aleatorias en este enfoque tiene dos hiper-parámetros para explor
 la gráfica mediante caminan que obtienen nodos usando trayectorias que usan
 información de los nodos visitados:
 
-* **Parámetro de Retorno (p):** Controla la probabilidad de regresar inmediatamente al
-nodo anterior. Un p bajo favorece la exploración local (BFS - Breadth-First Search),
+* **Parámetro de Retorno ($p$):** Controla la probabilidad de regresar inmediatamente al
+nodo anterior. Un $p$ bajo favorece la exploración local (BFS - Breadth-First Search),
 capturando la similitud estructural (nodos que actúan como "hubs").
 
-* **Parámetro de "In-out" (q):** Controla la probabilidad de alejarse hacia nodos no visitados.
-Un q bajo favorece la exploración profunda (DFS - Depth-First Search), capturando comunidades o macro-estructuras.
+* **Parámetro de "In-out" ($q$):** Controla la probabilidad de alejarse hacia nodos no visitados.
+Un $q$ bajo favorece la exploración profunda (DFS - Depth-First Search), capturando comunidades o macro-estructuras.
 
-El proceso de optimización
-
-El objetivo es maximizar la probabilidad de co-ocurrencia de nodos en una vecindad:
-
-Donde f(u) es la función de mapeo (el embedding) que queremos aprender para el nodo u.
-
+Para calcular la representación $z_v$ de los nodos $v$ de la grafíca, se ajusta
+la función de perdida con elobjetivo es maximizar la probabilidad de co-ocurrencia
+de nodos en una vecindad:
 
 \begin{equation}
 \mathcal{L} = \sum_{w \in \mathcal{W}} - \log \left(\sigma(\mathbf{z}_v^{\top} \mathbf{z}_w) \right) + \sum_{w \sim \mathcal{V} \setminus \mathcal{W}} - \log \left( 1 - \sigma(\mathbf{z}_v^{\top} \mathbf{z}_w) \right),
 \end{equation}
+
+El factor de la derecha es es el negativa sampling, que induce una penalización
+en la representación del embedding, es decir, si dos nodos no están relacionados
+en las vecindades exploradas de las caminatas aleatorias, entonces los queremos
+alejados.
+
+Cabe destacar que *Node2Vec* es una representacion de tipo *Shallow Embedding*,
+las cuales son representaciones vectoriales de baja dimensión mediante una tabla
+de búsqueda , de modo que se maximiza la probabilidad de preservar las vecindades; 
+
+A su vez, tales representaciones son utiles como entrada para una tarea posterior
+determinada; por ejemplo, en tareas a nivel de nodo, pueden utilizarse directamente
+como entrada para un clasificador final. Para tareas a nivel de aristas, las
+representaciones a nivel de borde se pueden obtener mediante el promedio o el
+producto de Hadamard.
+
+Sin embargo, cuentan con ciertas limitaciones: i) no incorporan información de las
+características asociada a nodos y/o aristas, ii) son representaciones transductivas
+(es decir, no pueden aplicarse elementos no vistos en el entrenamiento, ya que
+los parámetros aprendibles están fijados a los nodos de un grafo en particular. 
+
 
 
 
@@ -488,7 +512,6 @@ plot_embeddings_pca(nodes, X, G)
 import networkx as nx
 import matplotlib.pyplot as plt
 
-
 # graph
 G = nx.karate_club_graph()
 
@@ -518,56 +541,6 @@ nx.draw_networkx_nodes(
 nx.draw_networkx_edges(G, pos, alpha=0.4)
 nx.draw_networkx_labels(G, pos, font_size=9)
 ```
-
-
-# Shallow Embeddinf
-
-```{r echo=FALSE, fig.align='center', out.width="120%"}
-knitr::include_graphics("img/21-gnn/shallow_node_embeddings.png")
-```
-
-La diferencia clave entre las incrustaciones de nodos superficiales
-(p. ej., Node2Vec) y las incrustaciones de nodos profundos (p. ej., GNN) reside
-en la elección del codificador. Específicamente, las técnicas de incrustación de
-nodos superficiales se basan en la incrustación de nodos en representaciones 
-vectoriales de baja dimensión mediante una tabla de búsqueda de incrustaciones
-superficiales, de modo que se maximiza la probabilidad de preservar las
-vecindades; es decir, los nodos cercanos deberían recibir incrustaciones similares,
-mientras que los nodos distantes deberían recibir incrustaciones distintas. Estas
-técnicas generalizan el famoso modelo SkipGram para obtener incrustaciones de
-palabras de baja dimensión, en el que las secuencias de palabras se interpretan
-ahora como secuencias de nodos, p. ej., dadas mediante recorridos generados
-aleatoriamente:
-
-Específicamente, dado un recorrido aleatorio de longitud que comienza en el nodo,
-el objetivo es maximizar la probabilidad de observar el nodo dado el nodo. 
-
-Este objetivo se puede entrenar eficientemente mediante el descenso de gradiente
-estocástico en un escenario de aprendizaje contrastivo, en el que los recorridos
-inexistentes (denominados ejemplos negativos) se muestrean y entrenan conjuntamente,
-lo que denota la función. Cabe destacar que el producto escalar entre las 
-incrustaciones se utiliza habitualmente para medir la similitud, pero también son
-aplicables otras medidas de similitud.
-
-Es importante destacar que las incrustaciones de nodos superficiales se entrenan
-de forma no supervisada y pueden utilizarse como entrada para una tarea posterior
-determinada; por ejemplo, en tareas a nivel de nodo, pueden utilizarse directamente
-como entrada para un clasificador final. Para tareas a nivel de borde, las
-representaciones a nivel de borde se pueden obtener mediante el promedio o el
-producto de Hadamard.
-
-A pesar de la simplicidad de las técnicas de incrustación de nodos, también presentan
-ciertas deficiencias. En particular, no incorporan información rica de características
-asociada a nodos y aristas, y no pueden aplicarse fácilmente a grafos no visibles,
-ya que los parámetros aprendibles están fijados a los nodos de un grafo en particular
-(lo que hace que este enfoque sea transductivo por naturaleza y difícil de escalar
-debido a la complejidad de los parámetros). Sin embargo, sigue siendo una técnica
-común para preservar la información estructural del grafo en vectores de tamaño fijo,
-y a menudo también se utiliza para generar entradas a las GNN para su posterior
-procesamiento en caso de que el conjunto inicial de características de los nodos
-no sea rico.
-
-
 
 
 
