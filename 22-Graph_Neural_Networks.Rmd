@@ -8,25 +8,20 @@ output:
 <!-- ::: -->
 
 # Graph Neural Network
-## ¿Qué es una gráfica?
+## ¿Qué es una Graph Neural Network?
 
-La combinación de redes neuronales con gráficas
+Las Graph Neural Network son una combinación de redes neuronales con datos no estructurados en forma de gráficas. Dicha combinación permite incorporar al proceso de aprendizaje las relaciones entre los datos.
 
-Formato de las aristas de las gráficas:
-  * Para los ejes de las gráficas, se emplea el formato COO
-  * La libreria provee utilidades para convertir una matriz de adyancecias a dicho
-formato COO y viceversa.
-
-* jojo
+Este proceso es interesante, pues en el diseño de las redes neuronales se debe incorporar la estructura subyacente de las gráficas para enriquecer las predicciones
 
 ## Consideraciones sobre PyTorch Geometric
 
 Como hemos comentado previamente, PyTorch Geometric (https://pytorch-geometric.readthedocs.io/en/2.7.0/index.html)
-es una libreria de Python que está escrita basándose en el framework
-de PyTorch con el objetivo de faciliar la implementacion
-de Graph Neural Networks ("GNN")
+es una libreria de Python que está escrita basándose en el framework.
 
-WIP
+Formato de las aristas de las gráficas:
+  * Para los ejes de las gráficas, se emplea el formato COO
+  * La libreria provee utilidades para convertir una matriz de adyancecias a dicho formato COO y viceversa.
 
 ## Graph Convolutional Networks (GNN)
 
@@ -38,8 +33,6 @@ imágenes son, en esencia, grafos muy ordenados como una rejilla perfecta de pí
 knitr::include_graphics("img/21-gnn/conv_nn.png")
 ```
 
-
-
 El problema surge cuando los datos son no euclidianos. Por ejemplo, en una red
 social un usuario puede tener 5 amigos, otro 500. No hay un orden fijo y no
 existe precisamente una dirección de "arriba" o "abajo" clara como en una foto.
@@ -50,7 +43,7 @@ Esto motiva la necesidad tener modelos que extraigan características e
 información de los nodos (quienes son los usuarios) y de la estructura local 
 (quiénes son sus amigos y cómo se relacionan).
 
-##¿Cómo funcionan?
+## ¿Cómo funcionan?
 
 Dichas redes fueron introducidas por Thomas N. Kipf y Max Welling (ver
 https://openreview.net/pdf?id=SJU4ayYgl). La idea central de una convolución en
@@ -426,8 +419,7 @@ def plot_residuals_distribution(y_true, y_pred):
 #plot_residuals_distribution(data.y[data.test_mask], y_pred)
 ```
 
-
-# Ejemplo: Clasificación de artículos de investigación por categoría
+### Ejemplo: Clasificación de artículos de investigación por categoría
 
 ```{python}
 from torch_geometric.datasets import Planetoid
@@ -576,7 +568,6 @@ def visualize(h, color):
 out = model(data.x, data.edge_index)
 visualize(out, color=data.y)
 ```
-
 
 ## Graph Attention Network (GAT)
 

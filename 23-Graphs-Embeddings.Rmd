@@ -225,8 +225,16 @@ características asociada a nodos y/o aristas, ii) son representaciones transduc
 (es decir, no pueden aplicarse elementos no vistos en el entrenamiento, ya que
 los parámetros aprendibles están fijados a los nodos de un grafo en particular. 
 
+### Ejemplo: Aplicando el modelo de SkipGrams a Random Walks
 
+En esta sección se presenta código que muestra una version simplificada de los elementos
+de node2vec para la gráfica *Karate Club*, en primer término se calculan una secuencia de nodos obtenidos de
+caminatas aleatorias que posteriormente se emplean para crear un encaje.
 
+Dicho encaje se realiza con la clase *Word2Vec* de la libreria *gensim*.
+
+Empleando la siguiente clase se simulan caminatas aleatorias a partir
+de la estructura de la gráfica.
 
 ```{python}
 import random
@@ -235,7 +243,6 @@ import matplotlib.pyplot as plt
 import networkx as nx
 from sklearn.decomposition import PCA
 from gensim.models import KeyedVectors, Word2Vec
-
 
 class Graph():
     def __init__(self, nx_G, is_directed, p, q):
@@ -405,6 +412,7 @@ def alias_draw(J, q):
     else:
         return J[kk]
 ```
+La siguiente función se en
 
 ```{python}
 def learn_embeddings(
@@ -438,6 +446,9 @@ def learn_embeddings(
 
 ```
 
+Establecidao lo anterior cargamos los datos que representan
+a la gráfica del *Karate Club*:
+
 ```{python}
 import networkx as nx
 
@@ -449,13 +460,23 @@ walks = G.simulate_walks(num_walks=20, walk_length=10)
 
 ```
 
+Ahora podemos revisar como se ven las caminatas:
+
 ```{python}
 walks[1]
 ```
 
+A partir de este punto calculamos los encajes de los nodos
+
 ```{python}
 model = learn_embeddings(walks,epochs=100)
 ```
+
+**Nota:** Este encaje solo usa las caminatas, no involucra features
+numéricas
+
+
+Ahora mostraremos como se ve el encaje recién generado usado PCA:
 
 ```{python}
 def load_embeddings(path="embeddings.emb"):
@@ -463,7 +484,6 @@ def load_embeddings(path="embeddings.emb"):
     nodes = kv.index_to_key
     X = np.array([kv[node] for node in nodes])
     return nodes, X
-
 
 def plot_embeddings_pca(nodes, X, graph):
     pca = PCA(n_components=2, random_state=42)
@@ -508,6 +528,9 @@ nodes, X = load_embeddings("embeddings.emb")
 plot_embeddings_pca(nodes, X, G)
 ```
 
+A modo de comparativa, presentamos el gráfico del *Karate Club*.
+Se aprecia la cercania de los nodos y el encaje de arriba.
+
 ```{python}
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -542,114 +565,284 @@ nx.draw_networkx_edges(G, pos, alpha=0.4)
 nx.draw_networkx_labels(G, pos, font_size=9)
 ```
 
+## SageConv
 
-
-# SageConv
-
-La mayoría de los modelos anteriores (como GCN o node2vec) asumen que el grafo
+La mayoría de los modelos anteriores (como GCN o node2vec) asumen que el gráfica
 es estático y que todos los nodos están presentes durante el entrenamiento. Esto
 se conoce como aprendizaje transductivo.
 
-El problema: En el mundo real (como en la red de Amazon o Twitter), el grafo 
-cambia cada segundo.
-
-Si llega un usuario nuevo, los modelos transductivos no saben qué hacer; tendrías
+Sin embargo, en aplicaciones prácticas, como en redes de sociales, la gráfica 
+cambia dinámicamente en periodos muy cortos. Por ejemplo, al añadir un usuario
+nuevo, los modelos transductivos no podrían llevar a cabo predicciones; tendríamos
 que reentrenar todo el modelo desde cero para generar un embedding para ese nuevo nodo.
 
-GraphSAGE (SAGE viene de SAmple and aggreGatE) fue diseñado para ser inductivo:
-aprende una función de agregación, no un embedding fijo. Esto le permite generar
-representaciones para nodos que nunca vio durante el entrenamiento.
+Este es un problema que es atacado por el modelo **GraphSAGE (SAGE viene de SAmple and aggreGatE)**
+el cual tiene un  diseñado inductivo, en cual tiene un mecanismo de agregación 
+de información que le permite generar representaciones para nodos que nunca
+vio durante el entrenamiento.
 
-2. Ideas Generales: ¿Cómo funciona SAGEConv?
-A diferencia de las GCN que utilizan la matriz de adyacencia completa, SAGEConv
+Este modelo fue introducido en 2018 por un (equipo de Standford)[https://arxiv.org/pdf/1706.02216]. 
+A diferencia de las GCN que utilizan la matriz de adyacencia completa, tal
 opera mediante un proceso de muestreo de vecindad.
 
-Los dos pilares de GraphSAGE:
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/sage_diagram.png")
+```
 
-Muestreo (Sampling): En lugar de usar todos los vecinos (que podrían ser miles),
-SAGEConv selecciona un subconjunto aleatorio de tamaño fijo. Esto hace que el
-tiempo de cómputo sea predecible y constante.
+Los pasos del modelo se resumen a continuación:
 
-Agregación (Aggregation): SAGEConv no se limita a un promedio. Permite usar
-diferentes funciones para "resumir" la información de los vecinos:
+* **A) Sampling:** En un primer paso, para cada nodo se genera una caminata aleatoria de nodos, con una longitud pre-fijada. 
 
-Mean aggregator: Promedio de los vectores.
+* **B) Aggregation:**  Dichas caminatas, sirven para "resumir" la información de nodos que co-ocurren en la estructura de vecindades que exploraron en la gráfica. Dicha información se resumen mediante funciones de agregregacion $AGGREGATE_k$, como se presenta a continuación:
 
-LSTM aggregator: Usa una red LSTM (aplicada a una permutación aleatoria de los vecinos).
-
-Pooling aggregator: Aplica una red densa seguida de un operador de máximo (MAX).
-
-
-
-Paso 1: Agregación de la vecindad
-
-Primero, se recolecta la información de los vecinos muestreados:
-
-Fragmento de código
 \begin{equation}
-h_{\mathcal{N}(i)}^{(k)} = \text{aggregate}_k \left( \{ h_j^{(k-1)}, \forall j \in \mathcal{N}(i) \} \right)
+h_{\mathcal{N}(i)}^{(k)} = \text{AGGREGATE}_k \left( \{ h_j^{(k-1)}, \forall j \in \mathcal{N}(i) \} \right)
 \end{equation}
-Paso 2: Combinación y actualización
 
-Luego, se concatena la información agregada con la representación actual del nodo y se proyecta:
+En tal expresión, los términos involucrados se refieren a:
 
-Fragmento de código
+* $h_{\mathcal{N}(i)}^{(k)}$: Representación agregada de los vecinos del nodo $i$ en la capa $k$,
+*$\text{AGGREGATE}_k$: Función de agregación de información de los nodos,
+* $\text{concat}(\cdot, \cdot)$: Operación de concatenación que preserva la identidad del nodo central diferenciándola de su contexto,
+* $\mathbf{W}^{(k)}$: Matriz de pesos aprendible de la capa $k$,
+* $\sigma$: Función de activación no lineal.
+
+Cabe destacar que en el artículo original se exploran las siguientes opciones de agregación:
+
+* *Mean aggregator*: Promedio de los vectores,
+* *LSTM aggregator*: Estimación con una red LSTM,
+* *Pooling aggregator*: Aplica una red densa seguida de un operador de máximo ($Max( \cdot, 0)$).
+
+* **C) Combinación y actualización:** Posteriormente, se concatena la información agregada con la representación actual del nodo y se proyecta:
+
 \begin{equation}
 h_i^{(k)} = \sigma \left( \mathbf{W}^{(k)} \cdot \text{concat}(h_i^{(k-1)}, h_{\mathcal{N}(i)}^{(k)}) \right)
 \end{equation}
-Desglose de los componentes:
 
-Fragmento de código
-* $h_{\mathcal{N}(i)}^{(k)}$: Representación agregada de los vecinos del nodo $i$ en la capa $k$.
-*$\text{aggregate}_k$: Función de agregación (puede ser \textit{Mean, Pooling} o \textit{LSTM}).
-* $\text{concat}(\cdot, \cdot)$: Operación de concatenación que preserva la identidad del nodo central diferenciándola de su contexto.
-* $\mathbf{W}^{(k)}$: Matriz de pesos aprendible de la capa $k$.
-* $\sigma$: Función de activación no lineal.
+Es dable mencionar que, este modelo al incorporarse un nuevo nodo, las nuevas estimaciones se hacen
+considerendo la agregación de información de los nodos vecinos. Es decir, elimina la dependencia de las predicciones usando la gráfica completa, por estrategia de agregación de los nodos en una vecindad, donde el proceso de cómo viaja la información queda representado por las funciones de agregación y el concatenado de la misma.
 
-## Implementación en PyTorch Geometric
+
+Para mejor referencia, se presenta la descripción original del algoritmo en el paper original 
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/sage_algorithm.png")
+```
+
 
 ### Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)
 
-La arquitecura del ejemplo es la siguiente:
+La arquitecura del ejemplo es la siguiente, donde usaremos un encaje denso
+usando una Graph Convolution Network:
 
 ```{r echo=FALSE, fig.align='center', out.width="120%"}
 knitr::include_graphics("img/21-gnn/link_prediction_example.png")
 ```
 
+Leemos la data de 
+
+```{python}
+from sklearn.metrics import roc_auc_score
+
+import torch
+import torch.nn.functional as F
+from torch import nn
+import torch_geometric.transforms as T
+from torch_geometric.datasets import Planetoid
+from torch_geometric.nn import GCNConv
+from torch_geometric.utils import negative_sampling
+from sklearn.metrics import roc_auc_score
+
+device = torch.device('cpu')
+
+transform = T.Compose([
+    T.NormalizeFeatures(),
+    T.ToDevice(device),
+    T.RandomLinkSplit(
+      num_val=0.05,
+      num_test=0.1,
+      is_undirected=True,
+      add_negative_train_samples=False),
+])
+
+dataset = Planetoid('./data/', name='Cora', transform=transform)
+
+# After applying the `RandomLinkSplit` transform, the data is transformed from
+# a data object to a list of tuples (train_data, val_data, test_data), with
+# each element representing the corresponding split.
+train_data, val_data, test_data = dataset[0]
+```
+
+Este es el modelo que emplearemos:
+
+
+```{python}
+class GCNLinkPredictor(nn.Module):
+    def __init__(self, dim_in, dim_h, dim_z):
+        super().__init__()
+        torch.manual_seed(1234567)
+
+        self.conv1 = GCNConv(dim_in, dim_h)
+        self.conv2 = GCNConv(dim_h, dim_z)
+
+        self.criterion = nn.BCEWithLogitsLoss()
+
+    # -------------------------------------------------
+    # Encoder
+    # -------------------------------------------------
+    def encode(self, x, edge_index):
+        h = self.conv1(x, edge_index)
+        h = F.relu(h)
+        h = self.conv2(h, edge_index)
+        return h
+
+    # -------------------------------------------------
+    # Decoder (dot product)
+    # -------------------------------------------------
+    def decode(self, z, edge_index):
+        return (z[edge_index[0]] * z[edge_index[1]]).sum(dim=-1)
+
+    def decode_all(self, z):
+        adj = z @ z.t()
+        return (adj > 0).nonzero(as_tuple=False).t()
+
+    # -------------------------------------------------
+    # Training
+    # -------------------------------------------------
+    def fit(self, train_data, val_data, test_data, epochs, lr=0.01):
+        optimizer = torch.optim.Adam(self.parameters(), lr=lr)
+
+        best_val_auc = 0.0
+        best_test_auc = 0.0
+
+        for epoch in range(1, epochs + 1):
+            loss = self._train_epoch(train_data, optimizer)
+            val_auc = self.validate(val_data)
+            test_auc = self.test(test_data)
+
+            if val_auc > best_val_auc:
+                best_val_auc = val_auc
+                best_test_auc = test_auc
+                
+                
+            if epoch % 20 == 0:
+              print(
+                  f"Epoch {epoch:03d} | "
+                  f"Loss: {loss:.4f} | "
+                  f"Val AUC: {val_auc:.4f} | "
+                  f"Test AUC: {test_auc:.4f}"
+              )
+
+        print(f"Final Test AUC: {best_test_auc:.4f}")
+
+    def _train_epoch(self, data, optimizer):
+        self.train()
+        optimizer.zero_grad()
+
+        z = self.encode(data.x, data.edge_index)
+
+        neg_edge_index = negative_sampling(
+            edge_index=data.edge_index,
+            num_nodes=data.num_nodes,
+            num_neg_samples=data.edge_label_index.size(1),
+            method="sparse"
+        )
+
+        edge_index = torch.cat(
+            [data.edge_label_index, neg_edge_index],
+            dim=-1
+        )
+
+        edge_label = torch.cat(
+            [
+                data.edge_label,
+                data.edge_label.new_zeros(neg_edge_index.size(1))
+            ],
+            dim=0
+        )
+
+        logits = self.decode(z, edge_index).view(-1)
+        loss = self.criterion(logits, edge_label)
+
+        loss.backward()
+        optimizer.step()
+
+        return loss.item()
+
+    # -------------------------------------------------
+    # Evaluation
+    # -------------------------------------------------
+    @torch.no_grad()
+    def validate(self, data):
+        return self._eval_auc(data)
+
+    @torch.no_grad()
+    def test(self, data):
+        return self._eval_auc(data)
+
+    @torch.no_grad()
+    def _eval_auc(self, data):
+        self.eval()
+        z = self.encode(data.x, data.edge_index)
+        logits = self.decode(z, data.edge_label_index).view(-1)
+        probs = logits.sigmoid()
+
+        return roc_auc_score(
+            data.edge_label.cpu().numpy(),
+            probs.cpu().numpy()
+        )
+
+
+```
+
+Entrenaremos el modelo:
+
+```{python}
+model = GCNLinkPredictor(
+    dim_in=dataset.num_features,
+    dim_h=128,
+    dim_z=64
+).to(device)
+
+model.fit(
+    train_data=train_data,
+    val_data=val_data,
+    test_data=test_data,
+    epochs=100,
+    lr=0.01
+)
+```
+
+
+```{python}
+z = model.encode(test_data.x, test_data.edge_index)
+final_edge_index = model.decode_all(z)
+print("z")
+print(z)
+print("final_edge_index")
+print(final_edge_index)
+```
+
+### Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)
+
+A continuación mostramos una arquitectura que permite hace la predicción de aristas 
+usando GraphSage:
+
 
 ```{python}
 import torch
-from torch import nn
+import torch.nn as nn
 import torch.nn.functional as F
+from torch_cluster import random_walk
+from sklearn.linear_model import LogisticRegression
+
+import torch_geometric.transforms as T
 from torch_geometric.nn import SAGEConv
-from torch_geometric.utils import negative_sampling
-from torch_geometric.loader import DataLoader
-from tqdm.notebook import tqdm
+from torch_geometric.datasets import Planetoid
+from torch_geometric.data import NeighborSampler as RawNeighborSampler
 
+import matplotlib.pyplot as plt
+import seaborn as sns
 ```
-
-
-```{python}
-
-```
-
-
-```{python}
-
-```
-
-
-```{python}
-
-```
-
-
-```{python}
-
-```
-
-
-
-
 
 
