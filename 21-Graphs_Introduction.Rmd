@@ -192,7 +192,6 @@ con algoritmos implementados para Python y Spark. https://www.bbvaaifactory.com/
 implementación de modelos GNN a escala industrial. https://www.dgl.ai
 
 
-
 ## ¿Por qué combinar Graficas y Deep Learning?
 Cuando los datos de un problema, ademas de features numéricas tambien incorporan
 estructura, puede resultar util tomarla en consideracion para tareas de ML.

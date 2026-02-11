@@ -8,20 +8,118 @@ output:
 <!-- ::: -->
 
 # Graph Neural Network
-## ¿Qué es una Graph Neural Network?
+## PyTorch Geometric y Graph Neural Networks
 
-Las Graph Neural Network son una combinación de redes neuronales con datos no estructurados en forma de gráficas. Dicha combinación permite incorporar al proceso de aprendizaje las relaciones entre los datos.
+Como hemos visto, las Graph Neural Network son una combinación de redes
+neuronales con datos no estructurados en forma de gráficas. Este 
+proceso es interesante, pues en el proceso de aprendizaje los pesos
+incorporan la estructura subyacente de las gráficas para
+enriquecer las predicciones.
 
-Este proceso es interesante, pues en el diseño de las redes neuronales se debe incorporar la estructura subyacente de las gráficas para enriquecer las predicciones
+Como hemos comentado previamente, [PyTorch Geometric](https://pytorch-geometric.readthedocs.io/en/2.7.0/index.html)
+(PyG) es una libreria de Python que está escrita basándose en el framework.
 
-## Consideraciones sobre PyTorch Geometric
+En PyG los objetos base para representar gráficas son de tipo
+ `torch_geometric.data.Data`, que contienen los siguientes atributos por defecto:
 
-Como hemos comentado previamente, PyTorch Geometric (https://pytorch-geometric.readthedocs.io/en/2.7.0/index.html)
-es una libreria de Python que está escrita basándose en el framework.
+* `data.x`: Matriz de características de los nodos con forma `[num_nodes, num_node_features]`.
+* `data.edge_index`: En una representación de las aristas del grafo empleando el formato **Coordinate Format (COO)** 
+(https://docs.pytorch.org/docs/stable/sparse.html#sparse-coo-docs) con forma `[2, num_edges]` y tipo `torch.long`.
+* `data.edge_attr`: Matriz de features numéricas de las nodos con forma `[num_edges, num_edge_features]`.
+* `data.y`: Objetivo contra el cual entrenar (puede tener una forma arbitraria); por ejemplo, objetivos a nivel de nodo con forma `[num_nodes, *]` o objetivos a nivel de grafo con forma `[1, *]`.
+* `data.pos`: Matriz de posición de los nodos con forma [num_nodes, num_dimensions].
 
-Formato de las aristas de las gráficas:
-  * Para los ejes de las gráficas, se emplea el formato COO
-  * La libreria provee utilidades para convertir una matriz de adyancecias a dicho formato COO y viceversa.
+Cabe destacar que estos obejtos son no obligatorios.  para adaptarse a las distintas
+tareas de aprendizaje de GNN's.
+
+Para ejemplificar lo anterior veremos con se construye un GNN usando PyG. Primero definiremos
+la matriz de adyancencias y la convertiremos en formato *COO*. Vamos a visualizarla con NetworkX.
+
+```{python}
+import networkx as nx
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Adjacency Matrix from Numpy
+A = np.array([
+    [0, 1, 1, 0],
+    [1, 0, 1, 1],
+    [1, 1, 0, 0],
+    [0, 1, 0, 0]
+])
+
+# 2. Create the Graph. The nodes will be labeled 0, 1, 2, 3
+G = nx.from_numpy_array(A)
+
+# 3. Visualize the graph
+pos = nx.spring_layout(G)
+nx.draw(
+    G,
+    pos, 
+    with_labels=True,
+    node_color='skyblue',
+    node_size=700,
+    edge_color='k',
+    linewidths=1,
+    font_size=15
+    )
+plt.title("Graph from Adjacency Matrix (Undirected)")
+plt.show()
+```
+
+Ahora convertimos la matriz de adyacencias a formato de coordenadas:
+
+```{python}
+import torch
+from torch_geometric.utils import (dense_to_sparse, to_dense_adj)
+A_np = np.array([
+    [0, 1, 1, 0],
+    [1, 0, 1, 1],
+    [1, 1, 0, 0],
+    [0, 1, 0, 0]
+])
+
+# Convertimos a Tensor de PyTorch (necesario para PyG)
+A = torch.from_numpy(A_np)
+
+print("="*40)
+print("Adyacencias en formato COO")
+# dense_to_sparse devuelve (edge_index, edge_attr)
+edge_index, _ = dense_to_sparse(A)
+print(edge_index)
+
+print("="*40)
+print("Reconstruimos la matriz densa de adyacencias")
+dense_adj = to_dense_adj(edge_index)
+print(dense_adj)
+```
+
+
+Ahora estamos en condiciones de definir el objeto de PyG que representa a las gráfica,
+asignaremos numeros dummy a las features:
+
+```{python}
+from torch_geometric.data import Data
+
+x = torch.tensor(np.random.rand(4, 5), dtype=torch.float)
+
+data = Data(x=x, edge_index=edge_index)
+
+print("="*40)
+print("Features numericas de los nodos")
+print(data.x)
+
+print("="*40)
+print("Informacion de adyacencias")
+print(data.edge_index)
+```
+
+Finalmente a la hora de predecir, los modelos de Pytorch reciben los datos de las 
+features numericas de cada nodo, así como el indice de las aristas que le corresponde
+
+```
+model(data.x, data.edge_index)
+```
 
 ## Graph Convolutional Networks (GNN)
 
