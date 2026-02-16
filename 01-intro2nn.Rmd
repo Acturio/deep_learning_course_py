@@ -10,8 +10,6 @@ output:
 
 <!-- ::: -->
 
-# (PART\*) Parte 1: Bases y Preeliminares {.unnumbered}
-
 # Introducción a Deep Learning
 
 El aprendizaje profundo (*deep learning*) ha transformado radicalmente campos como la visión por computadora, el procesamiento del lenguaje natural, la robótica y la bioinformática. En este capítulo examinaremos qué ha impulsado su crecimiento exponencial, presentaremos algunos de los problemas más comunes que resuelve y haremos un recorrido por sus raíces históricas.
