@@ -1,0 +1,1009 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+<!-- ::: watermark -->
+<!-- <img src="img/aif-logo.png" width="400"/> -->
+<!-- ::: -->
+
+# Embeddings y Graph Neural Network
+## ¿Qué es un embedding?
+
+En el aprendizaje automático tradicional, las categorías (como nombres de
+ciudades, tipos de átomos o IDs de usuarios) se representaban mediante representaciones
+numéricas como One-Hot Encoding.
+
+Aunque de utilidad, en la práctica dicha soluciones padecen de algunos problemas:
+i) **incapacidad semántica**: en el caso palabras, las representaciones de pareja
+que tiene un significado cercano, sus encondings se pueden encontrar muy alejados
+(e.g. El vector de "perro" [1,0,0] y el de "cachorro" [0,1,0] son ortogonales;
+no tienen ninguna relación); ii) **explosión de memoria**:al tener muchos elementos,
+cada vector puede tener un número grande dimensiones, pero que la mayoría sean de ceros (sparse).
+
+Para dar solucion a este tema, se emplean los embeddings, los cuale son
+representaciones densas de datos discretos. Es decir, para representar los puntos
+consolidamos una transformacion de los datos hacia un espacio, que en 
+lugar de crear un vector gigante de ceros y unos, representa a cada elemento
+como un vector de números reales de tamaño fijo (por ejemplo, 128 o 300 dimensiones).
+
+La idea esencial es proyectar los puntos en un espacio continuo de baja dimensión donde la
+la similitud de los puntos (e.g semantica, geométrica, estructural) se conserve
+geometricamente. Es decir puntos que son parecidos en el espacio original,
+tengan una representacion cercana bajo dicha función.
+
+En Deep Learning, los embeddding ajustando los pesos pesos de capaz de unaa red neuronal.
+La red comienza con vectores aleatorios y a medida que la red intenta resolver 
+una tarea (e.g. predecir la siguiente palabra, image o clasificar un nodo), se
+ajustan la representación vectorial.
+
+Al final, elementos que aparecen en contextos similares terminan "empujados"
+hacia la misma zona en el espacio vectorial.
+
+Para ejemplificarlo podemos construir embeddings para los elementos
+del Dataset Iris.
+
+```{python}
+import torch
+from torch import nn
+from torch.utils.data import DataLoader, TensorDataset
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+
+# Datos
+iris = load_iris()
+X = torch.tensor(iris.data, dtype=torch.float32)
+y = torch.tensor(iris.target, dtype=torch.long)
+
+dataset = TensorDataset(X, y)
+loader = DataLoader(dataset, batch_size=32, shuffle=True)
+
+# Modelo
+class Classifier(nn.Module):
+    def __init__(self, input_dim=4, emb_dim=8, num_classes=3):
+        super().__init__()
+        self.encoder = nn.Sequential(
+            nn.Linear(input_dim, emb_dim),
+            nn.ReLU()
+        )
+        self.classifier = nn.Linear(emb_dim, num_classes)
+
+    def forward(self, x):
+        z = self.encoder(x)
+        return self.classifier(z), z
+
+model = Classifier()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
+criterion = nn.CrossEntropyLoss()
+
+# Entrenamiento breve
+for epoch in range(100):
+    for xb, yb in loader:
+        optimizer.zero_grad()
+        logits, _ = model(xb)
+        loss = criterion(logits, yb)
+        loss.backward()
+        optimizer.step()
+    if epoch % 10 == 0:
+      print(f"Epoch {epoch:>3} | Loss: {loss:.5f}")
+
+# Obtener embeddings
+with torch.no_grad():
+    embeddings = model.encoder(X).numpy()
+
+print("Embeddings: ")
+embeddings[:2]
+```
+
+Ahora usaremos PCA para obtener la representación de dichos puntos:
+
+```{python}
+# PCA a 2 dimensiones
+pca = PCA(n_components=2)
+emb_2d = pca.fit_transform(embeddings)
+
+# Plot (una sola figura)
+plt.figure()
+scatter = plt.scatter(
+    emb_2d[:, 0],
+    emb_2d[:, 1],
+    c=y
+)
+plt.xlabel("PCA 1")
+plt.ylabel("PCA 2")
+plt.title("Embedding del dataset Iris (PyTorch + PCA)")
+
+# Leyenda correcta
+handles, _ = scatter.legend_elements()
+plt.legend(handles, iris.target_names, title="Clase")
+
+plt.show()
+
+```
+Matematicamente, si tenemos V elementos y queremos vectores de tamaño d,
+un embedding es una matriz $E$ que transforma los datos de entrada de la siguiente
+forma:
+
+\begin{equation}
+E \in \mathbb{R}^{V \times d}
+\end{equation}
+
+En donde
+* $E$: Matriz de parámetros aprendibles (Embedding Layer).
+* $V$: Tamaño del vocabulario o número total de entidades.
+* $d$: Dimensionalidad del espacio latente (hiperparámetro).
+* $e_1 \cdot e_2$: Producto punto, que mide la dirección común de los vectores.
+* $\|e\|$: Norma euclidiana que normaliza el vector para ignorar su magnitud y 
+enfocarse en la orientación.
+
+Para obtener el vector $e_i$ de un elemento con índice $i$, multiplicamos un 
+vector $\textit{one-hot} $x_i$ por la matriz:
+
+\begin{equation}
+e_i = x_i^\top E
+\end{equation}
+
+Un forma común de saber qué tan parecidos son dos embeddings es mediante el
+coseno del ángulo entre ellos:
+
+\begin{equation}
+\text{sim}(e_1, e_2) = \frac{e_1 \cdot e_2}{\|e_1\| \|e_2\|}
+\end{equation}
+
+Los embedding han tenido mucha adopcion en diversas aplicaciones de Deep Learning:
+
+* NLP: Word2Vec, GloVe y los embeddings de Transformers (BERT/GPT) para entender el lenguaje.
+* Sistemas de Recomendación: Representar usuarios y productos en el mismo espacio para medir su afinidad.
+* Visión por Computador: Face Embeddings para reconocimiento facial (si dos fotos generan vectores cercanos, son la misma persona).
+* GNNs: Todos los modelos previos (GCN, GAT, SAGE) generan, en última instancia, Node Embeddings.
+
+## Word2Vec
+
+WIP
+
+
+## Node2Vec
+
+Antes de que las GNN fueran el estándar, el reto era: ¿Cómo convertimos un nodo
+de un grafo en un vector de números (embedding) que una red neuronal tradicional
+pueda entender?
+
+```{r echo=FALSE, fig.align='center', out.width="120%"}
+knitr::include_graphics("img/21-gnn/shallow_node_embeddings.png")
+```
+
+Como hemos mencionado previamente, en el área de procesamiento de lenguaje natural
+se propuso al modelo *word2vec* en donde se construye un embedding de palabras
+usando la idea que las palabras que aparecen en contextos similares deben
+induceir vectores similares. Node2vec se construye con ideas similares: para
+obtener nodos en contexto similares se ejecutan caminatas aleatorias sobre
+la gráfica  (random walks), de forma que podemos tratar un grafo como un lenguaje.
+
+Node2vec permite dicho el algoritmo explore el grafo de forma más flexible,
+capturando tanto comunidades locales como roles estructurales. Dicha exploración
+se basa en generar "paseos aleatorios" con cierto nivel de sesgo (biased random
+walk) desde cada nodo y luego alimentar esos paseos a un modelo Skip-gram (el 
+mismo de word2vec).
+
+Las caminatas aleatorias en este enfoque tiene dos hiper-parámetros para explorar
+la gráfica mediante caminan que obtienen nodos usando trayectorias que usan
+información de los nodos visitados:
+
+* **Parámetro de Retorno ($p$):** Controla la probabilidad de regresar inmediatamente al
+nodo anterior. Un $p$ bajo favorece la exploración local (BFS - Breadth-First Search),
+capturando la similitud estructural (nodos que actúan como "hubs").
+
+* **Parámetro de "In-out" ($q$):** Controla la probabilidad de alejarse hacia nodos no visitados.
+Un $q$ bajo favorece la exploración profunda (DFS - Depth-First Search), capturando comunidades o macro-estructuras.
+
+Para calcular la representación $z_v$ de los nodos $v$ de la grafíca, se ajusta
+la función de perdida con elobjetivo es maximizar la probabilidad de co-ocurrencia
+de nodos en una vecindad:
+
+\begin{equation}
+\mathcal{L} = \sum_{w \in \mathcal{W}} - \log \left(\sigma(\mathbf{z}_v^{\top} \mathbf{z}_w) \right) + \sum_{w \sim \mathcal{V} \setminus \mathcal{W}} - \log \left( 1 - \sigma(\mathbf{z}_v^{\top} \mathbf{z}_w) \right),
+\end{equation}
+
+El factor de la derecha es es el negativa sampling, que induce una penalización
+en la representación del embedding, es decir, si dos nodos no están relacionados
+en las vecindades exploradas de las caminatas aleatorias, entonces los queremos
+alejados.
+
+Cabe destacar que *Node2Vec* es una representacion de tipo *Shallow Embedding*,
+las cuales son representaciones vectoriales de baja dimensión mediante una tabla
+de búsqueda , de modo que se maximiza la probabilidad de preservar las vecindades; 
+
+A su vez, tales representaciones son utiles como entrada para una tarea posterior
+determinada; por ejemplo, en tareas a nivel de nodo, pueden utilizarse directamente
+como entrada para un clasificador final. Para tareas a nivel de aristas, las
+representaciones a nivel de borde se pueden obtener mediante el promedio o el
+producto de Hadamard.
+
+Sin embargo, cuentan con ciertas limitaciones: i) no incorporan información de las
+características asociada a nodos y/o aristas, ii) son representaciones transductivas
+(es decir, no pueden aplicarse elementos no vistos en el entrenamiento, ya que
+los parámetros aprendibles están fijados a los nodos de un grafo en particular. 
+
+### Ejemplo: Aplicando el modelo de SkipGrams a Random Walks
+
+En esta sección se presenta código que muestra una version simplificada de los elementos
+de node2vec para la gráfica *Karate Club*, en primer término se calculan una secuencia de nodos obtenidos de
+caminatas aleatorias que posteriormente se emplean para crear un encaje.
+
+Dicho encaje se realiza con la clase *Word2Vec* de la libreria *gensim*.
+
+Empleando la siguiente clase se simulan caminatas aleatorias a partir
+de la estructura de la gráfica.
+
+```{python}
+import random
+import numpy as np
+import matplotlib.pyplot as plt
+import networkx as nx
+from sklearn.decomposition import PCA
+from gensim.models import KeyedVectors, Word2Vec
+
+class Graph():
+    def __init__(self, nx_G, is_directed, p, q):
+        self.G = nx_G
+        self.is_directed = is_directed
+        self.p = p
+        self.q = q
+
+    def node2vec_walk(self, walk_length, start_node):
+        """
+        Simulate a random walk starting from start node.
+        """
+        G = self.G
+        alias_nodes = self.alias_nodes
+        alias_edges = self.alias_edges
+
+        walk = [start_node]
+
+        while len(walk) < walk_length:
+            cur = walk[-1]
+            cur_nbrs = sorted(G.neighbors(cur))
+            if len(cur_nbrs) > 0:
+                if len(walk) == 1:
+                    walk.append(
+                        cur_nbrs[
+                            alias_draw(
+                                alias_nodes[cur][0],
+                                alias_nodes[cur][1]
+                            )
+                        ]
+                    )
+                else:
+                    prev = walk[-2]
+                    next_node = cur_nbrs[
+                        alias_draw(
+                            alias_edges[(prev, cur)][0],
+                            alias_edges[(prev, cur)][1]
+                        )
+                    ]
+                    walk.append(next_node)
+            else:
+                break
+
+        return walk
+
+    def simulate_walks(self, num_walks, walk_length):
+        """
+        Repeatedly simulate random walks from each node.
+        """
+        G = self.G
+        walks = []
+        nodes = list(G.nodes())
+        print('Walk iteration:')
+        for walk_iter in range(num_walks):
+            print(f'{walk_iter + 1} / {num_walks}')
+            random.shuffle(nodes)
+            for node in nodes:
+                walks.append(
+                    self.node2vec_walk(
+                        walk_length=walk_length,
+                        start_node=node
+                    )
+                )
+        return walks
+
+    def get_alias_edge(self, src, dst):
+        """
+        Get the alias edge setup lists for a given edge.
+        """
+        G = self.G
+        p = self.p
+        q = self.q
+
+        unnormalized_probs = []
+        for dst_nbr in sorted(G.neighbors(dst)):
+            weight = G[dst][dst_nbr].get('weight', 1.0)
+
+            if dst_nbr == src:
+                unnormalized_probs.append(weight / p)
+            elif G.has_edge(dst_nbr, src):
+                unnormalized_probs.append(weight)
+            else:
+                unnormalized_probs.append(weight / q)
+
+        norm_const = sum(unnormalized_probs)
+        normalized_probs = [
+            float(u_prob) / norm_const for u_prob in unnormalized_probs
+        ]
+
+        return alias_setup(normalized_probs)
+
+    def preprocess_transition_probs(self):
+        """
+        Preprocessing of transition probabilities for guiding the random walks.
+        """
+        G = self.G
+        is_directed = self.is_directed
+
+        alias_nodes = {}
+        for node in G.nodes():
+            unnormalized_probs = [
+                G[node][nbr].get('weight', 1.0)
+                for nbr in sorted(G.neighbors(node))
+            ]
+            norm_const = sum(unnormalized_probs)
+            normalized_probs = [
+                float(u_prob) / norm_const for u_prob in unnormalized_probs
+            ]
+            alias_nodes[node] = alias_setup(normalized_probs)
+
+        alias_edges = {}
+
+        if is_directed:
+            for edge in G.edges():
+                alias_edges[edge] = self.get_alias_edge(edge[0], edge[1])
+        else:
+            for edge in G.edges():
+                alias_edges[edge] = self.get_alias_edge(edge[0], edge[1])
+                alias_edges[(edge[1], edge[0])] = self.get_alias_edge(edge[1], edge[0])
+
+        self.alias_nodes = alias_nodes
+        self.alias_edges = alias_edges
+
+
+def alias_setup(probs):
+    """
+    Compute utility lists for non-uniform sampling from discrete distributions.
+    """
+    K = len(probs)
+    q = np.zeros(K)
+    J = np.zeros(K, dtype=int)
+
+    smaller = []
+    larger = []
+
+    for kk, prob in enumerate(probs):
+        q[kk] = K * prob
+        if q[kk] < 1.0:
+            smaller.append(kk)
+        else:
+            larger.append(kk)
+
+    while smaller and larger:
+        small = smaller.pop()
+        large = larger.pop()
+
+        J[small] = large
+        q[large] = q[large] + q[small] - 1.0
+
+        if q[large] < 1.0:
+            smaller.append(large)
+        else:
+            larger.append(large)
+
+    return J, q
+
+
+def alias_draw(J, q):
+    """
+    Draw sample from a non-uniform discrete distribution using alias sampling.
+    """
+    K = len(J)
+    kk = int(np.floor(np.random.rand() * K))
+
+    if np.random.rand() < q[kk]:
+        return kk
+    else:
+        return J[kk]
+```
+La siguiente función se en
+
+```{python}
+def learn_embeddings(
+    walks,
+    vector_size: int = 128,
+    window: int = 10,
+    workers: int = 8,
+    epochs: int = 1
+):
+    """
+    Learn embeddings by optimizing the Skip-gram objective using SGD.
+    """
+
+    # gensim requires lists, not iterators
+    walks = [list(map(str, walk)) for walk in walks]
+
+    model = Word2Vec(
+        sentences=walks,
+        vector_size=vector_size,
+        window=window,
+        min_count=0,
+        sg=1,              # skip-gram
+        workers=workers,
+        epochs=epochs
+    )
+
+    # save in word2vec format (node2vec-compatible)
+    model.wv.save_word2vec_format("embeddings.emb")
+
+    return model
+
+```
+
+Establecidao lo anterior cargamos los datos que representan
+a la gráfica del *Karate Club*:
+
+```{python}
+import networkx as nx
+
+nx_G = nx.karate_club_graph()
+G = Graph(nx_G, is_directed=False, p=0.8, q=0.1)
+
+G.preprocess_transition_probs()
+walks = G.simulate_walks(num_walks=20, walk_length=10)
+
+```
+
+Ahora podemos revisar como se ven las caminatas:
+
+```{python}
+walks[1]
+```
+
+A partir de este punto calculamos los encajes de los nodos
+
+```{python}
+model = learn_embeddings(walks,epochs=100)
+```
+
+**Nota:** Este encaje solo usa las caminatas, no involucra features
+numéricas
+
+
+Ahora mostraremos como se ve el encaje recién generado usado PCA:
+
+```{python}
+def load_embeddings(path="embeddings.emb"):
+    kv = KeyedVectors.load_word2vec_format(path)
+    nodes = kv.index_to_key
+    X = np.array([kv[node] for node in nodes])
+    return nodes, X
+
+def plot_embeddings_pca(nodes, X, graph):
+    pca = PCA(n_components=2, random_state=42)
+    X_2d = pca.fit_transform(X)
+
+    club_to_color = {
+        "Mr. Hi": "tab:blue",
+        "Officer": "tab:orange"
+    }
+
+    colors = [
+        club_to_color[graph.nodes[int(node)]["club"]]
+        for node in nodes
+    ]
+
+    plt.figure(figsize=(12, 10))
+    plt.scatter(X_2d[:, 0], X_2d[:, 1], c=colors, s=80, alpha=0.85)
+
+    for i, node in enumerate(nodes):
+        plt.text(
+            X_2d[i, 0] + 0.01,
+            X_2d[i, 1] + 0.01,
+            node,
+            fontsize=9
+        )
+
+    for club, color in club_to_color.items():
+        plt.scatter([], [], c=color, label=club)
+
+    plt.legend(title="Karate Club Group")
+    plt.title("Node2Vec Embeddings (PCA)")
+    plt.xlabel("PC1")
+    plt.ylabel("PC2")
+    plt.grid(alpha=0.3)
+    plt.tight_layout()
+    plt.show()
+
+
+# usage
+G = nx.karate_club_graph()
+nodes, X = load_embeddings("embeddings.emb")
+plot_embeddings_pca(nodes, X, G)
+```
+
+A modo de comparativa, presentamos el gráfico del *Karate Club*.
+Se aprecia la cercania de los nodos y el encaje de arriba.
+
+```{python}
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# graph
+G = nx.karate_club_graph()
+
+# color by club
+club_to_color = {
+    "Mr. Hi": "tab:blue",
+    "Officer": "tab:orange"
+}
+
+node_colors = [
+    club_to_color[G.nodes[n]["club"]]
+    for n in G.nodes()
+]
+
+# layout
+pos = nx.spring_layout(G, seed=42)
+
+# plot
+plt.figure(figsize=(12, 10))
+nx.draw_networkx_nodes(
+    G,
+    pos,
+    node_color=node_colors,
+    node_size=600,
+    alpha=0.9
+)
+nx.draw_networkx_edges(G, pos, alpha=0.4)
+nx.draw_networkx_labels(G, pos, font_size=9)
+```
+
+## SageConv
+
+La mayoría de los modelos anteriores (como GCN o node2vec) asumen que el gráfica
+es estático y que todos los nodos están presentes durante el entrenamiento. Esto
+se conoce como aprendizaje transductivo.
+
+Sin embargo, en aplicaciones prácticas, como en redes de sociales, la gráfica 
+cambia dinámicamente en periodos muy cortos. Por ejemplo, al añadir un usuario
+nuevo, los modelos transductivos no podrían llevar a cabo predicciones; tendríamos
+que reentrenar todo el modelo desde cero para generar un embedding para ese nuevo nodo.
+
+Este es un problema que es atacado por el modelo **GraphSAGE (SAGE viene de SAmple and aggreGatE)**
+el cual tiene un  diseñado inductivo, en cual tiene un mecanismo de agregación 
+de información que le permite generar representaciones para nodos que nunca
+vio durante el entrenamiento.
+
+Este modelo fue introducido en 2018 por un (equipo de Standford)[https://arxiv.org/pdf/1706.02216]. 
+A diferencia de las GCN que utilizan la matriz de adyacencia completa, tal
+opera mediante un proceso de muestreo de vecindad.
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/sage_diagram.png")
+```
+
+Los pasos del modelo se resumen a continuación:
+
+* **A) Sampling:** En un primer paso, para cada nodo se genera una caminata aleatoria de nodos, con una longitud pre-fijada. 
+
+* **B) Aggregation:**  Dichas caminatas, sirven para "resumir" la información de nodos que co-ocurren en la estructura de vecindades que exploraron en la gráfica. Dicha información se resumen mediante funciones de agregregacion $AGGREGATE_k$, como se presenta a continuación:
+
+\begin{equation}
+h_{\mathcal{N}(i)}^{(k)} = \text{AGGREGATE}_k \left( \{ h_j^{(k-1)}, \forall j \in \mathcal{N}(i) \} \right)
+\end{equation}
+
+En tal expresión, los términos involucrados se refieren a:
+
+* $h_{\mathcal{N}(i)}^{(k)}$: Representación agregada de los vecinos del nodo $i$ en la capa $k$,
+*$\text{AGGREGATE}_k$: Función de agregación de información de los nodos,
+* $\text{concat}(\cdot, \cdot)$: Operación de concatenación que preserva la identidad del nodo central diferenciándola de su contexto,
+* $\mathbf{W}^{(k)}$: Matriz de pesos aprendible de la capa $k$,
+* $\sigma$: Función de activación no lineal.
+
+Cabe destacar que en el artículo original se exploran las siguientes opciones de agregación:
+
+* *Mean aggregator*: Promedio de los vectores,
+* *LSTM aggregator*: Estimación con una red LSTM,
+* *Pooling aggregator*: Aplica una red densa seguida de un operador de máximo ($Max( \cdot, 0)$).
+
+* **C) Combinación y actualización:** Posteriormente, se concatena la información agregada con la representación actual del nodo y se proyecta:
+
+\begin{equation}
+h_i^{(k)} = \sigma \left( \mathbf{W}^{(k)} \cdot \text{concat}(h_i^{(k-1)}, h_{\mathcal{N}(i)}^{(k)}) \right)
+\end{equation}
+
+Es dable mencionar que, este modelo al incorporarse un nuevo nodo, las nuevas estimaciones se hacen
+considerendo la agregación de información de los nodos vecinos. Es decir, elimina la dependencia de las predicciones usando la gráfica completa, por estrategia de agregación de los nodos en una vecindad, donde el proceso de cómo viaja la información queda representado por las funciones de agregación y el concatenado de la misma.
+
+
+Para mejor referencia, se presenta la descripción original del algoritmo en el paper original 
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("img/21-gnn/sage_algorithm.png")
+```
+
+
+### Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)
+
+La arquitecura del ejemplo es la siguiente, donde usaremos un encaje denso
+usando una Graph Convolution Network:
+
+```{r echo=FALSE, fig.align='center', out.width="120%"}
+knitr::include_graphics("img/21-gnn/link_prediction_example.png")
+```
+
+Leemos la data de 
+
+```{python}
+from sklearn.metrics import roc_auc_score
+
+import torch
+import torch.nn.functional as F
+from torch import nn
+import torch_geometric.transforms as T
+from torch_geometric.datasets import Planetoid
+from torch_geometric.nn import GCNConv
+from torch_geometric.utils import negative_sampling
+from sklearn.metrics import roc_auc_score
+
+device = torch.device('cpu')
+
+transform = T.Compose([
+    T.NormalizeFeatures(),
+    T.ToDevice(device),
+    T.RandomLinkSplit(
+      num_val=0.05,
+      num_test=0.1,
+      is_undirected=True,
+      add_negative_train_samples=False),
+])
+
+dataset = Planetoid('./data/', name='Cora', transform=transform)
+
+# After applying the `RandomLinkSplit` transform, the data is transformed from
+# a data object to a list of tuples (train_data, val_data, test_data), with
+# each element representing the corresponding split.
+train_data, val_data, test_data = dataset[0]
+```
+
+Este es el modelo que emplearemos:
+
+
+```{python}
+class GCNLinkPredictor(nn.Module):
+    def __init__(self, dim_in, dim_h, dim_z):
+        super().__init__()
+        torch.manual_seed(1234567)
+
+        self.conv1 = GCNConv(dim_in, dim_h)
+        self.conv2 = GCNConv(dim_h, dim_z)
+
+        self.criterion = nn.BCEWithLogitsLoss()
+
+    # -------------------------------------------------
+    # Encoder
+    # -------------------------------------------------
+    def encode(self, x, edge_index):
+        h = self.conv1(x, edge_index)
+        h = F.relu(h)
+        h = self.conv2(h, edge_index)
+        return h
+
+    # -------------------------------------------------
+    # Decoder (dot product)
+    # -------------------------------------------------
+    def decode(self, z, edge_index):
+        return (z[edge_index[0]] * z[edge_index[1]]).sum(dim=-1)
+
+    def decode_all(self, z):
+        adj = z @ z.t()
+        return (adj > 0).nonzero(as_tuple=False).t()
+
+    # -------------------------------------------------
+    # Training
+    # -------------------------------------------------
+    def fit(self, train_data, val_data, test_data, epochs, lr=0.01):
+        optimizer = torch.optim.Adam(self.parameters(), lr=lr)
+
+        best_val_auc = 0.0
+        best_test_auc = 0.0
+
+        for epoch in range(1, epochs + 1):
+            loss = self._train_epoch(train_data, optimizer)
+            val_auc = self.validate(val_data)
+            test_auc = self.test(test_data)
+
+            if val_auc > best_val_auc:
+                best_val_auc = val_auc
+                best_test_auc = test_auc
+                
+                
+            if epoch % 20 == 0:
+              print(
+                  f"Epoch {epoch:03d} | "
+                  f"Loss: {loss:.4f} | "
+                  f"Val AUC: {val_auc:.4f} | "
+                  f"Test AUC: {test_auc:.4f}"
+              )
+
+        print(f"Final Test AUC: {best_test_auc:.4f}")
+
+    def _train_epoch(self, data, optimizer):
+        self.train()
+        optimizer.zero_grad()
+
+        z = self.encode(data.x, data.edge_index)
+
+        neg_edge_index = negative_sampling(
+            edge_index=data.edge_index,
+            num_nodes=data.num_nodes,
+            num_neg_samples=data.edge_label_index.size(1),
+            method="sparse"
+        )
+
+        edge_index = torch.cat(
+            [data.edge_label_index, neg_edge_index],
+            dim=-1
+        )
+
+        edge_label = torch.cat(
+            [
+                data.edge_label,
+                data.edge_label.new_zeros(neg_edge_index.size(1))
+            ],
+            dim=0
+        )
+
+        logits = self.decode(z, edge_index).view(-1)
+        loss = self.criterion(logits, edge_label)
+
+        loss.backward()
+        optimizer.step()
+
+        return loss.item()
+
+    # -------------------------------------------------
+    # Evaluation
+    # -------------------------------------------------
+    @torch.no_grad()
+    def validate(self, data):
+        return self._eval_auc(data)
+
+    @torch.no_grad()
+    def test(self, data):
+        return self._eval_auc(data)
+
+    @torch.no_grad()
+    def _eval_auc(self, data):
+        self.eval()
+        z = self.encode(data.x, data.edge_index)
+        logits = self.decode(z, data.edge_label_index).view(-1)
+        probs = logits.sigmoid()
+
+        return roc_auc_score(
+            data.edge_label.cpu().numpy(),
+            probs.cpu().numpy()
+        )
+
+
+```
+
+Entrenaremos el modelo:
+
+```{python}
+model = GCNLinkPredictor(
+    dim_in=dataset.num_features,
+    dim_h=128,
+    dim_z=64
+).to(device)
+
+model.fit(
+    train_data=train_data,
+    val_data=val_data,
+    test_data=test_data,
+    epochs=100,
+    lr=0.01
+)
+```
+
+
+```{python}
+z = model.encode(test_data.x, test_data.edge_index)
+final_edge_index = model.decode_all(z)
+print("z")
+print(z)
+print("final_edge_index")
+print(final_edge_index)
+```
+
+### Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)
+
+A continuación mostramos una arquitectura que permite hace la predicción de aristas 
+usando GraphSage:
+
+
+```{python}
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch_cluster import random_walk
+from sklearn.linear_model import LogisticRegression
+
+import torch_geometric.transforms as T
+from torch_geometric.nn import SAGEConv
+from torch_geometric.datasets import Planetoid
+from torch_geometric.data import NeighborSampler as RawNeighborSampler
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+```    
+
+```{python}
+dataset = 'Cora'
+path = './data'
+dataset = Planetoid(path, dataset, transform=T.NormalizeFeatures())
+data = dataset[0]
+```
+
+
+```{python}
+class NeighborSampler(RawNeighborSampler):
+    def sample(self, batch):
+        batch = torch.tensor(batch)
+        row, col, _ = self.adj_t.coo()
+
+        # For each node in `batch`, we sample a direct neighbor (as positive
+        # example) and a random node (as negative example):
+        pos_batch = random_walk(row, col, batch, walk_length=1,
+                                coalesced=False)[:, 1]
+
+        neg_batch = torch.randint(0, self.adj_t.size(1), (batch.numel(), ),
+                                  dtype=torch.long)
+
+        batch = torch.cat([batch, pos_batch, neg_batch], dim=0)
+        return super(NeighborSampler, self).sample(batch)
+
+
+train_loader = NeighborSampler(data.edge_index, sizes=[10, 10], batch_size=256,
+                               shuffle=True, num_nodes=data.num_nodes)
+
+
+class SAGE(nn.Module):
+    def __init__(self, in_channels, hidden_channels, num_layers):
+        super(SAGE, self).__init__()
+        self.num_layers = num_layers
+        self.convs = nn.ModuleList()
+        
+        for i in range(num_layers):
+            in_channels = in_channels if i == 0 else hidden_channels
+            self.convs.append(SAGEConv(in_channels, hidden_channels))
+
+    def forward(self, x, adjs):
+        for i, (edge_index, _, size) in enumerate(adjs):
+            x_target = x[:size[1]]  # Target nodes are always placed first.
+            x = self.convs[i]((x, x_target), edge_index)
+            if i != self.num_layers - 1:
+                x = x.relu()
+                x = F.dropout(x, p=0.5, training=self.training)
+        return x
+
+    def full_forward(self, x, edge_index):
+        for i, conv in enumerate(self.convs):
+            x = conv(x, edge_index)
+            if i != self.num_layers - 1:
+                x = x.relu()
+                x = F.dropout(x, p=0.5, training=self.training)
+        return x
+
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model = SAGE(data.num_node_features, hidden_channels=64, num_layers=2)
+model = model.to(device)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
+x, edge_index = data.x.to(device), data.edge_index.to(device)
+
+
+def train():
+    model.train()
+
+    total_loss = 0
+    for batch_size, n_id, adjs in train_loader:
+        # `adjs` holds a list of `(edge_index, e_id, size)` tuples.
+        adjs = [adj.to(device) for adj in adjs]
+        optimizer.zero_grad()
+
+        out = model(x[n_id], adjs)
+        out, pos_out, neg_out = out.split(out.size(0) // 3, dim=0)
+
+        pos_loss = F.logsigmoid((out * pos_out).sum(-1)).mean()
+        neg_loss = F.logsigmoid(-(out * neg_out).sum(-1)).mean()
+        loss = -pos_loss - neg_loss
+        loss.backward()
+        optimizer.step()
+
+        total_loss += float(loss) * out.size(0)
+
+    return total_loss / data.num_nodes
+
+
+@torch.no_grad()
+def test():
+    model.eval()
+    out = model.full_forward(x, edge_index).cpu()
+
+    clf = LogisticRegression()
+    clf.fit(out[data.train_mask], data.y[data.train_mask])
+
+    val_acc = clf.score(out[data.val_mask], data.y[data.val_mask])
+    test_acc = clf.score(out[data.test_mask], data.y[data.test_mask])
+
+    return val_acc, test_acc
+
+
+for epoch in range(1, 51):
+    loss = train()
+    val_acc, test_acc = test()
+    print(f'Epoch: {epoch:03d}, Loss: {loss:.4f}, '
+          f'Val: {val_acc:.4f}, Test: {test_acc:.4f}')
+```
+
+De lo anterior, podemos representar el embedding de los nodos mediante T-SNE:
+
+```{python}
+from sklearn.manifold import TSNE
+
+with torch.no_grad():
+    model.eval()
+    out = model.full_forward(x, edge_index).cpu()
+
+palette = {}
+for n, y in enumerate(set(data.y.numpy())):
+    palette[y] = f'C{n}'
+
+embd = TSNE(
+    n_components=2,
+    perplexity=30,
+    learning_rate='auto',
+    init='pca',
+    random_state=42
+).fit_transform(out.numpy())
+
+plt.figure(figsize=(10, 10))
+sns.scatterplot(
+    x=embd[:, 0],
+    y=embd[:, 1],
+    hue=data.y.cpu().numpy(),
+    palette=palette
+    )
+plt.legend(bbox_to_anchor=(1, 1), loc='upper left')
+plt.show()
+```
+Comparemoslo contra una visualización de las caracteristicas numéricas usando
+T-SNE donde se aprecia más dispersion:
+
+```{python}
+embd_x = TSNE(
+    n_components=2,
+    perplexity=30,
+    learning_rate='auto',
+    init='pca',
+    random_state=42
+).fit_transform(data.x.numpy())
+
+plt.figure(figsize=(10, 10))
+sns.scatterplot(
+    x=embd_x[:, 0],
+    y=embd_x[:, 1],
+    hue=data.y.cpu().numpy(),
+    palette=palette
+)
+plt.legend(bbox_to_anchor=(1, 1), loc='upper left')
+plt.show()
+```
