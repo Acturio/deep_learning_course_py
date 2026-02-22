@@ -64,3 +64,11 @@ wcwidth==0.6.0
 wrapt==2.1.1
 xxhash==3.6.0
 yarl==1.22.0
+numpy
+pandas
+matplotlib
+torch
+torchvision
+torchaudio
+requests
+jupyter
