@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 14 Graph Neural Network | Deep Learning</title>
+  <meta name="description" content="Capítulo 14 Graph Neural Network | Deep Learning" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 14 Graph Neural Network | Deep Learning" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Capítulo 14 Graph Neural Network | Deep Learning" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 14 Graph Neural Network | Deep Learning" />
+  
+  <meta name="twitter:description" content="Capítulo 14 Graph Neural Network | Deep Learning" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introducción-a-la-teoría-de-gráficas..html"/>
+<link rel="next" href="embeddings-y-graph-neural-network.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"><img src="img/aif-logo.png" width="280"></a></li|
+|:-:|  
+<center>Curso de Redes Neuronales Artificiales</center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>BIENVENIDA</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivo"><i class="fa fa-check"></i>Objetivo</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#alcances-del-programa"><i class="fa fa-check"></i>Alcances del Programa</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#temario"><i class="fa fa-check"></i>Temario:</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#c%C3%B3digo"><i class="fa fa-check"></i>Código</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#duraci%C3%B3n-y-evaluaci%C3%B3n-del-programa"><i class="fa fa-check"></i>Duración y evaluación del programa</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-y-din%C3%A1mica"><i class="fa fa-check"></i>Recursos y dinámica</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#agenda"><i class="fa fa-check"></i>Agenda</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#software"><i class="fa fa-check"></i>Software</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#bibliograf%C3%ADa"><i class="fa fa-check"></i>Bibliografía</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html"><i class="fa fa-check"></i><b>1</b> Introducción a Deep Learning</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#introducci%C3%B3n-al-aprendizaje-autom%C3%A1tico"><i class="fa fa-check"></i><b>1.1</b> Introducción al aprendizaje automático</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#motivaci%C3%B3n-los-paradigmas-del-conocimiento"><i class="fa fa-check"></i><b>1.1.1</b> Motivación: Los paradigmas del conocimiento</a></li>
+<li class="chapter" data-level="1.1.2" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#machine-learning-supervisado"><i class="fa fa-check"></i><b>1.1.2</b> Machine learning supervisado</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#por-qu%C3%A9-deep-learning"><i class="fa fa-check"></i><b>1.2</b> ¿Por qué Deep Learning?</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#dimensi%C3%B3n-vc"><i class="fa fa-check"></i><b>1.2.1</b> Dimensión VC</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#el-truco-del-kernel-svm"><i class="fa fa-check"></i><b>1.2.2</b> El truco del Kernel (SVM)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#ingenier%C3%ADa-de-caracteristicas"><i class="fa fa-check"></i><b>1.2.3</b> Ingeniería de caracteristicas</a></li>
+<li class="chapter" data-level="1.2.4" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#beneficios-del-deep-learning"><i class="fa fa-check"></i><b>1.2.4</b> Beneficios del deep learning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="preliminares.html"><a href="preliminares.html"><i class="fa fa-check"></i><b>2</b> Preliminares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="preliminares.html"><a href="preliminares.html#algebra-lineal"><i class="fa fa-check"></i><b>2.1</b> Algebra Lineal</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="preliminares.html"><a href="preliminares.html#introducci%C3%B3n"><i class="fa fa-check"></i><b>2.1.1</b> Introducción</a></li>
+<li class="chapter" data-level="2.1.2" data-path="preliminares.html"><a href="preliminares.html#motivaci%C3%B3n"><i class="fa fa-check"></i><b>2.1.2</b> Motivación</a></li>
+<li class="chapter" data-level="2.1.3" data-path="preliminares.html"><a href="preliminares.html#escalares"><i class="fa fa-check"></i><b>2.1.3</b> Escalares</a></li>
+<li class="chapter" data-level="2.1.4" data-path="preliminares.html"><a href="preliminares.html#vectores-1"><i class="fa fa-check"></i><b>2.1.4</b> Vectores</a></li>
+<li class="chapter" data-level="2.1.5" data-path="preliminares.html"><a href="preliminares.html#matrices-1"><i class="fa fa-check"></i><b>2.1.5</b> Matrices</a></li>
+<li class="chapter" data-level="2.1.6" data-path="preliminares.html"><a href="preliminares.html#tensores"><i class="fa fa-check"></i><b>2.1.6</b> Tensores</a></li>
+<li class="chapter" data-level="2.1.7" data-path="preliminares.html"><a href="preliminares.html#reducciones-sobre-tensores"><i class="fa fa-check"></i><b>2.1.7</b> Reducciones sobre tensores</a></li>
+<li class="chapter" data-level="2.1.8" data-path="preliminares.html"><a href="preliminares.html#producto-punto"><i class="fa fa-check"></i><b>2.1.8</b> Producto punto</a></li>
+<li class="chapter" data-level="2.1.9" data-path="preliminares.html"><a href="preliminares.html#producto-entre-matrices-y-vectores"><i class="fa fa-check"></i><b>2.1.9</b> Producto entre matrices y vectores</a></li>
+<li class="chapter" data-level="2.1.10" data-path="preliminares.html"><a href="preliminares.html#multiplicaci%C3%B3n-matricial"><i class="fa fa-check"></i><b>2.1.10</b> Multiplicación matricial</a></li>
+<li class="chapter" data-level="2.1.11" data-path="preliminares.html"><a href="preliminares.html#normas"><i class="fa fa-check"></i><b>2.1.11</b> Normas</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="preliminares.html"><a href="preliminares.html#c%C3%A1lculo-diferencial"><i class="fa fa-check"></i><b>2.2</b> Cálculo Diferencial</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="preliminares.html"><a href="preliminares.html#introducci%C3%B3n-1"><i class="fa fa-check"></i><b>2.2.1</b> Introducción</a></li>
+<li class="chapter" data-level="2.2.2" data-path="preliminares.html"><a href="preliminares.html#motivaci%C3%B3n-1"><i class="fa fa-check"></i><b>2.2.2</b> Motivación</a></li>
+<li class="chapter" data-level="2.2.3" data-path="preliminares.html"><a href="preliminares.html#derivadas-y-diferenciaci%C3%B3n"><i class="fa fa-check"></i><b>2.2.3</b> Derivadas y diferenciación</a></li>
+<li class="chapter" data-level="2.2.4" data-path="preliminares.html"><a href="preliminares.html#regla-de-la-cadena"><i class="fa fa-check"></i><b>2.2.4</b> Regla de la cadena</a></li>
+<li class="chapter" data-level="2.2.5" data-path="preliminares.html"><a href="preliminares.html#interpretaci%C3%B3n-geom%C3%A9trica-de-la-derivada"><i class="fa fa-check"></i><b>2.2.5</b> Interpretación geométrica de la derivada</a></li>
+<li class="chapter" data-level="2.2.6" data-path="preliminares.html"><a href="preliminares.html#teorema-fundamental-del-c%C3%A1lculo"><i class="fa fa-check"></i><b>2.2.6</b> Teorema fundamental del cálculo</a></li>
+<li class="chapter" data-level="2.2.7" data-path="preliminares.html"><a href="preliminares.html#autodiferenciaci%C3%B3n"><i class="fa fa-check"></i><b>2.2.7</b> Autodiferenciación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html"><i class="fa fa-check"></i><b>3</b> Redes neuronales Lineales para Regresión</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#introducci%C3%B3n-2"><i class="fa fa-check"></i><b>3.1</b> Introducción</a></li>
+<li class="chapter" data-level="3.2" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#regresiones-lineales-simples"><i class="fa fa-check"></i><b>3.2</b> Regresiones lineales simples</a></li>
+<li class="chapter" data-level="3.3" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#funci%C3%B3n-de-p%C3%A9rdida-y-funci%C3%B3n-de-costo"><i class="fa fa-check"></i><b>3.3</b> Función de pérdida y función de costo</a></li>
+<li class="chapter" data-level="3.4" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#supuestos-en-la-regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3.4</b> Supuestos en la regresión lineal</a></li>
+<li class="chapter" data-level="3.5" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#regresi%C3%B3n-lineal-m%C3%BAltiple"><i class="fa fa-check"></i><b>3.5</b> Regresión Lineal Múltiple</a></li>
+<li class="chapter" data-level="3.6" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#estimaci%C3%B3n-de-los-par%C3%A1metros"><i class="fa fa-check"></i><b>3.6</b> Estimación de los parámetros</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#derivaci%C3%B3n-paso-a-paso"><i class="fa fa-check"></i><b>3.6.1</b> Derivación paso a paso</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#bondad-de-ajuste"><i class="fa fa-check"></i><b>3.7</b> Bondad de ajuste</a></li>
+<li class="chapter" data-level="3.8" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#supuestos-del-modelo-lineal-m%C3%BAltiple"><i class="fa fa-check"></i><b>3.8</b> Supuestos del modelo lineal múltiple</a></li>
+<li class="chapter" data-level="3.9" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#regularizaci%C3%B3n-en-la-regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3.9</b> Regularización en la Regresión Lineal</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#ridge-regression"><i class="fa fa-check"></i><b>3.9.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="3.9.2" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#lasso-regression"><i class="fa fa-check"></i><b>3.9.2</b> Lasso Regression</a></li>
+<li class="chapter" data-level="3.9.3" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#elastic-net-regression"><i class="fa fa-check"></i><b>3.9.3</b> Elastic Net Regression</a></li>
+<li class="chapter" data-level="3.9.4" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#comparaci%C3%B3n-de-m%C3%A9todos"><i class="fa fa-check"></i><b>3.9.4</b> Comparación de métodos</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#consideraciones"><i class="fa fa-check"></i><b>3.10</b> Consideraciones</a></li>
+<li class="chapter" data-level="3.11" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#sesgo-y-varianza"><i class="fa fa-check"></i><b>3.11</b> Sesgo y Varianza</a>
+<ul>
+<li class="chapter" data-level="3.11.1" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#sesgo"><i class="fa fa-check"></i><b>3.11.1</b> Sesgo</a></li>
+<li class="chapter" data-level="3.11.2" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#varianza"><i class="fa fa-check"></i><b>3.11.2</b> Varianza</a></li>
+<li class="chapter" data-level="3.11.3" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#compromiso-sesgovarianza"><i class="fa fa-check"></i><b>3.11.3</b> Compromiso sesgo–varianza</a></li>
+<li class="chapter" data-level="3.11.4" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#en-regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3.11.4</b> En regresión lineal</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#conclusi%C3%B3n-de-la-secci%C3%B3n"><i class="fa fa-check"></i><b>3.12</b> Conclusión de la sección</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html"><i class="fa fa-check"></i><b>4</b> Redes neuronales Lineales para Clasificación</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#modelos-lineales-generalizados"><i class="fa fa-check"></i><b>4.1</b> Modelos Lineales Generalizados</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#historia-1"><i class="fa fa-check"></i><b>4.1.1</b> Historia</a></li>
+<li class="chapter" data-level="4.1.2" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#definici%C3%B3n"><i class="fa fa-check"></i><b>4.1.2</b> Definición</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#regresi%C3%B3n-log%C3%ADstica-para-clasificaci%C3%B3n"><i class="fa fa-check"></i><b>4.2</b> Regresión Logística para Clasificación</a></li>
+<li class="chapter" data-level="4.3" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#redes-neuronales"><i class="fa fa-check"></i><b>4.3</b> Redes neuronales</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#historia-2"><i class="fa fa-check"></i><b>4.3.1</b> Historia</a></li>
+<li class="chapter" data-level="4.3.2" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#definici%C3%B3n-1"><i class="fa fa-check"></i><b>4.3.2</b> Definición</a></li>
+<li class="chapter" data-level="4.3.3" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#neurona"><i class="fa fa-check"></i><b>4.3.3</b> Neurona</a></li>
+<li class="chapter" data-level="4.3.4" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#redes-neuronales-1"><i class="fa fa-check"></i><b>4.3.4</b> Redes Neuronales</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#notas-adicionales"><i class="fa fa-check"></i>Notas adicionales</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html"><i class="fa fa-check"></i><b>5</b> Perceptrón Multicapa</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#perceptrones-multicapa"><i class="fa fa-check"></i><b>5.1</b> Perceptrones multicapa</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#capas-ocultas"><i class="fa fa-check"></i><b>5.1.1</b> Capas ocultas</a></li>
+<li class="chapter" data-level="5.1.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#funciones-de-activaci%C3%B3n"><i class="fa fa-check"></i><b>5.1.2</b> Funciones de activación</a></li>
+<li class="chapter" data-level="5.1.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#discusi%C3%B3n"><i class="fa fa-check"></i><b>5.1.3</b> Discusión</a></li>
+<li class="chapter" data-level="5.1.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios"><i class="fa fa-check"></i><b>5.1.4</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-de-perceptrones-multicapa"><i class="fa fa-check"></i><b>5.2</b> Implementación de Perceptrones Multicapa</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-desde-cero"><i class="fa fa-check"></i><b>5.2.1</b> Implementación desde Cero</a></li>
+<li class="chapter" data-level="5.2.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n"><i class="fa fa-check"></i><b>5.2.2</b> Implementación</a></li>
+<li class="chapter" data-level="5.2.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-1"><i class="fa fa-check"></i><b>5.2.3</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#forward-propagation-backward-propagation"><i class="fa fa-check"></i><b>5.3</b> Forward Propagation, Backward Propagation</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#forward-propagation"><i class="fa fa-check"></i><b>5.3.1</b> Forward Propagation</a></li>
+<li class="chapter" data-level="5.3.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#backpropagation"><i class="fa fa-check"></i><b>5.3.2</b> Backpropagation</a></li>
+<li class="chapter" data-level="5.3.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#resumen-6"><i class="fa fa-check"></i><b>5.3.3</b> Resumen</a></li>
+<li class="chapter" data-level="5.3.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-2"><i class="fa fa-check"></i><b>5.3.4</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#estabilidad-num%C3%A9rica-e-inicializaci%C3%B3n"><i class="fa fa-check"></i><b>5.4</b> Estabilidad Numérica e Inicialización</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#explotaci%C3%B3n-y-desvanecimiento-de-gradientes"><i class="fa fa-check"></i><b>5.4.1</b> Explotación y Desvanecimiento de Gradientes</a></li>
+<li class="chapter" data-level="5.4.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#inicializaci%C3%B3n-param%C3%A9trica"><i class="fa fa-check"></i><b>5.4.2</b> Inicialización paramétrica</a></li>
+<li class="chapter" data-level="5.4.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-3"><i class="fa fa-check"></i><b>5.4.3</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#generalizaci%C3%B3n-en-deep-learning"><i class="fa fa-check"></i><b>5.5</b> Generalización en Deep Learning</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#sobreajuste-y-regularizaci%C3%B3n"><i class="fa fa-check"></i><b>5.5.1</b> Sobreajuste y Regularización</a></li>
+<li class="chapter" data-level="5.5.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#inspiraci%C3%B3n-de-los-no-param%C3%A9tricos"><i class="fa fa-check"></i><b>5.5.2</b> Inspiración de los no paramétricos</a></li>
+<li class="chapter" data-level="5.5.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#early-stopping"><i class="fa fa-check"></i><b>5.5.3</b> Early Stopping</a></li>
+<li class="chapter" data-level="5.5.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#m%C3%A9todos-cl%C3%A1sicos-de-regularizaci%C3%B3n-para-redes-profundas"><i class="fa fa-check"></i><b>5.5.4</b> Métodos clásicos de regularización para redes profundas</a></li>
+<li class="chapter" data-level="5.5.5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-4"><i class="fa fa-check"></i><b>5.5.5</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#dropout"><i class="fa fa-check"></i><b>5.6</b> Dropout</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#dropout-en-la-pr%C3%A1ctica"><i class="fa fa-check"></i><b>5.6.1</b> Dropout en la práctica</a></li>
+<li class="chapter" data-level="5.6.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-desde-cero-1"><i class="fa fa-check"></i><b>5.6.2</b> Implementación desde cero</a></li>
+<li class="chapter" data-level="5.6.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#definici%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.6.3</b> Definición del modelo</a></li>
+<li class="chapter" data-level="5.6.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#entrenamiento-2"><i class="fa fa-check"></i><b>5.6.4</b> Entrenamiento</a></li>
+<li class="chapter" data-level="5.6.5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-concisa"><i class="fa fa-check"></i><b>5.6.5</b> Implementación concisa</a></li>
+<li class="chapter" data-level="5.6.6" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#resumen-7"><i class="fa fa-check"></i><b>5.6.6</b> Resumen</a></li>
+<li class="chapter" data-level="5.6.7" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-5"><i class="fa fa-check"></i><b>5.6.7</b> Ejercicios</a></li>
+<li class="chapter" data-level="5.6.8" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#dropout-en-la-pr%C3%A1ctica-1"><i class="fa fa-check"></i><b>5.6.8</b> Dropout en la práctica</a></li>
+<li class="chapter" data-level="5.6.9" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-desde-cero-2"><i class="fa fa-check"></i><b>5.6.9</b> Implementación desde cero</a></li>
+<li class="chapter" data-level="5.6.10" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#definici%C3%B3n-del-modelo-1"><i class="fa fa-check"></i><b>5.6.10</b> Definición del modelo</a></li>
+<li class="chapter" data-level="5.6.11" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#entrenamiento-3"><i class="fa fa-check"></i><b>5.6.11</b> Entrenamiento</a></li>
+<li class="chapter" data-level="5.6.12" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-concisa-1"><i class="fa fa-check"></i><b>5.6.12</b> Implementación concisa</a></li>
+<li class="chapter" data-level="5.6.13" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#resumen-8"><i class="fa fa-check"></i><b>5.6.13</b> Resumen</a></li>
+<li class="chapter" data-level="5.6.14" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-6"><i class="fa fa-check"></i><b>5.6.14</b> Ejercicios</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="gpus.html"><a href="gpus.html"><i class="fa fa-check"></i><b>6</b> GPUs</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="gpus.html"><a href="gpus.html#paralelismo-y-concurrencia"><i class="fa fa-check"></i><b>6.1</b> Paralelismo y concurrencia</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="gpus.html"><a href="gpus.html#reflexi%C3%B3n-concurrencia-y-paralelismo"><i class="fa fa-check"></i><b>6.1.1</b> Reflexión: Concurrencia y Paralelismo</a></li>
+<li class="chapter" data-level="6.1.2" data-path="gpus.html"><a href="gpus.html#relaci%C3%B3n-entre-concurrencia-y-paralelismo"><i class="fa fa-check"></i><b>6.1.2</b> Relación entre concurrencia y paralelismo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="gpus.html"><a href="gpus.html#complejidad-computacional"><i class="fa fa-check"></i><b>6.2</b> Complejidad Computacional</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="gpus.html"><a href="gpus.html#analizando-la-complejidad-computacional-en-el-problema-de-ordenamiento-de-n%C3%BAmeros"><i class="fa fa-check"></i><b>6.2.1</b> Analizando la complejidad computacional en el problema de ordenamiento de números</a></li>
+<li class="chapter" data-level="6.2.2" data-path="gpus.html"><a href="gpus.html#notaci%C3%B3n-big-o"><i class="fa fa-check"></i><b>6.2.2</b> Notación Big O</a></li>
+<li class="chapter" data-level="6.2.3" data-path="gpus.html"><a href="gpus.html#bubble-sort-vs-merge-sort."><i class="fa fa-check"></i><b>6.2.3</b> Bubble sort vs Merge sort.</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="gpus.html"><a href="gpus.html#el-papel-del-hardware"><i class="fa fa-check"></i><b>6.3</b> El papel del hardware</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="gpus.html"><a href="gpus.html#implementaci%C3%B3n-de-multiplicaci%C3%B3n-de-matrices-en-distintas-arquitecturas"><i class="fa fa-check"></i><b>6.3.1</b> Implementación de multiplicación de matrices en distintas arquitecturas</a></li>
+<li class="chapter" data-level="6.3.2" data-path="gpus.html"><a href="gpus.html#es-viable-acelerar-cualquier-algoritmo-en-gpu-tpu"><i class="fa fa-check"></i><b>6.3.2</b> ¿Es viable acelerar cualquier algoritmo en GPU / TPU?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html"><i class="fa fa-check"></i><b>7</b> Redes Neuronales Convolucionales</a></li>
+<li class="chapter" data-level="8" data-path="redes-neuronales-convolucionales-modernas.html"><a href="redes-neuronales-convolucionales-modernas.html"><i class="fa fa-check"></i><b>8</b> Redes Neuronales Convolucionales Modernas</a></li>
+<li class="chapter" data-level="9" data-path="redes-neuronales-recurrentes.html"><a href="redes-neuronales-recurrentes.html"><i class="fa fa-check"></i><b>9</b> Redes Neuronales Recurrentes</a></li>
+<li class="chapter" data-level="10" data-path="redes-neuronales-recurrentes-modernas.html"><a href="redes-neuronales-recurrentes-modernas.html"><i class="fa fa-check"></i><b>10</b> Redes Neuronales Recurrentes Modernas</a></li>
+<li class="chapter" data-level="11" data-path="mecanismos-de-atención-y-transformers.html"><a href="mecanismos-de-atención-y-transformers.html"><i class="fa fa-check"></i><b>11</b> Mecanismos de Atención y Transformers</a></li>
+<li class="part"><span><b>Parte 3: Escalabilidad, Eficiencia y Aplicaciones</b></span></li>
+<li class="chapter" data-level="12" data-path="algoritmos-de-optimización.html"><a href="algoritmos-de-optimización.html"><i class="fa fa-check"></i><b>12</b> Algoritmos de Optimización</a></li>
+<li class="chapter" data-level="" data-path="miscellanea-intro-to-graph-neural-networks.html"><a href="miscellanea-intro-to-graph-neural-networks.html"><i class="fa fa-check"></i>Miscellanea: Intro to Graph Neural Networks</a></li>
+<li class="chapter" data-level="13" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html"><i class="fa fa-check"></i><b>13</b> Introducción a la Teoría de Gráficas.</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#qu%C3%A9-es-una-gr%C3%A1fica"><i class="fa fa-check"></i><b>13.1</b> ¿Qué es una gráfica?</a></li>
+<li class="chapter" data-level="13.2" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#problemas-cl%C3%A1sicos-de-teor%C3%ADa-de-gr%C3%A1ficas-selecci%C3%B3n"><i class="fa fa-check"></i><b>13.2</b> Problemas clásicos de teoría de gráficas (selección)</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#caminos-y-conectividad"><i class="fa fa-check"></i><b>13.2.1</b> Caminos y conectividad</a></li>
+<li class="chapter" data-level="13.2.2" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#detecci%C3%B3n-de-comunidades"><i class="fa fa-check"></i><b>13.2.2</b> Detección de comunidades</a></li>
+<li class="chapter" data-level="13.2.3" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#centralidad-e-influencia"><i class="fa fa-check"></i><b>13.2.3</b> Centralidad e influencia</a></li>
+<li class="chapter" data-level="13.2.4" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#emparejamiento-y-asignaci%C3%B3n"><i class="fa fa-check"></i><b>13.2.4</b> Emparejamiento y asignación</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#ecosistema-de-herramientas-para-el-trabajo-con-grafos"><i class="fa fa-check"></i><b>13.3</b> Ecosistema de Herramientas para el Trabajo con Grafos</a></li>
+<li class="chapter" data-level="13.4" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#por-qu%C3%A9-combinar-graficas-y-deep-learning"><i class="fa fa-check"></i><b>13.4</b> ¿Por qué combinar Graficas y Deep Learning?</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#a.-multilayer-percepton-en-las-features-tabulares-de-cora"><i class="fa fa-check"></i><b>13.4.1</b> A. Multilayer Percepton en las features tabulares de Cora</a></li>
+<li class="chapter" data-level="13.4.2" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#b.-modelo-basado-en-una-capa-lineal-que-se-multiplica-por-la-matriz-de-adyacencia."><i class="fa fa-check"></i><b>13.4.2</b> B. Modelo basado en una capa lineal que se multiplica por la matriz de adyacencia.</a></li>
+<li class="chapter" data-level="13.4.3" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#qu%C3%A9-esta-haciendo-la-red"><i class="fa fa-check"></i><b>13.4.3</b> ¿Qué esta haciendo la red?</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#tipos-de-problemas-de-gnn"><i class="fa fa-check"></i><b>13.5</b> Tipos de problemas de GNN</a></li>
+<li class="chapter" data-level="13.6" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#existe-un-teorema-de-aproximaci%C3%B3n-univeral-tau-para-gnns"><i class="fa fa-check"></i><b>13.6</b> ¿Existe un Teorema de Aproximación Univeral (TAU) para GNN’s?</a></li>
+<li class="chapter" data-level="13.7" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#enfoques-de-aprendizaje-transductivo-e-inductivo"><i class="fa fa-check"></i><b>13.7</b> Enfoques de aprendizaje transductivo e inductivo</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="graph-neural-network.html"><a href="graph-neural-network.html"><i class="fa fa-check"></i><b>14</b> Graph Neural Network</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="graph-neural-network.html"><a href="graph-neural-network.html#pytorch-geometric-y-graph-neural-networks"><i class="fa fa-check"></i><b>14.1</b> PyTorch Geometric y Graph Neural Networks</a></li>
+<li class="chapter" data-level="14.2" data-path="graph-neural-network.html"><a href="graph-neural-network.html#graph-convolutional-networks-gnn"><i class="fa fa-check"></i><b>14.2</b> Graph Convolutional Networks (GNN)</a></li>
+<li class="chapter" data-level="14.3" data-path="graph-neural-network.html"><a href="graph-neural-network.html#c%C3%B3mo-funcionan"><i class="fa fa-check"></i><b>14.3</b> ¿Cómo funcionan?</a></li>
+<li class="chapter" data-level="14.4" data-path="graph-neural-network.html"><a href="graph-neural-network.html#implementaci%C3%B3n-en-pytorch-geometric"><i class="fa fa-check"></i><b>14.4</b> Implementación en PyTorch Geometric</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="graph-neural-network.html"><a href="graph-neural-network.html#ejemplo-predicci%C3%B3n-del-volumen-de-tr%C3%A1fico-en-wikipedia-regresi%C3%B3n"><i class="fa fa-check"></i><b>14.4.1</b> Ejemplo: Predicción del volumen de tráfico en Wikipedia (Regresión)</a></li>
+<li class="chapter" data-level="14.4.2" data-path="graph-neural-network.html"><a href="graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa"><i class="fa fa-check"></i><b>14.4.2</b> Ejemplo: Clasificación de artículos de investigación por categoría</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="graph-neural-network.html"><a href="graph-neural-network.html#graph-attention-network-gat"><i class="fa fa-check"></i><b>14.5</b> Graph Attention Network (GAT)</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="graph-neural-network.html"><a href="graph-neural-network.html#c%C3%B3mo-funcionan-1"><i class="fa fa-check"></i><b>14.5.1</b> ¿Cómo funcionan?</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="graph-neural-network.html"><a href="graph-neural-network.html#implementaci%C3%B3n-en-pytorch-geometric-1"><i class="fa fa-check"></i><b>14.6</b> Implementación en PyTorch Geometric</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="graph-neural-network.html"><a href="graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa-parte-ii"><i class="fa fa-check"></i><b>14.6.1</b> Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html"><i class="fa fa-check"></i><b>15</b> Embeddings y Graph Neural Network</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#qu%C3%A9-es-un-embedding"><i class="fa fa-check"></i><b>15.1</b> ¿Qué es un embedding?</a></li>
+<li class="chapter" data-level="15.2" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#word2vec"><i class="fa fa-check"></i><b>15.2</b> Word2Vec</a></li>
+<li class="chapter" data-level="15.3" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#node2vec"><i class="fa fa-check"></i><b>15.3</b> Node2Vec</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#ejemplo-aplicando-el-modelo-de-skipgrams-a-random-walks"><i class="fa fa-check"></i><b>15.3.1</b> Ejemplo: Aplicando el modelo de SkipGrams a Random Walks</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#sageconv"><i class="fa fa-check"></i><b>15.4</b> SageConv</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa-parte-ii-1"><i class="fa fa-check"></i><b>15.4.1</b> Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)</a></li>
+<li class="chapter" data-level="15.4.2" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa-parte-ii-2"><i class="fa fa-check"></i><b>15.4.2</b> Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="./"><img src="img/aif-logo.png" width="280"></a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Deep Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="graph-neural-network" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Capítulo 14</span> Graph Neural Network<a href="graph-neural-network.html#graph-neural-network" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="pytorch-geometric-y-graph-neural-networks" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> PyTorch Geometric y Graph Neural Networks<a href="graph-neural-network.html#pytorch-geometric-y-graph-neural-networks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Como hemos visto, las Graph Neural Network son una combinación de redes
+neuronales con datos no estructurados en forma de gráficas. Este
+proceso es interesante, pues en el proceso de aprendizaje los pesos
+incorporan la estructura subyacente de las gráficas para
+enriquecer las predicciones.</p>
+<p>Como hemos comentado previamente, <a href="https://pytorch-geometric.readthedocs.io/en/2.7.0/index.html">PyTorch Geometric</a>
+(PyG) es una libreria de Python que está escrita basándose en el framework.</p>
+<p>En PyG los objetos base para representar gráficas son de tipo
+<code>torch_geometric.data.Data</code>, que contienen los siguientes atributos por defecto:</p>
+<ul>
+<li><code>data.x</code>: Matriz de características de los nodos con forma <code>[num_nodes, num_node_features]</code>.</li>
+<li><code>data.edge_index</code>: En una representación de las aristas del grafo empleando el formato <strong>Coordinate Format (COO)</strong>
+(<a href="https://docs.pytorch.org/docs/stable/sparse.html#sparse-coo-docs" class="uri">https://docs.pytorch.org/docs/stable/sparse.html#sparse-coo-docs</a>) con forma <code>[2, num_edges]</code> y tipo <code>torch.long</code>.</li>
+<li><code>data.edge_attr</code>: Matriz de features numéricas de las nodos con forma <code>[num_edges, num_edge_features]</code>.</li>
+<li><code>data.y</code>: Objetivo contra el cual entrenar (puede tener una forma arbitraria); por ejemplo, objetivos a nivel de nodo con forma <code>[num_nodes, *]</code> o objetivos a nivel de grafo con forma <code>[1, *]</code>.</li>
+<li><code>data.pos</code>: Matriz de posición de los nodos con forma [num_nodes, num_dimensions].</li>
+</ul>
+<p>Cabe destacar que estos obejtos son no obligatorios. para adaptarse a las distintas
+tareas de aprendizaje de GNN’s.</p>
+<p>Para ejemplificar lo anterior veremos con se construye un GNN usando PyG. Primero definiremos
+la matriz de adyancencias y la convertiremos en formato <em>COO</em>. Vamos a visualizarla con NetworkX.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb124-1"><a href="graph-neural-network.html#cb124-1" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb124-2"><a href="graph-neural-network.html#cb124-2" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb124-3"><a href="graph-neural-network.html#cb124-3" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb124-4"><a href="graph-neural-network.html#cb124-4" tabindex="-1"></a></span>
+<span id="cb124-5"><a href="graph-neural-network.html#cb124-5" tabindex="-1"></a><span class="co"># Adjacency Matrix from Numpy</span></span>
+<span id="cb124-6"><a href="graph-neural-network.html#cb124-6" tabindex="-1"></a>A <span class="op">=</span> np.array([</span>
+<span id="cb124-7"><a href="graph-neural-network.html#cb124-7" tabindex="-1"></a>    [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>],</span>
+<span id="cb124-8"><a href="graph-neural-network.html#cb124-8" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
+<span id="cb124-9"><a href="graph-neural-network.html#cb124-9" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb124-10"><a href="graph-neural-network.html#cb124-10" tabindex="-1"></a>    [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb124-11"><a href="graph-neural-network.html#cb124-11" tabindex="-1"></a>])</span>
+<span id="cb124-12"><a href="graph-neural-network.html#cb124-12" tabindex="-1"></a></span>
+<span id="cb124-13"><a href="graph-neural-network.html#cb124-13" tabindex="-1"></a><span class="co"># 2. Create the Graph. The nodes will be labeled 0, 1, 2, 3</span></span>
+<span id="cb124-14"><a href="graph-neural-network.html#cb124-14" tabindex="-1"></a>G <span class="op">=</span> nx.from_numpy_array(A)</span>
+<span id="cb124-15"><a href="graph-neural-network.html#cb124-15" tabindex="-1"></a></span>
+<span id="cb124-16"><a href="graph-neural-network.html#cb124-16" tabindex="-1"></a><span class="co"># 3. Visualize the graph</span></span>
+<span id="cb124-17"><a href="graph-neural-network.html#cb124-17" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G)</span>
+<span id="cb124-18"><a href="graph-neural-network.html#cb124-18" tabindex="-1"></a>nx.draw(</span>
+<span id="cb124-19"><a href="graph-neural-network.html#cb124-19" tabindex="-1"></a>    G,</span>
+<span id="cb124-20"><a href="graph-neural-network.html#cb124-20" tabindex="-1"></a>    pos, </span>
+<span id="cb124-21"><a href="graph-neural-network.html#cb124-21" tabindex="-1"></a>    with_labels<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb124-22"><a href="graph-neural-network.html#cb124-22" tabindex="-1"></a>    node_color<span class="op">=</span><span class="st">&#39;skyblue&#39;</span>,</span>
+<span id="cb124-23"><a href="graph-neural-network.html#cb124-23" tabindex="-1"></a>    node_size<span class="op">=</span><span class="dv">700</span>,</span>
+<span id="cb124-24"><a href="graph-neural-network.html#cb124-24" tabindex="-1"></a>    edge_color<span class="op">=</span><span class="st">&#39;k&#39;</span>,</span>
+<span id="cb124-25"><a href="graph-neural-network.html#cb124-25" tabindex="-1"></a>    linewidths<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb124-26"><a href="graph-neural-network.html#cb124-26" tabindex="-1"></a>    font_size<span class="op">=</span><span class="dv">15</span></span>
+<span id="cb124-27"><a href="graph-neural-network.html#cb124-27" tabindex="-1"></a>    )</span>
+<span id="cb124-28"><a href="graph-neural-network.html#cb124-28" tabindex="-1"></a>plt.title(<span class="st">&quot;Graph from Adjacency Matrix (Undirected)&quot;</span>)</span>
+<span id="cb124-29"><a href="graph-neural-network.html#cb124-29" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-138-1.png" alt="" width="672" /></p>
+<p>Ahora convertimos la matriz de adyacencias a formato de coordenadas:</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb125-1"><a href="graph-neural-network.html#cb125-1" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb125-2"><a href="graph-neural-network.html#cb125-2" tabindex="-1"></a><span class="im">from</span> torch_geometric.utils <span class="im">import</span> (dense_to_sparse, to_dense_adj)</span>
+<span id="cb125-3"><a href="graph-neural-network.html#cb125-3" tabindex="-1"></a>A_np <span class="op">=</span> np.array([</span>
+<span id="cb125-4"><a href="graph-neural-network.html#cb125-4" tabindex="-1"></a>    [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>],</span>
+<span id="cb125-5"><a href="graph-neural-network.html#cb125-5" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
+<span id="cb125-6"><a href="graph-neural-network.html#cb125-6" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb125-7"><a href="graph-neural-network.html#cb125-7" tabindex="-1"></a>    [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb125-8"><a href="graph-neural-network.html#cb125-8" tabindex="-1"></a>])</span>
+<span id="cb125-9"><a href="graph-neural-network.html#cb125-9" tabindex="-1"></a></span>
+<span id="cb125-10"><a href="graph-neural-network.html#cb125-10" tabindex="-1"></a><span class="co"># Convertimos a Tensor de PyTorch (necesario para PyG)</span></span>
+<span id="cb125-11"><a href="graph-neural-network.html#cb125-11" tabindex="-1"></a>A <span class="op">=</span> torch.from_numpy(A_np)</span>
+<span id="cb125-12"><a href="graph-neural-network.html#cb125-12" tabindex="-1"></a></span>
+<span id="cb125-13"><a href="graph-neural-network.html#cb125-13" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;=&quot;</span><span class="op">*</span><span class="dv">40</span>)</span></code></pre></div>
+<pre><code>## ========================================</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb127-1"><a href="graph-neural-network.html#cb127-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Adyacencias en formato COO&quot;</span>)</span></code></pre></div>
+<pre><code>## Adyacencias en formato COO</code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb129-1"><a href="graph-neural-network.html#cb129-1" tabindex="-1"></a><span class="co"># dense_to_sparse devuelve (edge_index, edge_attr)</span></span>
+<span id="cb129-2"><a href="graph-neural-network.html#cb129-2" tabindex="-1"></a>edge_index, _ <span class="op">=</span> dense_to_sparse(A)</span>
+<span id="cb129-3"><a href="graph-neural-network.html#cb129-3" tabindex="-1"></a><span class="bu">print</span>(edge_index)</span></code></pre></div>
+<pre><code>## tensor([[0, 0, 1, 1, 1, 2, 2, 3],
+##         [1, 2, 0, 2, 3, 0, 1, 1]])</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb131-1"><a href="graph-neural-network.html#cb131-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;=&quot;</span><span class="op">*</span><span class="dv">40</span>)</span></code></pre></div>
+<pre><code>## ========================================</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb133-1"><a href="graph-neural-network.html#cb133-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Reconstruimos la matriz densa de adyacencias&quot;</span>)</span></code></pre></div>
+<pre><code>## Reconstruimos la matriz densa de adyacencias</code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb135-1"><a href="graph-neural-network.html#cb135-1" tabindex="-1"></a>dense_adj <span class="op">=</span> to_dense_adj(edge_index)</span>
+<span id="cb135-2"><a href="graph-neural-network.html#cb135-2" tabindex="-1"></a><span class="bu">print</span>(dense_adj)</span></code></pre></div>
+<pre><code>## tensor([[[0., 1., 1., 0.],
+##          [1., 0., 1., 1.],
+##          [1., 1., 0., 0.],
+##          [0., 1., 0., 0.]]])</code></pre>
+<p>Ahora estamos en condiciones de definir el objeto de PyG que representa a las gráfica,
+asignaremos numeros dummy a las features:</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb137-1"><a href="graph-neural-network.html#cb137-1" tabindex="-1"></a><span class="im">from</span> torch_geometric.data <span class="im">import</span> Data</span>
+<span id="cb137-2"><a href="graph-neural-network.html#cb137-2" tabindex="-1"></a></span>
+<span id="cb137-3"><a href="graph-neural-network.html#cb137-3" tabindex="-1"></a>x <span class="op">=</span> torch.tensor(np.random.rand(<span class="dv">4</span>, <span class="dv">5</span>), dtype<span class="op">=</span>torch.<span class="bu">float</span>)</span>
+<span id="cb137-4"><a href="graph-neural-network.html#cb137-4" tabindex="-1"></a></span>
+<span id="cb137-5"><a href="graph-neural-network.html#cb137-5" tabindex="-1"></a>data <span class="op">=</span> Data(x<span class="op">=</span>x, edge_index<span class="op">=</span>edge_index)</span>
+<span id="cb137-6"><a href="graph-neural-network.html#cb137-6" tabindex="-1"></a></span>
+<span id="cb137-7"><a href="graph-neural-network.html#cb137-7" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;=&quot;</span><span class="op">*</span><span class="dv">40</span>)</span></code></pre></div>
+<pre><code>## ========================================</code></pre>
+<div class="sourceCode" id="cb139"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb139-1"><a href="graph-neural-network.html#cb139-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Features numericas de los nodos&quot;</span>)</span></code></pre></div>
+<pre><code>## Features numericas de los nodos</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb141-1"><a href="graph-neural-network.html#cb141-1" tabindex="-1"></a><span class="bu">print</span>(data.x)</span></code></pre></div>
+<pre><code>## tensor([[0.9596, 0.7039, 0.2673, 0.8562, 0.2083],
+##         [0.9710, 0.9893, 0.8053, 0.8788, 0.8078],
+##         [0.3407, 0.1069, 0.1425, 0.9853, 0.0040],
+##         [0.2954, 0.7467, 0.1102, 0.4946, 0.8197]])</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb143-1"><a href="graph-neural-network.html#cb143-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;=&quot;</span><span class="op">*</span><span class="dv">40</span>)</span></code></pre></div>
+<pre><code>## ========================================</code></pre>
+<div class="sourceCode" id="cb145"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb145-1"><a href="graph-neural-network.html#cb145-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Informacion de adyacencias&quot;</span>)</span></code></pre></div>
+<pre><code>## Informacion de adyacencias</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb147-1"><a href="graph-neural-network.html#cb147-1" tabindex="-1"></a><span class="bu">print</span>(data.edge_index)</span></code></pre></div>
+<pre><code>## tensor([[0, 0, 1, 1, 1, 2, 2, 3],
+##         [1, 2, 0, 2, 3, 0, 1, 1]])</code></pre>
+<p>Finalmente a la hora de predecir, los modelos de Pytorch reciben los datos de las
+features numericas de cada nodo, así como el indice de las aristas que le corresponde</p>
+<pre><code>model(data.x, data.edge_index)</code></pre>
+</div>
+<div id="graph-convolutional-networks-gnn" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Graph Convolutional Networks (GNN)<a href="graph-neural-network.html#graph-convolutional-networks-gnn" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para entender las GCN, primero debemos mirar hacia las CNN (Convolutional Neural
+Networks) tradicionales. Las CNN son herramientas imágenes, pero las
+imágenes son, en esencia, grafos muy ordenados como una rejilla perfecta de píxeles.</p>
+<p><img src="img/21-gnn/conv_nn.png" alt="" width="400" style="display: block; margin: auto;" /></p>
+<p>El problema surge cuando los datos son no euclidianos. Por ejemplo, en una red
+social un usuario puede tener 5 amigos, otro 500. No hay un orden fijo y no
+existe precisamente una dirección de “arriba” o “abajo” clara como en una foto.</p>
+<p>De hecho, en una red social la estructura de conexiones es irregular y dinámica.</p>
+<p>Esto motiva la necesidad tener modelos que extraigan características e
+información de los nodos (quienes son los usuarios) y de la estructura local
+(quiénes son sus amigos y cómo se relacionan).</p>
+</div>
+<div id="cómo-funcionan" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> ¿Cómo funcionan?<a href="graph-neural-network.html#c%C3%B3mo-funcionan" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Dichas redes fueron introducidas por Thomas N. Kipf y Max Welling (ver
+<a href="https://openreview.net/pdf?id=SJU4ayYgl" class="uri">https://openreview.net/pdf?id=SJU4ayYgl</a>). La idea central de una convolución en
+grafos es el <em>Message Passing</em>, es decir, que la estructura de una gráfica
+permite que los nodos compartan la información de sus features junto con sus
+vecinos en la red y ponderandolo por los pesos que la red aprende en su proceso
+de entrenamiento.</p>
+<p>Esto generaliza en algún sentido la acción de las redes convolucionales que procesan
+imagenes, pero en vez de deslizar una ventana cuadrada (filtro) sobre píxeles,
+los nodos “interrogan” a sus vecinos.</p>
+<p><img src="img/21-gnn/message_passing.png" alt="" width="1094" style="display: block; margin: auto;" /></p>
+<p>El proceso se resume en tres pasos clave que ocurren en cada capa: 1) <strong>Agregación:</strong> Cada nodo recolecta las características (vectores de datos) de sus vecinos inmediatos. Dado que las gráficas pueden ser etiquetadas de forma distinta, es de particular interés que las tranformaciones de agregación sean <em>invariantes bajo permutaciones</em>, 2) <strong>Actualización:</strong> El nodo combina esa información vecina con su propia información actual, 3) <strong>Transformación:</strong> Se aplica una función matemática (normalmente una matriz de pesos aprendible y una función de activación como ReLU) para generar una nueva representación del nodo.</p>
+<p>Para mayor referencia, presentamos una expresion matematica de como se lleva
+a cabo éste proceso en tales redes:</p>
+<p><span class="math display">\[\begin{equation}
+h_i^{(l+1)} = \sigma \left( \sum_{j \in \mathcal{N}(i) \cup \{i\}} \frac{1}{c_{ij}} h_j^{(l)} W^{(l)} \right)
+\end{equation}\]</span></p>
+<ul>
+<li><span class="math inline">\(\mathcal{N}(i) \cup \{i\}\)</span>: Representa la vecindad del nodo <span class="math inline">\(i\)</span> incluyendo al
+propio nodo (esto se conoce como añadir para no olvidar la información propia).</li>
+<li><span class="math inline">\(h_j^{(l)}\)</span>: El estado del nodo vecino <span class="math inline">\(j\)</span> en la capa anterior.</li>
+<li><span class="math inline">\(W^{(l)}\)</span>: Una matriz de pesos compartida que la red aprende durante el entrenamiento.</li>
+<li><span class="math inline">\(c_{ij}\)</span>: Un factor de normalización (típicamente <span class="math inline">\(\sqrt{d_i d_j}\)</span>) que evita
+que los nodos con muchos vecinos tengan valores excesivamente altos, estabilizando el proceso de entrenamiento.</li>
+<li><span class="math inline">\(\sigma\)</span>: Una función de activación no lineal (como <span class="math inline">\(\text{ReLU}\)</span> o <span class="math inline">\(\text{Sigmoid}\)</span>).</li>
+<li><span class="math inline">\(h_i^{(l+1)}\)</span>: Es el nuevo vector de características () del nodo <span class="math inline">\(i\)</span> tras la convolución.</li>
+</ul>
+<p><strong>Nota:</strong> En el capítulo previo, el ejemplo con el que se introdujo a las
+GNN’s, la matriz de adyacencias no se normalizó.</p>
+<p>Alternativamente, la red se puede presentar en forma matricial:</p>
+<p><span class="math display">\[\begin{equation}
+H^{(l+1)} = \sigma \left( \tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} H^{(l)} W^{(l)} \right)
+\end{equation}\]</span></p>
+<ul>
+<li><span class="math inline">\(H^{(l)} \in \mathbb{R}^{N \times F}\)</span>: Matriz de activaciones en la capa <span class="math inline">\(l\)</span>.</li>
+<li><span class="math inline">\(\tilde{A} = A + I_N\)</span>: Matriz de adyacencia con auto-bucles (self-loops).</li>
+<li><span class="math inline">\(\tilde{D}_{ii} = \sum_j \tilde{A}_{ij}\)</span>: Matriz diagonal de grados de <span class="math inline">\(\tilde{A}\)</span>.</li>
+<li><span class="math inline">\(W^{(l)} \in \mathbb{R}^{F \times F&#39;}\)</span>: Matriz de pesos entrenables para la capa <span class="math inline">\(l\)</span>.</li>
+<li><span class="math inline">\(\sigma(\cdot)\)</span>: Función de activación no lineal (e.g., ReLU).</li>
+</ul>
+<p>La siguiente es una representación de una GNN con capaz convolucionales:</p>
+<p><img src="img/21-gnn/gcn_web.png" alt="" width="120%" style="display: block; margin: auto;" /></p>
+<p>La representación matricial nos ayuda a tener una intución de cómo red conjunta
+en el problema a difernetes ejes; por un lado involucra un componente estrutural
+al basarse directamente en los nodos y compartes informacion con su vecindad. En
+segund termino a través de dicha herramienta los nodos comparten información
+resumida de todos los nodos que están a k pasos de distancia de él.</p>
+<p>Adicionalmente, utilizan representaciones matriciales de la teoria de gráficas
+clásica como la matriz de adyacencias, la diognal de grados o el Laplaciano del
+Grafo para operar en el dominio de las frecuencias.</p>
+</div>
+<div id="implementación-en-pytorch-geometric" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> Implementación en PyTorch Geometric<a href="graph-neural-network.html#implementaci%C3%B3n-en-pytorch-geometric" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ejemplo-predicción-del-volumen-de-tráfico-en-wikipedia-regresión" class="section level3 hasAnchor" number="14.4.1">
+<h3><span class="header-section-number">14.4.1</span> Ejemplo: Predicción del volumen de tráfico en Wikipedia (Regresión)<a href="graph-neural-network.html#ejemplo-predicci%C3%B3n-del-volumen-de-tr%C3%A1fico-en-wikipedia-regresi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El siguiente ejemplo muestra como emplear las GCN para predecir el volumen de tráfico
+en algunos sitios Wikipedia, es decir es un problema de Regresión.</p>
+<p>En este sentido, los datos se recopilaron de la Wikipedia en inglés (diciembre de 2018).
+Tales se asocian a redes de páginas sobre temas específicos (camaleones, cocodrilos y ardillas) donde los nodos representan artículos y las aristas son enlaces mutuos entre ellos.</p>
+<p>El archivo .csv que se lee en el codigo contiene los identificadores de los nodos
+y el tráfico mensual promedio entre octubre de 2017 y noviembre de 2018 para cada página.</p>
+<p><a href="https://snap.stanford.edu/data/wikipedia-article-networks.html" class="uri">https://snap.stanford.edu/data/wikipedia-article-networks.html</a></p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb150-1"><a href="graph-neural-network.html#cb150-1" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb150-2"><a href="graph-neural-network.html#cb150-2" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb150-3"><a href="graph-neural-network.html#cb150-3" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb150-4"><a href="graph-neural-network.html#cb150-4" tabindex="-1"></a><span class="co">#import seaborn as sns</span></span>
+<span id="cb150-5"><a href="graph-neural-network.html#cb150-5" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb150-6"><a href="graph-neural-network.html#cb150-6" tabindex="-1"></a><span class="im">from</span> torch_geometric.datasets <span class="im">import</span> WikipediaNetwork</span>
+<span id="cb150-7"><a href="graph-neural-network.html#cb150-7" tabindex="-1"></a><span class="im">from</span> torch_geometric.nn <span class="im">import</span> GCNConv</span>
+<span id="cb150-8"><a href="graph-neural-network.html#cb150-8" tabindex="-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
+<span id="cb150-9"><a href="graph-neural-network.html#cb150-9" tabindex="-1"></a><span class="im">import</span> torch_geometric.transforms <span class="im">as</span> T</span>
+<span id="cb150-10"><a href="graph-neural-network.html#cb150-10" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, mean_absolute_error</span>
+<span id="cb150-11"><a href="graph-neural-network.html#cb150-11" tabindex="-1"></a></span>
+<span id="cb150-12"><a href="graph-neural-network.html#cb150-12" tabindex="-1"></a><span class="co"># Clase para dividir los nodos en train, test y validation</span></span>
+<span id="cb150-13"><a href="graph-neural-network.html#cb150-13" tabindex="-1"></a>chameleon_transform <span class="op">=</span> T.RandomNodeSplit(num_val<span class="op">=</span><span class="dv">300</span>, num_test<span class="op">=</span><span class="dv">300</span>)</span></code></pre></div>
+<p>Descargamos la data:</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb151-1"><a href="graph-neural-network.html#cb151-1" tabindex="-1"></a>dataset <span class="op">=</span> WikipediaNetwork(</span>
+<span id="cb151-2"><a href="graph-neural-network.html#cb151-2" tabindex="-1"></a>    root<span class="op">=</span><span class="st">&quot;./data/&quot;</span>,</span>
+<span id="cb151-3"><a href="graph-neural-network.html#cb151-3" tabindex="-1"></a>    name<span class="op">=</span><span class="st">&quot;chameleon&quot;</span>,</span>
+<span id="cb151-4"><a href="graph-neural-network.html#cb151-4" tabindex="-1"></a>    transform <span class="op">=</span> chameleon_transform</span>
+<span id="cb151-5"><a href="graph-neural-network.html#cb151-5" tabindex="-1"></a>)</span>
+<span id="cb151-6"><a href="graph-neural-network.html#cb151-6" tabindex="-1"></a></span>
+<span id="cb151-7"><a href="graph-neural-network.html#cb151-7" tabindex="-1"></a>data <span class="op">=</span> dataset[<span class="dv">0</span>]</span></code></pre></div>
+<p>Ahora visualizemos el gráfico:</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb152-1"><a href="graph-neural-network.html#cb152-1" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb152-2"><a href="graph-neural-network.html#cb152-2" tabindex="-1"></a><span class="im">from</span> torch_geometric.utils <span class="im">import</span> (</span>
+<span id="cb152-3"><a href="graph-neural-network.html#cb152-3" tabindex="-1"></a>  to_dense_adj, to_networkx</span>
+<span id="cb152-4"><a href="graph-neural-network.html#cb152-4" tabindex="-1"></a>)</span>
+<span id="cb152-5"><a href="graph-neural-network.html#cb152-5" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb152-6"><a href="graph-neural-network.html#cb152-6" tabindex="-1"></a></span>
+<span id="cb152-7"><a href="graph-neural-network.html#cb152-7" tabindex="-1"></a><span class="kw">class</span> GraphUtils:</span>
+<span id="cb152-8"><a href="graph-neural-network.html#cb152-8" tabindex="-1"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb152-9"><a href="graph-neural-network.html#cb152-9" tabindex="-1"></a>    <span class="kw">def</span> create_adjacency_matrix(data):</span>
+<span id="cb152-10"><a href="graph-neural-network.html#cb152-10" tabindex="-1"></a>        <span class="co"># Crea matriz de adyacencia</span></span>
+<span id="cb152-11"><a href="graph-neural-network.html#cb152-11" tabindex="-1"></a>        adjacency <span class="op">=</span> to_dense_adj(data.edge_index)[<span class="dv">0</span>]</span>
+<span id="cb152-12"><a href="graph-neural-network.html#cb152-12" tabindex="-1"></a>        <span class="co"># Agrega una diagonal de unos (auto-referencia a nodos)</span></span>
+<span id="cb152-13"><a href="graph-neural-network.html#cb152-13" tabindex="-1"></a>        adjacency <span class="op">=</span> adjacency <span class="op">+</span> torch.eye(<span class="bu">len</span>(adjacency))</span>
+<span id="cb152-14"><a href="graph-neural-network.html#cb152-14" tabindex="-1"></a>        <span class="cf">return</span> adjacency</span>
+<span id="cb152-15"><a href="graph-neural-network.html#cb152-15" tabindex="-1"></a></span>
+<span id="cb152-16"><a href="graph-neural-network.html#cb152-16" tabindex="-1"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb152-17"><a href="graph-neural-network.html#cb152-17" tabindex="-1"></a>    <span class="kw">def</span> convert_to_networkx(graph, n_sample<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb152-18"><a href="graph-neural-network.html#cb152-18" tabindex="-1"></a>        g <span class="op">=</span> to_networkx(graph, node_attrs<span class="op">=</span>[<span class="st">&quot;x&quot;</span>])</span>
+<span id="cb152-19"><a href="graph-neural-network.html#cb152-19" tabindex="-1"></a>        y <span class="op">=</span> graph.y.numpy()</span>
+<span id="cb152-20"><a href="graph-neural-network.html#cb152-20" tabindex="-1"></a>    </span>
+<span id="cb152-21"><a href="graph-neural-network.html#cb152-21" tabindex="-1"></a>        <span class="cf">if</span> n_sample <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb152-22"><a href="graph-neural-network.html#cb152-22" tabindex="-1"></a>            sampled_nodes  <span class="op">=</span> random.sample(<span class="bu">list</span>(g.nodes), n_sample)</span>
+<span id="cb152-23"><a href="graph-neural-network.html#cb152-23" tabindex="-1"></a>            g <span class="op">=</span> g.subgraph(sampled_nodes)</span>
+<span id="cb152-24"><a href="graph-neural-network.html#cb152-24" tabindex="-1"></a>            y <span class="op">=</span> y[sampled_nodes]</span>
+<span id="cb152-25"><a href="graph-neural-network.html#cb152-25" tabindex="-1"></a>    </span>
+<span id="cb152-26"><a href="graph-neural-network.html#cb152-26" tabindex="-1"></a>        <span class="cf">return</span> g, y</span>
+<span id="cb152-27"><a href="graph-neural-network.html#cb152-27" tabindex="-1"></a>    </span>
+<span id="cb152-28"><a href="graph-neural-network.html#cb152-28" tabindex="-1"></a>    <span class="at">@staticmethod</span></span>
+<span id="cb152-29"><a href="graph-neural-network.html#cb152-29" tabindex="-1"></a>    <span class="kw">def</span> plot_graph(g, y):</span>
+<span id="cb152-30"><a href="graph-neural-network.html#cb152-30" tabindex="-1"></a>        plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">7</span>))</span>
+<span id="cb152-31"><a href="graph-neural-network.html#cb152-31" tabindex="-1"></a>        nx.draw_spring(g, node_size<span class="op">=</span><span class="dv">30</span>, arrows<span class="op">=</span><span class="va">False</span>, node_color<span class="op">=</span>y)</span>
+<span id="cb152-32"><a href="graph-neural-network.html#cb152-32" tabindex="-1"></a>        plt.show() </span></code></pre></div>
+<p>Algunas estadisticas</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb153-1"><a href="graph-neural-network.html#cb153-1" tabindex="-1"></a><span class="bu">print</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb154-1"><a href="graph-neural-network.html#cb154-1" tabindex="-1"></a><span class="bu">print</span>(data)</span></code></pre></div>
+<pre><code>## Data(x=[2277, 2325], edge_index=[2, 36101], y=[2277], train_mask=[2277], val_mask=[2277], test_mask=[2277])</code></pre>
+<div class="sourceCode" id="cb156"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb156-1"><a href="graph-neural-network.html#cb156-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;===========================================================================================================&#39;</span>)</span></code></pre></div>
+<pre><code>## ===========================================================================================================</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb158-1"><a href="graph-neural-network.html#cb158-1" tabindex="-1"></a><span class="co"># Gather some statistics about the graph.</span></span>
+<span id="cb158-2"><a href="graph-neural-network.html#cb158-2" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Number of nodes: </span><span class="sc">{</span>data<span class="sc">.</span>num_nodes<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Number of nodes: 2277</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb160-1"><a href="graph-neural-network.html#cb160-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Number of edges: </span><span class="sc">{</span>data<span class="sc">.</span>num_edges<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Number of edges: 36101</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb162-1"><a href="graph-neural-network.html#cb162-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Average node degree: </span><span class="sc">{</span>data<span class="sc">.</span>num_edges <span class="op">/</span> data<span class="sc">.</span>num_nodes<span class="sc">:.2f}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Average node degree: 15.85</code></pre>
+<div class="sourceCode" id="cb164"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb164-1"><a href="graph-neural-network.html#cb164-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Number of training nodes: </span><span class="sc">{</span>data<span class="sc">.</span>train_mask<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Number of training nodes: 1677</code></pre>
+<div class="sourceCode" id="cb166"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb166-1"><a href="graph-neural-network.html#cb166-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Training node label rate: </span><span class="sc">{</span><span class="bu">int</span>(data.train_mask.<span class="bu">sum</span>()) <span class="op">/</span> data<span class="sc">.</span>num_nodes<span class="sc">:.2f}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Training node label rate: 0.74</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb168-1"><a href="graph-neural-network.html#cb168-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Has isolated nodes: </span><span class="sc">{</span>data<span class="sc">.</span>has_isolated_nodes()<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Has isolated nodes: False</code></pre>
+<div class="sourceCode" id="cb170"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb170-1"><a href="graph-neural-network.html#cb170-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Has self-loops: </span><span class="sc">{</span>data<span class="sc">.</span>has_self_loops()<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Has self-loops: True</code></pre>
+<div class="sourceCode" id="cb172"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb172-1"><a href="graph-neural-network.html#cb172-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Is undirected: </span><span class="sc">{</span>data<span class="sc">.</span>is_undirected()<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Is undirected: False</code></pre>
+<p>La siguiente es una grafica de 1,000 nodos de Cora:</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb174-1"><a href="graph-neural-network.html#cb174-1" tabindex="-1"></a>g, y <span class="op">=</span> GraphUtils.convert_to_networkx(data, n_sample<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb174-2"><a href="graph-neural-network.html#cb174-2" tabindex="-1"></a>GraphUtils.plot_graph(g, y)  </span></code></pre></div>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-148-1.png" alt="" width="864" />
+Ahora leeremos los datos de trafico a los sitios:</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb175-1"><a href="graph-neural-network.html#cb175-1" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&#39;./data/wikipedia/chameleon/musae_chameleon_target.csv&#39;</span>)</span></code></pre></div>
+<p>Este archivo contiene el tráfico, medido en cantidas de visitas, que representan
+los nodos del conjunto (sitios web de Wikipedia).</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb176-1"><a href="graph-neural-network.html#cb176-1" tabindex="-1"></a>df.head()</span></code></pre></div>
+<pre><code>##    id  target
+## 0   0     171
+## 1   1    8089
+## 2   2    8568
+## 3   3   47178
+## 4   4    3634</code></pre>
+<p>Vamos a concentranos en predecir el logaritmo de las visitas:</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb178-1"><a href="graph-neural-network.html#cb178-1" tabindex="-1"></a>values <span class="op">=</span> np.log10(df[<span class="st">&#39;target&#39;</span>])</span>
+<span id="cb178-2"><a href="graph-neural-network.html#cb178-2" tabindex="-1"></a>df[<span class="st">&#39;target&#39;</span>] <span class="op">=</span> values</span></code></pre></div>
+<p>Ahora definiremos una red basada en capas de GCN para predeir el tráfico a los
+nodos:</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb179-1"><a href="graph-neural-network.html#cb179-1" tabindex="-1"></a><span class="kw">class</span> GCNRegressor(torch.nn.Module):</span>
+<span id="cb179-2"><a href="graph-neural-network.html#cb179-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dim_in, dim_h, dim_out):</span>
+<span id="cb179-3"><a href="graph-neural-network.html#cb179-3" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb179-4"><a href="graph-neural-network.html#cb179-4" tabindex="-1"></a>        <span class="va">self</span>.gcn1 <span class="op">=</span> GCNConv(dim_in, dim_h <span class="op">*</span> <span class="dv">4</span>)</span>
+<span id="cb179-5"><a href="graph-neural-network.html#cb179-5" tabindex="-1"></a>        <span class="va">self</span>.gcn2 <span class="op">=</span> GCNConv(dim_h <span class="op">*</span> <span class="dv">4</span>, dim_h <span class="op">*</span> <span class="dv">2</span>)</span>
+<span id="cb179-6"><a href="graph-neural-network.html#cb179-6" tabindex="-1"></a>        <span class="va">self</span>.gcn3 <span class="op">=</span> GCNConv(dim_h <span class="op">*</span> <span class="dv">2</span>, dim_h)</span>
+<span id="cb179-7"><a href="graph-neural-network.html#cb179-7" tabindex="-1"></a>        <span class="va">self</span>.linear <span class="op">=</span> torch.nn.Linear(dim_h, dim_out)</span>
+<span id="cb179-8"><a href="graph-neural-network.html#cb179-8" tabindex="-1"></a></span>
+<span id="cb179-9"><a href="graph-neural-network.html#cb179-9" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x, edge_index):</span>
+<span id="cb179-10"><a href="graph-neural-network.html#cb179-10" tabindex="-1"></a>        h <span class="op">=</span> <span class="va">self</span>.gcn1(x, edge_index)</span>
+<span id="cb179-11"><a href="graph-neural-network.html#cb179-11" tabindex="-1"></a>        h <span class="op">=</span> torch.relu(h)</span>
+<span id="cb179-12"><a href="graph-neural-network.html#cb179-12" tabindex="-1"></a>        h <span class="op">=</span> F.dropout(h, p<span class="op">=</span><span class="fl">0.5</span>, training<span class="op">=</span><span class="va">self</span>.training)</span>
+<span id="cb179-13"><a href="graph-neural-network.html#cb179-13" tabindex="-1"></a>        h <span class="op">=</span> <span class="va">self</span>.gcn2(h, edge_index)</span>
+<span id="cb179-14"><a href="graph-neural-network.html#cb179-14" tabindex="-1"></a>        h <span class="op">=</span> torch.relu(h)</span>
+<span id="cb179-15"><a href="graph-neural-network.html#cb179-15" tabindex="-1"></a>        h <span class="op">=</span> F.dropout(h, p<span class="op">=</span><span class="fl">0.5</span>, training<span class="op">=</span><span class="va">self</span>.training)</span>
+<span id="cb179-16"><a href="graph-neural-network.html#cb179-16" tabindex="-1"></a>        h <span class="op">=</span> <span class="va">self</span>.gcn3(h, edge_index)</span>
+<span id="cb179-17"><a href="graph-neural-network.html#cb179-17" tabindex="-1"></a>        h <span class="op">=</span> torch.relu(h)</span>
+<span id="cb179-18"><a href="graph-neural-network.html#cb179-18" tabindex="-1"></a>        h <span class="op">=</span> <span class="va">self</span>.linear(h)</span>
+<span id="cb179-19"><a href="graph-neural-network.html#cb179-19" tabindex="-1"></a>        <span class="cf">return</span> h</span>
+<span id="cb179-20"><a href="graph-neural-network.html#cb179-20" tabindex="-1"></a></span>
+<span id="cb179-21"><a href="graph-neural-network.html#cb179-21" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, data, epochs):</span>
+<span id="cb179-22"><a href="graph-neural-network.html#cb179-22" tabindex="-1"></a>        optimizer <span class="op">=</span> torch.optim.Adam(</span>
+<span id="cb179-23"><a href="graph-neural-network.html#cb179-23" tabindex="-1"></a>            <span class="va">self</span>.parameters(),</span>
+<span id="cb179-24"><a href="graph-neural-network.html#cb179-24" tabindex="-1"></a>            lr<span class="op">=</span><span class="fl">0.02</span>,</span>
+<span id="cb179-25"><a href="graph-neural-network.html#cb179-25" tabindex="-1"></a>            weight_decay<span class="op">=</span><span class="fl">5e-4</span></span>
+<span id="cb179-26"><a href="graph-neural-network.html#cb179-26" tabindex="-1"></a>            )</span>
+<span id="cb179-27"><a href="graph-neural-network.html#cb179-27" tabindex="-1"></a></span>
+<span id="cb179-28"><a href="graph-neural-network.html#cb179-28" tabindex="-1"></a>        <span class="va">self</span>.train()</span>
+<span id="cb179-29"><a href="graph-neural-network.html#cb179-29" tabindex="-1"></a></span>
+<span id="cb179-30"><a href="graph-neural-network.html#cb179-30" tabindex="-1"></a>        <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(epochs <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb179-31"><a href="graph-neural-network.html#cb179-31" tabindex="-1"></a>            optimizer.zero_grad()</span>
+<span id="cb179-32"><a href="graph-neural-network.html#cb179-32" tabindex="-1"></a>            out <span class="op">=</span> <span class="va">self</span>(data.x, data.edge_index)</span>
+<span id="cb179-33"><a href="graph-neural-network.html#cb179-33" tabindex="-1"></a>            loss <span class="op">=</span> F.mse_loss(</span>
+<span id="cb179-34"><a href="graph-neural-network.html#cb179-34" tabindex="-1"></a>                out.squeeze()[data.train_mask],</span>
+<span id="cb179-35"><a href="graph-neural-network.html#cb179-35" tabindex="-1"></a>                data.y[data.train_mask].<span class="bu">float</span>()</span>
+<span id="cb179-36"><a href="graph-neural-network.html#cb179-36" tabindex="-1"></a>                )</span>
+<span id="cb179-37"><a href="graph-neural-network.html#cb179-37" tabindex="-1"></a>            loss.backward()</span>
+<span id="cb179-38"><a href="graph-neural-network.html#cb179-38" tabindex="-1"></a>            optimizer.step()</span>
+<span id="cb179-39"><a href="graph-neural-network.html#cb179-39" tabindex="-1"></a>            <span class="cf">if</span> epoch <span class="op">%</span> <span class="dv">20</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb179-40"><a href="graph-neural-network.html#cb179-40" tabindex="-1"></a>                val_loss <span class="op">=</span> F.mse_loss(</span>
+<span id="cb179-41"><a href="graph-neural-network.html#cb179-41" tabindex="-1"></a>                    out.squeeze()[data.val_mask],</span>
+<span id="cb179-42"><a href="graph-neural-network.html#cb179-42" tabindex="-1"></a>                    data.y[data.val_mask]</span>
+<span id="cb179-43"><a href="graph-neural-network.html#cb179-43" tabindex="-1"></a>                    )</span>
+<span id="cb179-44"><a href="graph-neural-network.html#cb179-44" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f&quot;Epoch </span><span class="sc">{</span>epoch<span class="sc">:&gt;3}</span><span class="ss"> | Train Loss: </span><span class="sc">{</span>loss<span class="sc">:.5f}</span><span class="ss"> | Val Loss: </span><span class="sc">{</span>val_loss<span class="sc">:.5f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb179-45"><a href="graph-neural-network.html#cb179-45" tabindex="-1"></a></span>
+<span id="cb179-46"><a href="graph-neural-network.html#cb179-46" tabindex="-1"></a>    <span class="kw">def</span> test(<span class="va">self</span>, data):</span>
+<span id="cb179-47"><a href="graph-neural-network.html#cb179-47" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">eval</span>()</span>
+<span id="cb179-48"><a href="graph-neural-network.html#cb179-48" tabindex="-1"></a>        out <span class="op">=</span> <span class="va">self</span>(data.x, data.edge_index)</span>
+<span id="cb179-49"><a href="graph-neural-network.html#cb179-49" tabindex="-1"></a>        <span class="cf">return</span> F.mse_loss(out.squeeze()[data.test_mask], data.y[data.test_mask].<span class="bu">float</span>())</span></code></pre></div>
+<p>Ahora instanciamos el modelo:</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb180-1"><a href="graph-neural-network.html#cb180-1" tabindex="-1"></a>gcn_regressor <span class="op">=</span> GCNRegressor(dataset.num_features, dim_h<span class="op">=</span><span class="dv">128</span>, dim_out<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb180-2"><a href="graph-neural-network.html#cb180-2" tabindex="-1"></a><span class="bu">print</span>(gcn_regressor)</span></code></pre></div>
+<pre><code>## GCNRegressor(
+##   (gcn1): GCNConv(2325, 512)
+##   (gcn2): GCNConv(512, 256)
+##   (gcn3): GCNConv(256, 128)
+##   (linear): Linear(in_features=128, out_features=1, bias=True)
+## )</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb182-1"><a href="graph-neural-network.html#cb182-1" tabindex="-1"></a>gcn_regressor.fit(data, epochs<span class="op">=</span><span class="dv">200</span>)</span></code></pre></div>
+<pre><code>## Epoch   0 | Train Loss: 5.63864 | Val Loss: 5.52861
+## Epoch  20 | Train Loss: 5.48755 | Val Loss: 5.39600
+## Epoch  40 | Train Loss: 5.06089 | Val Loss: 4.98175
+## Epoch  60 | Train Loss: 4.54339 | Val Loss: 4.48048
+## Epoch  80 | Train Loss: 4.03839 | Val Loss: 3.99294
+## Epoch 100 | Train Loss: 3.58345 | Val Loss: 3.55557
+## Epoch 120 | Train Loss: 3.19306 | Val Loss: 3.18226
+## Epoch 140 | Train Loss: 2.87023 | Val Loss: 2.87563
+## Epoch 160 | Train Loss: 2.61150 | Val Loss: 2.63193
+## Epoch 180 | Train Loss: 2.40988 | Val Loss: 2.44402
+## Epoch 200 | Train Loss: 2.25679 | Val Loss: 2.30325</code></pre>
+<div class="sourceCode" id="cb184"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb184-1"><a href="graph-neural-network.html#cb184-1" tabindex="-1"></a>loss <span class="op">=</span> gcn_regressor.test(data)</span>
+<span id="cb184-2"><a href="graph-neural-network.html#cb184-2" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;</span><span class="ch">\n</span><span class="ss">GCN test loss: </span><span class="sc">{</span>loss<span class="sc">:.5f}</span><span class="ch">\n</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## 
+## GCN test loss: 2.49092</code></pre>
+<p>Ahora veamos los resultados con distintas metricas en el conjunto de test:</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb186-1"><a href="graph-neural-network.html#cb186-1" tabindex="-1"></a>out <span class="op">=</span> gcn_regressor(data.x, data.edge_index)</span>
+<span id="cb186-2"><a href="graph-neural-network.html#cb186-2" tabindex="-1"></a>y_pred <span class="op">=</span> out.squeeze()[data.test_mask].detach().numpy()</span>
+<span id="cb186-3"><a href="graph-neural-network.html#cb186-3" tabindex="-1"></a>mse <span class="op">=</span> mean_squared_error(data.y[data.test_mask], y_pred)</span>
+<span id="cb186-4"><a href="graph-neural-network.html#cb186-4" tabindex="-1"></a>mae <span class="op">=</span> mean_absolute_error(data.y[data.test_mask], y_pred)</span>
+<span id="cb186-5"><a href="graph-neural-network.html#cb186-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;=&#39;</span> <span class="op">*</span> <span class="dv">43</span>)</span></code></pre></div>
+<pre><code>## ===========================================</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb188-1"><a href="graph-neural-network.html#cb188-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;GNN for Regression&quot;</span>)</span></code></pre></div>
+<pre><code>## GNN for Regression</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb190-1"><a href="graph-neural-network.html#cb190-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Chameleon Dataset - Traffic Prediction&quot;</span>)</span></code></pre></div>
+<pre><code>## Chameleon Dataset - Traffic Prediction</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb192-1"><a href="graph-neural-network.html#cb192-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;MSE = </span><span class="sc">{</span>mse<span class="sc">:.4f}</span><span class="ss"> | RMSE = </span><span class="sc">{</span>np<span class="sc">.</span>sqrt(mse)<span class="sc">:.4f}</span><span class="ss"> | MAE = </span><span class="sc">{</span>mae<span class="sc">:.4f}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## MSE = 2.4909 | RMSE = 1.5783 | MAE = 1.3692</code></pre>
+<div class="sourceCode" id="cb194"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb194-1"><a href="graph-neural-network.html#cb194-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;=&#39;</span> <span class="op">*</span> <span class="dv">43</span>)</span></code></pre></div>
+<pre><code>## ===========================================</code></pre>
+<div class="sourceCode" id="cb196"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb196-1"><a href="graph-neural-network.html#cb196-1" tabindex="-1"></a><span class="kw">def</span> plot_true_vs_predicted(y_true, y_pred):</span>
+<span id="cb196-2"><a href="graph-neural-network.html#cb196-2" tabindex="-1"></a>    <span class="co"># Convert to numpy if they are torch tensors</span></span>
+<span id="cb196-3"><a href="graph-neural-network.html#cb196-3" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">hasattr</span>(y_true, <span class="st">&quot;detach&quot;</span>):</span>
+<span id="cb196-4"><a href="graph-neural-network.html#cb196-4" tabindex="-1"></a>        y_true <span class="op">=</span> y_true.detach().cpu().numpy()</span>
+<span id="cb196-5"><a href="graph-neural-network.html#cb196-5" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">hasattr</span>(y_pred, <span class="st">&quot;detach&quot;</span>):</span>
+<span id="cb196-6"><a href="graph-neural-network.html#cb196-6" tabindex="-1"></a>        y_pred <span class="op">=</span> y_pred.detach().cpu().numpy()</span>
+<span id="cb196-7"><a href="graph-neural-network.html#cb196-7" tabindex="-1"></a>    </span>
+<span id="cb196-8"><a href="graph-neural-network.html#cb196-8" tabindex="-1"></a>    <span class="co"># Ensure arrays are flattened (1D)</span></span>
+<span id="cb196-9"><a href="graph-neural-network.html#cb196-9" tabindex="-1"></a>    y_true <span class="op">=</span> y_true.flatten()</span>
+<span id="cb196-10"><a href="graph-neural-network.html#cb196-10" tabindex="-1"></a>    y_pred <span class="op">=</span> y_pred.flatten()</span>
+<span id="cb196-11"><a href="graph-neural-network.html#cb196-11" tabindex="-1"></a></span>
+<span id="cb196-12"><a href="graph-neural-network.html#cb196-12" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb196-13"><a href="graph-neural-network.html#cb196-13" tabindex="-1"></a>    </span>
+<span id="cb196-14"><a href="graph-neural-network.html#cb196-14" tabindex="-1"></a>    sns.scatterplot(x<span class="op">=</span>y_true, y<span class="op">=</span>y_pred, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb196-15"><a href="graph-neural-network.html#cb196-15" tabindex="-1"></a></span>
+<span id="cb196-16"><a href="graph-neural-network.html#cb196-16" tabindex="-1"></a>    <span class="co"># Determine plot limits for the identity line</span></span>
+<span id="cb196-17"><a href="graph-neural-network.html#cb196-17" tabindex="-1"></a>    min_val <span class="op">=</span> <span class="bu">min</span>(np.<span class="bu">min</span>(y_true), np.<span class="bu">min</span>(y_pred))</span>
+<span id="cb196-18"><a href="graph-neural-network.html#cb196-18" tabindex="-1"></a>    max_val <span class="op">=</span> <span class="bu">max</span>(np.<span class="bu">max</span>(y_true), np.<span class="bu">max</span>(y_pred))</span>
+<span id="cb196-19"><a href="graph-neural-network.html#cb196-19" tabindex="-1"></a></span>
+<span id="cb196-20"><a href="graph-neural-network.html#cb196-20" tabindex="-1"></a>    <span class="co"># Add the identity line (y = x)</span></span>
+<span id="cb196-21"><a href="graph-neural-network.html#cb196-21" tabindex="-1"></a>    plt.plot([min_val, max_val], [min_val, max_val], color<span class="op">=</span><span class="st">&#39;red&#39;</span>, linestyle<span class="op">=</span><span class="st">&#39;--&#39;</span>, label<span class="op">=</span><span class="st">&#39;Perfect Prediction&#39;</span>)</span>
+<span id="cb196-22"><a href="graph-neural-network.html#cb196-22" tabindex="-1"></a></span>
+<span id="cb196-23"><a href="graph-neural-network.html#cb196-23" tabindex="-1"></a>    plt.title(<span class="st">&#39;True Values vs. Predicted Values&#39;</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb196-24"><a href="graph-neural-network.html#cb196-24" tabindex="-1"></a>    plt.xlabel(<span class="st">&#39;True Values ($y$)&#39;</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb196-25"><a href="graph-neural-network.html#cb196-25" tabindex="-1"></a>    plt.ylabel(<span class="st">&#39;Predicted Values ($</span><span class="er">\</span><span class="st">hat</span><span class="sc">{y}</span><span class="st">$)&#39;</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb196-26"><a href="graph-neural-network.html#cb196-26" tabindex="-1"></a>    plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">&#39;:&#39;</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb196-27"><a href="graph-neural-network.html#cb196-27" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb196-28"><a href="graph-neural-network.html#cb196-28" tabindex="-1"></a>    plt.show()</span>
+<span id="cb196-29"><a href="graph-neural-network.html#cb196-29" tabindex="-1"></a></span>
+<span id="cb196-30"><a href="graph-neural-network.html#cb196-30" tabindex="-1"></a><span class="co"># Calling the function correctly</span></span>
+<span id="cb196-31"><a href="graph-neural-network.html#cb196-31" tabindex="-1"></a><span class="co">#plot_true_vs_predicted(data.y[data.test_mask], y_pred)</span></span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb197-1"><a href="graph-neural-network.html#cb197-1" tabindex="-1"></a><span class="kw">def</span> plot_residuals_distribution(y_true, y_pred):</span>
+<span id="cb197-2"><a href="graph-neural-network.html#cb197-2" tabindex="-1"></a>    <span class="co"># 1. Convert to numpy and flatten</span></span>
+<span id="cb197-3"><a href="graph-neural-network.html#cb197-3" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">hasattr</span>(y_true, <span class="st">&quot;detach&quot;</span>):</span>
+<span id="cb197-4"><a href="graph-neural-network.html#cb197-4" tabindex="-1"></a>        y_true <span class="op">=</span> y_true.detach().cpu().numpy()</span>
+<span id="cb197-5"><a href="graph-neural-network.html#cb197-5" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">hasattr</span>(y_pred, <span class="st">&quot;detach&quot;</span>):</span>
+<span id="cb197-6"><a href="graph-neural-network.html#cb197-6" tabindex="-1"></a>        y_pred <span class="op">=</span> y_pred.detach().cpu().numpy()</span>
+<span id="cb197-7"><a href="graph-neural-network.html#cb197-7" tabindex="-1"></a>    </span>
+<span id="cb197-8"><a href="graph-neural-network.html#cb197-8" tabindex="-1"></a>    y_true <span class="op">=</span> y_true.flatten()</span>
+<span id="cb197-9"><a href="graph-neural-network.html#cb197-9" tabindex="-1"></a>    y_pred <span class="op">=</span> y_pred.flatten()</span>
+<span id="cb197-10"><a href="graph-neural-network.html#cb197-10" tabindex="-1"></a></span>
+<span id="cb197-11"><a href="graph-neural-network.html#cb197-11" tabindex="-1"></a>    <span class="co"># 2. Calculate the residuals</span></span>
+<span id="cb197-12"><a href="graph-neural-network.html#cb197-12" tabindex="-1"></a>    residuals <span class="op">=</span> y_true <span class="op">-</span> y_pred</span>
+<span id="cb197-13"><a href="graph-neural-network.html#cb197-13" tabindex="-1"></a>    </span>
+<span id="cb197-14"><a href="graph-neural-network.html#cb197-14" tabindex="-1"></a>    <span class="co"># 3. Calculate key statistics</span></span>
+<span id="cb197-15"><a href="graph-neural-network.html#cb197-15" tabindex="-1"></a>    mean_residual <span class="op">=</span> np.mean(residuals)</span>
+<span id="cb197-16"><a href="graph-neural-network.html#cb197-16" tabindex="-1"></a>    std_residual <span class="op">=</span> np.std(residuals)</span>
+<span id="cb197-17"><a href="graph-neural-network.html#cb197-17" tabindex="-1"></a></span>
+<span id="cb197-18"><a href="graph-neural-network.html#cb197-18" tabindex="-1"></a>    <span class="co"># 4. Initialize the plot</span></span>
+<span id="cb197-19"><a href="graph-neural-network.html#cb197-19" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb197-20"><a href="graph-neural-network.html#cb197-20" tabindex="-1"></a>    </span>
+<span id="cb197-21"><a href="graph-neural-network.html#cb197-21" tabindex="-1"></a>    <span class="co"># 5. Create the histogram and KDE plot</span></span>
+<span id="cb197-22"><a href="graph-neural-network.html#cb197-22" tabindex="-1"></a>    sns.histplot(</span>
+<span id="cb197-23"><a href="graph-neural-network.html#cb197-23" tabindex="-1"></a>        residuals, </span>
+<span id="cb197-24"><a href="graph-neural-network.html#cb197-24" tabindex="-1"></a>        bins<span class="op">=</span><span class="dv">30</span>, </span>
+<span id="cb197-25"><a href="graph-neural-network.html#cb197-25" tabindex="-1"></a>        kde<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb197-26"><a href="graph-neural-network.html#cb197-26" tabindex="-1"></a>        color<span class="op">=</span><span class="st">&#39;skyblue&#39;</span>, </span>
+<span id="cb197-27"><a href="graph-neural-network.html#cb197-27" tabindex="-1"></a>        edgecolor<span class="op">=</span><span class="st">&#39;black&#39;</span>,</span>
+<span id="cb197-28"><a href="graph-neural-network.html#cb197-28" tabindex="-1"></a>        line_kws<span class="op">=</span>{<span class="st">&#39;linewidth&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;color&#39;</span>: <span class="st">&#39;darkblue&#39;</span>, <span class="st">&#39;label&#39;</span>: <span class="st">&#39;KDE Curve&#39;</span>}</span>
+<span id="cb197-29"><a href="graph-neural-network.html#cb197-29" tabindex="-1"></a>    )</span>
+<span id="cb197-30"><a href="graph-neural-network.html#cb197-30" tabindex="-1"></a>    </span>
+<span id="cb197-31"><a href="graph-neural-network.html#cb197-31" tabindex="-1"></a>    <span class="co"># 6. Add a vertical line at the mean</span></span>
+<span id="cb197-32"><a href="graph-neural-network.html#cb197-32" tabindex="-1"></a>    plt.axvline(</span>
+<span id="cb197-33"><a href="graph-neural-network.html#cb197-33" tabindex="-1"></a>        x<span class="op">=</span>mean_residual, </span>
+<span id="cb197-34"><a href="graph-neural-network.html#cb197-34" tabindex="-1"></a>        color<span class="op">=</span><span class="st">&#39;red&#39;</span>, </span>
+<span id="cb197-35"><a href="graph-neural-network.html#cb197-35" tabindex="-1"></a>        linestyle<span class="op">=</span><span class="st">&#39;--&#39;</span>, </span>
+<span id="cb197-36"><a href="graph-neural-network.html#cb197-36" tabindex="-1"></a>        linewidth<span class="op">=</span><span class="dv">2</span>, </span>
+<span id="cb197-37"><a href="graph-neural-network.html#cb197-37" tabindex="-1"></a>        label<span class="op">=</span><span class="ss">f&#39;Mean: </span><span class="sc">{</span>mean_residual<span class="sc">:.4f}</span><span class="ss">&#39;</span></span>
+<span id="cb197-38"><a href="graph-neural-network.html#cb197-38" tabindex="-1"></a>    )</span>
+<span id="cb197-39"><a href="graph-neural-network.html#cb197-39" tabindex="-1"></a>    </span>
+<span id="cb197-40"><a href="graph-neural-network.html#cb197-40" tabindex="-1"></a>    <span class="co"># 7. Add titles and labels</span></span>
+<span id="cb197-41"><a href="graph-neural-network.html#cb197-41" tabindex="-1"></a>    plt.title(<span class="st">&#39;Distribution of Residuals (Errors)&#39;</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb197-42"><a href="graph-neural-network.html#cb197-42" tabindex="-1"></a>    plt.xlabel(<span class="st">&#39;Residual ($y - </span><span class="er">\</span><span class="st">hat</span><span class="sc">{y}</span><span class="st">$)&#39;</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb197-43"><a href="graph-neural-network.html#cb197-43" tabindex="-1"></a>    plt.ylabel(<span class="st">&#39;Frequency&#39;</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb197-44"><a href="graph-neural-network.html#cb197-44" tabindex="-1"></a>    </span>
+<span id="cb197-45"><a href="graph-neural-network.html#cb197-45" tabindex="-1"></a>    <span class="co"># 8. Add text box for statistics</span></span>
+<span id="cb197-46"><a href="graph-neural-network.html#cb197-46" tabindex="-1"></a>    stats_text <span class="op">=</span> <span class="ss">f&#39;Mean: </span><span class="sc">{</span>mean_residual<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">Std Dev: </span><span class="sc">{</span>std_residual<span class="sc">:.4f}</span><span class="ss">&#39;</span></span>
+<span id="cb197-47"><a href="graph-neural-network.html#cb197-47" tabindex="-1"></a>    plt.text(</span>
+<span id="cb197-48"><a href="graph-neural-network.html#cb197-48" tabindex="-1"></a>        <span class="fl">0.95</span>, <span class="fl">0.95</span>, </span>
+<span id="cb197-49"><a href="graph-neural-network.html#cb197-49" tabindex="-1"></a>        stats_text, </span>
+<span id="cb197-50"><a href="graph-neural-network.html#cb197-50" tabindex="-1"></a>        transform<span class="op">=</span>plt.gca().transAxes, </span>
+<span id="cb197-51"><a href="graph-neural-network.html#cb197-51" tabindex="-1"></a>        verticalalignment<span class="op">=</span><span class="st">&#39;top&#39;</span>, </span>
+<span id="cb197-52"><a href="graph-neural-network.html#cb197-52" tabindex="-1"></a>        horizontalalignment<span class="op">=</span><span class="st">&#39;right&#39;</span>,</span>
+<span id="cb197-53"><a href="graph-neural-network.html#cb197-53" tabindex="-1"></a>        fontsize<span class="op">=</span><span class="dv">12</span>,</span>
+<span id="cb197-54"><a href="graph-neural-network.html#cb197-54" tabindex="-1"></a>        bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">&quot;round,pad=0.5&quot;</span>, facecolor<span class="op">=</span><span class="st">&#39;white&#39;</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb197-55"><a href="graph-neural-network.html#cb197-55" tabindex="-1"></a>    )</span>
+<span id="cb197-56"><a href="graph-neural-network.html#cb197-56" tabindex="-1"></a>    </span>
+<span id="cb197-57"><a href="graph-neural-network.html#cb197-57" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb197-58"><a href="graph-neural-network.html#cb197-58" tabindex="-1"></a>    plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">&#39;:&#39;</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, axis<span class="op">=</span><span class="st">&#39;y&#39;</span>)</span>
+<span id="cb197-59"><a href="graph-neural-network.html#cb197-59" tabindex="-1"></a>    plt.show()</span>
+<span id="cb197-60"><a href="graph-neural-network.html#cb197-60" tabindex="-1"></a></span>
+<span id="cb197-61"><a href="graph-neural-network.html#cb197-61" tabindex="-1"></a><span class="co">#plot_residuals_distribution(data.y[data.test_mask], y_pred)</span></span></code></pre></div>
+</div>
+<div id="ejemplo-clasificación-de-artículos-de-investigación-por-categoría" class="section level3 hasAnchor" number="14.4.2">
+<h3><span class="header-section-number">14.4.2</span> Ejemplo: Clasificación de artículos de investigación por categoría<a href="graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb198"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb198-1"><a href="graph-neural-network.html#cb198-1" tabindex="-1"></a><span class="im">from</span> torch_geometric.datasets <span class="im">import</span> Planetoid</span>
+<span id="cb198-2"><a href="graph-neural-network.html#cb198-2" tabindex="-1"></a><span class="im">from</span> torch_geometric.transforms <span class="im">import</span> NormalizeFeatures</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb199-1"><a href="graph-neural-network.html#cb199-1" tabindex="-1"></a>dataset <span class="op">=</span> Planetoid(</span>
+<span id="cb199-2"><a href="graph-neural-network.html#cb199-2" tabindex="-1"></a>    root<span class="op">=</span><span class="st">&#39;./data/&#39;</span>,</span>
+<span id="cb199-3"><a href="graph-neural-network.html#cb199-3" tabindex="-1"></a>    name<span class="op">=</span><span class="st">&#39;Cora&#39;</span>,</span>
+<span id="cb199-4"><a href="graph-neural-network.html#cb199-4" tabindex="-1"></a>    transform<span class="op">=</span>NormalizeFeatures()</span>
+<span id="cb199-5"><a href="graph-neural-network.html#cb199-5" tabindex="-1"></a>    )</span>
+<span id="cb199-6"><a href="graph-neural-network.html#cb199-6" tabindex="-1"></a></span>
+<span id="cb199-7"><a href="graph-neural-network.html#cb199-7" tabindex="-1"></a><span class="bu">print</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb200-1"><a href="graph-neural-network.html#cb200-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Dataset: </span><span class="sc">{</span>dataset<span class="sc">}</span><span class="ss">:&#39;</span>)</span></code></pre></div>
+<pre><code>## Dataset: Cora():</code></pre>
+<div class="sourceCode" id="cb202"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb202-1"><a href="graph-neural-network.html#cb202-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;======================&#39;</span>)</span></code></pre></div>
+<pre><code>## ======================</code></pre>
+<div class="sourceCode" id="cb204"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb204-1"><a href="graph-neural-network.html#cb204-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Number of graphs: </span><span class="sc">{</span><span class="bu">len</span>(dataset)<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Number of graphs: 1</code></pre>
+<div class="sourceCode" id="cb206"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb206-1"><a href="graph-neural-network.html#cb206-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Number of features: </span><span class="sc">{</span>dataset<span class="sc">.</span>num_features<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Number of features: 1433</code></pre>
+<div class="sourceCode" id="cb208"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb208-1"><a href="graph-neural-network.html#cb208-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Number of classes: </span><span class="sc">{</span>dataset<span class="sc">.</span>num_classes<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Number of classes: 7</code></pre>
+<div class="sourceCode" id="cb210"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb210-1"><a href="graph-neural-network.html#cb210-1" tabindex="-1"></a>data <span class="op">=</span> dataset[<span class="dv">0</span>]  <span class="co"># Get the first graph object.</span></span>
+<span id="cb210-2"><a href="graph-neural-network.html#cb210-2" tabindex="-1"></a></span>
+<span id="cb210-3"><a href="graph-neural-network.html#cb210-3" tabindex="-1"></a><span class="bu">print</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb211-1"><a href="graph-neural-network.html#cb211-1" tabindex="-1"></a><span class="bu">print</span>(data)</span></code></pre></div>
+<pre><code>## Data(x=[2708, 1433], edge_index=[2, 10556], y=[2708], train_mask=[2708], val_mask=[2708], test_mask=[2708])</code></pre>
+<div class="sourceCode" id="cb213"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb213-1"><a href="graph-neural-network.html#cb213-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;===========================================================================================================&#39;</span>)</span></code></pre></div>
+<pre><code>## ===========================================================================================================</code></pre>
+<div class="sourceCode" id="cb215"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb215-1"><a href="graph-neural-network.html#cb215-1" tabindex="-1"></a><span class="co"># Gather some statistics about the graph.</span></span>
+<span id="cb215-2"><a href="graph-neural-network.html#cb215-2" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Number of nodes: </span><span class="sc">{</span>data<span class="sc">.</span>num_nodes<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Number of nodes: 2708</code></pre>
+<div class="sourceCode" id="cb217"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb217-1"><a href="graph-neural-network.html#cb217-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Number of edges: </span><span class="sc">{</span>data<span class="sc">.</span>num_edges<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Number of edges: 10556</code></pre>
+<div class="sourceCode" id="cb219"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb219-1"><a href="graph-neural-network.html#cb219-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Average node degree: </span><span class="sc">{</span>data<span class="sc">.</span>num_edges <span class="op">/</span> data<span class="sc">.</span>num_nodes<span class="sc">:.2f}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Average node degree: 3.90</code></pre>
+<div class="sourceCode" id="cb221"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb221-1"><a href="graph-neural-network.html#cb221-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Number of training nodes: </span><span class="sc">{</span>data<span class="sc">.</span>train_mask<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Number of training nodes: 140</code></pre>
+<div class="sourceCode" id="cb223"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb223-1"><a href="graph-neural-network.html#cb223-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Training node label rate: </span><span class="sc">{</span><span class="bu">int</span>(data.train_mask.<span class="bu">sum</span>()) <span class="op">/</span> data<span class="sc">.</span>num_nodes<span class="sc">:.2f}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Training node label rate: 0.05</code></pre>
+<div class="sourceCode" id="cb225"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb225-1"><a href="graph-neural-network.html#cb225-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Has isolated nodes: </span><span class="sc">{</span>data<span class="sc">.</span>has_isolated_nodes()<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Has isolated nodes: False</code></pre>
+<div class="sourceCode" id="cb227"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb227-1"><a href="graph-neural-network.html#cb227-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Has self-loops: </span><span class="sc">{</span>data<span class="sc">.</span>has_self_loops()<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Has self-loops: False</code></pre>
+<div class="sourceCode" id="cb229"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb229-1"><a href="graph-neural-network.html#cb229-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;Is undirected: </span><span class="sc">{</span>data<span class="sc">.</span>is_undirected()<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Is undirected: True</code></pre>
+<p>La arquitectura de la red es representada en la siguiente imagen:</p>
+<p><img src="img/21-gnn/gcn_class_example.png" alt="" width="120%" style="display: block; margin: auto;" /></p>
+<p>Esta es su implementación:</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb231-1"><a href="graph-neural-network.html#cb231-1" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb231-2"><a href="graph-neural-network.html#cb231-2" tabindex="-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
+<span id="cb231-3"><a href="graph-neural-network.html#cb231-3" tabindex="-1"></a><span class="im">from</span> torch_geometric.nn <span class="im">import</span> GCNConv</span>
+<span id="cb231-4"><a href="graph-neural-network.html#cb231-4" tabindex="-1"></a></span>
+<span id="cb231-5"><a href="graph-neural-network.html#cb231-5" tabindex="-1"></a><span class="kw">class</span> GCNClassifier(torch.nn.Module):</span>
+<span id="cb231-6"><a href="graph-neural-network.html#cb231-6" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dim_in, dim_h, dim_out):</span>
+<span id="cb231-7"><a href="graph-neural-network.html#cb231-7" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb231-8"><a href="graph-neural-network.html#cb231-8" tabindex="-1"></a>        torch.manual_seed(<span class="dv">1234567</span>)</span>
+<span id="cb231-9"><a href="graph-neural-network.html#cb231-9" tabindex="-1"></a></span>
+<span id="cb231-10"><a href="graph-neural-network.html#cb231-10" tabindex="-1"></a>        <span class="va">self</span>.gcn1 <span class="op">=</span> GCNConv(dim_in, dim_h)</span>
+<span id="cb231-11"><a href="graph-neural-network.html#cb231-11" tabindex="-1"></a>        <span class="va">self</span>.gcn2 <span class="op">=</span> GCNConv(dim_h, dim_out)</span>
+<span id="cb231-12"><a href="graph-neural-network.html#cb231-12" tabindex="-1"></a></span>
+<span id="cb231-13"><a href="graph-neural-network.html#cb231-13" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x, edge_index):</span>
+<span id="cb231-14"><a href="graph-neural-network.html#cb231-14" tabindex="-1"></a>        h <span class="op">=</span> <span class="va">self</span>.gcn1(x, edge_index)</span>
+<span id="cb231-15"><a href="graph-neural-network.html#cb231-15" tabindex="-1"></a>        h <span class="op">=</span> torch.relu(h)</span>
+<span id="cb231-16"><a href="graph-neural-network.html#cb231-16" tabindex="-1"></a>        h <span class="op">=</span> F.dropout(h, p<span class="op">=</span><span class="fl">0.5</span>, training<span class="op">=</span><span class="va">self</span>.training)</span>
+<span id="cb231-17"><a href="graph-neural-network.html#cb231-17" tabindex="-1"></a>        h <span class="op">=</span> <span class="va">self</span>.gcn2(h, edge_index)</span>
+<span id="cb231-18"><a href="graph-neural-network.html#cb231-18" tabindex="-1"></a>        <span class="cf">return</span> h</span>
+<span id="cb231-19"><a href="graph-neural-network.html#cb231-19" tabindex="-1"></a></span>
+<span id="cb231-20"><a href="graph-neural-network.html#cb231-20" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, data, epochs, lr<span class="op">=</span><span class="fl">0.01</span>, weight_decay<span class="op">=</span><span class="fl">5e-4</span>):</span>
+<span id="cb231-21"><a href="graph-neural-network.html#cb231-21" tabindex="-1"></a>        optimizer <span class="op">=</span> torch.optim.Adam(</span>
+<span id="cb231-22"><a href="graph-neural-network.html#cb231-22" tabindex="-1"></a>            <span class="va">self</span>.parameters(),</span>
+<span id="cb231-23"><a href="graph-neural-network.html#cb231-23" tabindex="-1"></a>            lr<span class="op">=</span>lr,</span>
+<span id="cb231-24"><a href="graph-neural-network.html#cb231-24" tabindex="-1"></a>            weight_decay<span class="op">=</span>weight_decay</span>
+<span id="cb231-25"><a href="graph-neural-network.html#cb231-25" tabindex="-1"></a>        )</span>
+<span id="cb231-26"><a href="graph-neural-network.html#cb231-26" tabindex="-1"></a>        criterion <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb231-27"><a href="graph-neural-network.html#cb231-27" tabindex="-1"></a></span>
+<span id="cb231-28"><a href="graph-neural-network.html#cb231-28" tabindex="-1"></a>        <span class="va">self</span>.train()</span>
+<span id="cb231-29"><a href="graph-neural-network.html#cb231-29" tabindex="-1"></a></span>
+<span id="cb231-30"><a href="graph-neural-network.html#cb231-30" tabindex="-1"></a>        <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(epochs <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb231-31"><a href="graph-neural-network.html#cb231-31" tabindex="-1"></a>            optimizer.zero_grad()</span>
+<span id="cb231-32"><a href="graph-neural-network.html#cb231-32" tabindex="-1"></a></span>
+<span id="cb231-33"><a href="graph-neural-network.html#cb231-33" tabindex="-1"></a>            out <span class="op">=</span> <span class="va">self</span>(data.x, data.edge_index)</span>
+<span id="cb231-34"><a href="graph-neural-network.html#cb231-34" tabindex="-1"></a>            loss <span class="op">=</span> criterion(</span>
+<span id="cb231-35"><a href="graph-neural-network.html#cb231-35" tabindex="-1"></a>                out[data.train_mask],</span>
+<span id="cb231-36"><a href="graph-neural-network.html#cb231-36" tabindex="-1"></a>                data.y[data.train_mask]</span>
+<span id="cb231-37"><a href="graph-neural-network.html#cb231-37" tabindex="-1"></a>            )</span>
+<span id="cb231-38"><a href="graph-neural-network.html#cb231-38" tabindex="-1"></a></span>
+<span id="cb231-39"><a href="graph-neural-network.html#cb231-39" tabindex="-1"></a>            loss.backward()</span>
+<span id="cb231-40"><a href="graph-neural-network.html#cb231-40" tabindex="-1"></a>            optimizer.step()</span>
+<span id="cb231-41"><a href="graph-neural-network.html#cb231-41" tabindex="-1"></a></span>
+<span id="cb231-42"><a href="graph-neural-network.html#cb231-42" tabindex="-1"></a>            <span class="cf">if</span> epoch <span class="op">%</span> <span class="dv">10</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb231-43"><a href="graph-neural-network.html#cb231-43" tabindex="-1"></a>                val_acc <span class="op">=</span> <span class="va">self</span>.validate(data)</span>
+<span id="cb231-44"><a href="graph-neural-network.html#cb231-44" tabindex="-1"></a>                <span class="bu">print</span>(</span>
+<span id="cb231-45"><a href="graph-neural-network.html#cb231-45" tabindex="-1"></a>                    <span class="ss">f&quot;Epoch </span><span class="sc">{</span>epoch<span class="sc">:&gt;3}</span><span class="ss"> | &quot;</span></span>
+<span id="cb231-46"><a href="graph-neural-network.html#cb231-46" tabindex="-1"></a>                    <span class="ss">f&quot;Train Loss: </span><span class="sc">{</span>loss<span class="sc">:.4f}</span><span class="ss"> | &quot;</span></span>
+<span id="cb231-47"><a href="graph-neural-network.html#cb231-47" tabindex="-1"></a>                    <span class="ss">f&quot;Val Acc: </span><span class="sc">{</span>val_acc<span class="sc">:.4f}</span><span class="ss">&quot;</span></span>
+<span id="cb231-48"><a href="graph-neural-network.html#cb231-48" tabindex="-1"></a>                )</span>
+<span id="cb231-49"><a href="graph-neural-network.html#cb231-49" tabindex="-1"></a></span>
+<span id="cb231-50"><a href="graph-neural-network.html#cb231-50" tabindex="-1"></a>    <span class="at">@torch.no_grad</span>()</span>
+<span id="cb231-51"><a href="graph-neural-network.html#cb231-51" tabindex="-1"></a>    <span class="kw">def</span> validate(<span class="va">self</span>, data):</span>
+<span id="cb231-52"><a href="graph-neural-network.html#cb231-52" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">eval</span>()</span>
+<span id="cb231-53"><a href="graph-neural-network.html#cb231-53" tabindex="-1"></a>        out <span class="op">=</span> <span class="va">self</span>(data.x, data.edge_index)</span>
+<span id="cb231-54"><a href="graph-neural-network.html#cb231-54" tabindex="-1"></a>        pred <span class="op">=</span> out.argmax(dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb231-55"><a href="graph-neural-network.html#cb231-55" tabindex="-1"></a>        correct <span class="op">=</span> pred[data.val_mask] <span class="op">==</span> data.y[data.val_mask]</span>
+<span id="cb231-56"><a href="graph-neural-network.html#cb231-56" tabindex="-1"></a>        <span class="cf">return</span> correct.<span class="bu">sum</span>().item() <span class="op">/</span> <span class="bu">int</span>(data.val_mask.<span class="bu">sum</span>())</span>
+<span id="cb231-57"><a href="graph-neural-network.html#cb231-57" tabindex="-1"></a></span>
+<span id="cb231-58"><a href="graph-neural-network.html#cb231-58" tabindex="-1"></a>    <span class="at">@torch.no_grad</span>()</span>
+<span id="cb231-59"><a href="graph-neural-network.html#cb231-59" tabindex="-1"></a>    <span class="kw">def</span> test(<span class="va">self</span>, data):</span>
+<span id="cb231-60"><a href="graph-neural-network.html#cb231-60" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">eval</span>()</span>
+<span id="cb231-61"><a href="graph-neural-network.html#cb231-61" tabindex="-1"></a>        out <span class="op">=</span> <span class="va">self</span>(data.x, data.edge_index)</span>
+<span id="cb231-62"><a href="graph-neural-network.html#cb231-62" tabindex="-1"></a>        pred <span class="op">=</span> out.argmax(dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb231-63"><a href="graph-neural-network.html#cb231-63" tabindex="-1"></a>        correct <span class="op">=</span> pred[data.test_mask] <span class="op">==</span> data.y[data.test_mask]</span>
+<span id="cb231-64"><a href="graph-neural-network.html#cb231-64" tabindex="-1"></a>        <span class="cf">return</span> correct.<span class="bu">sum</span>().item() <span class="op">/</span> <span class="bu">int</span>(data.test_mask.<span class="bu">sum</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb232-1"><a href="graph-neural-network.html#cb232-1" tabindex="-1"></a>model <span class="op">=</span> GCNClassifier(</span>
+<span id="cb232-2"><a href="graph-neural-network.html#cb232-2" tabindex="-1"></a>    dim_in<span class="op">=</span>dataset.num_features,</span>
+<span id="cb232-3"><a href="graph-neural-network.html#cb232-3" tabindex="-1"></a>    dim_h<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb232-4"><a href="graph-neural-network.html#cb232-4" tabindex="-1"></a>    dim_out<span class="op">=</span>dataset.num_classes</span>
+<span id="cb232-5"><a href="graph-neural-network.html#cb232-5" tabindex="-1"></a>)</span>
+<span id="cb232-6"><a href="graph-neural-network.html#cb232-6" tabindex="-1"></a></span>
+<span id="cb232-7"><a href="graph-neural-network.html#cb232-7" tabindex="-1"></a>model.fit(data, epochs<span class="op">=</span><span class="dv">200</span>)</span></code></pre></div>
+<pre><code>## Epoch   0 | Train Loss: 1.9463 | Val Acc: 0.2880
+## Epoch  10 | Train Loss: 1.8478 | Val Acc: 0.3540
+## Epoch  20 | Train Loss: 1.6847 | Val Acc: 0.5300
+## Epoch  30 | Train Loss: 1.4675 | Val Acc: 0.6780
+## Epoch  40 | Train Loss: 1.2173 | Val Acc: 0.7500
+## Epoch  50 | Train Loss: 0.9753 | Val Acc: 0.7540
+## Epoch  60 | Train Loss: 0.7775 | Val Acc: 0.7660
+## Epoch  70 | Train Loss: 0.6319 | Val Acc: 0.7740
+## Epoch  80 | Train Loss: 0.5292 | Val Acc: 0.7760
+## Epoch  90 | Train Loss: 0.4561 | Val Acc: 0.7860
+## Epoch 100 | Train Loss: 0.4025 | Val Acc: 0.7880
+## Epoch 110 | Train Loss: 0.3620 | Val Acc: 0.7880
+## Epoch 120 | Train Loss: 0.3303 | Val Acc: 0.7880
+## Epoch 130 | Train Loss: 0.3048 | Val Acc: 0.7960
+## Epoch 140 | Train Loss: 0.2839 | Val Acc: 0.7960
+## Epoch 150 | Train Loss: 0.2665 | Val Acc: 0.7980
+## Epoch 160 | Train Loss: 0.2517 | Val Acc: 0.7980
+## Epoch 170 | Train Loss: 0.2391 | Val Acc: 0.7960
+## Epoch 180 | Train Loss: 0.2281 | Val Acc: 0.7940
+## Epoch 190 | Train Loss: 0.2185 | Val Acc: 0.7920
+## Epoch 200 | Train Loss: 0.2100 | Val Acc: 0.7920</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb234-1"><a href="graph-neural-network.html#cb234-1" tabindex="-1"></a>test_acc <span class="op">=</span> model.test(data)</span>
+<span id="cb234-2"><a href="graph-neural-network.html#cb234-2" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test Accuracy: </span><span class="sc">{</span>test_acc<span class="sc">:.4f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<pre><code>## Test Accuracy: 0.8120</code></pre>
+<div class="sourceCode" id="cb236"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb236-1"><a href="graph-neural-network.html#cb236-1" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb236-2"><a href="graph-neural-network.html#cb236-2" tabindex="-1"></a><span class="im">from</span> sklearn.manifold <span class="im">import</span> TSNE</span>
+<span id="cb236-3"><a href="graph-neural-network.html#cb236-3" tabindex="-1"></a></span>
+<span id="cb236-4"><a href="graph-neural-network.html#cb236-4" tabindex="-1"></a><span class="kw">def</span> visualize(h, color):</span>
+<span id="cb236-5"><a href="graph-neural-network.html#cb236-5" tabindex="-1"></a>    z <span class="op">=</span> TSNE(n_components<span class="op">=</span><span class="dv">2</span>).fit_transform(h.detach().cpu().numpy())</span>
+<span id="cb236-6"><a href="graph-neural-network.html#cb236-6" tabindex="-1"></a></span>
+<span id="cb236-7"><a href="graph-neural-network.html#cb236-7" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))</span>
+<span id="cb236-8"><a href="graph-neural-network.html#cb236-8" tabindex="-1"></a>    plt.xticks([])</span>
+<span id="cb236-9"><a href="graph-neural-network.html#cb236-9" tabindex="-1"></a>    plt.yticks([])</span>
+<span id="cb236-10"><a href="graph-neural-network.html#cb236-10" tabindex="-1"></a></span>
+<span id="cb236-11"><a href="graph-neural-network.html#cb236-11" tabindex="-1"></a>    plt.scatter(z[:, <span class="dv">0</span>], z[:, <span class="dv">1</span>], s<span class="op">=</span><span class="dv">70</span>, c<span class="op">=</span>color, cmap<span class="op">=</span><span class="st">&quot;Set2&quot;</span>)</span>
+<span id="cb236-12"><a href="graph-neural-network.html#cb236-12" tabindex="-1"></a>    plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb237-1"><a href="graph-neural-network.html#cb237-1" tabindex="-1"></a>out <span class="op">=</span> model(data.x, data.edge_index)</span>
+<span id="cb237-2"><a href="graph-neural-network.html#cb237-2" tabindex="-1"></a>visualize(out, color<span class="op">=</span>data.y)</span></code></pre></div>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-164-1.png" alt="" width="960" /></p>
+</div>
+</div>
+<div id="graph-attention-network-gat" class="section level2 hasAnchor" number="14.5">
+<h2><span class="header-section-number">14.5</span> Graph Attention Network (GAT)<a href="graph-neural-network.html#graph-attention-network-gat" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En las convoluciones tradicionales (GCN), la información de los vecinos se
+agrega de forma estática. Normalmente, se usa un promedio o un factor basado
+únicamente en el grado (cuántos amigos tienes), pero no en quiénes son esos
+amigos o qué tan relevantes son para una tarea específica.</p>
+<p>La limitación: No todos los vecinos son igual de importantes.</p>
+<p>Por ejemplo, en una red de citaciones de articulos académicdos sobre Deep Learning,
+un artículo sobre “Deep Learning” puede citar 50 artículos, pero solo 3 son sus
+bases teóricas fundamentales. Desortunadamente una red GCN trataría a los 50 por igual.</p>
+<p>Las GAT introducen el <strong>mecanismo de atención</strong>, permitiendo que cada nodo decida
+dinámicamente qué vecinos “escuchar” más y cuáles ignorar.</p>
+<div id="cómo-funcionan-1" class="section level3 hasAnchor" number="14.5.1">
+<h3><span class="header-section-number">14.5.1</span> ¿Cómo funcionan?<a href="graph-neural-network.html#c%C3%B3mo-funcionan-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En líneas generales, la atención describe un promedio ponderado de múltiples
+elementos, cuyos pesos se calculan dinámicamente a partir de una consulta de
+entrada y las claves de los elementos.</p>
+<p>Así como en otros entornos de Deeo Learning, este concepto se puede aplicar de
+forma similar a los grafos; uno de ellos es la Red de Atención de Grafos (GAT,
+propuesta por el equipo de Petar Veličković en 2017 (<a href="https://arxiv.org/abs/1710.10903" class="uri">https://arxiv.org/abs/1710.10903</a>).</p>
+<p>De forma similar a la GCN, la capa de atención de grafos crea un mensaje para
+cada nodo mediante una matriz lineal de capas y pesos. Para la atención,
+utiliza el mensaje del propio nodo como consulta y los mensajes a promediar como
+claves y valores (tenga en cuenta que esto también incluye el mensaje a sí mismo).</p>
+<p>La función de puntuación se implementa como una MLP de una capa que asigna la consulta y la clave a un único valor</p>
+<p>Entrando a mayor detalle, la idea clave es que el factor de normalización <span class="math inline">\(c_ij\)</span>
+(que en las GCN era fijo) se convierta en un coeficiente de atención aprendible <span class="math inline">\(\alpha_ij\)</span></p>
+<p>De este modo, el mecanismo de atención se obtiene a partir de un proceso para
+calcular la nueva representación de un nodo i se divide en tres pasos:</p>
+<ul>
+<li><p><strong>Transformación Lineal:</strong> Se aplica una matriz de pesos W a todas las
+características de los nodos para proyectarlos a una dimensión superior.</p></li>
+<li><p><strong>Cómputo de Coeficientes</strong> (<span class="math inline">\(e_{ij}\)</span>: Se calcula una “puntuación” de importancia
+entre el nodo i y su vecino j usando un mecanismo de atención (usualmente una
+pequeña red neuronal de una sola capa).</p></li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+e_{ij} = a\left( \mathbf{W} \vec{h}_i, \mathbf{W} \vec{h}_j \right)
+\end{equation}\]</span></p>
+<ul>
+<li><strong>Normalización (Softmax)</strong> Se aplica la función Softmax sobre todos los vecinos
+para que la suma de las importancias sea igual a 1.</li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+\alpha_{ij} = \text{softmax}_j(e_{ij}) = \frac{\exp(e_{ij})}{\sum_{k \in \mathcal{N}(i)} \exp(e_{ik})}
+\end{equation}\]</span></p>
+<p>Multi-Head Attention (Atención de múltiples cabezales)</p>
+<p>Para estabilizar el aprendizaje, las GAT no usan solo un mecanismo de atención,
+sino varios en paralelo (como en los Transformers). Cada “cabezal” puede aprender
+a enfocarse en diferentes tipos de relaciones.</p>
+<p><span class="math display">\[\begin{equation}
+\vec{h}_i^{(l+1)} = \sigma \left( \sum_{j \in \mathcal{N}(i)} \alpha_{ij} \mathbf{W} \vec{h}_j^{(l)} \right)
+\end{equation}\]</span></p>
+<p><img src="img/21-gnn/gnn_attention.png" alt="" width="120%" style="display: block; margin: auto;" /></p>
+<p><span class="math display">\[\begin{equation}
+\alpha_{ij} = \frac{\exp\left(\text{LeakyReLU}\left(\mathbf{a}\left[\mathbf{W}h_i||\mathbf{W}h_j\right]\right)\right)}{\sum_{k\in\mathcal{N}_i} \exp\left(\text{LeakyReLU}\left(\mathbf{a}\left[\mathbf{W}h_i||\mathbf{W}h_k\right]\right)\right)}
+\end{equation}\]</span></p>
+<p>Enn resumen, los componentes de las GAT pueden esquematizarse como:</p>
+<ul>
+<li><span class="math inline">\(e_{ij}\)</span>: Es el coeficiente de atención (o puntuación) que indica la importancia de las características del nodo <span class="math inline">\(j\)</span> para el nodo <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(a(\cdot)\)</span>: Es un mecanismo de atención, generalmente implementado como una red neuronal de una sola capa () que transforma la concatenación de los vectores de los nodos en un escalar.</li>
+<li><span class="math inline">\(\mathbf{W}\)</span>: Una matriz de pesos compartida que realiza una transformación lineal sobre las características de entrada de todos los nodos.</li>
+<li><span class="math inline">\(\alpha_{ij}\)</span>: Son los coeficientes de atención normalizados mediante la función , asegurando que la suma de las influencias de los vecinos de <span class="math inline">\(i\)</span> sea igual a 1.</li>
+<li><span class="math inline">\(\mathcal{N}(i)\)</span>: El conjunto de vecinos de primer orden del nodo <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(\vec{h}_i^{(l+1)}\)</span>: El nuevo vector de características generado para el nodo <span class="math inline">\(i\)</span>, resultado de la suma ponderada de las características transformadas de su vecindad.</li>
+<li><span class="math inline">\(\exp(\cdot)\)</span>: La función exponencial, utilizada para calcular el peso relativo de cada conexión antes de la normalización.</li>
+</ul>
+</div>
+</div>
+<div id="implementación-en-pytorch-geometric-1" class="section level2 hasAnchor" number="14.6">
+<h2><span class="header-section-number">14.6</span> Implementación en PyTorch Geometric<a href="graph-neural-network.html#implementaci%C3%B3n-en-pytorch-geometric-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ejemplo-clasificación-de-artículos-de-investigación-por-categoría-parte-ii" class="section level3 hasAnchor" number="14.6.1">
+<h3><span class="header-section-number">14.6.1</span> Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)<a href="graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa-parte-ii" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Volveremos a trabajar con el conjunto de datos Cora, para predecir la categorìa
+a la que pertnecen sus artìculos de investigacion. Como cambio, usaremos redes
+GAT para revisar el cambio de performace en la predicción:</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb238-1"><a href="graph-neural-network.html#cb238-1" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb238-2"><a href="graph-neural-network.html#cb238-2" tabindex="-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
+<span id="cb238-3"><a href="graph-neural-network.html#cb238-3" tabindex="-1"></a><span class="im">from</span> torch_geometric.nn <span class="im">import</span> GATConv</span>
+<span id="cb238-4"><a href="graph-neural-network.html#cb238-4" tabindex="-1"></a></span>
+<span id="cb238-5"><a href="graph-neural-network.html#cb238-5" tabindex="-1"></a><span class="kw">class</span> GATClassifier(torch.nn.Module):</span>
+<span id="cb238-6"><a href="graph-neural-network.html#cb238-6" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dim_in, dim_h, dim_out, heads):</span>
+<span id="cb238-7"><a href="graph-neural-network.html#cb238-7" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb238-8"><a href="graph-neural-network.html#cb238-8" tabindex="-1"></a>        torch.manual_seed(<span class="dv">1234567</span>)</span>
+<span id="cb238-9"><a href="graph-neural-network.html#cb238-9" tabindex="-1"></a></span>
+<span id="cb238-10"><a href="graph-neural-network.html#cb238-10" tabindex="-1"></a>        <span class="va">self</span>.gat1 <span class="op">=</span> GATConv(</span>
+<span id="cb238-11"><a href="graph-neural-network.html#cb238-11" tabindex="-1"></a>            in_channels<span class="op">=</span>dim_in,</span>
+<span id="cb238-12"><a href="graph-neural-network.html#cb238-12" tabindex="-1"></a>            out_channels<span class="op">=</span>dim_h,</span>
+<span id="cb238-13"><a href="graph-neural-network.html#cb238-13" tabindex="-1"></a>            heads<span class="op">=</span>heads,</span>
+<span id="cb238-14"><a href="graph-neural-network.html#cb238-14" tabindex="-1"></a>            dropout<span class="op">=</span><span class="fl">0.6</span></span>
+<span id="cb238-15"><a href="graph-neural-network.html#cb238-15" tabindex="-1"></a>        )</span>
+<span id="cb238-16"><a href="graph-neural-network.html#cb238-16" tabindex="-1"></a></span>
+<span id="cb238-17"><a href="graph-neural-network.html#cb238-17" tabindex="-1"></a>        <span class="va">self</span>.gat2 <span class="op">=</span> GATConv(</span>
+<span id="cb238-18"><a href="graph-neural-network.html#cb238-18" tabindex="-1"></a>            in_channels<span class="op">=</span>dim_h <span class="op">*</span> heads,</span>
+<span id="cb238-19"><a href="graph-neural-network.html#cb238-19" tabindex="-1"></a>            out_channels<span class="op">=</span>dim_out,</span>
+<span id="cb238-20"><a href="graph-neural-network.html#cb238-20" tabindex="-1"></a>            heads<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb238-21"><a href="graph-neural-network.html#cb238-21" tabindex="-1"></a>            concat<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb238-22"><a href="graph-neural-network.html#cb238-22" tabindex="-1"></a>            dropout<span class="op">=</span><span class="fl">0.6</span></span>
+<span id="cb238-23"><a href="graph-neural-network.html#cb238-23" tabindex="-1"></a>        )</span>
+<span id="cb238-24"><a href="graph-neural-network.html#cb238-24" tabindex="-1"></a></span>
+<span id="cb238-25"><a href="graph-neural-network.html#cb238-25" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x, edge_index):</span>
+<span id="cb238-26"><a href="graph-neural-network.html#cb238-26" tabindex="-1"></a>        h <span class="op">=</span> F.dropout(x, p<span class="op">=</span><span class="fl">0.6</span>, training<span class="op">=</span><span class="va">self</span>.training)</span>
+<span id="cb238-27"><a href="graph-neural-network.html#cb238-27" tabindex="-1"></a>        h <span class="op">=</span> <span class="va">self</span>.gat1(h, edge_index)</span>
+<span id="cb238-28"><a href="graph-neural-network.html#cb238-28" tabindex="-1"></a>        h <span class="op">=</span> F.elu(h)</span>
+<span id="cb238-29"><a href="graph-neural-network.html#cb238-29" tabindex="-1"></a>        h <span class="op">=</span> F.dropout(h, p<span class="op">=</span><span class="fl">0.6</span>, training<span class="op">=</span><span class="va">self</span>.training)</span>
+<span id="cb238-30"><a href="graph-neural-network.html#cb238-30" tabindex="-1"></a>        h <span class="op">=</span> <span class="va">self</span>.gat2(h, edge_index)</span>
+<span id="cb238-31"><a href="graph-neural-network.html#cb238-31" tabindex="-1"></a>        <span class="cf">return</span> h</span>
+<span id="cb238-32"><a href="graph-neural-network.html#cb238-32" tabindex="-1"></a></span>
+<span id="cb238-33"><a href="graph-neural-network.html#cb238-33" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, data, epochs, lr<span class="op">=</span><span class="fl">0.005</span>, weight_decay<span class="op">=</span><span class="fl">5e-4</span>):</span>
+<span id="cb238-34"><a href="graph-neural-network.html#cb238-34" tabindex="-1"></a>        optimizer <span class="op">=</span> torch.optim.Adam(</span>
+<span id="cb238-35"><a href="graph-neural-network.html#cb238-35" tabindex="-1"></a>            <span class="va">self</span>.parameters(),</span>
+<span id="cb238-36"><a href="graph-neural-network.html#cb238-36" tabindex="-1"></a>            lr<span class="op">=</span>lr,</span>
+<span id="cb238-37"><a href="graph-neural-network.html#cb238-37" tabindex="-1"></a>            weight_decay<span class="op">=</span>weight_decay</span>
+<span id="cb238-38"><a href="graph-neural-network.html#cb238-38" tabindex="-1"></a>        )</span>
+<span id="cb238-39"><a href="graph-neural-network.html#cb238-39" tabindex="-1"></a>        criterion <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb238-40"><a href="graph-neural-network.html#cb238-40" tabindex="-1"></a></span>
+<span id="cb238-41"><a href="graph-neural-network.html#cb238-41" tabindex="-1"></a>        <span class="va">self</span>.train()</span>
+<span id="cb238-42"><a href="graph-neural-network.html#cb238-42" tabindex="-1"></a></span>
+<span id="cb238-43"><a href="graph-neural-network.html#cb238-43" tabindex="-1"></a>        <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(epochs <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb238-44"><a href="graph-neural-network.html#cb238-44" tabindex="-1"></a>            optimizer.zero_grad()</span>
+<span id="cb238-45"><a href="graph-neural-network.html#cb238-45" tabindex="-1"></a></span>
+<span id="cb238-46"><a href="graph-neural-network.html#cb238-46" tabindex="-1"></a>            out <span class="op">=</span> <span class="va">self</span>(data.x, data.edge_index)</span>
+<span id="cb238-47"><a href="graph-neural-network.html#cb238-47" tabindex="-1"></a>            loss <span class="op">=</span> criterion(</span>
+<span id="cb238-48"><a href="graph-neural-network.html#cb238-48" tabindex="-1"></a>                out[data.train_mask],</span>
+<span id="cb238-49"><a href="graph-neural-network.html#cb238-49" tabindex="-1"></a>                data.y[data.train_mask]</span>
+<span id="cb238-50"><a href="graph-neural-network.html#cb238-50" tabindex="-1"></a>            )</span>
+<span id="cb238-51"><a href="graph-neural-network.html#cb238-51" tabindex="-1"></a></span>
+<span id="cb238-52"><a href="graph-neural-network.html#cb238-52" tabindex="-1"></a>            loss.backward()</span>
+<span id="cb238-53"><a href="graph-neural-network.html#cb238-53" tabindex="-1"></a>            optimizer.step()</span>
+<span id="cb238-54"><a href="graph-neural-network.html#cb238-54" tabindex="-1"></a></span>
+<span id="cb238-55"><a href="graph-neural-network.html#cb238-55" tabindex="-1"></a>            <span class="cf">if</span> epoch <span class="op">%</span> <span class="dv">10</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb238-56"><a href="graph-neural-network.html#cb238-56" tabindex="-1"></a>                val_acc <span class="op">=</span> <span class="va">self</span>.validate(data)</span>
+<span id="cb238-57"><a href="graph-neural-network.html#cb238-57" tabindex="-1"></a>                test_acc <span class="op">=</span> <span class="va">self</span>.test(data)</span>
+<span id="cb238-58"><a href="graph-neural-network.html#cb238-58" tabindex="-1"></a>                <span class="bu">print</span>(</span>
+<span id="cb238-59"><a href="graph-neural-network.html#cb238-59" tabindex="-1"></a>                    <span class="ss">f&quot;Epoch </span><span class="sc">{</span>epoch<span class="sc">:&gt;3}</span><span class="ss"> | &quot;</span></span>
+<span id="cb238-60"><a href="graph-neural-network.html#cb238-60" tabindex="-1"></a>                    <span class="ss">f&quot;Train Loss: </span><span class="sc">{</span>loss<span class="sc">:.4f}</span><span class="ss"> | &quot;</span></span>
+<span id="cb238-61"><a href="graph-neural-network.html#cb238-61" tabindex="-1"></a>                    <span class="ss">f&quot;Val Acc: </span><span class="sc">{</span>val_acc<span class="sc">:.4f}</span><span class="ss"> | &quot;</span></span>
+<span id="cb238-62"><a href="graph-neural-network.html#cb238-62" tabindex="-1"></a>                    <span class="ss">f&quot;Test Acc: </span><span class="sc">{</span>test_acc<span class="sc">:.4f}</span><span class="ss">&quot;</span></span>
+<span id="cb238-63"><a href="graph-neural-network.html#cb238-63" tabindex="-1"></a>                )</span>
+<span id="cb238-64"><a href="graph-neural-network.html#cb238-64" tabindex="-1"></a></span>
+<span id="cb238-65"><a href="graph-neural-network.html#cb238-65" tabindex="-1"></a>    <span class="at">@torch.no_grad</span>()</span>
+<span id="cb238-66"><a href="graph-neural-network.html#cb238-66" tabindex="-1"></a>    <span class="kw">def</span> validate(<span class="va">self</span>, data):</span>
+<span id="cb238-67"><a href="graph-neural-network.html#cb238-67" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">eval</span>()</span>
+<span id="cb238-68"><a href="graph-neural-network.html#cb238-68" tabindex="-1"></a>        out <span class="op">=</span> <span class="va">self</span>(data.x, data.edge_index)</span>
+<span id="cb238-69"><a href="graph-neural-network.html#cb238-69" tabindex="-1"></a>        pred <span class="op">=</span> out.argmax(dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb238-70"><a href="graph-neural-network.html#cb238-70" tabindex="-1"></a>        correct <span class="op">=</span> pred[data.val_mask] <span class="op">==</span> data.y[data.val_mask]</span>
+<span id="cb238-71"><a href="graph-neural-network.html#cb238-71" tabindex="-1"></a>        <span class="cf">return</span> correct.<span class="bu">sum</span>().item() <span class="op">/</span> <span class="bu">int</span>(data.val_mask.<span class="bu">sum</span>())</span>
+<span id="cb238-72"><a href="graph-neural-network.html#cb238-72" tabindex="-1"></a></span>
+<span id="cb238-73"><a href="graph-neural-network.html#cb238-73" tabindex="-1"></a>    <span class="at">@torch.no_grad</span>()</span>
+<span id="cb238-74"><a href="graph-neural-network.html#cb238-74" tabindex="-1"></a>    <span class="kw">def</span> test(<span class="va">self</span>, data):</span>
+<span id="cb238-75"><a href="graph-neural-network.html#cb238-75" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">eval</span>()</span>
+<span id="cb238-76"><a href="graph-neural-network.html#cb238-76" tabindex="-1"></a>        out <span class="op">=</span> <span class="va">self</span>(data.x, data.edge_index)</span>
+<span id="cb238-77"><a href="graph-neural-network.html#cb238-77" tabindex="-1"></a>        pred <span class="op">=</span> out.argmax(dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb238-78"><a href="graph-neural-network.html#cb238-78" tabindex="-1"></a>        correct <span class="op">=</span> pred[data.test_mask] <span class="op">==</span> data.y[data.test_mask]</span>
+<span id="cb238-79"><a href="graph-neural-network.html#cb238-79" tabindex="-1"></a>        <span class="cf">return</span> correct.<span class="bu">sum</span>().item() <span class="op">/</span> <span class="bu">int</span>(data.test_mask.<span class="bu">sum</span>())</span></code></pre></div>
+<p>Ahora instanciamos el modelo:</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb239-1"><a href="graph-neural-network.html#cb239-1" tabindex="-1"></a>model <span class="op">=</span> GATClassifier(</span>
+<span id="cb239-2"><a href="graph-neural-network.html#cb239-2" tabindex="-1"></a>    dim_in<span class="op">=</span>dataset.num_features,</span>
+<span id="cb239-3"><a href="graph-neural-network.html#cb239-3" tabindex="-1"></a>    dim_h<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb239-4"><a href="graph-neural-network.html#cb239-4" tabindex="-1"></a>    dim_out<span class="op">=</span>dataset.num_classes,</span>
+<span id="cb239-5"><a href="graph-neural-network.html#cb239-5" tabindex="-1"></a>    heads<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb239-6"><a href="graph-neural-network.html#cb239-6" tabindex="-1"></a>)</span>
+<span id="cb239-7"><a href="graph-neural-network.html#cb239-7" tabindex="-1"></a></span>
+<span id="cb239-8"><a href="graph-neural-network.html#cb239-8" tabindex="-1"></a><span class="bu">print</span>(model)</span></code></pre></div>
+<pre><code>## GATClassifier(
+##   (gat1): GATConv(1433, 6, heads=3)
+##   (gat2): GATConv(18, 7, heads=1)
+## )</code></pre>
+<p>Ahora entrenamos el modelo con capaz GAT:</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb241-1"><a href="graph-neural-network.html#cb241-1" tabindex="-1"></a>model.fit(data, epochs<span class="op">=</span><span class="dv">50</span>)</span></code></pre></div>
+<pre><code>## Epoch   0 | Train Loss: 1.9454 | Val Acc: 0.1720 | Test Acc: 0.1640
+## Epoch  10 | Train Loss: 1.8858 | Val Acc: 0.7700 | Test Acc: 0.8060
+## Epoch  20 | Train Loss: 1.7986 | Val Acc: 0.7960 | Test Acc: 0.8140
+## Epoch  30 | Train Loss: 1.6868 | Val Acc: 0.7980 | Test Acc: 0.8070
+## Epoch  40 | Train Loss: 1.5508 | Val Acc: 0.8000 | Test Acc: 0.8060
+## Epoch  50 | Train Loss: 1.3944 | Val Acc: 0.8000 | Test Acc: 0.8080</code></pre>
+<p>Ahora evaluamos al modelo:</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb243-1"><a href="graph-neural-network.html#cb243-1" tabindex="-1"></a>test_acc <span class="op">=</span> model.test(data)</span>
+<span id="cb243-2"><a href="graph-neural-network.html#cb243-2" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Final Test Accuracy: </span><span class="sc">{</span>test_acc<span class="sc">:.4f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<pre><code>## Final Test Accuracy: 0.8080</code></pre>
+
+<!-- ::: watermark -->
+<!-- <img src="img/aif-logo.png" width="400"/> -->
+<!-- ::: -->
+</div>
+</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+$('.pipehover_incremental tr').hover(function() {
+  $(this).removeClass()
+  $(this).prevAll().removeClass()
+  $(this).nextAll().removeClass()
+  $(this).addClass('hover');
+  $(this).prevAll().addClass('hover');
+  $(this).closest('div').next().find('img').attr("src", $(this).attr("link"));
+});
+
+
+$('.pipehover_select_one_row tr').hover(function() {
+  $(this).removeClass()
+  $(this).prevAll().removeClass()
+  $(this).nextAll().removeClass()
+  $(this).addClass('hover');
+  $(this).closest('div').next().find('img').attr("src", $(this).attr("link"));
+});
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introducción-a-la-teoría-de-gráficas..html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="embeddings-y-graph-neural-network.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["deep_learning_course_python.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

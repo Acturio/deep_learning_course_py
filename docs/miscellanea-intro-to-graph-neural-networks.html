@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Miscellanea: Intro to Graph Neural Networks | Deep Learning</title>
+  <meta name="description" content="Miscellanea: Intro to Graph Neural Networks | Deep Learning" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Miscellanea: Intro to Graph Neural Networks | Deep Learning" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Miscellanea: Intro to Graph Neural Networks | Deep Learning" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Miscellanea: Intro to Graph Neural Networks | Deep Learning" />
+  
+  <meta name="twitter:description" content="Miscellanea: Intro to Graph Neural Networks | Deep Learning" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="algoritmos-de-optimización.html"/>
+<link rel="next" href="introducción-a-la-teoría-de-gráficas..html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"><img src="img/aif-logo.png" width="280"></a></li|
+|:-:|  
+<center>Curso de Redes Neuronales Artificiales</center>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>BIENVENIDA</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivo"><i class="fa fa-check"></i>Objetivo</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#alcances-del-programa"><i class="fa fa-check"></i>Alcances del Programa</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#temario"><i class="fa fa-check"></i>Temario:</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#c%C3%B3digo"><i class="fa fa-check"></i>Código</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#duraci%C3%B3n-y-evaluaci%C3%B3n-del-programa"><i class="fa fa-check"></i>Duración y evaluación del programa</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-y-din%C3%A1mica"><i class="fa fa-check"></i>Recursos y dinámica</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#agenda"><i class="fa fa-check"></i>Agenda</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#software"><i class="fa fa-check"></i>Software</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#bibliograf%C3%ADa"><i class="fa fa-check"></i>Bibliografía</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html"><i class="fa fa-check"></i><b>1</b> Introducción a Deep Learning</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#introducci%C3%B3n-al-aprendizaje-autom%C3%A1tico"><i class="fa fa-check"></i><b>1.1</b> Introducción al aprendizaje automático</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#motivaci%C3%B3n-los-paradigmas-del-conocimiento"><i class="fa fa-check"></i><b>1.1.1</b> Motivación: Los paradigmas del conocimiento</a></li>
+<li class="chapter" data-level="1.1.2" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#machine-learning-supervisado"><i class="fa fa-check"></i><b>1.1.2</b> Machine learning supervisado</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#por-qu%C3%A9-deep-learning"><i class="fa fa-check"></i><b>1.2</b> ¿Por qué Deep Learning?</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#dimensi%C3%B3n-vc"><i class="fa fa-check"></i><b>1.2.1</b> Dimensión VC</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#el-truco-del-kernel-svm"><i class="fa fa-check"></i><b>1.2.2</b> El truco del Kernel (SVM)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#ingenier%C3%ADa-de-caracteristicas"><i class="fa fa-check"></i><b>1.2.3</b> Ingeniería de caracteristicas</a></li>
+<li class="chapter" data-level="1.2.4" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#beneficios-del-deep-learning"><i class="fa fa-check"></i><b>1.2.4</b> Beneficios del deep learning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="preliminares.html"><a href="preliminares.html"><i class="fa fa-check"></i><b>2</b> Preliminares</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="preliminares.html"><a href="preliminares.html#algebra-lineal"><i class="fa fa-check"></i><b>2.1</b> Algebra Lineal</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="preliminares.html"><a href="preliminares.html#introducci%C3%B3n"><i class="fa fa-check"></i><b>2.1.1</b> Introducción</a></li>
+<li class="chapter" data-level="2.1.2" data-path="preliminares.html"><a href="preliminares.html#motivaci%C3%B3n"><i class="fa fa-check"></i><b>2.1.2</b> Motivación</a></li>
+<li class="chapter" data-level="2.1.3" data-path="preliminares.html"><a href="preliminares.html#escalares"><i class="fa fa-check"></i><b>2.1.3</b> Escalares</a></li>
+<li class="chapter" data-level="2.1.4" data-path="preliminares.html"><a href="preliminares.html#vectores-1"><i class="fa fa-check"></i><b>2.1.4</b> Vectores</a></li>
+<li class="chapter" data-level="2.1.5" data-path="preliminares.html"><a href="preliminares.html#matrices-1"><i class="fa fa-check"></i><b>2.1.5</b> Matrices</a></li>
+<li class="chapter" data-level="2.1.6" data-path="preliminares.html"><a href="preliminares.html#tensores"><i class="fa fa-check"></i><b>2.1.6</b> Tensores</a></li>
+<li class="chapter" data-level="2.1.7" data-path="preliminares.html"><a href="preliminares.html#reducciones-sobre-tensores"><i class="fa fa-check"></i><b>2.1.7</b> Reducciones sobre tensores</a></li>
+<li class="chapter" data-level="2.1.8" data-path="preliminares.html"><a href="preliminares.html#producto-punto"><i class="fa fa-check"></i><b>2.1.8</b> Producto punto</a></li>
+<li class="chapter" data-level="2.1.9" data-path="preliminares.html"><a href="preliminares.html#producto-entre-matrices-y-vectores"><i class="fa fa-check"></i><b>2.1.9</b> Producto entre matrices y vectores</a></li>
+<li class="chapter" data-level="2.1.10" data-path="preliminares.html"><a href="preliminares.html#multiplicaci%C3%B3n-matricial"><i class="fa fa-check"></i><b>2.1.10</b> Multiplicación matricial</a></li>
+<li class="chapter" data-level="2.1.11" data-path="preliminares.html"><a href="preliminares.html#normas"><i class="fa fa-check"></i><b>2.1.11</b> Normas</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="preliminares.html"><a href="preliminares.html#c%C3%A1lculo-diferencial"><i class="fa fa-check"></i><b>2.2</b> Cálculo Diferencial</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="preliminares.html"><a href="preliminares.html#introducci%C3%B3n-1"><i class="fa fa-check"></i><b>2.2.1</b> Introducción</a></li>
+<li class="chapter" data-level="2.2.2" data-path="preliminares.html"><a href="preliminares.html#motivaci%C3%B3n-1"><i class="fa fa-check"></i><b>2.2.2</b> Motivación</a></li>
+<li class="chapter" data-level="2.2.3" data-path="preliminares.html"><a href="preliminares.html#derivadas-y-diferenciaci%C3%B3n"><i class="fa fa-check"></i><b>2.2.3</b> Derivadas y diferenciación</a></li>
+<li class="chapter" data-level="2.2.4" data-path="preliminares.html"><a href="preliminares.html#regla-de-la-cadena"><i class="fa fa-check"></i><b>2.2.4</b> Regla de la cadena</a></li>
+<li class="chapter" data-level="2.2.5" data-path="preliminares.html"><a href="preliminares.html#interpretaci%C3%B3n-geom%C3%A9trica-de-la-derivada"><i class="fa fa-check"></i><b>2.2.5</b> Interpretación geométrica de la derivada</a></li>
+<li class="chapter" data-level="2.2.6" data-path="preliminares.html"><a href="preliminares.html#teorema-fundamental-del-c%C3%A1lculo"><i class="fa fa-check"></i><b>2.2.6</b> Teorema fundamental del cálculo</a></li>
+<li class="chapter" data-level="2.2.7" data-path="preliminares.html"><a href="preliminares.html#autodiferenciaci%C3%B3n"><i class="fa fa-check"></i><b>2.2.7</b> Autodiferenciación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html"><i class="fa fa-check"></i><b>3</b> Redes neuronales Lineales para Regresión</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#introducci%C3%B3n-2"><i class="fa fa-check"></i><b>3.1</b> Introducción</a></li>
+<li class="chapter" data-level="3.2" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#regresiones-lineales-simples"><i class="fa fa-check"></i><b>3.2</b> Regresiones lineales simples</a></li>
+<li class="chapter" data-level="3.3" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#funci%C3%B3n-de-p%C3%A9rdida-y-funci%C3%B3n-de-costo"><i class="fa fa-check"></i><b>3.3</b> Función de pérdida y función de costo</a></li>
+<li class="chapter" data-level="3.4" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#supuestos-en-la-regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3.4</b> Supuestos en la regresión lineal</a></li>
+<li class="chapter" data-level="3.5" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#regresi%C3%B3n-lineal-m%C3%BAltiple"><i class="fa fa-check"></i><b>3.5</b> Regresión Lineal Múltiple</a></li>
+<li class="chapter" data-level="3.6" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#estimaci%C3%B3n-de-los-par%C3%A1metros"><i class="fa fa-check"></i><b>3.6</b> Estimación de los parámetros</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#derivaci%C3%B3n-paso-a-paso"><i class="fa fa-check"></i><b>3.6.1</b> Derivación paso a paso</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#bondad-de-ajuste"><i class="fa fa-check"></i><b>3.7</b> Bondad de ajuste</a></li>
+<li class="chapter" data-level="3.8" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#supuestos-del-modelo-lineal-m%C3%BAltiple"><i class="fa fa-check"></i><b>3.8</b> Supuestos del modelo lineal múltiple</a></li>
+<li class="chapter" data-level="3.9" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#regularizaci%C3%B3n-en-la-regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3.9</b> Regularización en la Regresión Lineal</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#ridge-regression"><i class="fa fa-check"></i><b>3.9.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="3.9.2" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#lasso-regression"><i class="fa fa-check"></i><b>3.9.2</b> Lasso Regression</a></li>
+<li class="chapter" data-level="3.9.3" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#elastic-net-regression"><i class="fa fa-check"></i><b>3.9.3</b> Elastic Net Regression</a></li>
+<li class="chapter" data-level="3.9.4" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#comparaci%C3%B3n-de-m%C3%A9todos"><i class="fa fa-check"></i><b>3.9.4</b> Comparación de métodos</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#consideraciones"><i class="fa fa-check"></i><b>3.10</b> Consideraciones</a></li>
+<li class="chapter" data-level="3.11" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#sesgo-y-varianza"><i class="fa fa-check"></i><b>3.11</b> Sesgo y Varianza</a>
+<ul>
+<li class="chapter" data-level="3.11.1" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#sesgo"><i class="fa fa-check"></i><b>3.11.1</b> Sesgo</a></li>
+<li class="chapter" data-level="3.11.2" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#varianza"><i class="fa fa-check"></i><b>3.11.2</b> Varianza</a></li>
+<li class="chapter" data-level="3.11.3" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#compromiso-sesgovarianza"><i class="fa fa-check"></i><b>3.11.3</b> Compromiso sesgo–varianza</a></li>
+<li class="chapter" data-level="3.11.4" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#en-regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3.11.4</b> En regresión lineal</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="redes-neuronales-lineales-para-regresión.html"><a href="redes-neuronales-lineales-para-regresión.html#conclusi%C3%B3n-de-la-secci%C3%B3n"><i class="fa fa-check"></i><b>3.12</b> Conclusión de la sección</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html"><i class="fa fa-check"></i><b>4</b> Redes neuronales Lineales para Clasificación</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#modelos-lineales-generalizados"><i class="fa fa-check"></i><b>4.1</b> Modelos Lineales Generalizados</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#historia-1"><i class="fa fa-check"></i><b>4.1.1</b> Historia</a></li>
+<li class="chapter" data-level="4.1.2" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#definici%C3%B3n"><i class="fa fa-check"></i><b>4.1.2</b> Definición</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#regresi%C3%B3n-log%C3%ADstica-para-clasificaci%C3%B3n"><i class="fa fa-check"></i><b>4.2</b> Regresión Logística para Clasificación</a></li>
+<li class="chapter" data-level="4.3" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#redes-neuronales"><i class="fa fa-check"></i><b>4.3</b> Redes neuronales</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#historia-2"><i class="fa fa-check"></i><b>4.3.1</b> Historia</a></li>
+<li class="chapter" data-level="4.3.2" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#definici%C3%B3n-1"><i class="fa fa-check"></i><b>4.3.2</b> Definición</a></li>
+<li class="chapter" data-level="4.3.3" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#neurona"><i class="fa fa-check"></i><b>4.3.3</b> Neurona</a></li>
+<li class="chapter" data-level="4.3.4" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#redes-neuronales-1"><i class="fa fa-check"></i><b>4.3.4</b> Redes Neuronales</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="redes-neuronales-lineales-para-clasificación.html"><a href="redes-neuronales-lineales-para-clasificación.html#notas-adicionales"><i class="fa fa-check"></i>Notas adicionales</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html"><i class="fa fa-check"></i><b>5</b> Perceptrón Multicapa</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#perceptrones-multicapa"><i class="fa fa-check"></i><b>5.1</b> Perceptrones multicapa</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#capas-ocultas"><i class="fa fa-check"></i><b>5.1.1</b> Capas ocultas</a></li>
+<li class="chapter" data-level="5.1.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#funciones-de-activaci%C3%B3n"><i class="fa fa-check"></i><b>5.1.2</b> Funciones de activación</a></li>
+<li class="chapter" data-level="5.1.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#discusi%C3%B3n"><i class="fa fa-check"></i><b>5.1.3</b> Discusión</a></li>
+<li class="chapter" data-level="5.1.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios"><i class="fa fa-check"></i><b>5.1.4</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-de-perceptrones-multicapa"><i class="fa fa-check"></i><b>5.2</b> Implementación de Perceptrones Multicapa</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-desde-cero"><i class="fa fa-check"></i><b>5.2.1</b> Implementación desde Cero</a></li>
+<li class="chapter" data-level="5.2.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n"><i class="fa fa-check"></i><b>5.2.2</b> Implementación</a></li>
+<li class="chapter" data-level="5.2.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-1"><i class="fa fa-check"></i><b>5.2.3</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#forward-propagation-backward-propagation"><i class="fa fa-check"></i><b>5.3</b> Forward Propagation, Backward Propagation</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#forward-propagation"><i class="fa fa-check"></i><b>5.3.1</b> Forward Propagation</a></li>
+<li class="chapter" data-level="5.3.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#backpropagation"><i class="fa fa-check"></i><b>5.3.2</b> Backpropagation</a></li>
+<li class="chapter" data-level="5.3.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#resumen-6"><i class="fa fa-check"></i><b>5.3.3</b> Resumen</a></li>
+<li class="chapter" data-level="5.3.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-2"><i class="fa fa-check"></i><b>5.3.4</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#estabilidad-num%C3%A9rica-e-inicializaci%C3%B3n"><i class="fa fa-check"></i><b>5.4</b> Estabilidad Numérica e Inicialización</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#explotaci%C3%B3n-y-desvanecimiento-de-gradientes"><i class="fa fa-check"></i><b>5.4.1</b> Explotación y Desvanecimiento de Gradientes</a></li>
+<li class="chapter" data-level="5.4.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#inicializaci%C3%B3n-param%C3%A9trica"><i class="fa fa-check"></i><b>5.4.2</b> Inicialización paramétrica</a></li>
+<li class="chapter" data-level="5.4.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-3"><i class="fa fa-check"></i><b>5.4.3</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#generalizaci%C3%B3n-en-deep-learning"><i class="fa fa-check"></i><b>5.5</b> Generalización en Deep Learning</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#sobreajuste-y-regularizaci%C3%B3n"><i class="fa fa-check"></i><b>5.5.1</b> Sobreajuste y Regularización</a></li>
+<li class="chapter" data-level="5.5.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#inspiraci%C3%B3n-de-los-no-param%C3%A9tricos"><i class="fa fa-check"></i><b>5.5.2</b> Inspiración de los no paramétricos</a></li>
+<li class="chapter" data-level="5.5.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#early-stopping"><i class="fa fa-check"></i><b>5.5.3</b> Early Stopping</a></li>
+<li class="chapter" data-level="5.5.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#m%C3%A9todos-cl%C3%A1sicos-de-regularizaci%C3%B3n-para-redes-profundas"><i class="fa fa-check"></i><b>5.5.4</b> Métodos clásicos de regularización para redes profundas</a></li>
+<li class="chapter" data-level="5.5.5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-4"><i class="fa fa-check"></i><b>5.5.5</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#dropout"><i class="fa fa-check"></i><b>5.6</b> Dropout</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#dropout-en-la-pr%C3%A1ctica"><i class="fa fa-check"></i><b>5.6.1</b> Dropout en la práctica</a></li>
+<li class="chapter" data-level="5.6.2" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-desde-cero-1"><i class="fa fa-check"></i><b>5.6.2</b> Implementación desde cero</a></li>
+<li class="chapter" data-level="5.6.3" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#definici%C3%B3n-del-modelo"><i class="fa fa-check"></i><b>5.6.3</b> Definición del modelo</a></li>
+<li class="chapter" data-level="5.6.4" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#entrenamiento-2"><i class="fa fa-check"></i><b>5.6.4</b> Entrenamiento</a></li>
+<li class="chapter" data-level="5.6.5" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-concisa"><i class="fa fa-check"></i><b>5.6.5</b> Implementación concisa</a></li>
+<li class="chapter" data-level="5.6.6" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#resumen-7"><i class="fa fa-check"></i><b>5.6.6</b> Resumen</a></li>
+<li class="chapter" data-level="5.6.7" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-5"><i class="fa fa-check"></i><b>5.6.7</b> Ejercicios</a></li>
+<li class="chapter" data-level="5.6.8" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#dropout-en-la-pr%C3%A1ctica-1"><i class="fa fa-check"></i><b>5.6.8</b> Dropout en la práctica</a></li>
+<li class="chapter" data-level="5.6.9" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-desde-cero-2"><i class="fa fa-check"></i><b>5.6.9</b> Implementación desde cero</a></li>
+<li class="chapter" data-level="5.6.10" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#definici%C3%B3n-del-modelo-1"><i class="fa fa-check"></i><b>5.6.10</b> Definición del modelo</a></li>
+<li class="chapter" data-level="5.6.11" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#entrenamiento-3"><i class="fa fa-check"></i><b>5.6.11</b> Entrenamiento</a></li>
+<li class="chapter" data-level="5.6.12" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#implementaci%C3%B3n-concisa-1"><i class="fa fa-check"></i><b>5.6.12</b> Implementación concisa</a></li>
+<li class="chapter" data-level="5.6.13" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#resumen-8"><i class="fa fa-check"></i><b>5.6.13</b> Resumen</a></li>
+<li class="chapter" data-level="5.6.14" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-6"><i class="fa fa-check"></i><b>5.6.14</b> Ejercicios</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="gpus.html"><a href="gpus.html"><i class="fa fa-check"></i><b>6</b> GPUs</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="gpus.html"><a href="gpus.html#paralelismo-y-concurrencia"><i class="fa fa-check"></i><b>6.1</b> Paralelismo y concurrencia</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="gpus.html"><a href="gpus.html#reflexi%C3%B3n-concurrencia-y-paralelismo"><i class="fa fa-check"></i><b>6.1.1</b> Reflexión: Concurrencia y Paralelismo</a></li>
+<li class="chapter" data-level="6.1.2" data-path="gpus.html"><a href="gpus.html#relaci%C3%B3n-entre-concurrencia-y-paralelismo"><i class="fa fa-check"></i><b>6.1.2</b> Relación entre concurrencia y paralelismo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="gpus.html"><a href="gpus.html#complejidad-computacional"><i class="fa fa-check"></i><b>6.2</b> Complejidad Computacional</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="gpus.html"><a href="gpus.html#analizando-la-complejidad-computacional-en-el-problema-de-ordenamiento-de-n%C3%BAmeros"><i class="fa fa-check"></i><b>6.2.1</b> Analizando la complejidad computacional en el problema de ordenamiento de números</a></li>
+<li class="chapter" data-level="6.2.2" data-path="gpus.html"><a href="gpus.html#notaci%C3%B3n-big-o"><i class="fa fa-check"></i><b>6.2.2</b> Notación Big O</a></li>
+<li class="chapter" data-level="6.2.3" data-path="gpus.html"><a href="gpus.html#bubble-sort-vs-merge-sort."><i class="fa fa-check"></i><b>6.2.3</b> Bubble sort vs Merge sort.</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="gpus.html"><a href="gpus.html#el-papel-del-hardware"><i class="fa fa-check"></i><b>6.3</b> El papel del hardware</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="gpus.html"><a href="gpus.html#implementaci%C3%B3n-de-multiplicaci%C3%B3n-de-matrices-en-distintas-arquitecturas"><i class="fa fa-check"></i><b>6.3.1</b> Implementación de multiplicación de matrices en distintas arquitecturas</a></li>
+<li class="chapter" data-level="6.3.2" data-path="gpus.html"><a href="gpus.html#es-viable-acelerar-cualquier-algoritmo-en-gpu-tpu"><i class="fa fa-check"></i><b>6.3.2</b> ¿Es viable acelerar cualquier algoritmo en GPU / TPU?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html"><i class="fa fa-check"></i><b>7</b> Redes Neuronales Convolucionales</a></li>
+<li class="chapter" data-level="8" data-path="redes-neuronales-convolucionales-modernas.html"><a href="redes-neuronales-convolucionales-modernas.html"><i class="fa fa-check"></i><b>8</b> Redes Neuronales Convolucionales Modernas</a></li>
+<li class="chapter" data-level="9" data-path="redes-neuronales-recurrentes.html"><a href="redes-neuronales-recurrentes.html"><i class="fa fa-check"></i><b>9</b> Redes Neuronales Recurrentes</a></li>
+<li class="chapter" data-level="10" data-path="redes-neuronales-recurrentes-modernas.html"><a href="redes-neuronales-recurrentes-modernas.html"><i class="fa fa-check"></i><b>10</b> Redes Neuronales Recurrentes Modernas</a></li>
+<li class="chapter" data-level="11" data-path="mecanismos-de-atención-y-transformers.html"><a href="mecanismos-de-atención-y-transformers.html"><i class="fa fa-check"></i><b>11</b> Mecanismos de Atención y Transformers</a></li>
+<li class="part"><span><b>Parte 3: Escalabilidad, Eficiencia y Aplicaciones</b></span></li>
+<li class="chapter" data-level="12" data-path="algoritmos-de-optimización.html"><a href="algoritmos-de-optimización.html"><i class="fa fa-check"></i><b>12</b> Algoritmos de Optimización</a></li>
+<li class="chapter" data-level="" data-path="miscellanea-intro-to-graph-neural-networks.html"><a href="miscellanea-intro-to-graph-neural-networks.html"><i class="fa fa-check"></i>Miscellanea: Intro to Graph Neural Networks</a></li>
+<li class="chapter" data-level="13" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html"><i class="fa fa-check"></i><b>13</b> Introducción a la Teoría de Gráficas.</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#qu%C3%A9-es-una-gr%C3%A1fica"><i class="fa fa-check"></i><b>13.1</b> ¿Qué es una gráfica?</a></li>
+<li class="chapter" data-level="13.2" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#problemas-cl%C3%A1sicos-de-teor%C3%ADa-de-gr%C3%A1ficas-selecci%C3%B3n"><i class="fa fa-check"></i><b>13.2</b> Problemas clásicos de teoría de gráficas (selección)</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#caminos-y-conectividad"><i class="fa fa-check"></i><b>13.2.1</b> Caminos y conectividad</a></li>
+<li class="chapter" data-level="13.2.2" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#detecci%C3%B3n-de-comunidades"><i class="fa fa-check"></i><b>13.2.2</b> Detección de comunidades</a></li>
+<li class="chapter" data-level="13.2.3" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#centralidad-e-influencia"><i class="fa fa-check"></i><b>13.2.3</b> Centralidad e influencia</a></li>
+<li class="chapter" data-level="13.2.4" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#emparejamiento-y-asignaci%C3%B3n"><i class="fa fa-check"></i><b>13.2.4</b> Emparejamiento y asignación</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#ecosistema-de-herramientas-para-el-trabajo-con-grafos"><i class="fa fa-check"></i><b>13.3</b> Ecosistema de Herramientas para el Trabajo con Grafos</a></li>
+<li class="chapter" data-level="13.4" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#por-qu%C3%A9-combinar-graficas-y-deep-learning"><i class="fa fa-check"></i><b>13.4</b> ¿Por qué combinar Graficas y Deep Learning?</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#a.-multilayer-percepton-en-las-features-tabulares-de-cora"><i class="fa fa-check"></i><b>13.4.1</b> A. Multilayer Percepton en las features tabulares de Cora</a></li>
+<li class="chapter" data-level="13.4.2" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#b.-modelo-basado-en-una-capa-lineal-que-se-multiplica-por-la-matriz-de-adyacencia."><i class="fa fa-check"></i><b>13.4.2</b> B. Modelo basado en una capa lineal que se multiplica por la matriz de adyacencia.</a></li>
+<li class="chapter" data-level="13.4.3" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#qu%C3%A9-esta-haciendo-la-red"><i class="fa fa-check"></i><b>13.4.3</b> ¿Qué esta haciendo la red?</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#tipos-de-problemas-de-gnn"><i class="fa fa-check"></i><b>13.5</b> Tipos de problemas de GNN</a></li>
+<li class="chapter" data-level="13.6" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#existe-un-teorema-de-aproximaci%C3%B3n-univeral-tau-para-gnns"><i class="fa fa-check"></i><b>13.6</b> ¿Existe un Teorema de Aproximación Univeral (TAU) para GNN’s?</a></li>
+<li class="chapter" data-level="13.7" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#enfoques-de-aprendizaje-transductivo-e-inductivo"><i class="fa fa-check"></i><b>13.7</b> Enfoques de aprendizaje transductivo e inductivo</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="graph-neural-network.html"><a href="graph-neural-network.html"><i class="fa fa-check"></i><b>14</b> Graph Neural Network</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="graph-neural-network.html"><a href="graph-neural-network.html#pytorch-geometric-y-graph-neural-networks"><i class="fa fa-check"></i><b>14.1</b> PyTorch Geometric y Graph Neural Networks</a></li>
+<li class="chapter" data-level="14.2" data-path="graph-neural-network.html"><a href="graph-neural-network.html#graph-convolutional-networks-gnn"><i class="fa fa-check"></i><b>14.2</b> Graph Convolutional Networks (GNN)</a></li>
+<li class="chapter" data-level="14.3" data-path="graph-neural-network.html"><a href="graph-neural-network.html#c%C3%B3mo-funcionan"><i class="fa fa-check"></i><b>14.3</b> ¿Cómo funcionan?</a></li>
+<li class="chapter" data-level="14.4" data-path="graph-neural-network.html"><a href="graph-neural-network.html#implementaci%C3%B3n-en-pytorch-geometric"><i class="fa fa-check"></i><b>14.4</b> Implementación en PyTorch Geometric</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="graph-neural-network.html"><a href="graph-neural-network.html#ejemplo-predicci%C3%B3n-del-volumen-de-tr%C3%A1fico-en-wikipedia-regresi%C3%B3n"><i class="fa fa-check"></i><b>14.4.1</b> Ejemplo: Predicción del volumen de tráfico en Wikipedia (Regresión)</a></li>
+<li class="chapter" data-level="14.4.2" data-path="graph-neural-network.html"><a href="graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa"><i class="fa fa-check"></i><b>14.4.2</b> Ejemplo: Clasificación de artículos de investigación por categoría</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="graph-neural-network.html"><a href="graph-neural-network.html#graph-attention-network-gat"><i class="fa fa-check"></i><b>14.5</b> Graph Attention Network (GAT)</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="graph-neural-network.html"><a href="graph-neural-network.html#c%C3%B3mo-funcionan-1"><i class="fa fa-check"></i><b>14.5.1</b> ¿Cómo funcionan?</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="graph-neural-network.html"><a href="graph-neural-network.html#implementaci%C3%B3n-en-pytorch-geometric-1"><i class="fa fa-check"></i><b>14.6</b> Implementación en PyTorch Geometric</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="graph-neural-network.html"><a href="graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa-parte-ii"><i class="fa fa-check"></i><b>14.6.1</b> Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html"><i class="fa fa-check"></i><b>15</b> Embeddings y Graph Neural Network</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#qu%C3%A9-es-un-embedding"><i class="fa fa-check"></i><b>15.1</b> ¿Qué es un embedding?</a></li>
+<li class="chapter" data-level="15.2" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#word2vec"><i class="fa fa-check"></i><b>15.2</b> Word2Vec</a></li>
+<li class="chapter" data-level="15.3" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#node2vec"><i class="fa fa-check"></i><b>15.3</b> Node2Vec</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#ejemplo-aplicando-el-modelo-de-skipgrams-a-random-walks"><i class="fa fa-check"></i><b>15.3.1</b> Ejemplo: Aplicando el modelo de SkipGrams a Random Walks</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#sageconv"><i class="fa fa-check"></i><b>15.4</b> SageConv</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa-parte-ii-1"><i class="fa fa-check"></i><b>15.4.1</b> Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)</a></li>
+<li class="chapter" data-level="15.4.2" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa-parte-ii-2"><i class="fa fa-check"></i><b>15.4.2</b> Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="./"><img src="img/aif-logo.png" width="280"></a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Deep Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="miscellanea-intro-to-graph-neural-networks" class="section level1 unnumbered hasAnchor">
+<h1>Miscellanea: Intro to Graph Neural Networks<a href="miscellanea-intro-to-graph-neural-networks.html#miscellanea-intro-to-graph-neural-networks" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+$('.pipehover_incremental tr').hover(function() {
+  $(this).removeClass()
+  $(this).prevAll().removeClass()
+  $(this).nextAll().removeClass()
+  $(this).addClass('hover');
+  $(this).prevAll().addClass('hover');
+  $(this).closest('div').next().find('img').attr("src", $(this).attr("link"));
+});
+
+
+$('.pipehover_select_one_row tr').hover(function() {
+  $(this).removeClass()
+  $(this).prevAll().removeClass()
+  $(this).nextAll().removeClass()
+  $(this).addClass('hover');
+  $(this).closest('div').next().find('img').attr("src", $(this).attr("link"));
+});
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="algoritmos-de-optimización.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introducción-a-la-teoría-de-gráficas..html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["deep_learning_course_python.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
