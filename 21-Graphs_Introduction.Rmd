@@ -1,8 +1,3 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
 <!-- ::: watermark -->
 <!-- <img src="img/aif-logo.png" width="400"/> -->
 <!-- ::: -->
@@ -22,11 +17,11 @@ import torch
 import torch.nn as nn
 from torch.nn import Linear
 import torch.nn.functional as F
+import torch_geometric
 from torch_geometric.datasets import Planetoid
 from torch_geometric.utils import (
-  to_dense_adj, to_networkx
+  to_dense_adj, to_networkx, degree
 )
-from torch_geometric.utils import degree
 
 import numpy as np
 import networkx as nx

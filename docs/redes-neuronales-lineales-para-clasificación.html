@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 4 Redes neuronales Lineales para Clasificación | Deep Learning</title>
   <meta name="description" content="Capítulo 4 Redes neuronales Lineales para Clasificación | Deep Learning" />
-  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 4 Redes neuronales Lineales para Clasificación | Deep Learning" />
   <meta property="og:type" content="book" />
@@ -157,7 +157,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#bibliograf%C3%ADa"><i class="fa fa-check"></i>Bibliografía</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Parte 1: Bases y Preeliminares</b></span></li>
 <li class="chapter" data-level="1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html"><i class="fa fa-check"></i><b>1</b> Introducción a Deep Learning</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="introducción-a-deep-learning.html"><a href="introducción-a-deep-learning.html#introducci%C3%B3n-al-aprendizaje-autom%C3%A1tico"><i class="fa fa-check"></i><b>1.1</b> Introducción al aprendizaje automático</a>
@@ -301,8 +300,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.6.14" data-path="perceptrón-multicapa.html"><a href="perceptrón-multicapa.html#ejercicios-6"><i class="fa fa-check"></i><b>5.6.14</b> Ejercicios</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Parte 2: Técnicas Modernas de Deep Learning</b></span></li>
-<li class="chapter" data-level="6" data-path="guía-del-constructor.html"><a href="guía-del-constructor.html"><i class="fa fa-check"></i><b>6</b> Guía del Constructor</a></li>
+<li class="chapter" data-level="6" data-path="gpus.html"><a href="gpus.html"><i class="fa fa-check"></i><b>6</b> GPUs</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="gpus.html"><a href="gpus.html#paralelismo-y-concurrencia"><i class="fa fa-check"></i><b>6.1</b> Paralelismo y concurrencia</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="gpus.html"><a href="gpus.html#reflexi%C3%B3n-concurrencia-y-paralelismo"><i class="fa fa-check"></i><b>6.1.1</b> Reflexión: Concurrencia y Paralelismo</a></li>
+<li class="chapter" data-level="6.1.2" data-path="gpus.html"><a href="gpus.html#relaci%C3%B3n-entre-concurrencia-y-paralelismo"><i class="fa fa-check"></i><b>6.1.2</b> Relación entre concurrencia y paralelismo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="gpus.html"><a href="gpus.html#complejidad-computacional"><i class="fa fa-check"></i><b>6.2</b> Complejidad Computacional</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="gpus.html"><a href="gpus.html#analizando-la-complejidad-computacional-en-el-problema-de-ordenamiento-de-n%C3%BAmeros"><i class="fa fa-check"></i><b>6.2.1</b> Analizando la complejidad computacional en el problema de ordenamiento de números</a></li>
+<li class="chapter" data-level="6.2.2" data-path="gpus.html"><a href="gpus.html#notaci%C3%B3n-big-o"><i class="fa fa-check"></i><b>6.2.2</b> Notación Big O</a></li>
+<li class="chapter" data-level="6.2.3" data-path="gpus.html"><a href="gpus.html#bubble-sort-vs-merge-sort."><i class="fa fa-check"></i><b>6.2.3</b> Bubble sort vs Merge sort.</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="gpus.html"><a href="gpus.html#el-papel-del-hardware"><i class="fa fa-check"></i><b>6.3</b> El papel del hardware</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="gpus.html"><a href="gpus.html#implementaci%C3%B3n-de-multiplicaci%C3%B3n-de-matrices-en-distintas-arquitecturas"><i class="fa fa-check"></i><b>6.3.1</b> Implementación de multiplicación de matrices en distintas arquitecturas</a></li>
+<li class="chapter" data-level="6.3.2" data-path="gpus.html"><a href="gpus.html#es-viable-acelerar-cualquier-algoritmo-en-gpu-tpu"><i class="fa fa-check"></i><b>6.3.2</b> ¿Es viable acelerar cualquier algoritmo en GPU / TPU?</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html"><i class="fa fa-check"></i><b>7</b> Redes Neuronales Convolucionales</a></li>
 <li class="chapter" data-level="8" data-path="redes-neuronales-convolucionales-modernas.html"><a href="redes-neuronales-convolucionales-modernas.html"><i class="fa fa-check"></i><b>8</b> Redes Neuronales Convolucionales Modernas</a></li>
 <li class="chapter" data-level="9" data-path="redes-neuronales-recurrentes.html"><a href="redes-neuronales-recurrentes.html"><i class="fa fa-check"></i><b>9</b> Redes Neuronales Recurrentes</a></li>
@@ -310,6 +326,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="mecanismos-de-atención-y-transformers.html"><a href="mecanismos-de-atención-y-transformers.html"><i class="fa fa-check"></i><b>11</b> Mecanismos de Atención y Transformers</a></li>
 <li class="part"><span><b>Parte 3: Escalabilidad, Eficiencia y Aplicaciones</b></span></li>
 <li class="chapter" data-level="12" data-path="algoritmos-de-optimización.html"><a href="algoritmos-de-optimización.html"><i class="fa fa-check"></i><b>12</b> Algoritmos de Optimización</a></li>
+<li class="chapter" data-level="" data-path="miscellanea-intro-to-graph-neural-networks.html"><a href="miscellanea-intro-to-graph-neural-networks.html"><i class="fa fa-check"></i>Miscellanea: Intro to Graph Neural Networks</a></li>
+<li class="chapter" data-level="13" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html"><i class="fa fa-check"></i><b>13</b> Introducción a la Teoría de Gráficas.</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#qu%C3%A9-es-una-gr%C3%A1fica"><i class="fa fa-check"></i><b>13.1</b> ¿Qué es una gráfica?</a></li>
+<li class="chapter" data-level="13.2" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#problemas-cl%C3%A1sicos-de-teor%C3%ADa-de-gr%C3%A1ficas-selecci%C3%B3n"><i class="fa fa-check"></i><b>13.2</b> Problemas clásicos de teoría de gráficas (selección)</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#caminos-y-conectividad"><i class="fa fa-check"></i><b>13.2.1</b> Caminos y conectividad</a></li>
+<li class="chapter" data-level="13.2.2" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#detecci%C3%B3n-de-comunidades"><i class="fa fa-check"></i><b>13.2.2</b> Detección de comunidades</a></li>
+<li class="chapter" data-level="13.2.3" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#centralidad-e-influencia"><i class="fa fa-check"></i><b>13.2.3</b> Centralidad e influencia</a></li>
+<li class="chapter" data-level="13.2.4" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#emparejamiento-y-asignaci%C3%B3n"><i class="fa fa-check"></i><b>13.2.4</b> Emparejamiento y asignación</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#ecosistema-de-herramientas-para-el-trabajo-con-grafos"><i class="fa fa-check"></i><b>13.3</b> Ecosistema de Herramientas para el Trabajo con Grafos</a></li>
+<li class="chapter" data-level="13.4" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#por-qu%C3%A9-combinar-graficas-y-deep-learning"><i class="fa fa-check"></i><b>13.4</b> ¿Por qué combinar Graficas y Deep Learning?</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#a.-multilayer-percepton-en-las-features-tabulares-de-cora"><i class="fa fa-check"></i><b>13.4.1</b> A. Multilayer Percepton en las features tabulares de Cora</a></li>
+<li class="chapter" data-level="13.4.2" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#b.-modelo-basado-en-una-capa-lineal-que-se-multiplica-por-la-matriz-de-adyacencia."><i class="fa fa-check"></i><b>13.4.2</b> B. Modelo basado en una capa lineal que se multiplica por la matriz de adyacencia.</a></li>
+<li class="chapter" data-level="13.4.3" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#qu%C3%A9-esta-haciendo-la-red"><i class="fa fa-check"></i><b>13.4.3</b> ¿Qué esta haciendo la red?</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#tipos-de-problemas-de-gnn"><i class="fa fa-check"></i><b>13.5</b> Tipos de problemas de GNN</a></li>
+<li class="chapter" data-level="13.6" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#existe-un-teorema-de-aproximaci%C3%B3n-univeral-tau-para-gnns"><i class="fa fa-check"></i><b>13.6</b> ¿Existe un Teorema de Aproximación Univeral (TAU) para GNN’s?</a></li>
+<li class="chapter" data-level="13.7" data-path="introducción-a-la-teoría-de-gráficas..html"><a href="introducción-a-la-teoría-de-gráficas..html#enfoques-de-aprendizaje-transductivo-e-inductivo"><i class="fa fa-check"></i><b>13.7</b> Enfoques de aprendizaje transductivo e inductivo</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="graph-neural-network.html"><a href="graph-neural-network.html"><i class="fa fa-check"></i><b>14</b> Graph Neural Network</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="graph-neural-network.html"><a href="graph-neural-network.html#pytorch-geometric-y-graph-neural-networks"><i class="fa fa-check"></i><b>14.1</b> PyTorch Geometric y Graph Neural Networks</a></li>
+<li class="chapter" data-level="14.2" data-path="graph-neural-network.html"><a href="graph-neural-network.html#graph-convolutional-networks-gnn"><i class="fa fa-check"></i><b>14.2</b> Graph Convolutional Networks (GNN)</a></li>
+<li class="chapter" data-level="14.3" data-path="graph-neural-network.html"><a href="graph-neural-network.html#c%C3%B3mo-funcionan"><i class="fa fa-check"></i><b>14.3</b> ¿Cómo funcionan?</a></li>
+<li class="chapter" data-level="14.4" data-path="graph-neural-network.html"><a href="graph-neural-network.html#implementaci%C3%B3n-en-pytorch-geometric"><i class="fa fa-check"></i><b>14.4</b> Implementación en PyTorch Geometric</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="graph-neural-network.html"><a href="graph-neural-network.html#ejemplo-predicci%C3%B3n-del-volumen-de-tr%C3%A1fico-en-wikipedia-regresi%C3%B3n"><i class="fa fa-check"></i><b>14.4.1</b> Ejemplo: Predicción del volumen de tráfico en Wikipedia (Regresión)</a></li>
+<li class="chapter" data-level="14.4.2" data-path="graph-neural-network.html"><a href="graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa"><i class="fa fa-check"></i><b>14.4.2</b> Ejemplo: Clasificación de artículos de investigación por categoría</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="graph-neural-network.html"><a href="graph-neural-network.html#graph-attention-network-gat"><i class="fa fa-check"></i><b>14.5</b> Graph Attention Network (GAT)</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="graph-neural-network.html"><a href="graph-neural-network.html#c%C3%B3mo-funcionan-1"><i class="fa fa-check"></i><b>14.5.1</b> ¿Cómo funcionan?</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="graph-neural-network.html"><a href="graph-neural-network.html#implementaci%C3%B3n-en-pytorch-geometric-1"><i class="fa fa-check"></i><b>14.6</b> Implementación en PyTorch Geometric</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="graph-neural-network.html"><a href="graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa-parte-ii"><i class="fa fa-check"></i><b>14.6.1</b> Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html"><i class="fa fa-check"></i><b>15</b> Embeddings y Graph Neural Network</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#qu%C3%A9-es-un-embedding"><i class="fa fa-check"></i><b>15.1</b> ¿Qué es un embedding?</a></li>
+<li class="chapter" data-level="15.2" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#word2vec"><i class="fa fa-check"></i><b>15.2</b> Word2Vec</a></li>
+<li class="chapter" data-level="15.3" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#node2vec"><i class="fa fa-check"></i><b>15.3</b> Node2Vec</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#ejemplo-aplicando-el-modelo-de-skipgrams-a-random-walks"><i class="fa fa-check"></i><b>15.3.1</b> Ejemplo: Aplicando el modelo de SkipGrams a Random Walks</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#sageconv"><i class="fa fa-check"></i><b>15.4</b> SageConv</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa-parte-ii-1"><i class="fa fa-check"></i><b>15.4.1</b> Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)</a></li>
+<li class="chapter" data-level="15.4.2" data-path="embeddings-y-graph-neural-network.html"><a href="embeddings-y-graph-neural-network.html#ejemplo-clasificaci%C3%B3n-de-art%C3%ADculos-de-investigaci%C3%B3n-por-categor%C3%ADa-parte-ii-2"><i class="fa fa-check"></i><b>15.4.2</b> Ejemplo: Clasificación de artículos de investigación por categoría (Parte II)</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="./"><img src="img/aif-logo.png" width="280"></a></li>
 
@@ -337,11 +408,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="historia-1" class="section level3 hasAnchor" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Historia<a href="redes-neuronales-lineales-para-clasificación.html#historia-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Regresión lineal</strong></p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig1.png" width="50%" style="display: block; margin: auto;" />
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig1.png" alt="" width="50%" style="display: block; margin: auto;" />
 El primer método de regresión lineal documentado es el método de los mínimos cuadrados, publicado por Legendre en 1805.
 Posteriormente, Gauss publicó un trabajo donde se desarrolla con mayor detalle el tema.</p>
 <p><strong>Modelo Lineal Generalizado (GLM)</strong></p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig2.png" width="60%" style="display: block; margin: auto;" />
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig2.png" alt="" width="60%" style="display: block; margin: auto;" />
 Los GLM fueron formulados por John Nelder y Robert Wedderburn en 1972 como una manera de unificar modelos estadísticos.</p>
 <p>Un modelo lineal generalizado es una generalización flexible de la regresión lineal ordinaria.</p>
 </div>
@@ -394,15 +465,15 @@ Los GLM fueron formulados por John Nelder y Robert Wedderburn en 1972 como una m
 </table>
 <p><strong>Representación gráfica</strong></p>
 <p>Podemos apreciar una regresión lineal como una neurona:
-<img src="img/04_Linear_Neural_Networks_for_Classification/fig18.png" width="60%" style="display: block; margin: auto;" /></p>
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig18.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 <p>Haciendo uso de una regresión logística, podemos pasar de <em>how much?</em> a <em>wich class?</em>, el diagrama sería el siguiente:
-<img src="img/04_Linear_Neural_Networks_for_Classification/fig19.png" width="60%" style="display: block; margin: auto;" /></p>
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig19.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="regresión-logística-para-clasificación" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Regresión Logística para Clasificación<a href="redes-neuronales-lineales-para-clasificación.html#regresi%C3%B3n-log%C3%ADstica-para-clasificaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Iniciemos recordando que los algoritmos de Machine Learning pueden ser clasificados como:
-<img src="img/04_Linear_Neural_Networks_for_Classification/fig5.png" width="40%" style="display: block; margin: auto;" /></p>
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig5.png" alt="" width="40%" style="display: block; margin: auto;" /></p>
 <p>Los <strong><em>métodos de clasificación, métodos predictivos, reconocimiento de patrones, aprendizaje supervisado</em></strong> son aquellos algoritmos en los cuales vamos a clasificar a los objetos en un conjunto de categorías previamente definidas.</p>
 <p>En estos métodos existe una variable, conocida como variable objetivo con la cual se buscarán dos resultados:</p>
 <ul>
@@ -424,7 +495,7 @@ Donde:</p>
 </ul>
 <p>La función resultante puede ser un árbol de decisión, SVM, etc.</p>
 <p>La función que clasificará el conjunto X a la clase Y, comúnmente es llamada modelo de clasificación.
-<img src="img/04_Linear_Neural_Networks_for_Classification/fig6.png" width="60%" style="display: block; margin: auto;" /></p>
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig6.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 <p>Una vez recordado lo anterior, podemos definir a una regresión logística como un modelo en el cual se recibe una tabla relacional con <em>d</em> características descriptivas y una clase a la cual pertenece cada individuo de la tabla.</p>
 <p>Como resultado, el modelo nos proporciona la <em>probabilidad de pertenecer</em> a alguna clase.</p>
 <p><strong>Planteamiento del problema</strong></p>
@@ -461,13 +532,13 @@ Al aplicar el logaritmo natual, podemos apreciar la definición de la función l
 logit[𝑝_𝑖 ]=ln[𝑝_𝑖/(1−𝑝_𝑖 )]=𝛽_0+𝛽_1 𝑥_𝑖
 \]</span>
 Recordando que la función logit es la inversa de la función logistica (o sigmoide)</p>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-31-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
 <p>La función logit es apropiada para los problemas de clasificación con dos clases. No obstante, la generalización para múltiples clases se hace con la función Softmax()
 <span class="math display">\[
 \sigma_{softmax} = \frac{e^{z_m}}{\sum_{m=1}^M e^{z_m}}
 \]</span></p>
 <p>La estructura aplicada en Redes Neuronales es la siguiente:
-<img src="img/04_Linear_Neural_Networks_for_Classification/fig20.png" width="70%" style="display: block; margin: auto;" /></p>
+<img src="img/04_Linear_Neural_Networks_for_Classification/fig20.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
 <p><br></p>
 </div>
 <div id="redes-neuronales" class="section level2 hasAnchor" number="4.3">
@@ -475,13 +546,13 @@ Recordando que la función logit es la inversa de la función logistica (o sigmo
 <div id="historia-2" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Historia<a href="redes-neuronales-lineales-para-clasificación.html#historia-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Redes Neuronales</strong></p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig3.png" width="50%" style="display: block; margin: auto;" />
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig3.png" alt="" width="50%" style="display: block; margin: auto;" />
 En 1943 Warren McCulloch (neurocientífico, médico, neurólogo y fisiólogo) y Walter Pitts (matemático, psicólogo, filósofo y neurocientífico) crearon un modelo para redes neuronales basados en la lógica de umbral. Este modelo señaló el camino para que la investigación de redes neuronales se divida en dos enfoques distintos:</p>
 <ol style="list-style-type: decimal">
 <li>Un enfoque centrado en los procesos biológicos en el cerebro.</li>
 <li>Otro en la aplicación de redes neuronales para la inteligencia artificial.</li>
 </ol>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig4.png" width="40%" style="display: block; margin: auto;" />
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig4.png" alt="" width="40%" style="display: block; margin: auto;" />
 Para la aplicación de la inteligencia artificial, fue Marvin Minsky quien dio una gran aportación con el libro <strong>“Perceptrones”</strong> en 1969.
 Minsky es considerado como uno de los padres de las ciencias de la computación y fue cofundador del laboratorio de inteligencia artificial del MIT</p>
 </div>
@@ -494,17 +565,17 @@ Puede recibir variables cuantitativas y cualitativas. Es un algoritmo sensible a
 <h3><span class="header-section-number">4.3.3</span> Neurona<a href="redes-neuronales-lineales-para-clasificación.html#neurona" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Célula del sistema nerviosos formada por un núcleo y una serie de prolongaciones, una de las cuales es más larga que las demás.
 Están especializadas en la recepción de estímulos y conducción del impulso nerviosos entre ellas o con otros tipos celulas</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig7.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig7.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 <p><br></p>
 <p><strong>Dentrita:</strong> Es la fuente de un impulso nerviosos. De hecho el impulso nervioso es unidireccional, es decir, solamente se transmite desde las dendritas hacia el axón (canal de entrada)</p>
 <p><strong>Axón:</strong> Prolongación que arranca del cuerpo de la neurona y termina en una ramificación que está en contacto con otras células. Es la vía por la cual circulan los impulsos eléctricos (canal de salida)</p>
 <p><strong>Sinapsis:</strong> Región de comunicación entre el axón de una neurona y las dendritas o el cuerpo de otra</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig8.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig8.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Emulación:</strong></p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig9.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig9.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 <p>Las redes neuronales, tratan de modelar una red neuronal donde cada nodo es una neurona, y los arcos representan la sinapsis entre las neuronas.
 Como algoritmo, las redes neuronales reciben n entradas y pueden otorgar n salidas.</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig10.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig10.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 <p>Un perceptrón puede entenderse como la unidad básica de inferencia en forma de discriminador lineal. Un perceptrón va a separar a los puntos a través de un hiperplano
 Es el modelo biológico más sencillo hace referencia a una sola neurona. El perceptrón consiste de dos tipos de nodos:</p>
 <ul>
@@ -513,9 +584,9 @@ Es el modelo biológico más sencillo hace referencia a una sola neurona. El per
 </ul>
 <p>Un perceptrón genera sus resultados realizando una suma ponderada de sus atributos de entrada, restando un valor t y examinando el signo del resultado.
 Supongamos la siguiente tabla:</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig11.png" width="30%" style="display: block; margin: auto;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig11.png" alt="" width="30%" style="display: block; margin: auto;" /></p>
 <p>El perceptrón sería aquella red neuronal que recibiera de entrada cada uno de los valores x y diera como resultado y</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig12.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig12.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 <p><span class="math display">\[
 y =
 \begin{cases}
@@ -528,7 +599,7 @@ Como el resultado depende del signo, la función se representa como:
 𝑦=𝑠𝑖𝑔𝑛(𝑤,𝑥)
 \]</span></p>
 <p>Cuando intentamos hacer la separación de un XOr, podemos notar que necesitamos dos discriminadores lineales:</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig13.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig13.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="redes-neuronales-1" class="section level3 hasAnchor" number="4.3.4">
 <h3><span class="header-section-number">4.3.4</span> Redes Neuronales<a href="redes-neuronales-lineales-para-clasificación.html#redes-neuronales-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -537,12 +608,12 @@ Como el resultado depende del signo, la función se representa como:
 <li>Las redes neuronales tienen <strong>varios nodos intermedios</strong> entre los nodos de entrada y los nodos de salida.</li>
 <li>Las capas ocultas pueden utilizar <strong>funciones de activación diferentes</strong></li>
 </ul>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig14.png" width="60%" style="display: block; margin: auto;" /></p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig15.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig14.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig15.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 <p>Con una capa oculta, es posible generar una función de discriminación para una tabla XOr</p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig17.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig17.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 <p><strong>Funciones de activación comunes</strong></p>
-<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig16.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="img/04_Linear_Neural_Networks_for_Classification/fig16.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="notas-adicionales" class="section level2 unnumbered hasAnchor">
