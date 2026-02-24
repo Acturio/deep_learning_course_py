@@ -1,0 +1,100 @@
+<!-- ::: watermark -->
+<!-- <img src="img/aif-logo.png" width="400"/> -->
+<!-- ::: -->
+
+# Optimización de Hiper Paramétros
+
+Al resolver un problema de aprendizaje no solo importa definir una buena la arquitectura de la red neuronal, sino también los parámetros que definen dicho aprendizaje: ¿Cuántas capas? ¿Qué tasa de aprendizaje? ¿Qué tamaño de batch?.
+
+
+Aquí es donde los frameworks de optimización de hiperparámetros, como Optuna, pueden ayudarnos a explorar diferentes configuraciones para obtener mejores resultados.
+
+
+## Problemas de Optimización y Modelos de Machine Learning
+
+Hablando en términos matemáticos, un problema de optimizacion, no es más que
+la búsqueda de una combinacion de valores que minimizan o maximizan un *función
+objetivo* bajo ciertas especificaciones o restricciones:
+
+$$ min_{\theta_1,\ldots, \theta_n} \mbox{ } F(\theta_1,\ldots, \theta_n) \text{ donde } \theta_1,\ldots, \theta_n \in \mathcal{H}$$
+En el esquema anterior los valores $\theta_i$ pueden corresponder a valores
+categórcos (ejemplo, $activation\_function=ReLu"$ o $activation\_function="Tanh"$), numéricos de tipo discreto o continuos (
+$batch\_size=32$ o $lr=0.01$).
+
+En la práctica, se usan métodos diversos para buscar soluciones a éste tipo
+de problemas:
+
+* *Exhaustive search (Grid Search):* Es un método de "fuerza bruta" pues consiste en definir 
+un espacio de búsqueda y probar cada uno de sus elementos. Su principal desventaja es que consume mucho tiempo y requiere recursos computacionales significativos. Sin embargo, una ventaja es que garantiza la evaluación de todo el espacio de búsqueda propuesto.
+
+* *Random search:* Consiste en realizar n iteraciones con hiperparámetros aleatorios y guardar la mejor solución encontrada. Su desventaja es que no hay forma de saber si la solución es óptima (ya sea local o globalmente), y el mejor resultado podría deberse simplemente a la suerte. Una ventaja es que es mucho más rápida de implementar y puede ser una "solución rápida" cuando necesitamos mejorar el rendimiento de un modelo con urgencia.
+
+* *Métodos basados en derivadas:* Si la función objetivo $F(\theta_1,\ldots, \theta_n)$
+es suave y derivable en el espacio de parámetros, podemos usar métodos iterativos de solución que guian la trayectoria de descenso con información de la derivada o el Hessiano. Desafortunadamente,
+ello no es facil de adaptar con parámetros categóricos o discretos.
+
+* *Meta-Heurísticas:* Se refiere a la busqueda de la solución del problema usando
+métodos como algoritmos evolutivos, como algoritmos genéticos.
+
+## ¿Qué es Optuna?
+
+Optuna es una librería de código abierto diseñada para automatizar la solución de problemas de optimización, con parámetros continuos y discretos. 
+
+A diferencia de métodos tradicionales como Grid Search o Random Search que típicamente empleamos en librerías como Scikit-Learn o MLlib, Optuna utiliza algoritmos Bayesianos para "aprender" de cada intento y dirigirse hacia las zonas del espacio de búsqueda que prometen mejores resultados.
+
+
+
+Eager Search Spaces: Define los parámetros usando bucles y condicionales de Python.
+
+Pruning (Poda) eficiente: Detiene automáticamente los experimentos que no prometen buenos resultados, ahorrando tiempo y cómputo.
+
+Fácil integración: Funciona nativamente con PyTorch, TensorFlow, Sklearn, etc.
+
+
+En Optuna, la solución de
+
+| Concepto           | Descripción                                                                                                   |
+|--------------------|---------------------------------------------------------------------------------------------------------------|
+| *Objective Function* | Una función de Python a optimizar en función de parámetros. Esta puede corresponder a una métrica de evaluación de un modelo de Machine Learning |
+| *Trial*              | Un único intento de ejecución de la función objetivo con un conjunto específico de hiperparámetros.           |
+| *Study*              | Una sesión de optimización que coordina múltiples Trials para encontrar el valor óptimo.                      |
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+def rosenbrock(x: float, y: float, a: float=1, b: float=100) -> float:
+  """
+  A naive implementation of the Rosenbrock Function
+  """
+  return (a - x)**2 + b * (y - x**2)**2
+
+# Create a grid of points
+x = np.linspace(-2, 2, 400)
+y = np.linspace(-1, 3, 400)
+X, Y = np.meshgrid(x, y)
+Z = rosenbrock(X, Y)
+
+# Create Surface Plot
+fig = plt.figure(figsize=(12, 8))
+ax = fig.add_subplot(111, projection='3d')
+surf = ax.plot_surface(
+    X,
+    Y,
+    Z,
+    cmap='coolwarm',
+    edgecolor='none',
+    alpha=0.7)
+
+# Labels and Title
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('f(x, y)')
+ax.set_title('Rosenbrock Function')
+fig.colorbar(surf, ax=ax, shrink=0.5, aspect=10)
+
+plt.show()
+```
+
