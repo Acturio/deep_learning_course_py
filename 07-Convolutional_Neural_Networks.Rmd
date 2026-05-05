@@ -4,4 +4,319 @@
 
 # Redes Neuronales Convolucionales
 
+Las redes neuronales convolucionales, o **CNN** por sus siglas en inglés, fueron diseñadas para aprovechar la estructura espacial de las imágenes. A diferencia de una red completamente conectada, una CNN no trata a cada pixel como una variable aislada e independiente, sino como parte de un vecindario con relaciones locales muy importantes.
+
+Esta idea trae dos ventajas centrales. Primero, reduce drásticamente el número de parámetros del modelo. Segundo, incorpora un sesgo inductivo muy útil: si un patrón visual aparece en una parte de la imagen, queremos poder reconocerlo también cuando aparece en otra.
+
+En esta sección construiremos la intuición detrás de las convoluciones y después veremos cómo se aplican directamente sobre imágenes bidimensionales.
+
+Fuente de referencia y adaptación original en español:
+
+- [Dive into Deep Learning, Capítulo 7](https://d2l.ai/chapter_convolutional-neural-networks/index.html)
+- [Sección 7.1: From Fully Connected Layers to Convolutions](https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html)
+- [Sección 7.2: Convolutions for Images](https://d2l.ai/chapter_convolutional-neural-networks/conv-layer.html)
+
+**De capas densas a convoluciones**
+
+Si quisiéramos procesar una imagen con una red densa tradicional, podríamos aplanarla en un vector y conectar cada pixel con cada neurona oculta. El problema es que esta estrategia ignora la estructura espacial de la imagen y además introduce una cantidad enorme de parámetros.
+
+Por ejemplo, una imagen de tamaño moderado puede contener cientos de miles de pixeles. Si cada unidad oculta dependiera de todos ellos, el costo en memoria y cómputo crecería demasiado rápido. Más importante todavía, perderíamos conocimiento útil sobre el dominio: en imágenes, los pixeles cercanos suelen estar más relacionados entre sí que los pixeles lejanos.
+
+Las CNN resuelven esto imponiendo dos principios:
+
+1. **Invariancia o equivarianza por traslación**. Un patrón relevante debe poder detectarse sin importar en qué parte de la imagen aparece.
+2. **Localidad**. Para describir lo que ocurre en una posición, normalmente basta con mirar una región cercana.
+
+Estas dos ideas nos llevan de forma natural a la operación de convolución.
+
+## De capas completamente conectadas a convoluciones
+
+### Invariancia
+
+Imagina que queremos detectar un objeto en una imagen, por ejemplo un balón, un rostro o una señal de tránsito. Sería poco razonable que el sistema solo pudiera reconocerlo cuando aparece exactamente en una coordenada específica. Si el objeto se desplaza un poco hacia la derecha o hacia arriba, la respuesta del modelo debería seguir siendo coherente.
+
+Ese comportamiento deseado se conoce como **invariancia por traslación** o, de manera más precisa en capas intermedias, **equivarianza por traslación**. En términos intuitivos, si el patrón se mueve en la imagen, su activación también se mueve de forma consistente en el mapa de características.
+
+![](https://d2l.ai/_images/waldo-football.jpg)
+
+Una manera útil de pensar en esto es el juego de "¿Dónde está Wally?". Aunque el personaje cambie de posición dentro de la escena, seguimos buscando el mismo patrón visual: colores, forma, accesorios y contexto local.
+
+### Restringiendo un perceptrón multicapa
+
+Supongamos que la entrada es una imagen bidimensional `X` y que la representación oculta es otra matriz `H` del mismo tamaño. Si usáramos una capa completamente conectada, cada posición `(i,j)` de `H` dependería de todas las posiciones `(k,l)` de `X`:
+
+$$
+[\mathbf{H}]_{i,j} = [\mathbf{U}]_{i,j} + \sum_k \sum_l [\mathsf{W}]_{i,j,k,l} [\mathbf{X}]_{k,l}
+$$
+
+Esta formulación es muy flexible, pero también muy costosa. Para convertirla en algo útil para visión por computadora, introducimos restricciones estructurales.
+
+#### Invariancia por traslación
+
+Si queremos tratar del mismo modo al mismo patrón sin importar dónde aparece, los pesos no deberían depender explícitamente de la posición absoluta `(i,j)`. Podemos reescribir la transformación usando desplazamientos relativos:
+
+$$
+[\mathbf{H}]_{i,j} = u + \sum_a \sum_b [\mathbf{V}]_{a,b} [\mathbf{X}]_{i+a,j+b}
+$$
+
+Ahora el mismo conjunto de pesos `V` se reutiliza en todas las ubicaciones. Esto se conoce como **compartición de parámetros** y es una de las ideas más poderosas de las CNN.
+
+#### Localidad
+
+El segundo supuesto es que no necesitamos observar toda la imagen para decidir qué ocurre en una posición local. Basta con mirar una ventana cercana. Entonces imponemos que los pesos sean cero fuera de una vecindad acotada:
+
+$$
+[\mathbf{H}]_{i,j} = u + \sum_{a=-\Delta}^{\Delta}\sum_{b=-\Delta}^{\Delta} [\mathbf{V}]_{a,b} [\mathbf{X}]_{i+a,j+b}
+$$
+
+Con esta restricción, el número de parámetros baja de manera drástica. En vez de aprender una matriz gigante de conexiones, solo aprendemos un filtro pequeño que se desliza por toda la imagen.
+
+En esencia, esta ecuación ya describe una **capa convolucional**.
+
+### Convoluciones
+
+En matemáticas, la convolución entre dos funciones puede definirse como:
+
+$$
+(f * g)(\mathbf{x}) = \int f(\mathbf{z}) g(\mathbf{x} - \mathbf{z}) d\mathbf{z}
+$$
+
+En el caso discreto unidimensional:
+
+$$
+(f * g)(i) = \sum_a f(a) g(i-a)
+$$
+
+Y en dos dimensiones:
+
+$$
+(f * g)(i,j) = \sum_a \sum_b f(a,b) g(i-a,j-b)
+$$
+
+En aprendizaje profundo, la operación que implementamos casi siempre es en realidad una **correlación cruzada**, porque no se invierte el kernel. Sin embargo, en la práctica todo el mundo la llama "convolución" y seguiremos esa convención.
+
+### Canales
+
+Hasta aquí pensamos en una sola matriz de entrada, pero las imágenes reales suelen tener varios canales. Una imagen RGB, por ejemplo, tiene tres: rojo, verde y azul. Del mismo modo, una capa convolucional puede producir múltiples canales de salida, cada uno especializado en detectar cierto tipo de patrón.
+
+En ese caso, la operación general toma la forma:
+
+$$
+[\mathsf{H}]_{i,j,d} = \sum_{a=-\Delta}^{\Delta}\sum_{b=-\Delta}^{\Delta}\sum_c [\mathsf{V}]_{a,b,c,d} [\mathsf{X}]_{i+a,j+b,c}
+$$
+
+donde:
+
+- `c` indexa los canales de entrada
+- `d` indexa los canales de salida
+- `V` es el conjunto de filtros aprendibles
+
+![](https://d2l.ai/_images/waldo-mask.jpg)
+
+Cada filtro responde con mayor intensidad allí donde detecta un patrón particular. En capas profundas, esos patrones dejan de ser simples bordes o texturas y pueden representar partes de objetos o configuraciones visuales más complejas.
+
+### Resumen
+
+- Las CNN explotan la estructura espacial de las imágenes.
+- La compartición de parámetros permite detectar el mismo patrón en distintas posiciones.
+- La localidad reduce el costo computacional y favorece el aprendizaje de patrones visuales cercanos.
+- Una capa convolucional opera con filtros pequeños que se aplican a toda la entrada.
+- Los canales permiten aprender múltiples detectores de características al mismo tiempo.
+
+## Convoluciones para imágenes
+
+Ahora que ya tenemos la motivación, pasemos a la operación concreta sobre imágenes.
+
+### Operación de correlación cruzada
+
+La operación básica toma una entrada bidimensional `X` y un kernel `K`, también llamado filtro. El kernel se desliza por la imagen y, en cada posición, calcula un producto punto entre sus valores y la región correspondiente de la entrada.
+
+![](https://d2l.ai/_images/correlation.svg)
+
+Si usamos:
+
+$$
+\mathbf{X} =
+\begin{bmatrix}
+0 & 1 & 2 \\
+3 & 4 & 5 \\
+6 & 7 & 8
+\end{bmatrix},
+\quad
+\mathbf{K} =
+\begin{bmatrix}
+0 & 1 \\
+2 & 3
+\end{bmatrix}
+$$
+
+entonces la salida se obtiene evaluando:
+
+$$
+\begin{aligned}
+0\times0 + 1\times1 + 3\times2 + 4\times3 &= 19\\
+1\times0 + 2\times1 + 4\times2 + 5\times3 &= 25\\
+3\times0 + 4\times1 + 6\times2 + 7\times3 &= 37\\
+4\times0 + 5\times1 + 7\times2 + 8\times3 &= 43
+\end{aligned}
+$$
+
+Por tanto:
+
+$$
+\mathbf{Y} =
+\begin{bmatrix}
+19 & 25 \\
+37 & 43
+\end{bmatrix}
+$$
+
+Si la entrada tiene tamaño `n_h x n_w` y el kernel tiene tamaño `k_h x k_w`, entonces la salida tendrá tamaño:
+
+$$
+(n_h-k_h+1) \times (n_w-k_w+1)
+$$
+
+### Implementación manual en Python
+
+Una implementación sencilla de correlación cruzada en dos dimensiones puede escribirse así:
+
+```python
+import torch
+
+def corr2d(X, K):
+    h, w = K.shape
+    Y = torch.zeros((X.shape[0] - h + 1, X.shape[1] - w + 1))
+    for i in range(Y.shape[0]):
+        for j in range(Y.shape[1]):
+            Y[i, j] = (X[i:i + h, j:j + w] * K).sum()
+    return Y
+
+X = torch.tensor([[0.0, 1.0, 2.0],
+                  [3.0, 4.0, 5.0],
+                  [6.0, 7.0, 8.0]])
+
+K = torch.tensor([[0.0, 1.0],
+                  [2.0, 3.0]])
+
+print(corr2d(X, K))
+```
+
+Salida esperada:
+
+```python
+tensor([[19., 25.],
+        [37., 43.]])
+```
+
+Este ejemplo es útil porque deja ver con claridad lo que hace la operación, aunque en la práctica las bibliotecas profundas usan implementaciones mucho más optimizadas.
+
+### Una capa convolucional simple
+
+Una capa convolucional aprende automáticamente los valores del kernel y del sesgo. Conceptualmente, podríamos modelarla así:
+
+```python
+import torch
+from torch import nn
+
+class Conv2D(nn.Module):
+    def __init__(self, kernel_size):
+        super().__init__()
+        self.weight = nn.Parameter(torch.rand(kernel_size))
+        self.bias = nn.Parameter(torch.zeros(1))
+
+    def forward(self, x):
+        return corr2d(x, self.weight) + self.bias
+```
+
+En un entrenamiento real, esos parámetros se ajustan mediante descenso de gradiente para que el filtro detecte los patrones más útiles para la tarea.
+
+### Detección de bordes en imágenes
+
+Una de las aplicaciones más intuitivas de un kernel es detectar bordes. Por ejemplo, si queremos identificar transiciones verticales, podemos usar un filtro como:
+
+$$
+\mathbf{K} =
+\begin{bmatrix}
+1 & -1
+\end{bmatrix}
+$$
+
+Este kernel responde fuertemente cuando encuentra un cambio brusco entre una columna y la siguiente.
+
+```python
+import torch
+
+X = torch.ones((6, 8))
+X[:, 2:6] = 0
+K = torch.tensor([[1.0, -1.0]])
+
+Y = corr2d(X, K)
+print(Y)
+```
+
+Aquí la imagen sintética contiene una franja vertical oscura en medio de una región clara. La salida tendrá activaciones marcadas justamente en las fronteras entre ambas regiones.
+
+### Aprendiendo un kernel
+
+No siempre especificamos manualmente el filtro. También podemos dejar que la red lo aprenda. Si tomamos una entrada `X` y una salida deseada `Y`, podemos optimizar una capa convolucional para que descubra automáticamente un kernel que transforme `X` en `Y`.
+
+```python
+import torch
+from torch import nn
+
+X = X.reshape((1, 1, 6, 8))
+Y = Y.reshape((1, 1, 6, 7))
+
+conv2d = nn.Conv2d(1, 1, kernel_size=(1, 2), bias=False)
+lr = 3e-2
+
+for i in range(10):
+    Y_hat = conv2d(X)
+    loss = (Y_hat - Y) ** 2
+    conv2d.zero_grad()
+    loss.sum().backward()
+    conv2d.weight.data[:] -= lr * conv2d.weight.grad
+    if (i + 1) % 2 == 0:
+        print(f"epoch {i+1}, loss {loss.sum():.3f}")
+
+print(conv2d.weight.data.reshape((1, 2)))
+```
+
+Después de varias iteraciones, el kernel aprendido se acerca a `[[1, -1]]` o a una versión equivalente, mostrando que la capa puede descubrir por sí sola un detector de bordes.
+
+### Correlación cruzada y convolución
+
+Conviene insistir en la diferencia terminológica:
+
+- En **correlación cruzada**, el kernel se usa tal cual.
+- En **convolución estricta**, el kernel se invierte horizontal y verticalmente antes de aplicarse.
+
+En deep learning casi todas las implementaciones usan correlación cruzada, pero la comunidad mantiene el nombre de "convolución" por costumbre.
+
+### Mapa de características y campo receptivo
+
+La salida de una capa convolucional suele llamarse **mapa de características**. Cada una de sus posiciones resume la respuesta del filtro en una región concreta de la entrada.
+
+El **campo receptivo** de una neurona es la región de la entrada original que puede influir en su valor. En una primera capa, ese campo coincide con el tamaño del kernel. En redes profundas, el campo receptivo crece conforme apilamos más capas.
+
+Esto es muy importante porque permite combinar evidencia local en patrones cada vez más globales:
+
+- las primeras capas detectan bordes y texturas
+- las capas intermedias reconocen partes
+- las capas profundas integran configuraciones más complejas
+
+### Resumen
+
+- La operación fundamental de una capa convolucional es la correlación cruzada.
+- El kernel se desliza sobre la entrada y produce una salida más pequeña si no usamos relleno.
+- Los filtros pueden diseñarse manualmente, por ejemplo para detectar bordes.
+- En aprendizaje profundo, normalmente los filtros se aprenden a partir de los datos.
+- Los mapas de características y el campo receptivo ayudan a interpretar cómo procesa información una CNN.
+
+## Ideas clave del capítulo
+
+Las redes convolucionales surgen al imponer una estructura adecuada para datos con organización espacial. En lugar de aprender conexiones arbitrarias entre todos los pixeles, aprenden filtros locales que se reutilizan a lo largo de toda la imagen. Esa combinación de localidad, compartición de parámetros y profundidad explica buena parte de su éxito en visión por computadora.
+
+En las siguientes secciones veremos cómo ajustar el tamaño efectivo de la salida mediante *padding* y *stride*, cómo trabajar con múltiples canales y cómo construir arquitecturas convolucionales más completas.
 
