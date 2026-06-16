@@ -360,25 +360,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#stride"><i class="fa fa-check"></i><b>7.5</b> Stride</a>
 <ul>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#qu%C3%A9-es-el-stride"><i class="fa fa-check"></i>¿Qué es el stride?</a></li>
-<li class="chapter" data-level="7.5.1" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#intuici%C3%B3n-stride-como-downsampling"><i class="fa fa-check"></i><b>7.5.1</b> Intuición: stride como downsampling</a></li>
+<li class="chapter" data-level="7.5.1" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#qu%C3%A9-es-el-stride"><i class="fa fa-check"></i><b>7.5.1</b> ¿Qué es el stride?</a></li>
+<li class="chapter" data-level="7.5.2" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#intuici%C3%B3n-stride-como-downsampling"><i class="fa fa-check"></i><b>7.5.2</b> Intuición: stride como downsampling</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-conceptual"><i class="fa fa-check"></i>Ejemplo conceptual</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#con-stride-1"><i class="fa fa-check"></i>Con stride = 1</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#con-stride-2"><i class="fa fa-check"></i>Con stride = 2</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#con-stride-3"><i class="fa fa-check"></i>Con stride = 3</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-de-stride-diferente-en-altura-y-anchura"><i class="fa fa-check"></i>Ejemplo de stride diferente en altura y anchura</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#tama%C3%B1o-de-salida-con-stride"><i class="fa fa-check"></i>Tamaño de salida con stride</a></li>
-<li class="chapter" data-level="7.5.2" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#interpretaci%C3%B3n-intuitiva-1"><i class="fa fa-check"></i><b>7.5.2</b> Interpretación intuitiva</a></li>
+<li class="chapter" data-level="7.5.3" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#interpretaci%C3%B3n-intuitiva-1"><i class="fa fa-check"></i><b>7.5.3</b> Interpretación intuitiva</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#caso-com%C3%BAn-padding-que-preserva-dimensiones"><i class="fa fa-check"></i>Caso común: padding que preserva dimensiones</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplos-r%C3%A1pidos"><i class="fa fa-check"></i>Ejemplos rápidos</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-en-pytorch-1"><i class="fa fa-check"></i>Ejemplo en PyTorch</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#qu%C3%A9-ocurre"><i class="fa fa-check"></i>¿Qué ocurre?</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-con-par%C3%A1metros-distintos-por-dimensi%C3%B3n"><i class="fa fa-check"></i>Ejemplo con parámetros distintos por dimensión</a></li>
-<li class="chapter" data-level="7.5.3" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#kernel"><i class="fa fa-check"></i><b>7.5.3</b> Kernel</a></li>
-<li class="chapter" data-level="7.5.4" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#padding-1"><i class="fa fa-check"></i><b>7.5.4</b> Padding</a></li>
-<li class="chapter" data-level="7.5.5" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#stride-3"><i class="fa fa-check"></i><b>7.5.5</b> Stride</a></li>
-<li class="chapter" data-level="7.5.6" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#relaci%C3%B3n-entre-padding-y-stride"><i class="fa fa-check"></i><b>7.5.6</b> Relación entre Padding y Stride</a></li>
-<li class="chapter" data-level="7.5.7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#idea-clave-para-recordar-1"><i class="fa fa-check"></i><b>7.5.7</b> Idea clave para recordar</a></li>
+<li class="chapter" data-level="7.5.4" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#kernel"><i class="fa fa-check"></i><b>7.5.4</b> Kernel</a></li>
+<li class="chapter" data-level="7.5.5" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#padding-1"><i class="fa fa-check"></i><b>7.5.5</b> Padding</a></li>
+<li class="chapter" data-level="7.5.6" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#stride-1"><i class="fa fa-check"></i><b>7.5.6</b> Stride</a></li>
+<li class="chapter" data-level="7.5.7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#relaci%C3%B3n-entre-padding-y-stride"><i class="fa fa-check"></i><b>7.5.7</b> Relación entre Padding y Stride</a></li>
+<li class="chapter" data-level="7.5.8" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#idea-clave-para-recordar-1"><i class="fa fa-check"></i><b>7.5.8</b> Idea clave para recordar</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="redes-neuronales-convolucionales-modernas.html"><a href="redes-neuronales-convolucionales-modernas.html"><i class="fa fa-check"></i><b>8</b> Redes Neuronales Convolucionales Modernas</a></li>
@@ -516,7 +509,7 @@ la matriz de adyancencias y la convertiremos en formato <em>COO</em>. Vamos a vi
 <span id="cb141-27"><a href="graph-neural-network.html#cb141-27" tabindex="-1"></a>    )</span>
 <span id="cb141-28"><a href="graph-neural-network.html#cb141-28" tabindex="-1"></a>plt.title(<span class="st">&quot;Graph from Adjacency Matrix (Undirected)&quot;</span>)</span>
 <span id="cb141-29"><a href="graph-neural-network.html#cb141-29" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-143-1.png" alt="" width="672" /></p>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-144-1.png" alt="" width="672" /></p>
 <p>Ahora convertimos la matriz de adyacencias a formato de coordenadas:</p>
 <div class="sourceCode" id="cb142"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb142-1"><a href="graph-neural-network.html#cb142-1" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb142-2"><a href="graph-neural-network.html#cb142-2" tabindex="-1"></a><span class="im">from</span> torch_geometric.utils <span class="im">import</span> (dense_to_sparse, to_dense_adj)</span>
@@ -562,10 +555,10 @@ asignaremos numeros dummy a las features:</p>
 <div class="sourceCode" id="cb156"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb156-1"><a href="graph-neural-network.html#cb156-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Features numericas de los nodos&quot;</span>)</span></code></pre></div>
 <pre><code>## Features numericas de los nodos</code></pre>
 <div class="sourceCode" id="cb158"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb158-1"><a href="graph-neural-network.html#cb158-1" tabindex="-1"></a><span class="bu">print</span>(data.x)</span></code></pre></div>
-<pre><code>## tensor([[0.3144, 0.9354, 0.9345, 0.3093, 0.7856],
-##         [0.1507, 0.2585, 0.7973, 0.7007, 0.8866],
-##         [0.5599, 0.8713, 0.8602, 0.2836, 0.6158],
-##         [0.6726, 0.7996, 0.0275, 0.1035, 0.3424]])</code></pre>
+<pre><code>## tensor([[0.1870, 0.0694, 0.4758, 0.2325, 0.0871],
+##         [0.8639, 0.9164, 0.2284, 0.1514, 0.5687],
+##         [0.1927, 0.1798, 0.1111, 0.9162, 0.1632],
+##         [0.5263, 0.5944, 0.2834, 0.9571, 0.8770]])</code></pre>
 <div class="sourceCode" id="cb160"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb160-1"><a href="graph-neural-network.html#cb160-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;=&quot;</span><span class="op">*</span><span class="dv">40</span>)</span></code></pre></div>
 <pre><code>## ========================================</code></pre>
 <div class="sourceCode" id="cb162"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb162-1"><a href="graph-neural-network.html#cb162-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Informacion de adyacencias&quot;</span>)</span></code></pre></div>
@@ -734,7 +727,7 @@ y el tráfico mensual promedio entre octubre de 2017 y noviembre de 2018 para ca
 <p>La siguiente es una grafica de 1,000 nodos de Cora:</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb191-1"><a href="graph-neural-network.html#cb191-1" tabindex="-1"></a>g, y <span class="op">=</span> GraphUtils.convert_to_networkx(data, n_sample<span class="op">=</span><span class="dv">1000</span>)</span>
 <span id="cb191-2"><a href="graph-neural-network.html#cb191-2" tabindex="-1"></a>GraphUtils.plot_graph(g, y)  </span></code></pre></div>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-153-1.png" alt="" width="864" />
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-154-1.png" alt="" width="864" />
 Ahora leeremos los datos de trafico a los sitios:</p>
 <div class="sourceCode" id="cb192"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb192-1"><a href="graph-neural-network.html#cb192-1" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&#39;./data/wikipedia/chameleon/musae_chameleon_target.csv&#39;</span>)</span></code></pre></div>
 <p>Este archivo contiene el tráfico, medido en cantidas de visitas, que representan
@@ -810,21 +803,21 @@ nodos:</p>
 ##   (linear): Linear(in_features=128, out_features=1, bias=True)
 ## )</code></pre>
 <div class="sourceCode" id="cb199"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb199-1"><a href="graph-neural-network.html#cb199-1" tabindex="-1"></a>gcn_regressor.fit(data, epochs<span class="op">=</span><span class="dv">200</span>)</span></code></pre></div>
-<pre><code>## Epoch   0 | Train Loss: 5.82222 | Val Loss: 5.87965
-## Epoch  20 | Train Loss: 6.33147 | Val Loss: 6.35905
-## Epoch  40 | Train Loss: 6.03279 | Val Loss: 6.05950
-## Epoch  60 | Train Loss: 5.61891 | Val Loss: 5.64438
-## Epoch  80 | Train Loss: 5.17583 | Val Loss: 5.19989
-## Epoch 100 | Train Loss: 4.73665 | Val Loss: 4.75921
-## Epoch 120 | Train Loss: 4.31936 | Val Loss: 4.34039
-## Epoch 140 | Train Loss: 3.93469 | Val Loss: 3.95418
-## Epoch 160 | Train Loss: 3.58858 | Val Loss: 3.60657
-## Epoch 180 | Train Loss: 3.28351 | Val Loss: 3.30004
-## Epoch 200 | Train Loss: 3.01944 | Val Loss: 3.03457</code></pre>
+<pre><code>## Epoch   0 | Train Loss: 5.88256 | Val Loss: 6.04810
+## Epoch  20 | Train Loss: 5.63454 | Val Loss: 5.73470
+## Epoch  40 | Train Loss: 2.57372 | Val Loss: 2.73354
+## Epoch  60 | Train Loss: 1.43284 | Val Loss: 1.82682
+## Epoch  80 | Train Loss: 1.27145 | Val Loss: 1.78955
+## Epoch 100 | Train Loss: 1.09344 | Val Loss: 1.79419
+## Epoch 120 | Train Loss: 0.88498 | Val Loss: 1.48977
+## Epoch 140 | Train Loss: 0.86084 | Val Loss: 1.65414
+## Epoch 160 | Train Loss: 0.73652 | Val Loss: 1.47148
+## Epoch 180 | Train Loss: 0.68692 | Val Loss: 1.26630
+## Epoch 200 | Train Loss: 0.70484 | Val Loss: 1.35817</code></pre>
 <div class="sourceCode" id="cb201"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb201-1"><a href="graph-neural-network.html#cb201-1" tabindex="-1"></a>loss <span class="op">=</span> gcn_regressor.test(data)</span>
 <span id="cb201-2"><a href="graph-neural-network.html#cb201-2" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;</span><span class="ch">\n</span><span class="ss">GCN test loss: </span><span class="sc">{</span>loss<span class="sc">:.5f}</span><span class="ch">\n</span><span class="ss">&#39;</span>)</span></code></pre></div>
 <pre><code>## 
-## GCN test loss: 2.74968</code></pre>
+## GCN test loss: 1.36715</code></pre>
 <p>Ahora veamos los resultados con distintas metricas en el conjunto de test:</p>
 <div class="sourceCode" id="cb203"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb203-1"><a href="graph-neural-network.html#cb203-1" tabindex="-1"></a>out <span class="op">=</span> gcn_regressor(data.x, data.edge_index)</span>
 <span id="cb203-2"><a href="graph-neural-network.html#cb203-2" tabindex="-1"></a>y_pred <span class="op">=</span> out.squeeze()[data.test_mask].detach().numpy()</span>
@@ -837,7 +830,7 @@ nodos:</p>
 <div class="sourceCode" id="cb207"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb207-1"><a href="graph-neural-network.html#cb207-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Chameleon Dataset - Traffic Prediction&quot;</span>)</span></code></pre></div>
 <pre><code>## Chameleon Dataset - Traffic Prediction</code></pre>
 <div class="sourceCode" id="cb209"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb209-1"><a href="graph-neural-network.html#cb209-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;MSE = </span><span class="sc">{</span>mse<span class="sc">:.4f}</span><span class="ss"> | RMSE = </span><span class="sc">{</span>np<span class="sc">.</span>sqrt(mse)<span class="sc">:.4f}</span><span class="ss"> | MAE = </span><span class="sc">{</span>mae<span class="sc">:.4f}</span><span class="ss">&#39;</span>)</span></code></pre></div>
-<pre><code>## MSE = 2.7497 | RMSE = 1.6582 | MAE = 1.3282</code></pre>
+<pre><code>## MSE = 1.3671 | RMSE = 1.1693 | MAE = 0.9616</code></pre>
 <div class="sourceCode" id="cb211"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb211-1"><a href="graph-neural-network.html#cb211-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;=&#39;</span> <span class="op">*</span> <span class="dv">43</span>)</span></code></pre></div>
 <pre><code>## ===========================================</code></pre>
 <div class="sourceCode" id="cb213"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb213-1"><a href="graph-neural-network.html#cb213-1" tabindex="-1"></a><span class="kw">def</span> plot_true_vs_predicted(y_true, y_pred):</span>
@@ -1090,7 +1083,7 @@ nodos:</p>
 <span id="cb253-12"><a href="graph-neural-network.html#cb253-12" tabindex="-1"></a>    plt.show()</span></code></pre></div>
 <div class="sourceCode" id="cb254"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb254-1"><a href="graph-neural-network.html#cb254-1" tabindex="-1"></a>out <span class="op">=</span> model(data.x, data.edge_index)</span>
 <span id="cb254-2"><a href="graph-neural-network.html#cb254-2" tabindex="-1"></a>visualize(out, color<span class="op">=</span>data.y)</span></code></pre></div>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-169-1.png" alt="" width="960" /></p>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-170-1.png" alt="" width="960" /></p>
 </div>
 </div>
 <div id="graph-attention-network-gat" class="section level2 hasAnchor" number="14.5">

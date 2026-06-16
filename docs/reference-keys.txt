@@ -235,11 +235,12 @@ ejemplo-en-pytorch
 kernels-rectangulares
 idea-clave-para-recordar
 stride
+qué-es-el-stride
 intuición-stride-como-downsampling
 interpretación-intuitiva-1
 kernel
 padding-1
-stride-3
+stride-1
 relación-entre-padding-y-stride
 idea-clave-para-recordar-1
 redes-neuronales-convolucionales-modernas

@@ -360,25 +360,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#stride"><i class="fa fa-check"></i><b>7.5</b> Stride</a>
 <ul>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#qu%C3%A9-es-el-stride"><i class="fa fa-check"></i>¿Qué es el stride?</a></li>
-<li class="chapter" data-level="7.5.1" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#intuici%C3%B3n-stride-como-downsampling"><i class="fa fa-check"></i><b>7.5.1</b> Intuición: stride como downsampling</a></li>
+<li class="chapter" data-level="7.5.1" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#qu%C3%A9-es-el-stride"><i class="fa fa-check"></i><b>7.5.1</b> ¿Qué es el stride?</a></li>
+<li class="chapter" data-level="7.5.2" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#intuici%C3%B3n-stride-como-downsampling"><i class="fa fa-check"></i><b>7.5.2</b> Intuición: stride como downsampling</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-conceptual"><i class="fa fa-check"></i>Ejemplo conceptual</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#con-stride-1"><i class="fa fa-check"></i>Con stride = 1</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#con-stride-2"><i class="fa fa-check"></i>Con stride = 2</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#con-stride-3"><i class="fa fa-check"></i>Con stride = 3</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-de-stride-diferente-en-altura-y-anchura"><i class="fa fa-check"></i>Ejemplo de stride diferente en altura y anchura</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#tama%C3%B1o-de-salida-con-stride"><i class="fa fa-check"></i>Tamaño de salida con stride</a></li>
-<li class="chapter" data-level="7.5.2" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#interpretaci%C3%B3n-intuitiva-1"><i class="fa fa-check"></i><b>7.5.2</b> Interpretación intuitiva</a></li>
+<li class="chapter" data-level="7.5.3" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#interpretaci%C3%B3n-intuitiva-1"><i class="fa fa-check"></i><b>7.5.3</b> Interpretación intuitiva</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#caso-com%C3%BAn-padding-que-preserva-dimensiones"><i class="fa fa-check"></i>Caso común: padding que preserva dimensiones</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplos-r%C3%A1pidos"><i class="fa fa-check"></i>Ejemplos rápidos</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-en-pytorch-1"><i class="fa fa-check"></i>Ejemplo en PyTorch</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#qu%C3%A9-ocurre"><i class="fa fa-check"></i>¿Qué ocurre?</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-con-par%C3%A1metros-distintos-por-dimensi%C3%B3n"><i class="fa fa-check"></i>Ejemplo con parámetros distintos por dimensión</a></li>
-<li class="chapter" data-level="7.5.3" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#kernel"><i class="fa fa-check"></i><b>7.5.3</b> Kernel</a></li>
-<li class="chapter" data-level="7.5.4" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#padding-1"><i class="fa fa-check"></i><b>7.5.4</b> Padding</a></li>
-<li class="chapter" data-level="7.5.5" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#stride-3"><i class="fa fa-check"></i><b>7.5.5</b> Stride</a></li>
-<li class="chapter" data-level="7.5.6" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#relaci%C3%B3n-entre-padding-y-stride"><i class="fa fa-check"></i><b>7.5.6</b> Relación entre Padding y Stride</a></li>
-<li class="chapter" data-level="7.5.7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#idea-clave-para-recordar-1"><i class="fa fa-check"></i><b>7.5.7</b> Idea clave para recordar</a></li>
+<li class="chapter" data-level="7.5.4" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#kernel"><i class="fa fa-check"></i><b>7.5.4</b> Kernel</a></li>
+<li class="chapter" data-level="7.5.5" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#padding-1"><i class="fa fa-check"></i><b>7.5.5</b> Padding</a></li>
+<li class="chapter" data-level="7.5.6" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#stride-1"><i class="fa fa-check"></i><b>7.5.6</b> Stride</a></li>
+<li class="chapter" data-level="7.5.7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#relaci%C3%B3n-entre-padding-y-stride"><i class="fa fa-check"></i><b>7.5.7</b> Relación entre Padding y Stride</a></li>
+<li class="chapter" data-level="7.5.8" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#idea-clave-para-recordar-1"><i class="fa fa-check"></i><b>7.5.8</b> Idea clave para recordar</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="redes-neuronales-convolucionales-modernas.html"><a href="redes-neuronales-convolucionales-modernas.html"><i class="fa fa-check"></i><b>8</b> Redes Neuronales Convolucionales Modernas</a></li>
@@ -792,7 +785,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>entonces el tamaño de salida se convierte en:</p>
 <p><span class="math display">\[
-(n_h-k_h+p_h+1)\times(n_w-k_w+p_w+1)
+\lfloor(n_h-k_h+p_h+1)\rfloor\times\lfloor(n_w-k_w+p_w+1)\rfloor
 \]</span></p>
 <p>Observamos que el padding incrementa directamente el tamaño de la salida.</p>
 </div>
@@ -981,8 +974,8 @@ p_w = 3-1 = 2
 <li>El kernel ya cubre una región grande de la imagen, por lo que no es necesario examinar todas las posiciones intermedias.</li>
 </ul>
 <p>Para estos casos utilizamos <strong>stride</strong>.</p>
-<div id="qué-es-el-stride" class="section level3 unnumbered hasAnchor">
-<h3>¿Qué es el stride?<a href="redes-neuronales-convolucionales.html#qu%C3%A9-es-el-stride" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="qué-es-el-stride" class="section level3 hasAnchor" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> ¿Qué es el stride?<a href="redes-neuronales-convolucionales.html#qu%C3%A9-es-el-stride" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El <strong>stride</strong> (paso) indica cuántas filas y columnas avanza la ventana de convolución en cada movimiento.</p>
 <p>Hasta ahora hemos utilizado implícitamente:</p>
 <p><span class="math display">\[
@@ -1020,8 +1013,8 @@ Ventana 2
 Ventana 3</code></pre>
 <p>Las posiciones intermedias no son evaluadas.</p>
 </div>
-<div id="intuición-stride-como-downsampling" class="section level3 hasAnchor" number="7.5.1">
-<h3><span class="header-section-number">7.5.1</span> Intuición: stride como downsampling<a href="redes-neuronales-convolucionales.html#intuici%C3%B3n-stride-como-downsampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="intuición-stride-como-downsampling" class="section level3 hasAnchor" number="7.5.2">
+<h3><span class="header-section-number">7.5.2</span> Intuición: stride como downsampling<a href="redes-neuronales-convolucionales.html#intuici%C3%B3n-stride-como-downsampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Una forma sencilla de entender el stride es verlo como una operación de <strong>submuestreo (downsampling)</strong>.</p>
 <p>Si una convolución estándar genera una representación de tamaño:</p>
 <p><span class="math display">\[
@@ -1048,22 +1041,16 @@ stride = 2
 <p><span class="math display">\[
 3 \times 3
 \]</span></p>
-</div>
-<div id="con-stride-1" class="section level3 unnumbered hasAnchor">
-<h3>Con stride = 1<a href="redes-neuronales-convolucionales.html#con-stride-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Con stride = 1</strong></p>
 <p>La ventana se mueve:</p>
 <pre class="text"><code>1 → 2 → 3 → 4 → 5 → ...</code></pre>
 <p>Se generan muchas posiciones de salida.</p>
-</div>
-<div id="con-stride-2" class="section level3 unnumbered hasAnchor">
-<h3>Con stride = 2<a href="redes-neuronales-convolucionales.html#con-stride-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Con stride = 2</strong></p>
 <p>La ventana se mueve:</p>
 <pre class="text"><code>1 → 3 → 5 → 7</code></pre>
 <p>Las posiciones 2, 4 y 6 son ignoradas.</p>
 <p>La salida tendrá muchas menos celdas.</p>
-</div>
-<div id="con-stride-3" class="section level3 unnumbered hasAnchor">
-<h3>Con stride = 3<a href="redes-neuronales-convolucionales.html#con-stride-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Con stride = 3</strong></p>
 <p>La ventana se mueve:</p>
 <pre class="text"><code>1 → 4 → 7</code></pre>
 <p>La reducción es todavía más agresiva.</p>
@@ -1083,7 +1070,7 @@ s_w = 2
 <li>La ventana baja 3 filas cada vez.</li>
 <li>La ventana avanza 2 columnas cada vez.</li>
 </ul>
-<p>[imagen]</p>
+<p><img src="img/07_ConvolutionalNN/cross_correlation_3h_2w.png" alt="" width="600pt" height="350pt" style="display: block; margin: auto;" /></p>
 <p>Observando la figura:</p>
 <ul>
 <li>Para generar el segundo elemento de la primera columna, la ventana baja 3 filas.</li>
@@ -1113,8 +1100,8 @@ s_w = 2
 </ul>
 <p>El operador piso <span class="math inline">\(\lfloor \cdot \rfloor\)</span> indica que únicamente contamos las posiciones donde el kernel cabe completamente dentro de la imagen.</p>
 </div>
-<div id="interpretación-intuitiva-1" class="section level3 hasAnchor" number="7.5.2">
-<h3><span class="header-section-number">7.5.2</span> Interpretación intuitiva<a href="redes-neuronales-convolucionales.html#interpretaci%C3%B3n-intuitiva-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="interpretación-intuitiva-1" class="section level3 hasAnchor" number="7.5.3">
+<h3><span class="header-section-number">7.5.3</span> Interpretación intuitiva<a href="redes-neuronales-convolucionales.html#interpretaci%C3%B3n-intuitiva-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La parte:</p>
 <p><span class="math display">\[
 n_h-k_h+p_h
@@ -1161,39 +1148,29 @@ n_w
 \frac{n_w}{s_w}
 \]</span></p>
 <p>Esto nos dice que el stride actúa aproximadamente como un factor de reducción de resolución.</p>
-</div>
-<div id="ejemplos-rápidos" class="section level3 unnumbered hasAnchor">
-<h3>Ejemplos rápidos<a href="redes-neuronales-convolucionales.html#ejemplos-r%C3%A1pidos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="stride-1" class="section level4 unnumbered hasAnchor">
-<h4>Stride = 1<a href="redes-neuronales-convolucionales.html#stride-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Ejemplos rápidos</strong></p>
+<p><strong>Stride = 1</strong></p>
 <p><span class="math display">\[
 32 \times 32
 \rightarrow
 32 \times 32
 \]</span></p>
 <p>No hay reducción.</p>
-</div>
-<div id="stride-2" class="section level4 unnumbered hasAnchor">
-<h4>Stride = 2<a href="redes-neuronales-convolucionales.html#stride-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Stride = 2</strong></p>
 <p><span class="math display">\[
 32 \times 32
 \rightarrow
 16 \times 16
 \]</span></p>
 <p>La resolución se reduce a la mitad.</p>
-</div>
-<div id="stride-4" class="section level4 unnumbered hasAnchor">
-<h4>Stride = 4<a href="redes-neuronales-convolucionales.html#stride-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Stride = 4</strong></p>
 <p><span class="math display">\[
 32 \times 32
 \rightarrow
 8 \times 8
 \]</span></p>
 <p>La resolución se reduce a una cuarta parte.</p>
-</div>
-</div>
-<div id="ejemplo-en-pytorch-1" class="section level3 unnumbered hasAnchor">
-<h3>Ejemplo en PyTorch<a href="redes-neuronales-convolucionales.html#ejemplo-en-pytorch-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ejemplo en PyTorch</p>
 <p>A continuación utilizamos una convolución con:</p>
 <ul>
 <li>Kernel: <span class="math inline">\(3\times3\)</span></li>
@@ -1203,9 +1180,7 @@ n_w
 <div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="redes-neuronales-convolucionales.html#cb67-1" tabindex="-1"></a>conv2d <span class="op">=</span> nn.LazyConv2d(<span class="dv">1</span>, kernel_size<span class="op">=</span><span class="dv">3</span>, padding<span class="op">=</span><span class="dv">1</span>, stride<span class="op">=</span><span class="dv">2</span>)</span>
 <span id="cb67-2"><a href="redes-neuronales-convolucionales.html#cb67-2" tabindex="-1"></a>comp_conv2d(conv2d, X).shape</span></code></pre></div>
 <pre><code>## torch.Size([4, 4])</code></pre>
-</div>
-<div id="qué-ocurre" class="section level3 unnumbered hasAnchor">
-<h3>¿Qué ocurre?<a href="redes-neuronales-convolucionales.html#qu%C3%A9-ocurre" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>¿Qué ocurre?</strong></p>
 <p>Si la entrada es:</p>
 <p><span class="math display">\[
 8\times8
@@ -1221,17 +1196,15 @@ n_w
 \]</span></p>
 <p>Hemos reducido la resolución espacial a la mitad.</p>
 <p>Este patrón aparece constantemente en arquitecturas modernas porque permite disminuir rápidamente el tamaño de las representaciones internas.</p>
-</div>
-<div id="ejemplo-con-parámetros-distintos-por-dimensión" class="section level3 unnumbered hasAnchor">
-<h3>Ejemplo con parámetros distintos por dimensión<a href="redes-neuronales-convolucionales.html#ejemplo-con-par%C3%A1metros-distintos-por-dimensi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Ejemplo con parámetros distintos por dimensión</strong></p>
 <p>También podemos especificar distintos tamaños de kernel, padding y stride para altura y anchura.</p>
 <p>[pytorch]</p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="redes-neuronales-convolucionales.html#cb69-1" tabindex="-1"></a>conv2d <span class="op">=</span> nn.LazyConv2d(<span class="dv">1</span>, kernel_size<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">5</span>), padding<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>), stride<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">4</span>))</span>
 <span id="cb69-2"><a href="redes-neuronales-convolucionales.html#cb69-2" tabindex="-1"></a>comp_conv2d(conv2d, X).shape</span></code></pre></div>
 <p>En este caso:</p>
 </div>
-<div id="kernel" class="section level3 hasAnchor" number="7.5.3">
-<h3><span class="header-section-number">7.5.3</span> Kernel<a href="redes-neuronales-convolucionales.html#kernel" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="kernel" class="section level3 hasAnchor" number="7.5.4">
+<h3><span class="header-section-number">7.5.4</span> Kernel<a href="redes-neuronales-convolucionales.html#kernel" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><span class="math display">\[
 k_h = 3
 \]</span></p>
@@ -1240,8 +1213,8 @@ k_w = 5
 \]</span></p>
 <p>La ventana cubre una región rectangular.</p>
 </div>
-<div id="padding-1" class="section level3 hasAnchor" number="7.5.4">
-<h3><span class="header-section-number">7.5.4</span> Padding<a href="redes-neuronales-convolucionales.html#padding-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="padding-1" class="section level3 hasAnchor" number="7.5.5">
+<h3><span class="header-section-number">7.5.5</span> Padding<a href="redes-neuronales-convolucionales.html#padding-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><span class="math display">\[
 p_h = 0
 \]</span></p>
@@ -1250,8 +1223,8 @@ p_w = 2
 \]</span></p>
 <p>(es decir, 1 columna a cada lado).</p>
 </div>
-<div id="stride-3" class="section level3 hasAnchor" number="7.5.5">
-<h3><span class="header-section-number">7.5.5</span> Stride<a href="redes-neuronales-convolucionales.html#stride-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="stride-1" class="section level3 hasAnchor" number="7.5.6">
+<h3><span class="header-section-number">7.5.6</span> Stride<a href="redes-neuronales-convolucionales.html#stride-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><span class="math display">\[
 s_h = 3
 \]</span></p>
@@ -1266,8 +1239,8 @@ s_w = 4
 <p>Como consecuencia, la reducción espacial es mucho más agresiva que en el ejemplo anterior.</p>
 <p>Este tipo de configuraciones son menos comunes en CNN estándar, pero resultan útiles cuando queremos controlar con precisión la resolución de salida.</p>
 </div>
-<div id="relación-entre-padding-y-stride" class="section level3 hasAnchor" number="7.5.6">
-<h3><span class="header-section-number">7.5.6</span> Relación entre Padding y Stride<a href="redes-neuronales-convolucionales.html#relaci%C3%B3n-entre-padding-y-stride" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="relación-entre-padding-y-stride" class="section level3 hasAnchor" number="7.5.7">
+<h3><span class="header-section-number">7.5.7</span> Relación entre Padding y Stride<a href="redes-neuronales-convolucionales.html#relaci%C3%B3n-entre-padding-y-stride" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Padding y stride suelen cumplir objetivos opuestos:</p>
 <table>
 <colgroup>
@@ -1298,8 +1271,8 @@ s_w = 4
 <li>El stride reduce progresivamente la dimensionalidad para hacer el procesamiento más eficiente.</li>
 </ul>
 </div>
-<div id="idea-clave-para-recordar-1" class="section level3 hasAnchor" number="7.5.7">
-<h3><span class="header-section-number">7.5.7</span> Idea clave para recordar<a href="redes-neuronales-convolucionales.html#idea-clave-para-recordar-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="idea-clave-para-recordar-1" class="section level3 hasAnchor" number="7.5.8">
+<h3><span class="header-section-number">7.5.8</span> Idea clave para recordar<a href="redes-neuronales-convolucionales.html#idea-clave-para-recordar-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Mientras que el <strong>padding controla cuánto espacio adicional tiene el kernel para moverse</strong>, el <strong>stride controla qué tan grandes son los saltos que realiza durante ese movimiento</strong>.</p>
 <p>En la práctica:</p>
 <ul>

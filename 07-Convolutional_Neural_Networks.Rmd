@@ -415,7 +415,7 @@ Si agregamos:
 entonces el tamaño de salida se convierte en:
 
 $$
-(n_h-k_h+p_h+1)\times(n_w-k_w+p_w+1)
+\lfloor(n_h-k_h+p_h+1)\rfloor\times\lfloor(n_w-k_w+p_w+1)\rfloor
 $$
 
 Observamos que el padding incrementa directamente el tamaño de la salida.
@@ -657,7 +657,7 @@ Sin embargo, no siempre queremos evaluar todas las posiciones posibles. En mucho
 
 Para estos casos utilizamos **stride**.
 
-### ¿Qué es el stride? {-}
+### ¿Qué es el stride?
 
 El **stride** (paso) indica cuántas filas y columnas avanza la ventana de convolución en cada movimiento.
 
@@ -752,7 +752,7 @@ y un kernel:
 3 \times 3
 \]
 
-### Con stride = 1 {-}
+**Con stride = 1**
 
 La ventana se mueve:
 
@@ -762,7 +762,7 @@ La ventana se mueve:
 
 Se generan muchas posiciones de salida.
 
-### Con stride = 2 {-}
+**Con stride = 2**
 
 La ventana se mueve:
 
@@ -774,7 +774,7 @@ Las posiciones 2, 4 y 6 son ignoradas.
 
 La salida tendrá muchas menos celdas.
 
-### Con stride = 3 {-}
+**Con stride = 3**
 
 La ventana se mueve:
 
@@ -803,7 +803,9 @@ Esto significa:
 - La ventana baja 3 filas cada vez.
 - La ventana avanza 2 columnas cada vez.
 
-[imagen]
+```{r echo=FALSE, fig.align='center', out.height='350pt', out.width='600pt'}
+knitr::include_graphics("img/07_ConvolutionalNN/cross_correlation_3h_2w.png")
+```
 
 Observando la figura:
 
@@ -903,9 +905,9 @@ son divisibles por los strides, obtenemos una expresión muy intuitiva:
 
 Esto nos dice que el stride actúa aproximadamente como un factor de reducción de resolución.
 
-### Ejemplos rápidos {-}
+**Ejemplos rápidos**
 
-#### Stride = 1 {-}
+**Stride = 1**
 
 \[
 32 \times 32
@@ -915,7 +917,7 @@ Esto nos dice que el stride actúa aproximadamente como un factor de reducción 
 
 No hay reducción.
 
-#### Stride = 2 {-}
+**Stride = 2**
 
 \[
 32 \times 32
@@ -925,7 +927,7 @@ No hay reducción.
 
 La resolución se reduce a la mitad.
 
-#### Stride = 4 {-}
+**Stride = 4**
 
 \[
 32 \times 32
@@ -935,7 +937,7 @@ La resolución se reduce a la mitad.
 
 La resolución se reduce a una cuarta parte.
 
-### Ejemplo en PyTorch {-}
+Ejemplo en PyTorch
 
 A continuación utilizamos una convolución con:
 
@@ -948,7 +950,7 @@ conv2d = nn.LazyConv2d(1, kernel_size=3, padding=1, stride=2)
 comp_conv2d(conv2d, X).shape
 ```
 
-### ¿Qué ocurre? {-}
+**¿Qué ocurre?**
 
 Si la entrada es:
 
@@ -974,7 +976,7 @@ Hemos reducido la resolución espacial a la mitad.
 
 Este patrón aparece constantemente en arquitecturas modernas porque permite disminuir rápidamente el tamaño de las representaciones internas.
 
-### Ejemplo con parámetros distintos por dimensión {-}
+**Ejemplo con parámetros distintos por dimensión**
 
 También podemos especificar distintos tamaños de kernel, padding y stride para altura y anchura.
 

@@ -360,25 +360,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#stride"><i class="fa fa-check"></i><b>7.5</b> Stride</a>
 <ul>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#qu%C3%A9-es-el-stride"><i class="fa fa-check"></i>¿Qué es el stride?</a></li>
-<li class="chapter" data-level="7.5.1" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#intuici%C3%B3n-stride-como-downsampling"><i class="fa fa-check"></i><b>7.5.1</b> Intuición: stride como downsampling</a></li>
+<li class="chapter" data-level="7.5.1" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#qu%C3%A9-es-el-stride"><i class="fa fa-check"></i><b>7.5.1</b> ¿Qué es el stride?</a></li>
+<li class="chapter" data-level="7.5.2" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#intuici%C3%B3n-stride-como-downsampling"><i class="fa fa-check"></i><b>7.5.2</b> Intuición: stride como downsampling</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-conceptual"><i class="fa fa-check"></i>Ejemplo conceptual</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#con-stride-1"><i class="fa fa-check"></i>Con stride = 1</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#con-stride-2"><i class="fa fa-check"></i>Con stride = 2</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#con-stride-3"><i class="fa fa-check"></i>Con stride = 3</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-de-stride-diferente-en-altura-y-anchura"><i class="fa fa-check"></i>Ejemplo de stride diferente en altura y anchura</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#tama%C3%B1o-de-salida-con-stride"><i class="fa fa-check"></i>Tamaño de salida con stride</a></li>
-<li class="chapter" data-level="7.5.2" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#interpretaci%C3%B3n-intuitiva-1"><i class="fa fa-check"></i><b>7.5.2</b> Interpretación intuitiva</a></li>
+<li class="chapter" data-level="7.5.3" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#interpretaci%C3%B3n-intuitiva-1"><i class="fa fa-check"></i><b>7.5.3</b> Interpretación intuitiva</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#caso-com%C3%BAn-padding-que-preserva-dimensiones"><i class="fa fa-check"></i>Caso común: padding que preserva dimensiones</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplos-r%C3%A1pidos"><i class="fa fa-check"></i>Ejemplos rápidos</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-en-pytorch-1"><i class="fa fa-check"></i>Ejemplo en PyTorch</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#qu%C3%A9-ocurre"><i class="fa fa-check"></i>¿Qué ocurre?</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-con-par%C3%A1metros-distintos-por-dimensi%C3%B3n"><i class="fa fa-check"></i>Ejemplo con parámetros distintos por dimensión</a></li>
-<li class="chapter" data-level="7.5.3" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#kernel"><i class="fa fa-check"></i><b>7.5.3</b> Kernel</a></li>
-<li class="chapter" data-level="7.5.4" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#padding-1"><i class="fa fa-check"></i><b>7.5.4</b> Padding</a></li>
-<li class="chapter" data-level="7.5.5" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#stride-3"><i class="fa fa-check"></i><b>7.5.5</b> Stride</a></li>
-<li class="chapter" data-level="7.5.6" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#relaci%C3%B3n-entre-padding-y-stride"><i class="fa fa-check"></i><b>7.5.6</b> Relación entre Padding y Stride</a></li>
-<li class="chapter" data-level="7.5.7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#idea-clave-para-recordar-1"><i class="fa fa-check"></i><b>7.5.7</b> Idea clave para recordar</a></li>
+<li class="chapter" data-level="7.5.4" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#kernel"><i class="fa fa-check"></i><b>7.5.4</b> Kernel</a></li>
+<li class="chapter" data-level="7.5.5" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#padding-1"><i class="fa fa-check"></i><b>7.5.5</b> Padding</a></li>
+<li class="chapter" data-level="7.5.6" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#stride-1"><i class="fa fa-check"></i><b>7.5.6</b> Stride</a></li>
+<li class="chapter" data-level="7.5.7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#relaci%C3%B3n-entre-padding-y-stride"><i class="fa fa-check"></i><b>7.5.7</b> Relación entre Padding y Stride</a></li>
+<li class="chapter" data-level="7.5.8" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#idea-clave-para-recordar-1"><i class="fa fa-check"></i><b>7.5.8</b> Idea clave para recordar</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="redes-neuronales-convolucionales-modernas.html"><a href="redes-neuronales-convolucionales-modernas.html"><i class="fa fa-check"></i><b>8</b> Redes Neuronales Convolucionales Modernas</a></li>
@@ -504,12 +497,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb74-12"><a href="introducción-a-la-teoría-de-gráficas..html#cb74-12" tabindex="-1"></a>nx.draw_networkx_nodes(G, pos, node_color<span class="op">=</span>color_map)</span>
 <span id="cb74-13"><a href="introducción-a-la-teoría-de-gráficas..html#cb74-13" tabindex="-1"></a>nx.draw_networkx_edges(G, pos, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
 <span id="cb74-14"><a href="introducción-a-la-teoría-de-gráficas..html#cb74-14" tabindex="-1"></a>nx.draw_networkx_labels(G, pos, font_color<span class="op">=</span><span class="st">&#39;white&#39;</span>)</span></code></pre></div>
-<pre><code>## {0: Text(0.2703061402158381, 0.3042707281793938, &#39;0&#39;), 1: Text(0.1990384844022339, 0.15219331943005834, &#39;1&#39;), 2: Text(0.11665371732364045, -0.027048680088219923, &#39;2&#39;), 3: Text(0.3867806025183413, 0.14044008368912383, &#39;3&#39;), 4: Text(0.49585697217893554, 0.563248855101571, &#39;4&#39;), 5: Text(0.49764115798968933, 0.7259844787248112, &#39;5&#39;), 6: Text(0.39380661334174777, 0.7415427033051879, &#39;6&#39;), 7: Text(0.3527057654716336, 0.05491661095436725, &#39;7&#39;), 8: Text(-0.09863690617419694, -0.022149407948338196, &#39;8&#39;), 9: Text(0.10828109194771396, -0.5030332510962203, &#39;9&#39;), 10: Text(0.634782189296077, 0.6087174370554452, &#39;10&#39;), 11: Text(0.1885920161721771, 0.6760928785852894, &#39;11&#39;), 12: Text(0.7145459894145909, 0.1569061649844792, &#39;12&#39;), 13: Text(0.07453441015383955, 0.08472255846449588, &#39;13&#39;), 14: Text(-0.5699144513805845, -0.0270746060343274, &#39;14&#39;), 15: Text(-0.54732026841906, -0.20792094779121617, &#39;15&#39;), 16: Text(0.5290409014661388, 1.0, &#39;16&#39;), 17: Text(0.04789090962517977, 0.5568955154632113, &#39;17&#39;), 18: Text(-0.7313900368601842, -0.3499073347194702, &#39;18&#39;), 19: Text(0.26534136397814273, -0.05836855336144888, &#39;19&#39;), 20: Text(-0.7190210741844332, -0.1368245217910209, &#39;20&#39;), 21: Text(0.5446750928748407, 0.3129419486422018, &#39;21&#39;), 22: Text(-0.45964088729548835, -0.5419339534887433, &#39;22&#39;), 23: Text(-0.32220138570118895, -0.443851348235324, &#39;23&#39;), 24: Text(-0.05192540035822773, -0.6951676081085019, &#39;24&#39;), 25: Text(-0.1619353824342879, -0.5464212671875873, &#39;25&#39;), 26: Text(-0.6453747746515068, -0.5793656038563966, &#39;26&#39;), 27: Text(-0.10995210485546852, -0.4355415940573433, &#39;27&#39;), 28: Text(0.09352011385573673, -0.32607382675963115, &#39;28&#39;), 29: Text(-0.5395300417573301, -0.42936251420987326, &#39;29&#39;), 30: Text(-0.22819546930378604, 0.013075967080082417, &#39;30&#39;), 31: Text(-0.08066872636255716, -0.2905107183584629, &#39;31&#39;), 32: Text(-0.3693800406008642, -0.2118655825325536, &#39;32&#39;), 33: Text(-0.2789065818873309, -0.2595279300350361, &#39;33&#39;)}</code></pre>
+<pre><code>## {0: Text(0.2504739281296497, -0.45151928198612307, &#39;0&#39;), 1: Text(0.028732823142658445, -0.3150844808542583, &#39;1&#39;), 2: Text(0.02071193673650638, -0.06399088757863253, &#39;2&#39;), 3: Text(0.3563322707476274, -0.22253057891401115, &#39;3&#39;), 4: Text(0.49640138665006633, -0.7740204533222222, &#39;4&#39;), 5: Text(0.6855088737074624, -0.8246798775791302, &#39;5&#39;), 6: Text(0.7381968945698749, -0.7080443457051763, &#39;6&#39;), 7: Text(0.21016787614505583, -0.2765758371531987, &#39;7&#39;), 8: Text(-0.14655137392465428, 0.0623135833492204, &#39;8&#39;), 9: Text(-0.6034027790215664, -0.002869279685842577, &#39;9&#39;), 10: Text(0.5252846761086681, -0.9629766445064554, &#39;10&#39;), 11: Text(0.24179928227412995, -0.9347850169369692, &#39;11&#39;), 12: Text(0.7389242696958022, -0.2595079924677385, &#39;12&#39;), 13: Text(0.11038431709893805, -0.0839327126323952, &#39;13&#39;), 14: Text(-0.7111349616631427, 0.319406170862631, &#39;14&#39;), 15: Text(-0.5435367409817741, 0.5543262488822793, &#39;15&#39;), 16: Text(1.0, -0.9584798604365958, &#39;16&#39;), 17: Text(0.014413996173929137, -0.875624222361251, &#39;17&#39;), 18: Text(-0.2944491082824865, 0.9396895239504933, &#39;18&#39;), 19: Text(-0.21293431236179752, -0.36030773670269844, &#39;19&#39;), 20: Text(-0.7311538530337568, 0.6955107821002173, &#39;20&#39;), 21: Text(-0.08094725478365611, -0.7033792523019508, &#39;21&#39;), 22: Text(-0.7097014012829653, 0.4811132903360091, &#39;22&#39;), 23: Text(-0.1519316887007861, 0.6448289716312199, &#39;23&#39;), 24: Text(0.31811678235570195, 0.7365694740796999, &#39;24&#39;), 25: Text(0.11736872863790271, 0.6683159446644702, &#39;25&#39;), 26: Text(-0.5472858304392701, 0.9204619400877199, &#39;26&#39;), 27: Text(0.034848455502636023, 0.511646030819653, &#39;27&#39;), 28: Text(0.1576771633441787, 0.25071317402845156, &#39;28&#39;), 29: Text(-0.3939675166366823, 0.7436929937375809, &#39;29&#39;), 30: Text(-0.3302298093109149, 0.08247838459892479, &#39;30&#39;), 31: Text(0.046499143430919654, 0.3623660558783569, &#39;31&#39;), 32: Text(-0.3535682629673114, 0.4306896247246177, &#39;32&#39;), 33: Text(-0.2810479110609471, 0.37418626739310407, &#39;33&#39;)}</code></pre>
 <div class="sourceCode" id="cb76"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb76-1" tabindex="-1"></a>plt.title(<span class="st">&quot;Zachary&#39;s Karate Club Network&quot;</span>)</span>
 <span id="cb76-2"><a href="introducción-a-la-teoría-de-gráficas..html#cb76-2" tabindex="-1"></a>plt.axis(<span class="st">&#39;off&#39;</span>)</span></code></pre></div>
-<pre><code>## (np.float64(-0.8832133196190356), np.float64(0.8663692721734423), np.float64(-0.8731602069598945), np.float64(1.1779925988513926))</code></pre>
+<pre><code>## (np.float64(-0.9129250076023013), np.float64(1.1817711545685443), np.float64(-1.162756592194435), np.float64(1.139469471638473))</code></pre>
 <div class="sourceCode" id="cb78"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb78-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-109-1.png" alt="" width="768" /></p>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-110-1.png" alt="" width="768" /></p>
 <p>Matematicamente se representan como conjuntos de vértices (o nodos)
 <span class="math inline">\(V = \{v_1, \ldots, v_n \}\)</span> y del conjunto de las relaciones entre ellas
 <span class="math inline">\(E = \{e_{i_1 i_j}, \ldots, e_{i_m i_m} \}\)</span>.</p>
@@ -555,12 +548,12 @@ donde dicho nodo está presente. Este se puede calcular como:</li>
 <span id="cb79-8"><a href="introducción-a-la-teoría-de-gráficas..html#cb79-8" tabindex="-1"></a>nx.draw_networkx_nodes(G, pos)</span>
 <span id="cb79-9"><a href="introducción-a-la-teoría-de-gráficas..html#cb79-9" tabindex="-1"></a>nx.draw_networkx_edges(G, pos, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
 <span id="cb79-10"><a href="introducción-a-la-teoría-de-gráficas..html#cb79-10" tabindex="-1"></a>nx.draw_networkx_labels(G, pos, font_color<span class="op">=</span><span class="st">&#39;white&#39;</span>)</span></code></pre></div>
-<pre><code>## {&#39;A&#39;: Text(-0.002750965260610685, 0.0007273845804573009, &#39;A&#39;), &#39;B&#39;: Text(-0.26081814076151066, 0.537763811105346, &#39;B&#39;), &#39;C&#39;: Text(0.2611519638612235, -0.5418553715583622, &#39;C&#39;), &#39;D&#39;: Text(-0.1357395714333941, 0.996653610873216, &#39;D&#39;), &#39;E&#39;: Text(-0.6977359331555675, 0.7310875662702842, &#39;E&#39;), &#39;F&#39;: Text(0.6974425646922098, -0.7243770012709418, &#39;F&#39;), &#39;G&#39;: Text(0.13845008205765008, -1.0, &#39;G&#39;)}</code></pre>
+<pre><code>## {&#39;A&#39;: Text(-0.0011761707326682425, 0.00044008402946928133, &#39;A&#39;), &#39;B&#39;: Text(-0.5643351922226476, 0.18879558731742524, &#39;B&#39;), &#39;C&#39;: Text(0.564690423309323, -0.18872711356798202, &#39;C&#39;), &#39;D&#39;: Text(-0.9993911743189537, 0.008837902373206476, &#39;D&#39;), &#39;E&#39;: Text(-0.8035772002145176, 0.5951657584692507, &#39;E&#39;), &#39;F&#39;: Text(0.9999999999999999, -0.010580100349234001, &#39;F&#39;), &#39;G&#39;: Text(0.8037893141794644, -0.5939321182721357, &#39;G&#39;)}</code></pre>
 <div class="sourceCode" id="cb81"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb81-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb81-1" tabindex="-1"></a>plt.title(<span class="st">&quot;Samaple Graph&quot;</span>)</span>
 <span id="cb81-2"><a href="introducción-a-la-teoría-de-gráficas..html#cb81-2" tabindex="-1"></a>plt.axis(<span class="st">&#39;off&#39;</span>)</span></code></pre></div>
-<pre><code>## (np.float64(-0.8442296754295842), np.float64(0.8439363069662265), np.float64(-1.2096486291416877), np.float64(1.2063022400149037))</code></pre>
+<pre><code>## (np.float64(-1.2093272476224437), np.float64(1.2099360733034898), np.float64(-0.7187873953299813), np.float64(0.7200210355270963))</code></pre>
 <div class="sourceCode" id="cb83"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb83-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-114-1.png" alt="" width="768" /></p>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-115-1.png" alt="" width="768" /></p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb84-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb84-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;deg(A) = </span><span class="sc">{</span>G<span class="sc">.</span>degree[<span class="st">&#39;A&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
 <pre><code>## deg(A) = 2</code></pre>
 <div class="sourceCode" id="cb86"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb86-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb86-1" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;deg(B) = </span><span class="sc">{</span>G<span class="sc">.</span>degree[<span class="st">&#39;B&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
@@ -750,7 +743,7 @@ La tabla siguiente hace un resumen</p>
 <p>Esta es una representación de una muestra de 1,000 artículos en el conjunto Cora.</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb90-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb90-1" tabindex="-1"></a>g, y <span class="op">=</span> GraphUtils.convert_to_networkx(data, n_sample<span class="op">=</span><span class="dv">1000</span>)</span>
 <span id="cb90-2"><a href="introducción-a-la-teoría-de-gráficas..html#cb90-2" tabindex="-1"></a>GraphUtils.plot_graph(g, y)  </span></code></pre></div>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-119-1.png" alt="" width="864" />
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-120-1.png" alt="" width="864" />
 En complemento, ahora veremos el arreglo tabular de datos donde cada reglón es un
 artículo, los features son el Bag of Words del corpus del artículo con las
 palabras de toda la colección y la categoría a la que pertenece dicho artículo.</p>
@@ -890,16 +883,16 @@ adyacencias para involucrar la estrucura de la red.</p></li>
 ##   (linear2): Linear(in_features=16, out_features=7, bias=True)
 ## )</code></pre>
 <div class="sourceCode" id="cb98"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb98-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb98-1" tabindex="-1"></a>mlp.fit(data, epochs<span class="op">=</span><span class="dv">100</span>)</span></code></pre></div>
-<pre><code>## Epoch   0 | Train Loss: 1.947 | Train Acc: 17.14% | Val Loss: 1.96 | Val Acc: 9.60%
-## Epoch  20 | Train Loss: 0.091 | Train Acc: 100.00% | Val Loss: 1.37 | Val Acc: 53.20%
-## Epoch  40 | Train Loss: 0.011 | Train Acc: 100.00% | Val Loss: 1.53 | Val Acc: 49.20%
-## Epoch  60 | Train Loss: 0.006 | Train Acc: 100.00% | Val Loss: 1.52 | Val Acc: 49.00%
-## Epoch  80 | Train Loss: 0.007 | Train Acc: 100.00% | Val Loss: 1.40 | Val Acc: 52.20%
-## Epoch 100 | Train Loss: 0.008 | Train Acc: 100.00% | Val Loss: 1.36 | Val Acc: 55.00%</code></pre>
+<pre><code>## Epoch   0 | Train Loss: 1.956 | Train Acc: 10.00% | Val Loss: 1.92 | Val Acc: 10.60%
+## Epoch  20 | Train Loss: 0.093 | Train Acc: 100.00% | Val Loss: 1.41 | Val Acc: 53.20%
+## Epoch  40 | Train Loss: 0.012 | Train Acc: 100.00% | Val Loss: 1.52 | Val Acc: 52.00%
+## Epoch  60 | Train Loss: 0.007 | Train Acc: 100.00% | Val Loss: 1.47 | Val Acc: 53.60%
+## Epoch  80 | Train Loss: 0.008 | Train Acc: 100.00% | Val Loss: 1.39 | Val Acc: 55.60%
+## Epoch 100 | Train Loss: 0.008 | Train Acc: 100.00% | Val Loss: 1.36 | Val Acc: 57.40%</code></pre>
 <div class="sourceCode" id="cb100"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb100-1" tabindex="-1"></a>acc_mlp <span class="op">=</span> mlp.test(data)</span>
 <span id="cb100-2"><a href="introducción-a-la-teoría-de-gráficas..html#cb100-2" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;</span><span class="ch">\n</span><span class="ss">MLP test accuracy: </span><span class="sc">{</span>acc_mlp<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%&#39;</span>)</span></code></pre></div>
 <pre><code>## 
-## MLP test accuracy: 53.90%</code></pre>
+## MLP test accuracy: 53.70%</code></pre>
 <div class="sourceCode" id="cb102"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb102-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb102-1" tabindex="-1"></a>adjacency <span class="op">=</span> GraphUtils.create_adjacency_matrix(data)</span>
 <span id="cb102-2"><a href="introducción-a-la-teoría-de-gráficas..html#cb102-2" tabindex="-1"></a>gnn <span class="op">=</span> GNN(dataset.num_features, <span class="dv">16</span>, dataset.num_classes)</span>
 <span id="cb102-3"><a href="introducción-a-la-teoría-de-gráficas..html#cb102-3" tabindex="-1"></a><span class="bu">print</span>(gnn)</span></code></pre></div>
@@ -912,17 +905,17 @@ adyacencias para involucrar la estrucura de la red.</p></li>
 ##   )
 ## )</code></pre>
 <div class="sourceCode" id="cb104"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb104-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb104-1" tabindex="-1"></a>gnn.fit(data, adjacency, epochs<span class="op">=</span><span class="dv">100</span>)</span></code></pre></div>
-<pre><code>## Epoch   0 | Train Loss: 2.092 | Train Acc: 10.71% | Val Loss: 2.07 | Val Acc: 9.60%
-## Epoch  20 | Train Loss: 0.077 | Train Acc: 98.57% | Val Loss: 1.65 | Val Acc: 74.60%
-## Epoch  40 | Train Loss: 0.006 | Train Acc: 100.00% | Val Loss: 2.27 | Val Acc: 74.00%
-## Epoch  60 | Train Loss: 0.001 | Train Acc: 100.00% | Val Loss: 2.48 | Val Acc: 74.40%
-## Epoch  80 | Train Loss: 0.001 | Train Acc: 100.00% | Val Loss: 2.51 | Val Acc: 74.60%
-## Epoch 100 | Train Loss: 0.001 | Train Acc: 100.00% | Val Loss: 2.51 | Val Acc: 75.40%</code></pre>
+<pre><code>## Epoch   0 | Train Loss: 2.116 | Train Acc: 15.71% | Val Loss: 2.10 | Val Acc: 17.20%
+## Epoch  20 | Train Loss: 0.112 | Train Acc: 99.29% | Val Loss: 1.76 | Val Acc: 74.20%
+## Epoch  40 | Train Loss: 0.012 | Train Acc: 100.00% | Val Loss: 2.63 | Val Acc: 73.60%
+## Epoch  60 | Train Loss: 0.006 | Train Acc: 100.00% | Val Loss: 2.72 | Val Acc: 74.40%
+## Epoch  80 | Train Loss: 0.003 | Train Acc: 100.00% | Val Loss: 2.69 | Val Acc: 75.00%
+## Epoch 100 | Train Loss: 0.002 | Train Acc: 100.00% | Val Loss: 2.63 | Val Acc: 74.60%</code></pre>
 <div class="sourceCode" id="cb106"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb106-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb106-1" tabindex="-1"></a>acc_gnn <span class="op">=</span> gnn.test(data, adjacency)</span>
 <span id="cb106-2"><a href="introducción-a-la-teoría-de-gráficas..html#cb106-2" tabindex="-1"></a></span>
 <span id="cb106-3"><a href="introducción-a-la-teoría-de-gráficas..html#cb106-3" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;</span><span class="ch">\n</span><span class="ss">GNN test accuracy: </span><span class="sc">{</span>acc_gnn<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%&#39;</span>)</span></code></pre></div>
 <pre><code>## 
-## GNN test accuracy: 76.20%</code></pre>
+## GNN test accuracy: 76.40%</code></pre>
 <div class="sourceCode" id="cb108"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb108-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb108-1" tabindex="-1"></a>pd.DataFrame(</span>
 <span id="cb108-2"><a href="introducción-a-la-teoría-de-gráficas..html#cb108-2" tabindex="-1"></a>  {</span>
 <span id="cb108-3"><a href="introducción-a-la-teoría-de-gráficas..html#cb108-3" tabindex="-1"></a>    <span class="st">&quot;modelo&quot;</span>: [<span class="st">&quot;MLP&quot;</span>, <span class="st">&quot;GNN&quot;</span>],</span>
@@ -930,8 +923,8 @@ adyacencias para involucrar la estrucura de la red.</p></li>
 <span id="cb108-5"><a href="introducción-a-la-teoría-de-gráficas..html#cb108-5" tabindex="-1"></a>  }</span>
 <span id="cb108-6"><a href="introducción-a-la-teoría-de-gráficas..html#cb108-6" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>##   modelo  accuracy
-## 0    MLP      53.9
-## 1    GNN      76.2</code></pre>
+## 0    MLP      53.7
+## 1    GNN      76.4</code></pre>
 <p>En este ejemplo, el factor que marco la diferencia de la accion de la matriz
 de transaciones sobre los pesos de la red, pues intutivamente sirve para
 comunicar la estructura de relaciones de los nodos en el proceso de aprendizaje.</p>
@@ -1002,7 +995,7 @@ que se han numerado:</p>
 <span id="cb131-11"><a href="introducción-a-la-teoría-de-gráficas..html#cb131-11" tabindex="-1"></a>                font_size<span class="op">=</span><span class="dv">14</span></span>
 <span id="cb131-12"><a href="introducción-a-la-teoría-de-gráficas..html#cb131-12" tabindex="-1"></a>                )</span>
 <span id="cb131-13"><a href="introducción-a-la-teoría-de-gráficas..html#cb131-13" tabindex="-1"></a>plt.show()</span></code></pre></div>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-130-3.png" alt="" width="1152" /></p>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-131-3.png" alt="" width="1152" /></p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb132-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb132-1" tabindex="-1"></a><span class="im">from</span> torch.nn <span class="im">import</span> Linear</span>
 <span id="cb132-2"><a href="introducción-a-la-teoría-de-gráficas..html#cb132-2" tabindex="-1"></a><span class="im">from</span> torch_geometric.nn <span class="im">import</span> GCNConv</span>
 <span id="cb132-3"><a href="introducción-a-la-teoría-de-gráficas..html#cb132-3" tabindex="-1"></a></span>
@@ -1065,27 +1058,27 @@ que se han numerado:</p>
 <span id="cb134-40"><a href="introducción-a-la-teoría-de-gráficas..html#cb134-40" tabindex="-1"></a>    <span class="co"># Print metrics every 10 epochs</span></span>
 <span id="cb134-41"><a href="introducción-a-la-teoría-de-gráficas..html#cb134-41" tabindex="-1"></a>    <span class="cf">if</span> epoch <span class="op">%</span> <span class="dv">10</span> <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb134-42"><a href="introducción-a-la-teoría-de-gráficas..html#cb134-42" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&#39;Epoch </span><span class="sc">{</span>epoch<span class="sc">:&gt;3}</span><span class="ss"> | Loss: </span><span class="sc">{</span>loss<span class="sc">:.2f}</span><span class="ss"> | Acc: </span><span class="sc">{</span>acc<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%&#39;</span>)</span></code></pre></div>
-<pre><code>## Epoch   0 | Loss: 1.46 | Acc: 11.76%
-## Epoch  10 | Loss: 1.18 | Acc: 67.65%
-## Epoch  20 | Loss: 0.94 | Acc: 70.59%
-## Epoch  30 | Loss: 0.75 | Acc: 73.53%
+<pre><code>## Epoch   0 | Loss: 1.45 | Acc: 29.41%
+## Epoch  10 | Loss: 1.19 | Acc: 55.88%
+## Epoch  20 | Loss: 0.90 | Acc: 70.59%
+## Epoch  30 | Loss: 0.71 | Acc: 73.53%
 ## Epoch  40 | Loss: 0.59 | Acc: 73.53%
-## Epoch  50 | Loss: 0.47 | Acc: 73.53%
-## Epoch  60 | Loss: 0.36 | Acc: 82.35%
-## Epoch  70 | Loss: 0.27 | Acc: 97.06%
-## Epoch  80 | Loss: 0.19 | Acc: 100.00%
-## Epoch  90 | Loss: 0.14 | Acc: 100.00%
-## Epoch 100 | Loss: 0.10 | Acc: 100.00%
-## Epoch 110 | Loss: 0.08 | Acc: 100.00%
-## Epoch 120 | Loss: 0.06 | Acc: 100.00%
-## Epoch 130 | Loss: 0.05 | Acc: 100.00%
-## Epoch 140 | Loss: 0.04 | Acc: 100.00%
-## Epoch 150 | Loss: 0.04 | Acc: 100.00%
-## Epoch 160 | Loss: 0.03 | Acc: 100.00%
-## Epoch 170 | Loss: 0.03 | Acc: 100.00%
-## Epoch 180 | Loss: 0.03 | Acc: 100.00%
-## Epoch 190 | Loss: 0.02 | Acc: 100.00%
-## Epoch 200 | Loss: 0.02 | Acc: 100.00%</code></pre>
+## Epoch  50 | Loss: 0.50 | Acc: 73.53%
+## Epoch  60 | Loss: 0.37 | Acc: 73.53%
+## Epoch  70 | Loss: 0.23 | Acc: 97.06%
+## Epoch  80 | Loss: 0.13 | Acc: 97.06%
+## Epoch  90 | Loss: 0.08 | Acc: 100.00%
+## Epoch 100 | Loss: 0.05 | Acc: 100.00%
+## Epoch 110 | Loss: 0.03 | Acc: 100.00%
+## Epoch 120 | Loss: 0.03 | Acc: 100.00%
+## Epoch 130 | Loss: 0.02 | Acc: 100.00%
+## Epoch 140 | Loss: 0.02 | Acc: 100.00%
+## Epoch 150 | Loss: 0.01 | Acc: 100.00%
+## Epoch 160 | Loss: 0.01 | Acc: 100.00%
+## Epoch 170 | Loss: 0.01 | Acc: 100.00%
+## Epoch 180 | Loss: 0.01 | Acc: 100.00%
+## Epoch 190 | Loss: 0.01 | Acc: 100.00%
+## Epoch 200 | Loss: 0.01 | Acc: 100.00%</code></pre>
 <div class="sourceCode" id="cb136"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb136-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb136-1" tabindex="-1"></a>plt.rcParams[<span class="st">&quot;animation.bitrate&quot;</span>] <span class="op">=</span> <span class="dv">3000</span></span>
 <span id="cb136-2"><a href="introducción-a-la-teoría-de-gráficas..html#cb136-2" tabindex="-1"></a></span>
 <span id="cb136-3"><a href="introducción-a-la-teoría-de-gráficas..html#cb136-3" tabindex="-1"></a><span class="kw">def</span> draw_predicted_graph(i):</span>
@@ -1109,13 +1102,13 @@ que se han numerado:</p>
 <span id="cb136-21"><a href="introducción-a-la-teoría-de-gráficas..html#cb136-21" tabindex="-1"></a>      fontsize<span class="op">=</span><span class="dv">18</span>, pad<span class="op">=</span><span class="dv">20</span>)</span>
 <span id="cb136-22"><a href="introducción-a-la-teoría-de-gráficas..html#cb136-22" tabindex="-1"></a>    plt.show()</span></code></pre></div>
 <div class="sourceCode" id="cb137"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb137-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb137-1" tabindex="-1"></a>draw_predicted_graph(<span class="dv">1</span>)</span></code></pre></div>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-134-5.png" alt="" width="1152" /></p>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-135-5.png" alt="" width="1152" /></p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb138-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb138-1" tabindex="-1"></a>draw_predicted_graph(<span class="dv">5</span>)</span></code></pre></div>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-135-7.png" alt="" width="1152" /></p>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-136-7.png" alt="" width="1152" /></p>
 <div class="sourceCode" id="cb139"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb139-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb139-1" tabindex="-1"></a>draw_predicted_graph(<span class="dv">9</span>)</span></code></pre></div>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-136-9.png" alt="" width="1152" /></p>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-137-9.png" alt="" width="1152" /></p>
 <div class="sourceCode" id="cb140"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb140-1"><a href="introducción-a-la-teoría-de-gráficas..html#cb140-1" tabindex="-1"></a>draw_predicted_graph(<span class="dv">100</span>)</span></code></pre></div>
-<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-137-11.png" alt="" width="1152" /></p>
+<p><img src="deep_learning_course_python_files/figure-html/unnamed-chunk-138-11.png" alt="" width="1152" /></p>
 <p>En las imágenes se aprecia como poco a poco, los pesos se van ajustando, a través
 de la información de la matriz de adyancias, para predecir las etiquetas de los nodos.</p>
 </div>

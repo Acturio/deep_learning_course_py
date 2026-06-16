@@ -360,25 +360,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#stride"><i class="fa fa-check"></i><b>7.5</b> Stride</a>
 <ul>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#qu%C3%A9-es-el-stride"><i class="fa fa-check"></i>¿Qué es el stride?</a></li>
-<li class="chapter" data-level="7.5.1" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#intuici%C3%B3n-stride-como-downsampling"><i class="fa fa-check"></i><b>7.5.1</b> Intuición: stride como downsampling</a></li>
+<li class="chapter" data-level="7.5.1" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#qu%C3%A9-es-el-stride"><i class="fa fa-check"></i><b>7.5.1</b> ¿Qué es el stride?</a></li>
+<li class="chapter" data-level="7.5.2" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#intuici%C3%B3n-stride-como-downsampling"><i class="fa fa-check"></i><b>7.5.2</b> Intuición: stride como downsampling</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-conceptual"><i class="fa fa-check"></i>Ejemplo conceptual</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#con-stride-1"><i class="fa fa-check"></i>Con stride = 1</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#con-stride-2"><i class="fa fa-check"></i>Con stride = 2</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#con-stride-3"><i class="fa fa-check"></i>Con stride = 3</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-de-stride-diferente-en-altura-y-anchura"><i class="fa fa-check"></i>Ejemplo de stride diferente en altura y anchura</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#tama%C3%B1o-de-salida-con-stride"><i class="fa fa-check"></i>Tamaño de salida con stride</a></li>
-<li class="chapter" data-level="7.5.2" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#interpretaci%C3%B3n-intuitiva-1"><i class="fa fa-check"></i><b>7.5.2</b> Interpretación intuitiva</a></li>
+<li class="chapter" data-level="7.5.3" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#interpretaci%C3%B3n-intuitiva-1"><i class="fa fa-check"></i><b>7.5.3</b> Interpretación intuitiva</a></li>
 <li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#caso-com%C3%BAn-padding-que-preserva-dimensiones"><i class="fa fa-check"></i>Caso común: padding que preserva dimensiones</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplos-r%C3%A1pidos"><i class="fa fa-check"></i>Ejemplos rápidos</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-en-pytorch-1"><i class="fa fa-check"></i>Ejemplo en PyTorch</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#qu%C3%A9-ocurre"><i class="fa fa-check"></i>¿Qué ocurre?</a></li>
-<li class="chapter" data-level="" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#ejemplo-con-par%C3%A1metros-distintos-por-dimensi%C3%B3n"><i class="fa fa-check"></i>Ejemplo con parámetros distintos por dimensión</a></li>
-<li class="chapter" data-level="7.5.3" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#kernel"><i class="fa fa-check"></i><b>7.5.3</b> Kernel</a></li>
-<li class="chapter" data-level="7.5.4" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#padding-1"><i class="fa fa-check"></i><b>7.5.4</b> Padding</a></li>
-<li class="chapter" data-level="7.5.5" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#stride-3"><i class="fa fa-check"></i><b>7.5.5</b> Stride</a></li>
-<li class="chapter" data-level="7.5.6" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#relaci%C3%B3n-entre-padding-y-stride"><i class="fa fa-check"></i><b>7.5.6</b> Relación entre Padding y Stride</a></li>
-<li class="chapter" data-level="7.5.7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#idea-clave-para-recordar-1"><i class="fa fa-check"></i><b>7.5.7</b> Idea clave para recordar</a></li>
+<li class="chapter" data-level="7.5.4" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#kernel"><i class="fa fa-check"></i><b>7.5.4</b> Kernel</a></li>
+<li class="chapter" data-level="7.5.5" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#padding-1"><i class="fa fa-check"></i><b>7.5.5</b> Padding</a></li>
+<li class="chapter" data-level="7.5.6" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#stride-1"><i class="fa fa-check"></i><b>7.5.6</b> Stride</a></li>
+<li class="chapter" data-level="7.5.7" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#relaci%C3%B3n-entre-padding-y-stride"><i class="fa fa-check"></i><b>7.5.7</b> Relación entre Padding y Stride</a></li>
+<li class="chapter" data-level="7.5.8" data-path="redes-neuronales-convolucionales.html"><a href="redes-neuronales-convolucionales.html#idea-clave-para-recordar-1"><i class="fa fa-check"></i><b>7.5.8</b> Idea clave para recordar</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="redes-neuronales-convolucionales-modernas.html"><a href="redes-neuronales-convolucionales-modernas.html"><i class="fa fa-check"></i><b>8</b> Redes Neuronales Convolucionales Modernas</a></li>

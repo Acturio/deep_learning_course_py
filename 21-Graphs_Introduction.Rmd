@@ -7,10 +7,7 @@
 # Introducción a la Teoría de Gráficas.
 ## ¿Qué es una gráfica?
 
-Una gráfica es un objeto matemático que representa un conjunto de objetos y las
-relaciones entre ellos. Estos se usan para modelar fenómenos complejos, como la
-interacción en redes sociales, redes de comunicaciones, las relaciones entre
-citas de documentos, la configuración de compuestos químicos y demás.
+Una gráfica es un objeto matemático que representa un conjunto de objetos y las relaciones entre ellos. Estos se usan para modelar fenómenos complejos, como la interacción en redes sociales, redes de comunicaciones, las relaciones entre citas de documentos, la configuración de compuestos químicos y demás.
 
 ```{python}
 import torch
